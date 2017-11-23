@@ -1,0 +1,74 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - Bugtags (2.4.0):
+    - Bugtags/Core (= 2.4.0)
+  - Bugtags/Core (2.4.0)
+  - DACircularProgress (2.3.1)
+  - iConsole (1.5.3)
+  - IQKeyboardManager (5.0.6)
+  - Masonry (1.1.0)
+  - MBProgressHUD (0.9.2)
+  - MJExtension (3.0.13)
+  - MJRefresh (3.1.15)
+  - MWPhotoBrowser (2.1.2):
+    - DACircularProgress (~> 2.3)
+    - MBProgressHUD (~> 0.9)
+    - SDWebImage (!= 3.7.2, ~> 3.7)
+  - RCPopoverView (0.1)
+  - Reachability (3.2)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - SVProgressHUD (2.2.2)
+  - VIPhotoView (0.1)
+
+DEPENDENCIES:
+  - AFNetworking
+  - Bugtags
+  - iConsole
+  - IQKeyboardManager
+  - Masonry
+  - MBProgressHUD
+  - MJExtension
+  - MJRefresh
+  - MWPhotoBrowser
+  - RCPopoverView
+  - Reachability
+  - SDWebImage
+  - SVProgressHUD
+  - VIPhotoView (~> 0.1)
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Bugtags: 916b3dcbc4e495f96206ac35546aa196c9ed2132
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  iConsole: 823d9b14ac90f0a2a4fc9bf6a973a03ba9c4c7eb
+  IQKeyboardManager: 077b7f691dfa9d69db9cff66f2bed68ebfc02d9b
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJRefresh: 9af70f5f9327a2cf87f0fb5929f35fcc2fa638ea
+  MWPhotoBrowser: 5836d7aa041dc05a13de380c246826578adc5ea5
+  RCPopoverView: a537ebf77bd3cd3a1617496acd3ec61c5a34762b
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
+  VIPhotoView: bdc0cf8ddadda754b451869bd3a919e8eb5c11ab
+
+PODFILE CHECKSUM: 8800cdda5d88f9985c091c8bd4007aabfbad6e88
+
+COCOAPODS: 1.2.0
