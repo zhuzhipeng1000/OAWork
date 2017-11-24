@@ -1,0 +1,62 @@
+//
+//  OAWork.pch
+//  OAWork
+//
+//  Created by james on 2017/11/24.
+//  Copyright © 2017年 james. All rights reserved.
+//
+
+#ifndef OAWork_pch
+#define OAWork_pch
+#define  KuserName @"userName"
+#define  KuserPassWord @"userPassword"
+#define  KloginInfo      @"loginInfo"
+#define  KPersons        @"persons"
+#define  KClickOut        @"clickOut"
+#define FS [NSFileManager defaultManager]
+
+#define UD [NSUserDefaults standardUserDefaults]
+
+
+#define TOPBARCONTENTHEIGHT 44
+
+
+//底部栏高度
+#define BOTTOMBARHEIGHT 49
+#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+//屏幕宽度
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+
+
+//屏幕高度
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height-64)
+
+
+
+#define IOS9ABOVE ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f ? YES : NO)
+//#ifdef IOS9ABOVE
+//#define StartHeight 1
+//#else
+#define StartHeight 1
+//#endif
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+//是否为iPhone6
+#define iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+
+//是否为iPhone6 Plus
+#define iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242,2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
+//屏幕坐标初始Y值,如果是iOS7以上，y=20，IOS7以下，y=0
+#define DefaultY (IOS7ABOVE?20:0)
+// 最小像素
+#define kMinPixels   1.0 / [UIScreen mainScreen].scale
+
+#define fix6pBackButtonWidth (SCREEN_WIDTH==414? 7: 0)
+/** 获取版本号 */
+#define kBundleShortVersionString       [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define kBundleVersionString            [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* OAWork_pch */
