@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A6C2C031FC7B361002228C7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C011FC7B361002228C7 /* LoginViewController.m */; };
-		1A6C2C041FC7B361002228C7 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A6C2C021FC7B361002228C7 /* LoginViewController.xib */; };
+		1A5A32211FCD33EE002B1177 /* NewIndexOaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */; };
+		1A5A32221FCD33EE002B1177 /* NewIndexOaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */; };
 		1A6C2C081FC7B382002228C7 /* OAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C061FC7B382002228C7 /* OAMainViewController.m */; };
 		1A6C2C091FC7B382002228C7 /* OAMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A6C2C071FC7B382002228C7 /* OAMainViewController.xib */; };
 		1A6C2C0D1FC7B396002228C7 /* CommonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C0B1FC7B396002228C7 /* CommonInfoViewController.m */; };
@@ -35,6 +35,20 @@
 		1A90B5BD1FC65B4C008EDDB1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5BC1FC65B4C008EDDB1 /* main.m */; };
 		1A90B5C71FC65B4D008EDDB1 /* OAWorkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5C61FC65B4D008EDDB1 /* OAWorkTests.m */; };
 		1A90B5D21FC65B4D008EDDB1 /* OAWorkUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5D11FC65B4D008EDDB1 /* OAWorkUITests.m */; };
+		1A9F00851FCBAEB7005897B2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00831FCBAEB7005897B2 /* LoginViewController.m */; };
+		1A9F00871FCBAEC7005897B2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F00861FCBAEC7005897B2 /* LoginViewController.xib */; };
+		1A9F008B1FCBAEE4005897B2 /* ForgetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00881FCBAEE3005897B2 /* ForgetPassWordViewController.m */; };
+		1A9F008C1FCBAEE4005897B2 /* ForgetPassWordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F00891FCBAEE3005897B2 /* ForgetPassWordViewController.xib */; };
+		1A9F008F1FCBAF09005897B2 /* MyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F008E1FCBAF09005897B2 /* MyRequest.m */; };
+		1A9F00921FCBAF37005897B2 /* Desthird.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00911FCBAF37005897B2 /* Desthird.m */; };
+		1A9F00991FCBB041005897B2 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00951FCBB041005897B2 /* GTMBase64.m */; };
+		1A9F009A1FCBB041005897B2 /* JKEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00981FCBB041005897B2 /* JKEncrypt.m */; };
+		1A9F009D1FCBB139005897B2 /* HostMangager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F009B1FCBB139005897B2 /* HostMangager.m */; };
+		1A9F00A01FCBB1C0005897B2 /* NSUserDefaults+reviseSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F009E1FCBB1BF005897B2 /* NSUserDefaults+reviseSet.m */; };
+		1A9F00A31FCBB311005897B2 /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00A11FCBB310005897B2 /* UIView+Utils.m */; };
+		1A9F00A71FCBE632005897B2 /* OaMainCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00A51FCBE632005897B2 /* OaMainCellTableViewCell.m */; };
+		1A9F00A81FCBE632005897B2 /* OaMainCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F00A61FCBE632005897B2 /* OaMainCellTableViewCell.xib */; };
+		1A9F00AB1FCBE8E5005897B2 /* wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F00AA1FCBE8E4005897B2 /* wifi.png */; };
 		55F6E9E014CB6792564369ED /* libPods-OAWork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BB2E76F7CDD3B627FF0A2B /* libPods-OAWork.a */; };
 /* End PBXBuildFile section */
 
@@ -56,9 +70,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A6C2C001FC7B361002228C7 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		1A6C2C011FC7B361002228C7 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		1A6C2C021FC7B361002228C7 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		1A5A321E1FCD33EE002B1177 /* NewIndexOaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewIndexOaViewController.h; sourceTree = "<group>"; };
+		1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewIndexOaViewController.m; sourceTree = "<group>"; };
+		1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewIndexOaViewController.xib; sourceTree = "<group>"; };
 		1A6C2C051FC7B382002228C7 /* OAMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAMainViewController.h; sourceTree = "<group>"; };
 		1A6C2C061FC7B382002228C7 /* OAMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAMainViewController.m; sourceTree = "<group>"; };
 		1A6C2C071FC7B382002228C7 /* OAMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OAMainViewController.xib; sourceTree = "<group>"; };
@@ -107,6 +121,31 @@
 		1A90B5CD1FC65B4D008EDDB1 /* OAWorkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OAWorkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A90B5D11FC65B4D008EDDB1 /* OAWorkUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAWorkUITests.m; sourceTree = "<group>"; };
 		1A90B5D31FC65B4D008EDDB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A9F00831FCBAEB7005897B2 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		1A9F00841FCBAEB7005897B2 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		1A9F00861FCBAEC7005897B2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		1A9F00881FCBAEE3005897B2 /* ForgetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPassWordViewController.m; sourceTree = "<group>"; };
+		1A9F00891FCBAEE3005897B2 /* ForgetPassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetPassWordViewController.xib; sourceTree = "<group>"; };
+		1A9F008A1FCBAEE4005897B2 /* ForgetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPassWordViewController.h; sourceTree = "<group>"; };
+		1A9F008D1FCBAF08005897B2 /* MyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRequest.h; sourceTree = "<group>"; };
+		1A9F008E1FCBAF09005897B2 /* MyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRequest.m; sourceTree = "<group>"; };
+		1A9F00901FCBAF36005897B2 /* Desthird.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Desthird.h; sourceTree = "<group>"; };
+		1A9F00911FCBAF37005897B2 /* Desthird.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Desthird.m; sourceTree = "<group>"; };
+		1A9F00941FCBB041005897B2 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		1A9F00951FCBB041005897B2 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		1A9F00961FCBB041005897B2 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		1A9F00971FCBB041005897B2 /* JKEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKEncrypt.h; sourceTree = "<group>"; };
+		1A9F00981FCBB041005897B2 /* JKEncrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKEncrypt.m; sourceTree = "<group>"; };
+		1A9F009B1FCBB139005897B2 /* HostMangager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostMangager.m; sourceTree = "<group>"; };
+		1A9F009C1FCBB139005897B2 /* HostMangager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostMangager.h; sourceTree = "<group>"; };
+		1A9F009E1FCBB1BF005897B2 /* NSUserDefaults+reviseSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+reviseSet.m"; sourceTree = "<group>"; };
+		1A9F009F1FCBB1BF005897B2 /* NSUserDefaults+reviseSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+reviseSet.h"; sourceTree = "<group>"; };
+		1A9F00A11FCBB310005897B2 /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Utils.m"; path = "../../../../../test/ProductAduit/ProductAduit/Common/Utils/UIView+Utils.m"; sourceTree = "<group>"; };
+		1A9F00A21FCBB310005897B2 /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Utils.h"; path = "../../../../../test/ProductAduit/ProductAduit/Common/Utils/UIView+Utils.h"; sourceTree = "<group>"; };
+		1A9F00A41FCBE632005897B2 /* OaMainCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OaMainCellTableViewCell.h; sourceTree = "<group>"; };
+		1A9F00A51FCBE632005897B2 /* OaMainCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OaMainCellTableViewCell.m; sourceTree = "<group>"; };
+		1A9F00A61FCBE632005897B2 /* OaMainCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OaMainCellTableViewCell.xib; sourceTree = "<group>"; };
+		1A9F00AA1FCBE8E4005897B2 /* wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi.png; sourceTree = "<group>"; };
 		39B254463B632888503F40E0 /* Pods-OAWork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OAWork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OAWork/Pods-OAWork.debug.xcconfig"; sourceTree = "<group>"; };
 		83BB2E76F7CDD3B627FF0A2B /* libPods-OAWork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OAWork.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C4E396E92F8101F3409C4C2 /* Pods-OAWork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OAWork.release.xcconfig"; path = "Pods/Target Support Files/Pods-OAWork/Pods-OAWork.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,7 +183,6 @@
 				1A6C2C141FC7B3CC002228C7 /* PersonalViewController.h */,
 				1A6C2C151FC7B3CC002228C7 /* PersonalViewController.m */,
 				1A6C2C161FC7B3CC002228C7 /* PersonalViewController.xib */,
-				1A6C2C1D1FC7C6F7002228C7 /* CommonTool */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -155,6 +193,12 @@
 				1A6C2C051FC7B382002228C7 /* OAMainViewController.h */,
 				1A6C2C061FC7B382002228C7 /* OAMainViewController.m */,
 				1A6C2C071FC7B382002228C7 /* OAMainViewController.xib */,
+				1A5A321E1FCD33EE002B1177 /* NewIndexOaViewController.h */,
+				1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */,
+				1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */,
+				1A9F00A41FCBE632005897B2 /* OaMainCellTableViewCell.h */,
+				1A9F00A51FCBE632005897B2 /* OaMainCellTableViewCell.m */,
+				1A9F00A61FCBE632005897B2 /* OaMainCellTableViewCell.xib */,
 			);
 			path = OAMain;
 			sourceTree = "<group>";
@@ -162,9 +206,14 @@
 		1A6C2BF81FC7B2A8002228C7 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				1A6C2C001FC7B361002228C7 /* LoginViewController.h */,
-				1A6C2C011FC7B361002228C7 /* LoginViewController.m */,
-				1A6C2C021FC7B361002228C7 /* LoginViewController.xib */,
+				1A9F009C1FCBB139005897B2 /* HostMangager.h */,
+				1A9F009B1FCBB139005897B2 /* HostMangager.m */,
+				1A9F00841FCBAEB7005897B2 /* LoginViewController.h */,
+				1A9F00831FCBAEB7005897B2 /* LoginViewController.m */,
+				1A9F00861FCBAEC7005897B2 /* LoginViewController.xib */,
+				1A9F008A1FCBAEE4005897B2 /* ForgetPassWordViewController.h */,
+				1A9F00881FCBAEE3005897B2 /* ForgetPassWordViewController.m */,
+				1A9F00891FCBAEE3005897B2 /* ForgetPassWordViewController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -192,6 +241,7 @@
 		1A6C2C1D1FC7C6F7002228C7 /* CommonTool */ = {
 			isa = PBXGroup;
 			children = (
+				1A9F00931FCBB041005897B2 /* DES */,
 				1A6C2C291FC7C798002228C7 /* BackButton */,
 				1A6C2C221FC7C773002228C7 /* Utils */,
 				1A6C2C1E1FC7C70B002228C7 /* CTJSONKit */,
@@ -212,6 +262,12 @@
 		1A6C2C221FC7C773002228C7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1A9F009F1FCBB1BF005897B2 /* NSUserDefaults+reviseSet.h */,
+				1A9F009E1FCBB1BF005897B2 /* NSUserDefaults+reviseSet.m */,
+				1A9F00901FCBAF36005897B2 /* Desthird.h */,
+				1A9F00911FCBAF37005897B2 /* Desthird.m */,
+				1A9F00A21FCBB310005897B2 /* UIView+Utils.h */,
+				1A9F00A11FCBB310005897B2 /* UIView+Utils.m */,
 				1A6C2C301FC7C7E6002228C7 /* NSFileManager+Extra.h */,
 				1A6C2C2F1FC7C7E6002228C7 /* NSFileManager+Extra.m */,
 				1A6C2C271FC7C787002228C7 /* Utils.h */,
@@ -224,6 +280,8 @@
 				1A6C2C321FC7C961002228C7 /* UIView+Utils.m */,
 				1A6C2C241FC7C77C002228C7 /* User.h */,
 				1A6C2C231FC7C77C002228C7 /* User.m */,
+				1A9F008D1FCBAF08005897B2 /* MyRequest.h */,
+				1A9F008E1FCBAF09005897B2 /* MyRequest.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -269,10 +327,12 @@
 				1A90B5B11FC65B4C008EDDB1 /* ViewController.m */,
 				1A6C2C1A1FC7BFB0002228C7 /* BaseViewController.h */,
 				1A6C2C1B1FC7BFB0002228C7 /* BaseViewController.m */,
+				1A9F00A91FCBE8E4005897B2 /* images */,
 				1A6C2BF81FC7B2A8002228C7 /* Login */,
 				1A6C2BF71FC7B2A1002228C7 /* OAMain */,
 				1A6C2BFA1FC7B2C3002228C7 /* CommonInfo */,
 				1A6C2BF91FC7B2B0002228C7 /* DataCenter */,
+				1A6C2C1D1FC7C6F7002228C7 /* CommonTool */,
 				1A6C2BF61FC7B299002228C7 /* Personal */,
 				1A6C2C191FC7BB58002228C7 /* OAWork.pch */,
 				1A90B5B31FC65B4C008EDDB1 /* Main.storyboard */,
@@ -300,6 +360,26 @@
 				1A90B5D31FC65B4D008EDDB1 /* Info.plist */,
 			);
 			path = OAWorkUITests;
+			sourceTree = "<group>";
+		};
+		1A9F00931FCBB041005897B2 /* DES */ = {
+			isa = PBXGroup;
+			children = (
+				1A9F00941FCBB041005897B2 /* GTMBase64.h */,
+				1A9F00951FCBB041005897B2 /* GTMBase64.m */,
+				1A9F00961FCBB041005897B2 /* GTMDefines.h */,
+				1A9F00971FCBB041005897B2 /* JKEncrypt.h */,
+				1A9F00981FCBB041005897B2 /* JKEncrypt.m */,
+			);
+			path = DES;
+			sourceTree = "<group>";
+		};
+		1A9F00A91FCBE8E4005897B2 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				1A9F00AA1FCBE8E4005897B2 /* wifi.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 		4A2B1939EB22036DAF0970A1 /* Frameworks */ = {
@@ -428,15 +508,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A6C2C041FC7B361002228C7 /* LoginViewController.xib in Resources */,
 				1A6C2C0E1FC7B396002228C7 /* CommonInfoViewController.xib in Resources */,
 				1A6C2C2D1FC7C798002228C7 /* back.png in Resources */,
+				1A9F00AB1FCBE8E5005897B2 /* wifi.png in Resources */,
+				1A5A32221FCD33EE002B1177 /* NewIndexOaViewController.xib in Resources */,
 				1A90B5BA1FC65B4C008EDDB1 /* LaunchScreen.storyboard in Resources */,
 				1A90B5B71FC65B4C008EDDB1 /* Assets.xcassets in Resources */,
+				1A9F00A81FCBE632005897B2 /* OaMainCellTableViewCell.xib in Resources */,
+				1A9F008C1FCBAEE4005897B2 /* ForgetPassWordViewController.xib in Resources */,
 				1A6C2C131FC7B3B2002228C7 /* DataCenterViewController.xib in Resources */,
 				1A90B5B51FC65B4C008EDDB1 /* Main.storyboard in Resources */,
 				1A6C2C181FC7B3CC002228C7 /* PersonalViewController.xib in Resources */,
 				1A6C2C091FC7B382002228C7 /* OAMainViewController.xib in Resources */,
+				1A9F00871FCBAEC7005897B2 /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,22 +593,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A6C2C031FC7B361002228C7 /* LoginViewController.m in Sources */,
 				1A6C2C1C1FC7BFB0002228C7 /* BaseViewController.m in Sources */,
+				1A9F008F1FCBAF09005897B2 /* MyRequest.m in Sources */,
+				1A9F00A01FCBB1C0005897B2 /* NSUserDefaults+reviseSet.m in Sources */,
 				1A90B5B21FC65B4C008EDDB1 /* ViewController.m in Sources */,
+				1A9F00A71FCBE632005897B2 /* OaMainCellTableViewCell.m in Sources */,
 				1A6C2C381FC7C963002228C7 /* UIView+Utils.m in Sources */,
+				1A5A32211FCD33EE002B1177 /* NewIndexOaViewController.m in Sources */,
 				1A6C2C281FC7C787002228C7 /* Utils.m in Sources */,
 				1A6C2C3A1FC7C963002228C7 /* OMGToast.m in Sources */,
 				1A90B5BD1FC65B4C008EDDB1 /* main.m in Sources */,
+				1A9F00A31FCBB311005897B2 /* UIView+Utils.m in Sources */,
 				1A6C2C121FC7B3B2002228C7 /* DataCenterViewController.m in Sources */,
+				1A9F00851FCBAEB7005897B2 /* LoginViewController.m in Sources */,
+				1A9F009D1FCBB139005897B2 /* HostMangager.m in Sources */,
 				1A6C2C081FC7B382002228C7 /* OAMainViewController.m in Sources */,
 				1A6C2C251FC7C77C002228C7 /* User.m in Sources */,
 				1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */,
 				1A6C2C211FC7C70C002228C7 /* CTJSONKit.m in Sources */,
+				1A9F00991FCBB041005897B2 /* GTMBase64.m in Sources */,
 				1A6C2C391FC7C963002228C7 /* ITTPickView.m in Sources */,
 				1A6C2C171FC7B3CC002228C7 /* PersonalViewController.m in Sources */,
 				1A6C2C311FC7C7E7002228C7 /* NSFileManager+Extra.m in Sources */,
+				1A9F00921FCBAF37005897B2 /* Desthird.m in Sources */,
 				1A6C2C0D1FC7B396002228C7 /* CommonInfoViewController.m in Sources */,
+				1A9F008B1FCBAEE4005897B2 /* ForgetPassWordViewController.m in Sources */,
+				1A9F009A1FCBB041005897B2 /* JKEncrypt.m in Sources */,
 				1A6C2C2E1FC7C798002228C7 /* BackButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,5 +10,5 @@
 #import "BaseViewController.h"
 
 @interface OAMainViewController : BaseViewController
-
+@property (nonatomic,strong) UITableView *demoTableView;
 @end

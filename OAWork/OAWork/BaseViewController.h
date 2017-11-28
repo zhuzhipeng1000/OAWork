@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "HostMangager.h"
+#import "MyRequest.h"
 
 @interface BaseViewController : UIViewController
-
+@property (nonatomic,strong) MBProgressHUD *hud;
 @end

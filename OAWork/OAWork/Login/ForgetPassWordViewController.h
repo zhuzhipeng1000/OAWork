@@ -1,5 +1,5 @@
 //
-//  LoginViewController.h
+//  ForgetPassWordViewController.h
 //  ProductAduit
 //
 //  Created by JIME on 2017/1/15.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
-@interface LoginViewController : BaseViewController
+
+@interface ForgetPassWordViewController : BaseViewController
 
 @end

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
-
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,8 +18,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    LoginViewController *login=[[LoginViewController alloc]init];
-//    self.window.rootViewController=tab;
+    
+   
+//    LoginViewController *login=[[LoginViewController alloc]init];
+    ViewController *login=[[ViewController alloc]init];
+     self.navi=[[UINavigationController alloc]initWithRootViewController:login];
+    
+    self.window.rootViewController=self.navi;
     // Override point for customization after application launch.
     return YES;
 }
