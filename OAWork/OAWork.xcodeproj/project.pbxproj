@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A2BD0EB1FCF9FF40014837E /* ListSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2BD0EA1FCF9FF40014837E /* ListSelectView.m */; };
+		1A2BD0EF1FCFA1190014837E /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD0EC1FCFA1190014837E /* arrow_down.png */; };
+		1A2BD0F01FCFA1190014837E /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD0ED1FCFA1190014837E /* arrow_down@2x.png */; };
+		1A2BD0F11FCFA1190014837E /* arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD0EE1FCFA1190014837E /* arrow_down@3x.png */; };
+		1A2BD0F51FCFDFD80014837E /* NeedDoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2BD0F31FCFDFD80014837E /* NeedDoViewController.m */; };
+		1A2BD0F61FCFDFD80014837E /* NeedDoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD0F41FCFDFD80014837E /* NeedDoViewController.xib */; };
+		1A2BD0FA1FCFE03F0014837E /* NeedDoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2BD0F81FCFE03E0014837E /* NeedDoTableViewCell.m */; };
+		1A2BD0FB1FCFE03F0014837E /* NeedDoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD0F91FCFE03E0014837E /* NeedDoTableViewCell.xib */; };
+		1A2BD0FF1FCFE3FB0014837E /* OAJobDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2BD0FD1FCFE3FB0014837E /* OAJobDetailViewController.m */; };
+		1A2BD1001FCFE3FB0014837E /* OAJobDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD0FE1FCFE3FB0014837E /* OAJobDetailViewController.xib */; };
+		1A2BD1041FCFE7E40014837E /* PersonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2BD1021FCFE7E40014837E /* PersonDetailViewController.m */; };
+		1A2BD1051FCFE7E40014837E /* PersonDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD1031FCFE7E40014837E /* PersonDetailViewController.xib */; };
+		1A2BD10E1FCFED2F0014837E /* PersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2BD10C1FCFED2F0014837E /* PersonTableViewCell.m */; };
+		1A2BD10F1FCFED2F0014837E /* PersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD10D1FCFED2F0014837E /* PersonTableViewCell.xib */; };
 		1A5A32211FCD33EE002B1177 /* NewIndexOaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */; };
 		1A5A32221FCD33EE002B1177 /* NewIndexOaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */; };
 		1A6C2C081FC7B382002228C7 /* OAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C061FC7B382002228C7 /* OAMainViewController.m */; };
@@ -70,6 +84,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A2BD0E91FCF9FF40014837E /* ListSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListSelectView.h; sourceTree = "<group>"; };
+		1A2BD0EA1FCF9FF40014837E /* ListSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListSelectView.m; sourceTree = "<group>"; };
+		1A2BD0EC1FCFA1190014837E /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
+		1A2BD0ED1FCFA1190014837E /* arrow_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@2x.png"; sourceTree = "<group>"; };
+		1A2BD0EE1FCFA1190014837E /* arrow_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@3x.png"; sourceTree = "<group>"; };
+		1A2BD0F21FCFDFD80014837E /* NeedDoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NeedDoViewController.h; sourceTree = "<group>"; };
+		1A2BD0F31FCFDFD80014837E /* NeedDoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeedDoViewController.m; sourceTree = "<group>"; };
+		1A2BD0F41FCFDFD80014837E /* NeedDoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NeedDoViewController.xib; sourceTree = "<group>"; };
+		1A2BD0F71FCFE03E0014837E /* NeedDoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NeedDoTableViewCell.h; sourceTree = "<group>"; };
+		1A2BD0F81FCFE03E0014837E /* NeedDoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeedDoTableViewCell.m; sourceTree = "<group>"; };
+		1A2BD0F91FCFE03E0014837E /* NeedDoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NeedDoTableViewCell.xib; sourceTree = "<group>"; };
+		1A2BD0FC1FCFE3FB0014837E /* OAJobDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAJobDetailViewController.h; sourceTree = "<group>"; };
+		1A2BD0FD1FCFE3FB0014837E /* OAJobDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAJobDetailViewController.m; sourceTree = "<group>"; };
+		1A2BD0FE1FCFE3FB0014837E /* OAJobDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OAJobDetailViewController.xib; sourceTree = "<group>"; };
+		1A2BD1011FCFE7E40014837E /* PersonDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonDetailViewController.h; sourceTree = "<group>"; };
+		1A2BD1021FCFE7E40014837E /* PersonDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonDetailViewController.m; sourceTree = "<group>"; };
+		1A2BD1031FCFE7E40014837E /* PersonDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonDetailViewController.xib; sourceTree = "<group>"; };
+		1A2BD10B1FCFED2F0014837E /* PersonTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonTableViewCell.h; sourceTree = "<group>"; };
+		1A2BD10C1FCFED2F0014837E /* PersonTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonTableViewCell.m; sourceTree = "<group>"; };
+		1A2BD10D1FCFED2F0014837E /* PersonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonTableViewCell.xib; sourceTree = "<group>"; };
 		1A5A321E1FCD33EE002B1177 /* NewIndexOaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewIndexOaViewController.h; sourceTree = "<group>"; };
 		1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewIndexOaViewController.m; sourceTree = "<group>"; };
 		1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewIndexOaViewController.xib; sourceTree = "<group>"; };
@@ -183,6 +217,12 @@
 				1A6C2C141FC7B3CC002228C7 /* PersonalViewController.h */,
 				1A6C2C151FC7B3CC002228C7 /* PersonalViewController.m */,
 				1A6C2C161FC7B3CC002228C7 /* PersonalViewController.xib */,
+				1A2BD1011FCFE7E40014837E /* PersonDetailViewController.h */,
+				1A2BD1021FCFE7E40014837E /* PersonDetailViewController.m */,
+				1A2BD1031FCFE7E40014837E /* PersonDetailViewController.xib */,
+				1A2BD10B1FCFED2F0014837E /* PersonTableViewCell.h */,
+				1A2BD10C1FCFED2F0014837E /* PersonTableViewCell.m */,
+				1A2BD10D1FCFED2F0014837E /* PersonTableViewCell.xib */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -193,6 +233,15 @@
 				1A6C2C051FC7B382002228C7 /* OAMainViewController.h */,
 				1A6C2C061FC7B382002228C7 /* OAMainViewController.m */,
 				1A6C2C071FC7B382002228C7 /* OAMainViewController.xib */,
+				1A2BD0FC1FCFE3FB0014837E /* OAJobDetailViewController.h */,
+				1A2BD0FD1FCFE3FB0014837E /* OAJobDetailViewController.m */,
+				1A2BD0FE1FCFE3FB0014837E /* OAJobDetailViewController.xib */,
+				1A2BD0F21FCFDFD80014837E /* NeedDoViewController.h */,
+				1A2BD0F31FCFDFD80014837E /* NeedDoViewController.m */,
+				1A2BD0F41FCFDFD80014837E /* NeedDoViewController.xib */,
+				1A2BD0F71FCFE03E0014837E /* NeedDoTableViewCell.h */,
+				1A2BD0F81FCFE03E0014837E /* NeedDoTableViewCell.m */,
+				1A2BD0F91FCFE03E0014837E /* NeedDoTableViewCell.xib */,
 				1A5A321E1FCD33EE002B1177 /* NewIndexOaViewController.h */,
 				1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */,
 				1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */,
@@ -262,6 +311,8 @@
 		1A6C2C221FC7C773002228C7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1A2BD0E91FCF9FF40014837E /* ListSelectView.h */,
+				1A2BD0EA1FCF9FF40014837E /* ListSelectView.m */,
 				1A9F009F1FCBB1BF005897B2 /* NSUserDefaults+reviseSet.h */,
 				1A9F009E1FCBB1BF005897B2 /* NSUserDefaults+reviseSet.m */,
 				1A9F00901FCBAF36005897B2 /* Desthird.h */,
@@ -378,6 +429,9 @@
 			isa = PBXGroup;
 			children = (
 				1A9F00AA1FCBE8E4005897B2 /* wifi.png */,
+				1A2BD0EC1FCFA1190014837E /* arrow_down.png */,
+				1A2BD0ED1FCFA1190014837E /* arrow_down@2x.png */,
+				1A2BD0EE1FCFA1190014837E /* arrow_down@3x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -509,7 +563,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A6C2C0E1FC7B396002228C7 /* CommonInfoViewController.xib in Resources */,
+				1A2BD0F11FCFA1190014837E /* arrow_down@3x.png in Resources */,
+				1A2BD1001FCFE3FB0014837E /* OAJobDetailViewController.xib in Resources */,
 				1A6C2C2D1FC7C798002228C7 /* back.png in Resources */,
+				1A2BD1051FCFE7E40014837E /* PersonDetailViewController.xib in Resources */,
 				1A9F00AB1FCBE8E5005897B2 /* wifi.png in Resources */,
 				1A5A32221FCD33EE002B1177 /* NewIndexOaViewController.xib in Resources */,
 				1A90B5BA1FC65B4C008EDDB1 /* LaunchScreen.storyboard in Resources */,
@@ -517,10 +574,15 @@
 				1A9F00A81FCBE632005897B2 /* OaMainCellTableViewCell.xib in Resources */,
 				1A9F008C1FCBAEE4005897B2 /* ForgetPassWordViewController.xib in Resources */,
 				1A6C2C131FC7B3B2002228C7 /* DataCenterViewController.xib in Resources */,
+				1A2BD0EF1FCFA1190014837E /* arrow_down.png in Resources */,
 				1A90B5B51FC65B4C008EDDB1 /* Main.storyboard in Resources */,
 				1A6C2C181FC7B3CC002228C7 /* PersonalViewController.xib in Resources */,
 				1A6C2C091FC7B382002228C7 /* OAMainViewController.xib in Resources */,
+				1A2BD0FB1FCFE03F0014837E /* NeedDoTableViewCell.xib in Resources */,
+				1A2BD10F1FCFED2F0014837E /* PersonTableViewCell.xib in Resources */,
+				1A2BD0F01FCFA1190014837E /* arrow_down@2x.png in Resources */,
 				1A9F00871FCBAEC7005897B2 /* LoginViewController.xib in Resources */,
+				1A2BD0F61FCFDFD80014837E /* NeedDoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,26 +655,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A2BD1041FCFE7E40014837E /* PersonDetailViewController.m in Sources */,
 				1A6C2C1C1FC7BFB0002228C7 /* BaseViewController.m in Sources */,
 				1A9F008F1FCBAF09005897B2 /* MyRequest.m in Sources */,
 				1A9F00A01FCBB1C0005897B2 /* NSUserDefaults+reviseSet.m in Sources */,
 				1A90B5B21FC65B4C008EDDB1 /* ViewController.m in Sources */,
 				1A9F00A71FCBE632005897B2 /* OaMainCellTableViewCell.m in Sources */,
 				1A6C2C381FC7C963002228C7 /* UIView+Utils.m in Sources */,
+				1A2BD0EB1FCF9FF40014837E /* ListSelectView.m in Sources */,
+				1A2BD10E1FCFED2F0014837E /* PersonTableViewCell.m in Sources */,
 				1A5A32211FCD33EE002B1177 /* NewIndexOaViewController.m in Sources */,
 				1A6C2C281FC7C787002228C7 /* Utils.m in Sources */,
+				1A2BD0F51FCFDFD80014837E /* NeedDoViewController.m in Sources */,
 				1A6C2C3A1FC7C963002228C7 /* OMGToast.m in Sources */,
 				1A90B5BD1FC65B4C008EDDB1 /* main.m in Sources */,
 				1A9F00A31FCBB311005897B2 /* UIView+Utils.m in Sources */,
 				1A6C2C121FC7B3B2002228C7 /* DataCenterViewController.m in Sources */,
 				1A9F00851FCBAEB7005897B2 /* LoginViewController.m in Sources */,
 				1A9F009D1FCBB139005897B2 /* HostMangager.m in Sources */,
+				1A2BD0FA1FCFE03F0014837E /* NeedDoTableViewCell.m in Sources */,
 				1A6C2C081FC7B382002228C7 /* OAMainViewController.m in Sources */,
 				1A6C2C251FC7C77C002228C7 /* User.m in Sources */,
 				1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */,
 				1A6C2C211FC7C70C002228C7 /* CTJSONKit.m in Sources */,
 				1A9F00991FCBB041005897B2 /* GTMBase64.m in Sources */,
 				1A6C2C391FC7C963002228C7 /* ITTPickView.m in Sources */,
+				1A2BD0FF1FCFE3FB0014837E /* OAJobDetailViewController.m in Sources */,
 				1A6C2C171FC7B3CC002228C7 /* PersonalViewController.m in Sources */,
 				1A6C2C311FC7C7E7002228C7 /* NSFileManager+Extra.m in Sources */,
 				1A9F00921FCBAF37005897B2 /* Desthird.m in Sources */,

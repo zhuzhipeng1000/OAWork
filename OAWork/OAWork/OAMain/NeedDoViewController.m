@@ -1,32 +1,27 @@
 //
-//  PersonalViewController.m
+//  NeedDoViewController.m
 //  OAWork
 //
-//  Created by james on 2017/11/24.
+//  Created by james on 2017/11/30.
 //  Copyright © 2017年 james. All rights reserved.
 //
 
-#import "PersonalViewController.h"
-#import "OaMainCellTableViewCell.h"
-#import "ForgetPassWordViewController.h"
-#import "PersonDetailViewController.h"
+#import "NeedDoViewController.h"
+#import "NeedDoTableViewCell.h"
+#import "OAJobDetailViewController.h"
 
-@interface PersonalViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic,strong) NSMutableArray *allArray;
-
+@interface NeedDoViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic ,strong) NSMutableArray *exampleArr; //用于普通显示的数据
+@property (nonatomic ,strong)NSMutableArray *searchArr; //用于搜索后显示的数据
+@property (nonatomic,strong) NSMutableArray *allArray;//服务返回的数据
 @end
 
-@implementation PersonalViewController
+@implementation NeedDoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.title=@"个人设置";
-    self.navigationController.title=@"个人设置";
-
-    _allArray = [@[@"个人信息",@"修改密码"] mutableCopy];
-    
     _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(10, self.navigationController.navigationBar.bottom, SCREEN_WIDTH-20, SCREEN_HEIGHT-50)];
-    [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
+    [_demoTableView registerNib:[UINib nibWithNibName:@"NeedDoTableViewCell" bundle:nil] forCellReuseIdentifier:@"NeedDoTableViewCell"];
     _demoTableView.delegate=self;
     _demoTableView.dataSource=self;
     _demoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
@@ -36,27 +31,21 @@
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *avc;
-    if (indexPath.row==0) {
-        avc=[[PersonDetailViewController alloc]initWithNibName:@"PersonDetailViewController" bundle:nil];
-
-    }else if (indexPath.row==1) {
-        avc=[[ForgetPassWordViewController alloc]initWithNibName:@"ForgetPassWordViewController" bundle:nil];
-
-    }
-    if (avc) {
+  
+        avc=[[OAJobDetailViewController alloc]initWithNibName:@"OAJobDetailViewController" bundle:nil];
+    
         [self.navigationController pushViewController:avc animated:YES];
-    }
+  
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static  NSString  *CellIdentiferId = @"OaMainCellTableViewCell";
-    OaMainCellTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+    static  NSString  *CellIdentiferId = @"NeedDoTableViewCell";
+    NeedDoTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
     if (cell == nil) {
-        cell=[[OaMainCellTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentiferId];
+        cell=[[NeedDoTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentiferId];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     };
-    cell.titleLB.text=_allArray[indexPath.row];
-    cell.imageView.image=[UIImage imageNamed:@"wifi"];
+ 
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -64,9 +53,11 @@
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    return 120;
     
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

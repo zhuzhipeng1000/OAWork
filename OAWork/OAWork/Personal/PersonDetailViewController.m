@@ -1,55 +1,48 @@
 //
-//  OAMainViewController.m
+//  PersonDetailViewController.m
 //  OAWork
 //
-//  Created by james on 2017/11/24.
+//  Created by james on 2017/11/30.
 //  Copyright © 2017年 james. All rights reserved.
 //
 
-#import "OAMainViewController.h"
+#import "PersonDetailViewController.h"
 #import "OaMainCellTableViewCell.h"
-#import "NewIndexOaViewController.h"
+#import "PersonTableViewCell.h"
 
-@interface OAMainViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PersonDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSMutableArray *allArray;
+
+
 @end
 
-@implementation OAMainViewController
+@implementation PersonDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.title=@"公文处理";
-    self.title=@"公文处理";
-    _allArray = [@[@"公文处理",@"代办公文",@"新建公文",@"公文查询",@"流转中公文",@"已办公文",@"已阅公文"] mutableCopy];
+    _allArray = [@[@"头像",@"姓名",@"性别",@"手机号码",@"邮箱",@"部门",@"个人签名"] mutableCopy];
     
     _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(10, self.navigationController.navigationBar.bottom, SCREEN_WIDTH-20, SCREEN_HEIGHT-50)];
-    [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
+    [_demoTableView registerNib:[UINib nibWithNibName:@"PersonTableViewCell" bundle:nil] forCellReuseIdentifier:@"PersonTableViewCell"];
     _demoTableView.delegate=self;
     _demoTableView.dataSource=self;
     _demoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_demoTableView];
     // Do any additional setup after loading the view from its nib.
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden=false;
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *avc;
     if (indexPath.row==0) {
+//        avc=[[PersonDetailViewController alloc]initWithNibName:@"PersonDetailViewController" bundle:nil];
         
     }else if (indexPath.row==1) {
-        
-    }else if (indexPath.row==2) {
-        avc=[[NewIndexOaViewController alloc]initWithNibName:@"NewIndexOaViewController" bundle:nil];
-    }else if (indexPath.row==3) {
-        
-    }else if (indexPath.row==4) {
-        
-    }else if (indexPath.row==5) {
-        
-    }else if (indexPath.row==6) {
+//        avc=[[ForgetPassWordViewController alloc]initWithNibName:@"ForgetPassWordViewController" bundle:nil];
         
     }
     if (avc) {
@@ -58,13 +51,13 @@
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static  NSString  *CellIdentiferId = @"OaMainCellTableViewCell";
-    OaMainCellTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+    static  NSString  *CellIdentiferId = @"PersonTableViewCell";
+    PersonTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
     if (cell == nil) {
-        cell=[[OaMainCellTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentiferId];
+        cell=[[PersonTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentiferId];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     };
-    cell.titleLB.text=_allArray[indexPath.row];
+    cell.titleLb.text=_allArray[indexPath.row];
     cell.imageView.image=[UIImage imageNamed:@"wifi"];
     return  cell;
 }
@@ -75,12 +68,6 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50;
     
-}
-
-#pragma mark UITableViewDataSource
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*
