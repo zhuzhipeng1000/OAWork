@@ -10,6 +10,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "HostMangager.h"
 #import "MyRequest.h"
+#import "Utils.h"
 
 @interface BaseViewController : UIViewController
 @property (nonatomic,strong) MBProgressHUD *hud;

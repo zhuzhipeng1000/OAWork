@@ -11,10 +11,12 @@
 #import "CommonInfoViewController.h"
 #import "DataCenterViewController.h"
 #import "PersonalViewController.h"
+#import "CTTabBarEntity.h"
+#import "CTTabBarView.h"
 #define tabbarHeight  49
 @interface ViewController ()
 {
-    UIImageView *_tabBarView;
+    CTTabBarView *_tabBarView;
     
 }
 @end
@@ -32,36 +34,84 @@
     self.viewControllers=@[oa,common,data,person];
     
     
-    _tabBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-tabbarHeight, 320, tabbarHeight)];
-        _tabBarView.userInteractionEnabled = YES; //这一步一定要设置为YES，否则不能和用户交互
-        _tabBarView.image = [UIImage imageNamed:@"背景图片"];
+//    _tabBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-tabbarHeight, 320, tabbarHeight)];
+//        _tabBarView.userInteractionEnabled = YES; //这一步一定要设置为YES，否则不能和用户交互
+//       
+//    
+//        [self.view addSubview:_tabBarView];
     
-        [self.view addSubview:_tabBarView];
-    
+    [self addTabbar];
          // 下面的方法是调用自定义的生成按钮的方法
-         [self creatButtonWithNormalName:@"图片1"andSelectName:@"图片2"andTitle:@"消息"andIndex:0];
-         [self creatButtonWithNormalName:@"图片3"andSelectName:@"图片4"andTitle:@"联系人"andIndex:1];
-         [self creatButtonWithNormalName:@"图片5"andSelectName:@"图片6"andTitle:@"动态"andIndex:2];
-         [self creatButtonWithNormalName:@"图片7"andSelectName:@"图片8"andTitle:@"设置"andIndex:3];
-  
-         UIButton *btn = _tabBarView.subviews[0];
     
-         [self changeViewController:btn]; //自定义的控件中的按钮被点击了调用的方法，默认进入界面就选中第一个按钮
-    // Do any additional setup after loading the view, typically from a nib.
+      // Do any additional setup after loading the view, typically from a nib.
 }
 #pragma mark 创建一个按钮
-- (void)creatButtonWithNormalName:(NSString *)normal andSelectName:(NSString *)selected andTitle:(NSString *)title andIndex:(int)index{
-    float width=SCREEN_WIDTH/4;
+-(void)addTabbar{
+    //添加底部的tabbar
+    NSArray *entitys = [self getItemEntityArray];
+   
     
-    UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(index*width, 0, width, tabbarHeight)];
-    [bt setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [bt setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [bt setTitle:normal forState:UIControlStateNormal];
-    [bt setTitle:normal forState:UIControlStateHighlighted];
-    [bt addTarget:self action:@selector(changeViewController:) forControlEvents:UIControlEventTouchUpInside];
-    bt.tag=index;
-    [_tabBarView addSubview:bt];
+    _tabBarView = [[CTTabBarView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-tabbarHeight, SCREEN_WIDTH, tabbarHeight) target:self Entity:entitys];
+    
+    [self.view addSubview:_tabBarView];
+   [_tabBarView selectIndex:0];
+    
+}
+#pragma mark 点击tabitem代理
+- (void)selectIndex:(int)selectedInt{
+    [_tabBarView selectIndex:selectedInt];
+    [self selectIndex:selectedInt];
+}
 
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+#pragma mark - TableBar 组装
+//组装菜单数组
+- (NSArray *)getItemEntityArray{
+    
+    CTTabBarEntity *first = [[CTTabBarEntity alloc]init];
+    first.index=0;
+    first.isSelected=YES;
+    first.titleStr=@"首页";
+    first.normalImgName=@"desk_default";
+    first.selectedImgName=@"desk_selected";
+    first.uri=@"information/pages/module_homepage/index.html";
+    first.controllerName=@"DeskViewController";
+    
+    
+    CTTabBarEntity *second = [[CTTabBarEntity alloc]init];
+    second.index=1;
+    second.isSelected=NO;
+    second.titleStr=@"信息";
+    second.normalImgName=@"project_default";
+    second.selectedImgName=@"project_selected";
+    second.uri=@"https://www.baidu.com";
+    second.controllerName=@"ProjectViewController";
+    
+    
+    CTTabBarEntity *third = [[CTTabBarEntity alloc]init];
+    third.index=2;
+    third.isSelected=NO;
+    third.titleStr=@"资料库";
+    third.normalImgName=@"message_default";
+    third.selectedImgName=@"message_seleted";
+    third.uri=@"followup/pages/module_myCustomerBf/index.html";
+    third.controllerName=@"MessageListViewController";
+    
+    
+    
+    CTTabBarEntity *myModuleEntity = [[CTTabBarEntity alloc]init];
+    myModuleEntity.index=3;
+    myModuleEntity.isSelected=NO;
+    myModuleEntity.titleStr=@"个人";
+    myModuleEntity.normalImgName=@"main_defu";
+    myModuleEntity.selectedImgName=@"main_head_selected";
+    myModuleEntity.controllerName=@"MainViewController";
+    myModuleEntity.uri = @"myaccount/pages/module_myAccount_bupmBf/index.html";
+    
+    return @[first,second,third,myModuleEntity];
 }
 - (void) changeViewController:(UIButton*)bt{
     self.selectedIndex=bt.tag;

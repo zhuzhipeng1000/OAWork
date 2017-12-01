@@ -18,9 +18,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.title=@"公文处理";
-    self.title=@"公文处理";
-    _allArray = [@[@"公文处理",@"代办公文",@"新建公文",@"公文查询",@"流转中公文",@"已办公文",@"已阅公文"] mutableCopy];
+    self.navigationController.title=@"个人办公";
+    self.title=@"个人办公";
+    _allArray = [@[@{@"title":@"代办公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"待阅公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"流转公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"收件箱",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"我的收藏",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"我的订阅",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"已办公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"已阅公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"个人日程",@"normalImage":@"",@"highLightedImage":@""}] mutableCopy];
+    
+    UIView *aView=[UIView alloc]initWithFrame:CGRectMake(0,80 , SCREEN_WIDTH, SCREEN_WIDTH)
+    for (int d=0; d<_allArray.co; <#increment#>) {
+        <#statements#>
+    }
     
     _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(10, self.navigationController.navigationBar.bottom, SCREEN_WIDTH-20, SCREEN_HEIGHT-50)];
     [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
