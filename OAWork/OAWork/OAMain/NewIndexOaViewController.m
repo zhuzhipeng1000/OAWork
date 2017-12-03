@@ -7,6 +7,7 @@
 //
 
 #import "NewIndexOaViewController.h"
+#import "OAJobDetailViewController.h"
 
 @interface NewIndexOaViewController ()
 
@@ -54,7 +55,8 @@
 -(void)detailBtTapped:(UIButton*)bt{
     NSString *title=[bt titleForState:UIControlStateNormal];
     NSLog(@"titie%@",title);
-    
+    OAJobDetailViewController *AA=[[OAJobDetailViewController alloc]init];
+    [self.navigationController pushViewController:AA animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

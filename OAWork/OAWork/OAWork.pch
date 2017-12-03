@@ -22,7 +22,7 @@
 #define UD [NSUserDefaults standardUserDefaults]
 
 
-#define TOPBARCONTENTHEIGHT 44
+#define TOPBARCONTENTHEIGHT 64
 
 
 //底部栏高度
