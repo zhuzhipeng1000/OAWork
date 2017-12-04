@@ -26,6 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBar.hidden=YES;
+    
+    self.tabBarController.navigationController.navigationBarHidden=YES;
+    
     OAMainViewController *oa=[[OAMainViewController alloc]init];
     CommonInfoViewController *common=[[CommonInfoViewController alloc]init];
     DataCenterViewController *data=[[DataCenterViewController alloc]init];

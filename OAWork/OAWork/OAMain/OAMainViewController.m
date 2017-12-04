@@ -20,6 +20,9 @@
     [super viewDidLoad];
     self.navigationController.title=@"个人办公";
     self.title=@"个人办公";
+
+     [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
+    
     self.view.backgroundColor=[UIColor lightGrayColor];
     UIView *topView=[[UIView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_WIDTH/3)];
     topView.backgroundColor=[UIColor blueColor];

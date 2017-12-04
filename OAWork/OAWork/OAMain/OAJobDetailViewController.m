@@ -8,6 +8,8 @@
 
 #import "OAJobDetailViewController.h"
 #import <RadioButton/RadioButton.h>
+#import "ITTPickView.h"
+
 
 @interface OAJobDetailViewController ()
 

@@ -24,4 +24,7 @@ pod 'MJExtension'
 pod 'MBProgressHUD'
 pod 'IQKeyboardManager'
 pod 'RadioButton'
+pod 'RGB'
+pod 'RAlertView'
+pod 'JCAlertController'
 end

@@ -21,6 +21,14 @@
 		1A2BD1051FCFE7E40014837E /* PersonDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD1031FCFE7E40014837E /* PersonDetailViewController.xib */; };
 		1A2BD10E1FCFED2F0014837E /* PersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2BD10C1FCFED2F0014837E /* PersonTableViewCell.m */; };
 		1A2BD10F1FCFED2F0014837E /* PersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD10D1FCFED2F0014837E /* PersonTableViewCell.xib */; };
+		1A434B381FD4DB66006F6A92 /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A434B371FD4DB66006F6A92 /* PopoverView.m */; };
+		1A434B3B1FD4DED2006F6A92 /* ISAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A434B391FD4DED2006F6A92 /* ISAlertView.m */; };
+		1A434B3E1FD4DEF3006F6A92 /* NHPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A434B3C1FD4DEF3006F6A92 /* NHPopoverViewController.m */; };
+		1A434B4D1FD4F463006F6A92 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A434B4B1FD4F463006F6A92 /* ThemeManager.m */; };
+		1A434B521FD4F71D006F6A92 /* closed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A434B4F1FD4F71C006F6A92 /* closed@3x.png */; };
+		1A434B531FD4F71D006F6A92 /* closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A434B501FD4F71C006F6A92 /* closed.png */; };
+		1A434B541FD4F71D006F6A92 /* closed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A434B511FD4F71C006F6A92 /* closed@2x.png */; };
+		1A434B641FD527F3006F6A92 /* YZNavigationMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A434B621FD527F3006F6A92 /* YZNavigationMenuView.m */; };
 		1A5A32211FCD33EE002B1177 /* NewIndexOaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */; };
 		1A5A32221FCD33EE002B1177 /* NewIndexOaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */; };
 		1A636A231FD0EF950016A58C /* CTTabBarEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A636A1E1FD0EF950016A58C /* CTTabBarEntity.m */; };
@@ -112,6 +120,20 @@
 		1A2BD10B1FCFED2F0014837E /* PersonTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonTableViewCell.h; sourceTree = "<group>"; };
 		1A2BD10C1FCFED2F0014837E /* PersonTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonTableViewCell.m; sourceTree = "<group>"; };
 		1A2BD10D1FCFED2F0014837E /* PersonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonTableViewCell.xib; sourceTree = "<group>"; };
+		1A434B361FD4DB66006F6A92 /* PopoverView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
+		1A434B371FD4DB66006F6A92 /* PopoverView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
+		1A434B391FD4DED2006F6A92 /* ISAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISAlertView.m; sourceTree = "<group>"; };
+		1A434B3A1FD4DED2006F6A92 /* ISAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAlertView.h; sourceTree = "<group>"; };
+		1A434B3C1FD4DEF3006F6A92 /* NHPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHPopoverViewController.m; sourceTree = "<group>"; };
+		1A434B3D1FD4DEF3006F6A92 /* NHPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHPopoverViewController.h; sourceTree = "<group>"; };
+		1A434B4B1FD4F463006F6A92 /* ThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeManager.m; sourceTree = "<group>"; };
+		1A434B4C1FD4F463006F6A92 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
+		1A434B4E1FD4F473006F6A92 /* SkinThemeContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinThemeContent.h; sourceTree = "<group>"; };
+		1A434B4F1FD4F71C006F6A92 /* closed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "closed@3x.png"; sourceTree = "<group>"; };
+		1A434B501FD4F71C006F6A92 /* closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closed.png; sourceTree = "<group>"; };
+		1A434B511FD4F71C006F6A92 /* closed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "closed@2x.png"; sourceTree = "<group>"; };
+		1A434B621FD527F3006F6A92 /* YZNavigationMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZNavigationMenuView.m; sourceTree = "<group>"; };
+		1A434B631FD527F3006F6A92 /* YZNavigationMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZNavigationMenuView.h; sourceTree = "<group>"; };
 		1A5A321E1FCD33EE002B1177 /* NewIndexOaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewIndexOaViewController.h; sourceTree = "<group>"; };
 		1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewIndexOaViewController.m; sourceTree = "<group>"; };
 		1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewIndexOaViewController.xib; sourceTree = "<group>"; };
@@ -231,6 +253,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A434B4A1FD4F454006F6A92 /* theme */ = {
+			isa = PBXGroup;
+			children = (
+				1A434B4E1FD4F473006F6A92 /* SkinThemeContent.h */,
+				1A434B4C1FD4F463006F6A92 /* ThemeManager.h */,
+				1A434B4B1FD4F463006F6A92 /* ThemeManager.m */,
+			);
+			path = theme;
+			sourceTree = "<group>";
+		};
 		1A636A1C1FD0EF950016A58C /* CTTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +364,7 @@
 		1A6C2C1D1FC7C6F7002228C7 /* CommonTool */ = {
 			isa = PBXGroup;
 			children = (
+				1A434B4A1FD4F454006F6A92 /* theme */,
 				1A636A2C1FD0EFA80016A58C /* TTTAttributedLabel */,
 				1A636A1C1FD0EF950016A58C /* CTTabBar */,
 				1A9F00931FCBB041005897B2 /* DES */,
@@ -355,6 +388,14 @@
 		1A6C2C221FC7C773002228C7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1A434B631FD527F3006F6A92 /* YZNavigationMenuView.h */,
+				1A434B621FD527F3006F6A92 /* YZNavigationMenuView.m */,
+				1A434B361FD4DB66006F6A92 /* PopoverView.h */,
+				1A434B371FD4DB66006F6A92 /* PopoverView.m */,
+				1A434B3D1FD4DEF3006F6A92 /* NHPopoverViewController.h */,
+				1A434B3C1FD4DEF3006F6A92 /* NHPopoverViewController.m */,
+				1A434B3A1FD4DED2006F6A92 /* ISAlertView.h */,
+				1A434B391FD4DED2006F6A92 /* ISAlertView.m */,
 				3ADE737C1FD4344800A3A97F /* UIView+Utils.h */,
 				3ADE737D1FD4344800A3A97F /* UIView+Utils.m */,
 				1A2BD0E91FCF9FF40014837E /* ListSelectView.h */,
@@ -472,6 +513,9 @@
 		1A9F00A91FCBE8E4005897B2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				1A434B501FD4F71C006F6A92 /* closed.png */,
+				1A434B511FD4F71C006F6A92 /* closed@2x.png */,
+				1A434B4F1FD4F71C006F6A92 /* closed@3x.png */,
 				3A47F6C61FD4483D00EF8BD4 /* checked.png */,
 				3A47F6C41FD4483D00EF8BD4 /* checked@2x.png */,
 				3A47F6C71FD4483E00EF8BD4 /* unchecked.png */,
@@ -612,6 +656,7 @@
 			files = (
 				1A6C2C0E1FC7B396002228C7 /* CommonInfoViewController.xib in Resources */,
 				1A2BD0F11FCFA1190014837E /* arrow_down@3x.png in Resources */,
+				1A434B531FD4F71D006F6A92 /* closed.png in Resources */,
 				1A2BD1001FCFE3FB0014837E /* OAJobDetailViewController.xib in Resources */,
 				1A6C2C2D1FC7C798002228C7 /* back.png in Resources */,
 				1A2BD1051FCFE7E40014837E /* PersonDetailViewController.xib in Resources */,
@@ -621,6 +666,7 @@
 				1A90B5BA1FC65B4C008EDDB1 /* LaunchScreen.storyboard in Resources */,
 				1A90B5B71FC65B4C008EDDB1 /* Assets.xcassets in Resources */,
 				1A9F00A81FCBE632005897B2 /* OaMainCellTableViewCell.xib in Resources */,
+				1A434B541FD4F71D006F6A92 /* closed@2x.png in Resources */,
 				1A9F008C1FCBAEE4005897B2 /* ForgetPassWordViewController.xib in Resources */,
 				1A6C2C131FC7B3B2002228C7 /* DataCenterViewController.xib in Resources */,
 				1A2BD0EF1FCFA1190014837E /* arrow_down.png in Resources */,
@@ -629,6 +675,7 @@
 				1A6C2C181FC7B3CC002228C7 /* PersonalViewController.xib in Resources */,
 				1A6C2C091FC7B382002228C7 /* OAMainViewController.xib in Resources */,
 				3A47F6C81FD4483E00EF8BD4 /* checked@2x.png in Resources */,
+				1A434B521FD4F71D006F6A92 /* closed@3x.png in Resources */,
 				1A2BD0FB1FCFE03F0014837E /* NeedDoTableViewCell.xib in Resources */,
 				1A2BD10F1FCFED2F0014837E /* PersonTableViewCell.xib in Resources */,
 				1A2BD0F01FCFA1190014837E /* arrow_down@2x.png in Resources */,
@@ -709,6 +756,7 @@
 			files = (
 				1A2BD1041FCFE7E40014837E /* PersonDetailViewController.m in Sources */,
 				1A6C2C1C1FC7BFB0002228C7 /* BaseViewController.m in Sources */,
+				1A434B3B1FD4DED2006F6A92 /* ISAlertView.m in Sources */,
 				1A9F008F1FCBAF09005897B2 /* MyRequest.m in Sources */,
 				1A9F00A01FCBB1C0005897B2 /* NSUserDefaults+reviseSet.m in Sources */,
 				1A90B5B21FC65B4C008EDDB1 /* ViewController.m in Sources */,
@@ -717,15 +765,19 @@
 				1A2BD0EB1FCF9FF40014837E /* ListSelectView.m in Sources */,
 				1A2BD10E1FCFED2F0014837E /* PersonTableViewCell.m in Sources */,
 				1A5A32211FCD33EE002B1177 /* NewIndexOaViewController.m in Sources */,
+				1A434B381FD4DB66006F6A92 /* PopoverView.m in Sources */,
 				1A6C2C281FC7C787002228C7 /* Utils.m in Sources */,
 				1A2BD0F51FCFDFD80014837E /* NeedDoViewController.m in Sources */,
 				1A6C2C3A1FC7C963002228C7 /* OMGToast.m in Sources */,
 				1A636A231FD0EF950016A58C /* CTTabBarEntity.m in Sources */,
 				1A90B5BD1FC65B4C008EDDB1 /* main.m in Sources */,
 				1A6C2C121FC7B3B2002228C7 /* DataCenterViewController.m in Sources */,
+				1A434B4D1FD4F463006F6A92 /* ThemeManager.m in Sources */,
 				1A9F00851FCBAEB7005897B2 /* LoginViewController.m in Sources */,
 				1A9F009D1FCBB139005897B2 /* HostMangager.m in Sources */,
+				1A434B3E1FD4DEF3006F6A92 /* NHPopoverViewController.m in Sources */,
 				1A2BD0FA1FCFE03F0014837E /* NeedDoTableViewCell.m in Sources */,
+				1A434B641FD527F3006F6A92 /* YZNavigationMenuView.m in Sources */,
 				1A6C2C081FC7B382002228C7 /* OAMainViewController.m in Sources */,
 				1A6C2C251FC7C77C002228C7 /* User.m in Sources */,
 				1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */,

@@ -24,7 +24,8 @@
 
 #define TOPBARCONTENTHEIGHT 64
 
-
+//屏幕坐标初始Y值,如果是iOS7以上，y=20，IOS7以下，y=0
+#define DefaultY (0)
 //底部栏高度
 #define BOTTOMBARHEIGHT 49
 #define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
@@ -51,8 +52,7 @@
 //是否为iPhone6 Plus
 #define iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242,2208), [[UIScreen mainScreen] currentMode].size) : NO)
 
-//屏幕坐标初始Y值,如果是iOS7以上，y=20，IOS7以下，y=0
-#define DefaultY (IOS7ABOVE?20:0)
+
 // 最小像素
 #define kMinPixels   1.0 / [UIScreen mainScreen].scale
 

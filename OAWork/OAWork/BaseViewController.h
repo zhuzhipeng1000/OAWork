@@ -11,7 +11,17 @@
 #import "HostMangager.h"
 #import "MyRequest.h"
 #import "Utils.h"
+#import <RAlertView/RAlertView.h>
 
 @interface BaseViewController : UIViewController
 @property (nonatomic,strong) MBProgressHUD *hud;
+@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UIButton *backButton;
+@property (nonatomic,strong) UIButton *messageButton;
+@property (nonatomic,strong) UIView *barView;
+-(void)hiddenLineView:(BOOL)hidden;
+-(void)keyboardWasShown:(NSNotificationCenter*)notify;
+-(void)keyboardWillBeHidden:(NSNotificationCenter*)notify;
+- (UIView *)createNaviTopBarWithShowBackBtn:(BOOL)showBackBtn showTitle:(BOOL)showTitle;
+-(void)baseBackAction;
 @end

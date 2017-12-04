@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'A6E762EA60B3F698ED31D0F9A1D1B3B2'
+               BlueprintIdentifier = '29B09FBC1E5CCD9B8673534AB0FDCBC4'
                BlueprintName = 'RCPopoverView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libRCPopoverView.a'>
