@@ -20,18 +20,20 @@
     [super viewDidLoad];
     self.navigationController.title=@"个人办公";
     self.title=@"个人办公";
-
-     [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
+    [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
     
+ 
+    
+ 
     self.view.backgroundColor=[UIColor lightGrayColor];
     UIView *topView=[[UIView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_WIDTH/3)];
     topView.backgroundColor=[UIColor blueColor];
     [self.view addSubview:topView];
       int width=SCREEN_WIDTH/3;
-    NSArray *anArray=@[@{@"title":@"新建公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"公文查询",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"通讯录",@"normalImage":@"",@"highLightedImage":@""}];
+    NSArray *anArray=@[@{@"title":@"新建公文",@"normalImage":@"home_newoa",@"highLightedImage":@"home_newoa"},@{@"title":@"公文查询",@"normalImage":@"home_newSearch",@"highLightedImage":@"home_newSearch"},@{@"title":@"通讯录",@"normalImage":@"home_contact",@"highLightedImage":@"home_contact"}];
     
     for (int d=0; d<anArray.count; d++) {
-        NSDictionary *detailDic=_allArray[d];
+        NSDictionary *detailDic=anArray[d];
         UIView *smallBack=[[UIView alloc]initWithFrame:CGRectMake((d%3)*width, (d/3)*width, width, width)];
         [topView addSubview:smallBack];
         
@@ -39,7 +41,7 @@
         centralView.backgroundColor=[UIColor clearColor];
         [smallBack addSubview:centralView];
         
-        UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"wifi"]];
+        UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:detailDic[@"normalImage"]]];
         [centralView addSubview:im];
         im.frame=CGRectMake(25, 0, 50, 50);
         
@@ -56,7 +58,7 @@
         [smallBack addSubview:bt];
     }
     
-    _allArray = [@[@{@"title":@"代办公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"待阅公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"流转公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"收件箱",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"我的收藏",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"我的订阅",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"已办公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"已阅公文",@"normalImage":@"",@"highLightedImage":@""},@{@"title":@"个人日程",@"normalImage":@"",@"highLightedImage":@""}] mutableCopy];
+    _allArray = [@[@{@"title":@"代办公文",@"normalImage":@"home_waitingOA",@"highLightedImage":@"home_waitingOA"},@{@"title":@"待阅公文",@"normalImage":@"home_waitingRead",@"highLightedImage":@"home_waitingRead"},@{@"title":@"流转公文",@"normalImage":@"home_liuzhuan",@"highLightedImage":@"home_liuzhuan"},@{@"title":@"收件箱",@"normalImage":@"shoujianxiang",@"highLightedImage":@"shoujianxiang"},@{@"title":@"我的收藏",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"},@{@"title":@"我的订阅",@"normalImage":@"dingyue",@"highLightedImage":@"dingyue"},@{@"title":@"已办公文",@"normalImage":@"yibangongwen",@"highLightedImage":@"yibangongwen"},@{@"title":@"已阅公文",@"normalImage":@"yiyuegongwen",@"highLightedImage":@"yiyuegongwen"},@{@"title":@"个人日程",@"normalImage":@"geRenRiCheng",@"highLightedImage":@"geRenRiCheng"}] mutableCopy];
     
     UIView *aView=[[UIView alloc]initWithFrame:CGRectMake(0,topView.bottom+10 , SCREEN_WIDTH, SCREEN_WIDTH)];
     [self.view addSubview:aView];
@@ -73,7 +75,7 @@
         centralView.backgroundColor=[UIColor whiteColor];
         [smallBack addSubview:centralView];
         
-        UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"wifi"]];
+        UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:detailDic[@"normalImage"]]];
         [centralView addSubview:im];
         im.frame=CGRectMake(25, 0, 50, 50);
         
@@ -125,7 +127,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden=false;
+    self.navigationController.navigationBarHidden=true;
 }
 
 - (void)bttonTapped:(UIButton*)bt{

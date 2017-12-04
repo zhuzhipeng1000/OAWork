@@ -17,7 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"电子资料库";
+        [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
     // Do any additional setup after loading the view from its nib.
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden=true;
 }
 
 - (void)didReceiveMemoryWarning {

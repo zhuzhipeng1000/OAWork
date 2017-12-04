@@ -78,6 +78,7 @@
 		3A47F6C91FD4483E00EF8BD4 /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C51FD4483D00EF8BD4 /* unchecked@2x.png */; };
 		3A47F6CA1FD4483E00EF8BD4 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C61FD4483D00EF8BD4 /* checked.png */; };
 		3A47F6CB1FD4483E00EF8BD4 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C71FD4483E00EF8BD4 /* unchecked.png */; };
+		3A47F6CD1FD5955F00EF8BD4 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6CC1FD5955F00EF8BD4 /* image.xcassets */; };
 		3ADE737E1FD4344800A3A97F /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE737D1FD4344800A3A97F /* UIView+Utils.m */; };
 		55F6E9E014CB6792564369ED /* libPods-OAWork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BB2E76F7CDD3B627FF0A2B /* libPods-OAWork.a */; };
 /* End PBXBuildFile section */
@@ -221,6 +222,7 @@
 		3A47F6C51FD4483D00EF8BD4 /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
 		3A47F6C61FD4483D00EF8BD4 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		3A47F6C71FD4483E00EF8BD4 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
+		3A47F6CC1FD5955F00EF8BD4 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 		3ADE737C1FD4344800A3A97F /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		3ADE737D1FD4344800A3A97F /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		83BB2E76F7CDD3B627FF0A2B /* libPods-OAWork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OAWork.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -473,6 +475,7 @@
 				1A6C2C191FC7BB58002228C7 /* OAWork.pch */,
 				1A90B5B31FC65B4C008EDDB1 /* Main.storyboard */,
 				1A90B5B61FC65B4C008EDDB1 /* Assets.xcassets */,
+				3A47F6CC1FD5955F00EF8BD4 /* image.xcassets */,
 				1A90B5B81FC65B4C008EDDB1 /* LaunchScreen.storyboard */,
 				1A90B5BB1FC65B4C008EDDB1 /* Info.plist */,
 				1A90B5BC1FC65B4C008EDDB1 /* main.m */,
@@ -681,6 +684,7 @@
 				1A2BD0F01FCFA1190014837E /* arrow_down@2x.png in Resources */,
 				3A47F6CA1FD4483E00EF8BD4 /* checked.png in Resources */,
 				1A9F00871FCBAEC7005897B2 /* LoginViewController.xib in Resources */,
+				3A47F6CD1FD5955F00EF8BD4 /* image.xcassets in Resources */,
 				1A2BD0F61FCFDFD80014837E /* NeedDoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -965,7 +969,7 @@
 				GCC_PREFIX_HEADER = OAWork/OAWork.pch;
 				INFOPLIST_FILE = OAWork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = James.OAWork;
+				PRODUCT_BUNDLE_IDENTIFIER = James.OAWor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -982,7 +986,7 @@
 				GCC_PREFIX_HEADER = OAWork/OAWork.pch;
 				INFOPLIST_FILE = OAWork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = James.OAWork;
+				PRODUCT_BUNDLE_IDENTIFIER = James.OAWor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

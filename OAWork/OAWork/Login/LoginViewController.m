@@ -35,15 +35,16 @@
 //    [self hiddenLineView:YES];
     
     self.view.userInteractionEnabled=YES;
+    [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
     
     isSelectAutoLogin=[[NSUserDefaults standardUserDefaults] boolForKey:@"isSelectAutoLogin"];
     int adjustHeight=0;
-    if (self.navigationController.viewControllers.count>1&&[self.navigationController.viewControllers[1] isKindOfClass:[LoginViewController class]]) {
+//    if (self.navigationController.viewControllers.count>1&&[self.navigationController.viewControllers[1] isKindOfClass:[LoginViewController class]]) {
         adjustHeight=70;
-    }
+//    }
     
     headImage=[[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-100)/2, 20+StartHeight+adjustHeight, 100, 100)];
-    headImage.image=[UIImage imageNamed:@"main_head_deafult"];
+    headImage.image=[UIImage imageNamed:@"loginIcon"];
     [self.view addSubview:headImage];
     
     UIView *aView=[self textEditViewOfFrame:CGRectMake(0, headImage.bottom+20, SCREEN_WIDTH, 50) tag:55 text:@"账号" accessibilityHint:@"请输入您的用户名／手机号码"];
@@ -85,12 +86,12 @@
     
     UIButton *bu=[[UIButton alloc]initWithFrame:CGRectMake(10, loginbt.bottom+20, 110, 45)];
     [bu setTitle:@"自动登录" forState:UIControlStateNormal];
-    [bu setImage:[UIImage imageNamed:@"icon_yuedu_weigouxuan"] forState:UIControlStateNormal];
-    [bu setImage:[UIImage imageNamed:@"icon_yuedu_weigouxuan"] forState:UIControlStateHighlighted];
+    [bu setImage:[UIImage imageNamed:@"unchecked"] forState:UIControlStateNormal];
+    [bu setImage:[UIImage imageNamed:@"unchecked"] forState:UIControlStateHighlighted];
     isSelectAutoLogin= [UD boolForKey:@"isSelectAutoLogin"];
     if (isSelectAutoLogin) {
-        [bu setImage:[UIImage imageNamed:@"icon_yuedu_yigoudian"] forState:UIControlStateNormal];
-        [bu setImage:[UIImage imageNamed:@"icon_yuedu_yigoudian"] forState:UIControlStateHighlighted];
+        [bu setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateNormal];
+        [bu setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateHighlighted];
     }
     [bu setTitle:@"自动登录" forState:UIControlStateHighlighted];
     
@@ -103,15 +104,15 @@
     [self.view addSubview:bu];
     
     
-    UIButton *forgetbu=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-120, loginbt.bottom+20, 110, 45)];
-    [forgetbu setTitle:@"忘记密码？" forState:UIControlStateNormal];
-    [forgetbu setTitle:@"忘记密码？" forState:UIControlStateNormal];
-    [forgetbu setTitleColor:[Utils colorWithHexString:@"#5dbed8"]  forState:UIControlStateNormal];
-    forgetbu.backgroundColor=[UIColor whiteColor];
-    forgetbu.clipsToBounds=YES;
-    forgetbu.layer.cornerRadius=3.0f;
-    [forgetbu addTarget:self action:@selector(forgetbTTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:forgetbu];
+//    UIButton *forgetbu=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-120, loginbt.bottom+20, 110, 45)];
+//    [forgetbu setTitle:@"忘记密码？" forState:UIControlStateNormal];
+//    [forgetbu setTitle:@"忘记密码？" forState:UIControlStateNormal];
+//    [forgetbu setTitleColor:[Utils colorWithHexString:@"#5dbed8"]  forState:UIControlStateNormal];
+//    forgetbu.backgroundColor=[UIColor whiteColor];
+//    forgetbu.clipsToBounds=YES;
+//    forgetbu.layer.cornerRadius=3.0f;
+//    [forgetbu addTarget:self action:@selector(forgetbTTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:forgetbu];
     
 
     // Do any additional setup after loading the view from its nib.
@@ -208,11 +209,11 @@
     [UD setBool:isSelectAutoLogin forKey:@"isSelectAutoLogin"];
     [UD synchronize];
     if (isSelectAutoLogin) {
-        [bt setImage:[UIImage imageNamed:@"icon_yuedu_yigoudian"] forState:UIControlStateNormal];
-        [bt setImage:[UIImage imageNamed:@"icon_yuedu_yigoudian"] forState:UIControlStateHighlighted];
+        [bt setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateNormal];
+        [bt setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateHighlighted];
     }else{
-        [bt setImage:[UIImage imageNamed:@"icon_yuedu_weigouxuan"] forState:UIControlStateNormal];
-        [bt setImage:[UIImage imageNamed:@"icon_yuedu_weigouxuan"] forState:UIControlStateHighlighted];
+        [bt setImage:[UIImage imageNamed:@"unchecked"] forState:UIControlStateNormal];
+        [bt setImage:[UIImage imageNamed:@"unchecked"] forState:UIControlStateHighlighted];
     }
 }
 -(void)forgetbTTapped:(UIButton*)bt{

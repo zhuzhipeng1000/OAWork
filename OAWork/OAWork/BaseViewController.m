@@ -49,8 +49,9 @@
 -(void)keyboardWasShown:(NSNotificationCenter*)notify{
     if (!tap) {
         tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiidenKeyBoard)];
-        [self.view addGestureRecognizer:tap];
+       
     }
+     [self.view addGestureRecognizer:tap];
 }
 -(void)keyboardWillBeHidden:(NSNotificationCenter*)notify{
     [self.view endEditing:YES];
@@ -65,7 +66,7 @@
     
     
     UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, TOPBARCONTENTHEIGHT+1)];
-    bar.backgroundColor= [UIColor redColor];
+    bar.backgroundColor= [UIColor whiteColor];
     [self.view addSubview:bar];
     _barView = bar;
     
@@ -110,6 +111,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden=false;
     
     BackButton *back = [[BackButton alloc] init];
     back.frame = CGRectMake(0, DefaultY, 65+fix6pBackButtonWidth, TOPBARCONTENTHEIGHT);

@@ -22,16 +22,21 @@
     [super viewDidLoad];
      self.title=@"个人设置";
     self.navigationController.title=@"个人设置";
+    [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
 
     _allArray = [@[@"个人信息",@"修改密码"] mutableCopy];
     
-    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(10, self.navigationController.navigationBar.bottom, SCREEN_WIDTH-20, SCREEN_HEIGHT-50)];
+    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH-20, SCREEN_HEIGHT-50)];
     [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
     _demoTableView.delegate=self;
     _demoTableView.dataSource=self;
     _demoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_demoTableView];
     // Do any additional setup after loading the view from its nib.
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden=true;
 }
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -20,11 +20,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
    
-//    LoginViewController *login=[[LoginViewController alloc]init];
-    ViewController *login=[[ViewController alloc]init];
+    LoginViewController *login=[[LoginViewController alloc]init];
+//    ViewController *login=[[ViewController alloc]init];
      self.navi=[[UINavigationController alloc]initWithRootViewController:login];
-    
+ 
     self.window.rootViewController=self.navi;
+       [self.navi setNavigationBarHidden:true];
     // Override point for customization after application launch.
     return YES;
 }
