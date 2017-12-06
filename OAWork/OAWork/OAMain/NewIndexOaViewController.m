@@ -78,15 +78,15 @@
     // Do any additional setup after loading the view from its nib.
 }
 -(void)detailBtTapped:(UIButton*)bt{
-//    NSString *title=[bt titleForState:UIControlStateNormal];
-//    NSLog(@"titie%@",title);
-//    OAJobDetailViewController *AA=[[OAJobDetailViewController alloc]init];
-//    [self.navigationController pushViewController:AA animated:YES];
+    NSString *title=[bt titleForState:UIControlStateNormal];
+    NSLog(@"titie%@",title);
+    OAJobDetailViewController *AA=[[OAJobDetailViewController alloc]init];
+    [self.navigationController pushViewController:AA animated:YES];
 //    ISAlertView *al=[[ISAlertView alloc]initWithTitle:nil message:@"确定删除该公文吗？" delegate:self cancelButtonTitle:nil otherButtonTitles:[@"确定"]];
 //    [al show];
-    RAlertView *al=[[RAlertView alloc]initWithStyle:ConfirmAlert];
-    al.isClickBackgroundCloseWindow=false;
-    al.contentTextLabel.text=@"确定删除该公文吗？";
+//    RAlertView *al=[[RAlertView alloc]initWithStyle:ConfirmAlert];
+//    al.isClickBackgroundCloseWindow=false;
+//    al.contentTextLabel.text=@"确定删除该公文吗？";
     
 }
 

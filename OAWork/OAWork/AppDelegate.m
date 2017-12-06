@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "ViewController.h"
+#import "OAJobDetailViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,9 +20,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-   
-    LoginViewController *login=[[LoginViewController alloc]init];
-//    ViewController *login=[[ViewController alloc]init];
+//    OAJobDetailViewController *login=[[OAJobDetailViewController alloc]init];
+//    LoginViewController *login=[[LoginViewController alloc]init];
+    ViewController *login=[[ViewController alloc]init];
      self.navi=[[UINavigationController alloc]initWithRootViewController:login];
  
     self.window.rootViewController=self.navi;
@@ -29,7 +30,10 @@
     // Override point for customization after application launch.
     return YES;
 }
-
++ (AppDelegate *) shareAppDeleage{
+    
+    return self;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -13,6 +13,7 @@
 #import "PersonalViewController.h"
 #import "CTTabBarEntity.h"
 #import "CTTabBarView.h"
+
 #define tabbarHeight  49
 @interface ViewController ()
 {
@@ -26,8 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
-      self.navigationController.navigationBarHidden = YES;
+   
+    self.navigationController.navigationBarHidden = YES;
     self.tabBarController.navigationController.navigationBarHidden=YES;
     self.view.backgroundColor=[UIColor whiteColor];
 //     [self createNaviTopBarWithShowBackBtn:false showTitle:YES];

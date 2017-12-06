@@ -53,6 +53,8 @@
 		1A6C2C381FC7C963002228C7 /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C321FC7C961002228C7 /* UIView+Utils.m */; };
 		1A6C2C391FC7C963002228C7 /* ITTPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C351FC7C962002228C7 /* ITTPickView.m */; };
 		1A6C2C3A1FC7C963002228C7 /* OMGToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C361FC7C962002228C7 /* OMGToast.m */; };
+		1A71C04D1FD62DB100FBE94B /* aa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C04C1FD62DB100FBE94B /* aa.txt */; };
+		1A71C0561FD637FA00FBE94B /* aa.Json in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C0551FD637FA00FBE94B /* aa.Json */; };
 		1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5AE1FC65B4C008EDDB1 /* AppDelegate.m */; };
 		1A90B5B21FC65B4C008EDDB1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5B11FC65B4C008EDDB1 /* ViewController.m */; };
 		1A90B5B51FC65B4C008EDDB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A90B5B31FC65B4C008EDDB1 /* Main.storyboard */; };
@@ -178,6 +180,8 @@
 		1A6C2C351FC7C962002228C7 /* ITTPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITTPickView.m; sourceTree = "<group>"; };
 		1A6C2C361FC7C962002228C7 /* OMGToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OMGToast.m; sourceTree = "<group>"; };
 		1A6C2C371FC7C962002228C7 /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
+		1A71C04C1FD62DB100FBE94B /* aa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = aa.txt; sourceTree = "<group>"; };
+		1A71C0551FD637FA00FBE94B /* aa.Json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aa.Json; sourceTree = "<group>"; };
 		1A90B5AA1FC65B4C008EDDB1 /* OAWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OAWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A90B5AD1FC65B4C008EDDB1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1A90B5AE1FC65B4C008EDDB1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -473,6 +477,8 @@
 				1A6C2C1D1FC7C6F7002228C7 /* CommonTool */,
 				1A6C2BF61FC7B299002228C7 /* Personal */,
 				1A6C2C191FC7BB58002228C7 /* OAWork.pch */,
+				1A71C0551FD637FA00FBE94B /* aa.Json */,
+				1A71C04C1FD62DB100FBE94B /* aa.txt */,
 				1A90B5B31FC65B4C008EDDB1 /* Main.storyboard */,
 				1A90B5B61FC65B4C008EDDB1 /* Assets.xcassets */,
 				3A47F6CC1FD5955F00EF8BD4 /* image.xcassets */,
@@ -657,6 +663,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A71C04D1FD62DB100FBE94B /* aa.txt in Resources */,
 				1A6C2C0E1FC7B396002228C7 /* CommonInfoViewController.xib in Resources */,
 				1A2BD0F11FCFA1190014837E /* arrow_down@3x.png in Resources */,
 				1A434B531FD4F71D006F6A92 /* closed.png in Resources */,
@@ -686,6 +693,7 @@
 				1A9F00871FCBAEC7005897B2 /* LoginViewController.xib in Resources */,
 				3A47F6CD1FD5955F00EF8BD4 /* image.xcassets in Resources */,
 				1A2BD0F61FCFDFD80014837E /* NeedDoViewController.xib in Resources */,
+				1A71C0561FD637FA00FBE94B /* aa.Json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

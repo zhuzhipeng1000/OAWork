@@ -15,6 +15,7 @@
 - ( void )datePickerValueChanged:( UIDatePicker *)datePicker;
 @end
 @interface ITTPickView : UIView
+@property (nonatomic,weak) UILabel *textView;//选择日期后用用显示的
 @property(nonatomic,weak) id<ITTPickViewDelegate> delegate;//委托
 /**
  * 通过时间创建一个DatePicker
@@ -34,5 +35,6 @@
  * 在窗口显示本控件
  */
 -(void)showView;
+
 @end
 
