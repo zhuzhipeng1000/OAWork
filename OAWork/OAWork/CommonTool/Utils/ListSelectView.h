@@ -12,10 +12,17 @@
 
 @end
 #import <UIKit/UIKit.h>
-
+typedef NS_ENUM(NSInteger, ListViewType) {
+    ListViewLabel,
+    ListViewTextField,
+};
 @interface ListSelectView : UIView <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray* titleArray;
 @property (nonatomic,weak) id delegate;
+@property (nonatomic,weak)  UILabel *labelField;
+@property(nonatomic,assign) ListViewType listViewType;
 -(void)hiddenTableView;
+- (instancetype)initWithSize:(CGSize)size OfViewPoint:(UIView*)aView onView:(UIView*)onView;
+-(void)showSize:(CGSize)size OfViewPoint:(UIView*)aView onView:(UIView*)onView;
 @end

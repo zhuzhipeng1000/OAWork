@@ -55,6 +55,7 @@
 		1A6C2C3A1FC7C963002228C7 /* OMGToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C361FC7C962002228C7 /* OMGToast.m */; };
 		1A71C04D1FD62DB100FBE94B /* aa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C04C1FD62DB100FBE94B /* aa.txt */; };
 		1A71C0561FD637FA00FBE94B /* aa.Json in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C0551FD637FA00FBE94B /* aa.Json */; };
+		1A8FC2011FD7CB0100F45656 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FC2001FD7CB0100F45656 /* TestViewController.m */; };
 		1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5AE1FC65B4C008EDDB1 /* AppDelegate.m */; };
 		1A90B5B21FC65B4C008EDDB1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5B11FC65B4C008EDDB1 /* ViewController.m */; };
 		1A90B5B51FC65B4C008EDDB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A90B5B31FC65B4C008EDDB1 /* Main.storyboard */; };
@@ -182,6 +183,8 @@
 		1A6C2C371FC7C962002228C7 /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		1A71C04C1FD62DB100FBE94B /* aa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = aa.txt; sourceTree = "<group>"; };
 		1A71C0551FD637FA00FBE94B /* aa.Json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aa.Json; sourceTree = "<group>"; };
+		1A8FC1FF1FD7CB0100F45656 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		1A8FC2001FD7CB0100F45656 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		1A90B5AA1FC65B4C008EDDB1 /* OAWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OAWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A90B5AD1FC65B4C008EDDB1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1A90B5AE1FC65B4C008EDDB1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -467,6 +470,8 @@
 				1A90B5AE1FC65B4C008EDDB1 /* AppDelegate.m */,
 				1A90B5B01FC65B4C008EDDB1 /* ViewController.h */,
 				1A90B5B11FC65B4C008EDDB1 /* ViewController.m */,
+				1A8FC1FF1FD7CB0100F45656 /* TestViewController.h */,
+				1A8FC2001FD7CB0100F45656 /* TestViewController.m */,
 				1A6C2C1A1FC7BFB0002228C7 /* BaseViewController.h */,
 				1A6C2C1B1FC7BFB0002228C7 /* BaseViewController.m */,
 				1A9F00A91FCBE8E4005897B2 /* images */,
@@ -799,6 +804,7 @@
 				1A636A2F1FD0EFA80016A58C /* TTTAttributedLabel.m in Sources */,
 				1A2BD0FF1FCFE3FB0014837E /* OAJobDetailViewController.m in Sources */,
 				1A636A241FD0EF950016A58C /* CTTabBarItem.m in Sources */,
+				1A8FC2011FD7CB0100F45656 /* TestViewController.m in Sources */,
 				1A6C2C171FC7B3CC002228C7 /* PersonalViewController.m in Sources */,
 				1A6C2C311FC7C7E7002228C7 /* NSFileManager+Extra.m in Sources */,
 				1A9F00921FCBAF37005897B2 /* Desthird.m in Sources */,

@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "ViewController.h"
 #import "OAJobDetailViewController.h"
+#import "TestViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,20 +20,21 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    UIViewController *login;
 //    OAJobDetailViewController *login=[[OAJobDetailViewController alloc]init];
 //    LoginViewController *login=[[LoginViewController alloc]init];
-    ViewController *login=[[ViewController alloc]init];
+    login=[[TestViewController alloc]init];
+//     login=[[ViewController alloc]init];
      self.navi=[[UINavigationController alloc]initWithRootViewController:login];
  
     self.window.rootViewController=self.navi;
-       [self.navi setNavigationBarHidden:true];
+    [self.navi setNavigationBarHidden:true];
     // Override point for customization after application launch.
     return YES;
 }
 + (AppDelegate *) shareAppDeleage{
     
-    return self;
+   return (AppDelegate *)[[UIApplication sharedApplication] delegate];;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #define ITTToobarHeight 40
 @interface ITTPickView ()
-@property (nonatomic,assign) NSDate *defaulDate;//默认时间
+
 @property (nonatomic,strong) UIDatePicker *datePicker;//datePicker控件
 @property (nonatomic,assign) NSInteger pickeviewHeight;//pickerView的高度
 @property (nonatomic,strong) UIToolbar *toolbar;//toolBar控件
@@ -85,7 +85,7 @@
 -(void)doneClick {
     if (self.datePicker) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd";
+        dateFormatter.dateFormat = @"yyyy-MM-dd  hh:mm";
         self.resultString = [dateFormatter stringFromDate:self.datePicker.date];
     }
     if ([self.delegate respondsToSelector:@selector(toobarDonBtnHaveClick:resultString:)]) {
@@ -123,6 +123,11 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+-(void)setDefaulDate:(NSDate *)defaulDate{
+    _defaulDate=defaulDate;
+    [self.datePicker setDate:defaulDate];
+    
 }
 -(void)dealloc{
     NSLog(@"iypick dealloc");

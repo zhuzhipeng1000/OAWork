@@ -13,8 +13,12 @@
 #import "ITTPickView.h"
 
 
-@interface OAJobDetailViewController ()<ITTPickViewDelegate>
-
+@interface OAJobDetailViewController ()<ITTPickViewDelegate,ListSelectViewDelegate>
+{
+    ITTPickView *_datePicker;
+    ListSelectView *_listView;
+    
+}
 @end
 
 @implementation OAJobDetailViewController
@@ -26,7 +30,7 @@
     NSString* jsonS=[NSString stringWithContentsOfURL:[[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] URLByAppendingPathComponent:@"aa.Json"] encoding:NSUTF8StringEncoding error:nil];
     NSLog(@"jsonS%@",jsonS);
     NSDictionary *dic=[jsonS objectFromCTJSONString];
-    self.title=dic[@"result"][@"docName"];
+//    self.title=dic[@"result"][@"docName"];
     NSArray *viewInfoArray=dic[@"result"][@"formData"];
     int topHeight=TOPBARCONTENTHEIGHT;
     
@@ -47,7 +51,7 @@
 //            "k": "1234（userid）",
 //            "v": "王小二"
 //        }
-        UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(20,topHeight, SCREEN_WIDTH-20, 30)];
+        UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(20,topHeight, SCREEN_WIDTH-40, 30)];
         areaView.backgroundColor=[UIColor whiteColor];
         [self.view addSubview:areaView];
         
@@ -59,13 +63,49 @@
        CGSize textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(SCREEN_WIDTH, 30)];
         titleLB.frame=CGRectMake(0,0, textSize.width+10, 30);
         CGRect nextFrame=CGRectMake(titleLB.right, titleLB.top, areaView.width-titleLB.right, titleLB.height);
-        CGRect  spinFrame = CGRectZero;
-        if ([detaiDic[@"type"] isEqualToString:@"spin"]||[detaiDic[@"type"] isEqualToString:@"spinInput"]) {
-//            spinFrame=CGRectMake(SCREEN_WIDTH-20-titleLB.height, titleLB.top, titleLB.height, titleLB.height);
-//            nextFrame=CGRectMake(titleLB.right, titleLB.top, SCREEN_WIDTH-20-titleLB.right-40, titleLB.height);
-            ListSelectView *aList=[[ListSelectView alloc]initWithFrame:nextFrame];
-            [areaView addSubview:aList];
-            aList.titleArray=@[@"全部",@"工程审计",@"跟踪审计",@"专项审计"];
+
+        if ([detaiDic[@"type"] isEqualToString:@"spin"]) {
+            UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
+            lb.font=[UIFont systemFontOfSize:15.0f];
+            lb.text=@"spin";
+            lb.textColor=[UIColor blackColor];
+            lb.tag=102;
+            lb.userInteractionEnabled=true;
+            [areaView addSubview:lb];
+            
+            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
+            im.frame=CGRectMake(lb.width-10, (lb.height-5)/2, 8, 5);
+            [lb addSubview:im];
+            
+            
+            UIButton *bt=[[UIButton alloc]initWithFrame:lb.bounds];
+            [lb addSubview:bt];
+            bt.backgroundColor=[UIColor clearColor];
+            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+//            ListSelectView *aList=[[ListSelectView alloc]];
+//            if ([detaiDic[@"type"] isEqualToString:@"spinInput"]) {
+//                aList.listViewType=ListViewTextField;
+//            }
+//            [areaView addSubview:aList];
+//            aList.titleArray=@[@"全部",@"工程审计",@"跟踪审计",@"专项审计"];
+        }else if ([detaiDic[@"type"] isEqualToString:@"spinInput"]) {
+            UITextField *tf=[[UITextField alloc]initWithFrame:nextFrame];
+            tf.font=[UIFont systemFontOfSize:15.0f];
+            tf.text=@"spinInput";
+            tf.tag=102;
+            tf.userInteractionEnabled=true;
+            [areaView addSubview:tf];
+            
+            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
+            im.frame=CGRectMake(tf.width-10, (tf.height-5)/2, 8, 5);
+            [tf addSubview:im];
+            
+            
+            UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(tf.width-tf.height,0, tf.height, tf.height)];
+            [tf addSubview:bt];
+            bt.backgroundColor=[UIColor clearColor];
+            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+            
         }else if ([detaiDic[@"type"] isEqualToString:@"input"]) {
             UITextField *tf=[[UITextField alloc]init];
             tf.accessibilityHint=detaiDic[@"default"];
@@ -85,7 +125,7 @@
             areaView.frame=CGRectMake(20,topHeight, SCREEN_WIDTH-20, tf.bottom);
             [areaView addSubview:tf];
             
-        }else if ([detaiDic[@"type"] isEqualToString:@"date"]||[detaiDic[@"type"] isEqualToString:@"dateInput"]) {
+        }else if ([detaiDic[@"type"] isEqualToString:@"date"]) {
             UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             NSDate *date = [NSDate date];
@@ -98,6 +138,26 @@
             bt.backgroundColor=[UIColor clearColor];
             [bt addTarget:self action:@selector(dateBtTapped:) forControlEvents:UIControlEventTouchUpInside];
              [areaView addSubview:lb];
+        }else if ([detaiDic[@"type"] isEqualToString:@"dateInput"]) {
+            UITextField *lb=[[UITextField alloc]initWithFrame:nextFrame];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            NSDate *date = [NSDate date];
+            lb.userInteractionEnabled=true;
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            NSString *dateString=[dateFormatter stringFromDate:date];
+            lb.text=dateString;
+            [areaView addSubview:lb];
+            
+            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
+            im.frame=CGRectMake(lb.width-10, (lb.height-5)/2, 8, 5);
+            [lb addSubview:im];
+            
+            
+            UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(lb.width-lb.height,0, lb.height, lb.height)];
+            [lb addSubview:bt];
+            bt.backgroundColor=[UIColor clearColor];
+            [bt addTarget:self action:@selector(dateBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+            
         }else  if ([detaiDic[@"type"] isEqualToString:@"radioButton"]) {
             NSMutableArray* buttons = [NSMutableArray arrayWithCapacity:3];
             CGRect btnRect = CGRectMake(nextFrame.origin.x, nextFrame.origin.x, 100, nextFrame.size.height);
@@ -135,22 +195,58 @@
 }
 -(void) dateBtTapped:(UIButton*)bt{
     
-    ITTPickView *_datePicker = [[ITTPickView alloc] initDatePickWithDate:[NSDate date] datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
+    if (!_datePicker) {
+        _datePicker = [[ITTPickView alloc] initDatePickWithDate:[NSDate date] datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
+    }
+    _datePicker.defaulDate=[NSDate date];
     _datePicker.delegate=self;
     _datePicker.textView=(UILabel*)bt.superview;
     [_datePicker showView];
+    [self textFieldUserEnable:false OfView:self.view];
     
+}
+-(void) listBtTapped:(UIButton*)bt{
+    UIView *aView=bt.superview;
+    if (!_listView) {
+        _listView = [[ListSelectView alloc]initWithSize:CGSizeMake(aView.width,100) OfViewPoint:aView onView:self.view];
+    }else{
+        [_listView showSize:aView.frame.size OfViewPoint:aView onView:self.view];
+    }
+    _listView.titleArray=@[@"全部",@"工程审计",@"跟踪审计",@"专项审计"];
+    _listView.delegate=self;
+    _listView.labelField=(UILabel*)aView;
+    _listView.hidden=false;
+    [self textFieldUserEnable:false OfView:self.view];
+    
+}
+
+-(void)textFieldUserEnable:(BOOL)userEnable OfView:(UIView*)aView{
+    for (UIView  *Aview in aView.subviews) {
+        if ([Aview isKindOfClass:[UITextField class]]||[Aview isKindOfClass:[UITextView class]]) {
+            Aview.userInteractionEnabled=userEnable;
+            
+        }else{
+            [self textFieldUserEnable:userEnable OfView:Aview];
+        }
+    }
 }
 -(void)onRadioButtonValueChanged:(UIButton*)BT{
     
     
 }
+#pragma  mark DataPickDelgate
 -(void)toobarDonBtnHaveClick:(ITTPickView *)pickView resultString:(NSString *)resultString{
     //    dateInterval=datePicker.date.timeIntervalSinceReferenceDate;
     pickView.textView.text=resultString;
-
+     [self textFieldUserEnable:true OfView:self.view];
     
 }
+#pragma mark listViewDelegate
+- (void)ListSelectView:(ListSelectView*)listSelectView didSelecteText:(NSString*)text andIndex:(NSInteger)index{
+    
+    listSelectView.hidden=YES;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
