@@ -13,10 +13,11 @@
 #import "ITTPickView.h"
 
 
-@interface OAJobDetailViewController ()<ITTPickViewDelegate,ListSelectViewDelegate>
+@interface OAJobDetailViewController ()<ITTPickViewDelegate,ListSelectViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     ITTPickView *_datePicker;
     ListSelectView *_listView;
+    UITableView *_aaaatableView;
     
 }
 @end
@@ -26,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    self.view.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
     NSString* jsonS=[NSString stringWithContentsOfURL:[[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] URLByAppendingPathComponent:@"aa.Json"] encoding:NSUTF8StringEncoding error:nil];
     NSLog(@"jsonS%@",jsonS);
     NSDictionary *dic=[jsonS objectFromCTJSONString];
@@ -51,7 +52,8 @@
 //            "k": "1234（userid）",
 //            "v": "王小二"
 //        }
-        UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(20,topHeight, SCREEN_WIDTH-40, 30)];
+        UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 30)];
+
         areaView.backgroundColor=[UIColor whiteColor];
         [self.view addSubview:areaView];
         
@@ -60,16 +62,32 @@
         titleLB.font=[UIFont systemFontOfSize:14.0F];
         titleLB.textColor=[UIColor blackColor];
         [areaView addSubview:titleLB];
-       CGSize textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(SCREEN_WIDTH, 30)];
-        titleLB.frame=CGRectMake(0,0, textSize.width+10, 30);
-        CGRect nextFrame=CGRectMake(titleLB.right, titleLB.top, areaView.width-titleLB.right, titleLB.height);
-
-        if ([detaiDic[@"type"] isEqualToString:@"spin"]) {
+        CGSize textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(areaView.width, 30)];
+        
+        titleLB.frame=CGRectMake(20,0, textSize.width+10, 30);
+        CGRect nextFrame=CGRectMake(titleLB.right, titleLB.top, areaView.width-titleLB.right-20, titleLB.height);
+        
+        if ([detaiDic[@"type"] isEqualToString:@"area"]) {
+            titleLB.backgroundColor=[UIColor clearColor];
+            titleLB.numberOfLines=0;
+            titleLB.font=[UIFont systemFontOfSize:18.0f];
+            titleLB.lineBreakMode=NSLineBreakByWordWrapping;
+            areaView.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
+            textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(SCREEN_WIDTH-40, 30)];
+            if ([detaiDic[@"name"] isEqualToString:@""]||[detaiDic[@"name"] isKindOfClass:[NSNull class]]) {
+                textSize.height=20;
+            }else{
+                textSize.height += textSize.height+10;
+                titleLB.frame=CGRectMake(20,0,SCREEN_WIDTH-40,textSize.height);
+            }
+            areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, textSize.height);
+           
+        }else if ([detaiDic[@"type"] isEqualToString:@"spin"]) {
             UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
-            lb.font=[UIFont systemFontOfSize:15.0f];
             lb.text=@"spin";
             lb.textColor=[UIColor blackColor];
             lb.tag=102;
+            lb.font=[UIFont systemFontOfSize:14.0f];
             lb.userInteractionEnabled=true;
             [areaView addSubview:lb];
             
@@ -93,6 +111,7 @@
             tf.font=[UIFont systemFontOfSize:15.0f];
             tf.text=@"spinInput";
             tf.tag=102;
+            tf.font=[UIFont systemFontOfSize:14.0f];
             tf.userInteractionEnabled=true;
             [areaView addSubview:tf];
             
@@ -110,6 +129,7 @@
             UITextField *tf=[[UITextField alloc]init];
             tf.accessibilityHint=detaiDic[@"default"];
             tf.textColor=[UIColor blackColor];
+            tf.font=[UIFont systemFontOfSize:14.0f];
             tf.frame=nextFrame;
             [areaView addSubview:tf];
             
@@ -119,16 +139,18 @@
             if ([[detaiDic allKeys] containsObject:@"lines"]) {
                 line=[detaiDic[@"lines"] intValue];
             }
+            tf.font=[UIFont systemFontOfSize:14.0f];
             tf.accessibilityHint=detaiDic[@"default"][@"v"];
             tf.textColor=[UIColor blackColor];
             tf.frame=CGRectMake(nextFrame.origin.x, nextFrame.origin.y, nextFrame.size.width, nextFrame.size.height+25*(line-1));
-            areaView.frame=CGRectMake(20,topHeight, SCREEN_WIDTH-20, tf.bottom);
+            areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, tf.bottom);
             [areaView addSubview:tf];
             
         }else if ([detaiDic[@"type"] isEqualToString:@"date"]) {
             UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             NSDate *date = [NSDate date];
+            lb.font=[UIFont systemFontOfSize:14.0f];
             lb.userInteractionEnabled=true;
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             NSString *dateString=[dateFormatter stringFromDate:date];
@@ -142,6 +164,7 @@
             UITextField *lb=[[UITextField alloc]initWithFrame:nextFrame];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             NSDate *date = [NSDate date];
+            lb.font=[UIFont systemFontOfSize:14.0f];
             lb.userInteractionEnabled=true;
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             NSString *dateString=[dateFormatter stringFromDate:date];
@@ -171,7 +194,7 @@
                 }
                 [btn setTitle:optionTitle forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-                btn.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+                btn.titleLabel.font = [UIFont systemFontOfSize:14];
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateSelected];
                 btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -186,11 +209,17 @@
             
             [buttons[0] setSelected:YES];
         }else if ([detaiDic[@"type"] isEqualToString:@"attach"]){
+            
 
         }
+        UIView *bottomLineView=[[UIView alloc]init];
+        bottomLineView.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        [areaView addSubview:bottomLineView];
         topHeight=areaView.bottom+1;
        
     }
+
+    
     // Do any additional setup after loading the view from its nib.
 }
 -(void) dateBtTapped:(UIButton*)bt{
@@ -207,16 +236,15 @@
 }
 -(void) listBtTapped:(UIButton*)bt{
     UIView *aView=bt.superview;
-    if (!_listView) {
-        _listView = [[ListSelectView alloc]initWithSize:CGSizeMake(aView.width,100) OfViewPoint:aView onView:self.view];
-    }else{
-        [_listView showSize:aView.frame.size OfViewPoint:aView onView:self.view];
-    }
-    _listView.titleArray=@[@"全部",@"工程审计",@"跟踪审计",@"专项审计"];
-    _listView.delegate=self;
-    _listView.labelField=(UILabel*)aView;
-    _listView.hidden=false;
-    [self textFieldUserEnable:false OfView:self.view];
+    CGPoint convertpoint=[aView convertPoint:CGPointZero toView:self.view ];
+     CGRect frame=CGRectMake(convertpoint.x, convertpoint.y+aView.height,aView.width,100);
+    _aaaatableView=[[UITableView alloc]initWithFrame:frame];
+    _aaaatableView.dataSource=self;
+    _aaaatableView.delegate=self;
+    _aaaatableView.backgroundColor=[UIColor whiteColor];
+    _aaaatableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:_aaaatableView];
+ 
     
 }
 
@@ -252,7 +280,46 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+     NSArray* _titleArray=@[@"全部",@"工程审计",@"跟踪审计",@"专项审计"];
+    return _titleArray.count;
+}
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 30;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        UILabel *aLabel=[[UILabel alloc]initWithFrame:CGRectMake(5, 0, 70, 28)];
+        aLabel.textAlignment=NSTextAlignmentLeft;
+        aLabel.tag=10000;
+        aLabel.textColor=[UIColor blackColor];
+        [cell.contentView addSubview:aLabel];
+        aLabel.font = [UIFont systemFontOfSize:15.0];
+        
+        UIView *lineView=[[UIView alloc]initWithFrame:CGRectMake(0,29, 85, 1)];
+        lineView.backgroundColor=[UIColor lightGrayColor];
+        [cell.contentView addSubview:lineView];
+    }
+    UILabel *aLabel=[cell viewWithTag:10000];
+    NSArray* _titleArray=@[@"全部",@"工程审计",@"跟踪审计",@"专项审计"];
+    aLabel.text = [_titleArray objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selected = NO;
+    
+    
+    [tableView removeFromSuperview];
+}
 /*
 #pragma mark - Navigation
 

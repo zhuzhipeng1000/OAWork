@@ -41,9 +41,17 @@
              UIViewController  *a= [self viewControllerOfView:aView];
             aSupperView=a.view;
         }
+        if (_tableView) {
+            _tableView=[[UITableView alloc]initWithFrame:CGRectZero];
+            _tableView.delegate=self;
+            _tableView.dataSource=self;
+            [self addSubview:_tableView];
+            _tableView.hidden=false;
+        }
         CGPoint convertpoint=[aView convertPoint:CGPointZero toView:aSupperView ];
-        self.frame=CGRectMake(convertpoint.x, convertpoint.y,size.width, size.height);
+        self.frame=CGRectMake(convertpoint.x, convertpoint.y+aView.height,size.width, size.height);
         [aSupperView addSubview:self];
+        
 //        label=[[UILabel alloc]initWithFrame:CGRectMake(5, 0,frame.size.width-10 , frame.size.height)];
 ////        label.adjustsFontSizeToFitWidth=YES;
 //        label.font=[UIFont systemFontOfSize:15.0f];
@@ -95,7 +103,8 @@
         _tableView=[[UITableView alloc]initWithFrame:self.bounds];
         _tableView.dataSource=self;
         _tableView.delegate=self;
-        _tableView.hidden=YES;
+        _tableView.hidden=false;
+        _tableView.backgroundColor=[UIColor redColor];
         _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         [self addSubview:_tableView];
     }
@@ -123,6 +132,7 @@
         UILabel *aLabel=[[UILabel alloc]initWithFrame:CGRectMake(5, 0, 70, 28)];
         aLabel.textAlignment=NSTextAlignmentLeft;
         aLabel.tag=10000;
+        aLabel.textColor=[UIColor blackColor];
         [cell.contentView addSubview:aLabel];
         aLabel.font = [UIFont systemFontOfSize:15.0];
         
@@ -145,7 +155,7 @@
         [self.delegate ListSelectView:self didSelecteText:_labelField.text andIndex:indexPath.row];
     }
     
-    [self hiddenTableView];
+//    [self hiddenTableView];
 }
 #pragma mark  BtAction
 
@@ -166,7 +176,7 @@
         [self.superview bringSubviewToFront:self];
     }
     [self bringSubviewToFront:_tableView];
-    _tableView.hidden=!_tableView.isHidden;
+//    _tableView.hidden=!_tableView.isHidden;
 //    [UIView animateWithDuration:0.2 animations:^{
 //        if (_tableView.hidden) {
 //            iam.transform = CGAffineTransformMakeRotation(M_PI*3/2);
@@ -178,7 +188,7 @@
 }
 -(void)hiddenTableView{
     [UIView animateWithDuration:0.2 animations:^{
-        _tableView.hidden=YES;
+//        _tableView.hidden=YES;
 //        iam.transform = CGAffineTransformMakeRotation(M_PI*3/2);
     } completion:nil];
 }
@@ -186,6 +196,12 @@
     
     [super layoutSubviews];
     
+    if (!_tableView.superview) {
+        _tableView.frame=self.bounds;
+        [self addSubview:_tableView];
+    }
+    _tableView.hidden=false;
+    _tableView.frame=self.bounds;
 //    if ([_titleArray isKindOfClass:[NSArray class]]&&_titleArray.count>0) {
 //        _labelField.text=_titleArray[0];
 //    }

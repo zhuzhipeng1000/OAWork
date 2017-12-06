@@ -21,15 +21,14 @@
     self.navigationController.title=@"个人办公";
     self.title=@"个人办公";
     [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
-    
+
  
-    
- 
-    self.view.backgroundColor=[UIColor lightGrayColor];
+    self.view.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
     UIView *topView=[[UIView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_WIDTH/3)];
-    topView.backgroundColor=[UIColor blueColor];
+    topView.backgroundColor=[Utils colorWithHexString:@"#008fef"];
     [self.view addSubview:topView];
       int width=SCREEN_WIDTH/3;
+    int  imageWith=35;
     NSArray *anArray=@[@{@"title":@"新建公文",@"normalImage":@"home_newoa",@"highLightedImage":@"home_newoa"},@{@"title":@"公文查询",@"normalImage":@"home_newSearch",@"highLightedImage":@"home_newSearch"},@{@"title":@"通讯录",@"normalImage":@"home_contact",@"highLightedImage":@"home_contact"}];
     
     for (int d=0; d<anArray.count; d++) {
@@ -37,19 +36,24 @@
         UIView *smallBack=[[UIView alloc]initWithFrame:CGRectMake((d%3)*width, (d/3)*width, width, width)];
         [topView addSubview:smallBack];
         
-        UIView *centralView=[[UIView alloc]initWithFrame:CGRectMake((width-100)/2, (width-90)/2, 100, 90)];
+        UIView *centralView=[[UIView alloc]initWithFrame:CGRectZero];
         centralView.backgroundColor=[UIColor clearColor];
         [smallBack addSubview:centralView];
         
         UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:detailDic[@"normalImage"]]];
         [centralView addSubview:im];
-        im.frame=CGRectMake(25, 0, 50, 50);
+        im.frame=CGRectMake((width-imageWith)/2, 0, imageWith, imageWith);
         
-        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, im.bottom, 100, 40)];
+        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(1, im.bottom, width-2, 40)];
         label.textAlignment=NSTextAlignmentCenter;
         label.textColor=[UIColor whiteColor];
+        label.font=[UIFont systemFontOfSize:14.0];
         label.text=detailDic[@"title"];
         [centralView addSubview:label];
+        
+        centralView.frame=CGRectMake(label.left, im.top, label.width, label.bottom);
+        
+        centralView.center=CGPointMake(smallBack.width/2, smallBack.height/2);
         
         UIButton *bt=[[UIButton alloc]initWithFrame:smallBack.bounds];
         bt.backgroundColor=[UIColor clearColor];
@@ -77,11 +81,14 @@
         
         UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:detailDic[@"normalImage"]]];
         [centralView addSubview:im];
-        im.frame=CGRectMake(25, 0, 50, 50);
+         im.frame=CGRectMake((width-imageWith)/2, 0, imageWith, imageWith);
         
-        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, im.bottom, 100, 40)];
+        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, im.bottom, width, 40)];
         label.textAlignment=NSTextAlignmentCenter;
-        NSMutableAttributedString * firstPart = [[NSMutableAttributedString alloc] initWithString:[NSString    stringWithFormat:@"%@:",detailDic[@"title"]]];
+        NSMutableAttributedString * firstPart = [[NSMutableAttributedString alloc] initWithString:[NSString    stringWithFormat:@"%@",detailDic[@"title"]]];
+        centralView.frame=CGRectMake(label.left, im.top, label.width, label.bottom);
+        
+        centralView.center=CGPointMake(smallBack.width/2, smallBack.height/2);
         
         NSDictionary * firstAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor blackColor],};
         [firstPart setAttributes:firstAttributes range:NSMakeRange(0,firstPart.length)];
@@ -93,13 +100,13 @@
         [centralView addSubview:label];
         
         UIView *topStrait=[[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 1)];
-        topStrait.backgroundColor=[UIColor lightGrayColor];
+        topStrait.backgroundColor=[Utils  colorWithHexString:@"#e4e4e4"];
         [smallBack addSubview:topStrait];
         UIView *lineleft=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, width)];
-         lineleft.backgroundColor=[UIColor lightGrayColor];
+         lineleft.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
          [smallBack addSubview:lineleft];
         UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,width, width, 1)];
-         bottomStrait.backgroundColor=[UIColor lightGrayColor];
+         bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
         if (d%3==0) {  
             [lineleft removeFromSuperview];
         }
