@@ -1,70 +1,31 @@
 //
-//  DataCenterViewController.m
+//  DataCenterSecondViewController.m
 //  OAWork
 //
-//  Created by james on 2017/11/24.
+//  Created by james on 2017/12/7.
 //  Copyright © 2017年 james. All rights reserved.
 //
 
-#import "DataCenterViewController.h"
 #import "DataCenterSecondViewController.h"
-#import "DCListViewController.h"
+#import "DClistFolderViewController.h"
 
-@interface DataCenterViewController ()
+@interface DataCenterSecondViewController ()
 {
-    NSMutableArray* _allArray;
+    NSMutableArray *_allArray;
 }
 @end
 
-@implementation DataCenterViewController
+@implementation DataCenterSecondViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"电子资料库";
-        [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
-    self.view.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
-    UIView *topView=[[UIView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_WIDTH/3)];
-    topView.backgroundColor=[Utils colorWithHexString:@"#008fef"];
-    [self.view addSubview:topView];
-    int width=SCREEN_WIDTH/3;
-    int  imageWith=35;
-    NSArray *anArray=@[@{@"title":@"电子资料管理 >",@"normalImage":@"home_newoa",@"highLightedImage":@"home_newoa"}];
-    
-    for (int d=0; d<anArray.count; d++) {
-        NSDictionary *detailDic=anArray[d];
-        UIView *smallBack=[[UIView alloc]initWithFrame:CGRectMake(0,0,SCREEN_WIDTH, width)];
-        [topView addSubview:smallBack];
-        
-        UIView *centralView=[[UIView alloc]initWithFrame:CGRectZero];
-        centralView.backgroundColor=[UIColor clearColor];
-        [smallBack addSubview:centralView];
-        
-        UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:detailDic[@"normalImage"]]];
-        [centralView addSubview:im];
-        im.frame=CGRectMake((width-imageWith)/2, 0, imageWith, imageWith);
-        
-        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(1, im.bottom, width-2, 40)];
-        label.textAlignment=NSTextAlignmentCenter;
-        label.textColor=[UIColor whiteColor];
-        label.font=[UIFont systemFontOfSize:14.0];
-        label.text=detailDic[@"title"];
-        [centralView addSubview:label];
-        
-        centralView.frame=CGRectMake(label.left, im.top, label.width, label.bottom);
-        
-        centralView.center=CGPointMake(smallBack.width/2, smallBack.height/2);
-        
-        UIButton *bt=[[UIButton alloc]initWithFrame:smallBack.bounds];
-        bt.backgroundColor=[UIColor clearColor];
-        [bt addTarget:self action:@selector(bttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        bt.tag=100+d;
-        [smallBack addSubview:bt];
-    }
-    
+    // Do any additional setup after loading the view from its nib.
     _allArray = [@[@{@"title":@"我的订阅",@"normalImage":@"home_waitingOA",@"highLightedImage":@"home_waitingOA"},@{@"title":@"我的收藏",@"normalImage":@"home_waitingRead",@"highLightedImage":@"home_waitingRead"},@{@"title":@"我的推荐",@"normalImage":@"home_liuzhuan",@"highLightedImage":@"home_liuzhuan"}] mutableCopy];
     
-    UIView *aView=[[UIView alloc]initWithFrame:CGRectMake(0,topView.bottom+10 , SCREEN_WIDTH, SCREEN_WIDTH)];
+    UIView *aView=[[UIView alloc]initWithFrame:CGRectMake(0,TOPBARCONTENTHEIGHT , SCREEN_WIDTH, SCREEN_WIDTH)];
     [self.view addSubview:aView];
+    int width=SCREEN_WIDTH/3;
+    int  imageWith=35;
     for (int d=0 ;d<_allArray.count; d++) {
         NSDictionary *detailDic=_allArray[d];
         
@@ -135,10 +96,49 @@
     }
     
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden=true;
+#pragma mark UITableViewDelegate
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIViewController *avc;
+    if (indexPath.row==0) {
+        
+    }else if (indexPath.row==1) {
+        
+    }else if (indexPath.row==2) {
+        avc=[[NewIndexOaViewController alloc]initWithNibName:@"NewIndexOaViewController" bundle:nil];
+    }else if (indexPath.row==3) {
+        
+    }else if (indexPath.row==4) {
+        
+    }else if (indexPath.row==5) {
+        
+    }else if (indexPath.row==6) {
+        
+    }
+    if (avc) {
+        [self.navigationController pushViewController:avc animated:YES];
+    }
+    
 }
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static  NSString  *CellIdentiferId = @"OaMainCellTableViewCell";
+    OaMainCellTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+    if (cell == nil) {
+        cell=[[OaMainCellTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentiferId];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    };
+    cell.titleLB.text=_allArray[indexPath.row];
+    cell.imageView.image=[UIImage imageNamed:@"wifi"];
+    return  cell;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _allArray.count;
+    
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

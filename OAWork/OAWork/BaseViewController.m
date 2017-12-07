@@ -26,7 +26,6 @@
  
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    
     lineView=[[UIView alloc]initWithFrame:CGRectMake(0,1, SCREEN_WIDTH, 1)];
     lineView.backgroundColor=[Utils colorWithHexString:@"#d7d7d7"];
     [self.view addSubview:lineView];
@@ -78,7 +77,7 @@
         naviTitle.backgroundColor=[UIColor clearColor];
         naviTitle.textAlignment=NSTextAlignmentCenter;
         //[naviTitle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17.0f]];
-        [naviTitle setFont:[UIFont systemFontOfSize:17.0F]];
+        [naviTitle setFont:[UIFont systemFontOfSize:18.0F]];
         naviTitle.textColor=[UIColor blackColor];
         [naviTitle setText:self.title];
         [bar addSubview:naviTitle];
