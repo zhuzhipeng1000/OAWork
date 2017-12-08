@@ -11,6 +11,7 @@
 @interface OaMainCellTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLB;
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
-@property (weak, nonatomic) IBOutlet UILabel *detailLb;
+@property (weak, nonatomic) IBOutlet UIButton *accessButton;
+@property (nonatomic,assign) BOOL isEdit;
 
 @end

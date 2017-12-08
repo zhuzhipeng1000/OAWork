@@ -81,6 +81,8 @@
 		1A9F00A71FCBE632005897B2 /* OaMainCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00A51FCBE632005897B2 /* OaMainCellTableViewCell.m */; };
 		1A9F00A81FCBE632005897B2 /* OaMainCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F00A61FCBE632005897B2 /* OaMainCellTableViewCell.xib */; };
 		1A9F00AB1FCBE8E5005897B2 /* wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F00AA1FCBE8E4005897B2 /* wifi.png */; };
+		1AC5C1DC1FDA39A300DE34F5 /* DCListCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC5C1DB1FDA39A300DE34F5 /* DCListCellTableViewCell.m */; };
+		1AC5C1DF1FDA7CB700DE34F5 /* DCFolderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC5C1DE1FDA7CB700DE34F5 /* DCFolderTableViewCell.m */; };
 		3A47F6C81FD4483E00EF8BD4 /* checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C41FD4483D00EF8BD4 /* checked@2x.png */; };
 		3A47F6C91FD4483E00EF8BD4 /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C51FD4483D00EF8BD4 /* unchecked@2x.png */; };
 		3A47F6CA1FD4483E00EF8BD4 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C61FD4483D00EF8BD4 /* checked.png */; };
@@ -235,6 +237,10 @@
 		1A9F00A51FCBE632005897B2 /* OaMainCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OaMainCellTableViewCell.m; sourceTree = "<group>"; };
 		1A9F00A61FCBE632005897B2 /* OaMainCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OaMainCellTableViewCell.xib; sourceTree = "<group>"; };
 		1A9F00AA1FCBE8E4005897B2 /* wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi.png; sourceTree = "<group>"; };
+		1AC5C1DA1FDA39A300DE34F5 /* DCListCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCListCellTableViewCell.h; sourceTree = "<group>"; };
+		1AC5C1DB1FDA39A300DE34F5 /* DCListCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCListCellTableViewCell.m; sourceTree = "<group>"; };
+		1AC5C1DD1FDA7CB700DE34F5 /* DCFolderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCFolderTableViewCell.h; sourceTree = "<group>"; };
+		1AC5C1DE1FDA7CB700DE34F5 /* DCFolderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCFolderTableViewCell.m; sourceTree = "<group>"; };
 		39B254463B632888503F40E0 /* Pods-OAWork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OAWork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OAWork/Pods-OAWork.debug.xcconfig"; sourceTree = "<group>"; };
 		3A47F6C41FD4483D00EF8BD4 /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked@2x.png"; sourceTree = "<group>"; };
 		3A47F6C51FD4483D00EF8BD4 /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
@@ -372,6 +378,10 @@
 				1A25B1C11FD910DA000B99B0 /* DataCenterSecondViewController.xib */,
 				1A25B1C41FD91114000B99B0 /* DCListViewController.h */,
 				1A25B1C51FD91114000B99B0 /* DCListViewController.m */,
+				1AC5C1DD1FDA7CB700DE34F5 /* DCFolderTableViewCell.h */,
+				1AC5C1DE1FDA7CB700DE34F5 /* DCFolderTableViewCell.m */,
+				1AC5C1DA1FDA39A300DE34F5 /* DCListCellTableViewCell.h */,
+				1AC5C1DB1FDA39A300DE34F5 /* DCListCellTableViewCell.m */,
 				1A25B1C71FD91133000B99B0 /* DClistFolderViewController.h */,
 				1A25B1C81FD91133000B99B0 /* DClistFolderViewController.m */,
 			);
@@ -820,6 +830,7 @@
 				1A6C2C251FC7C77C002228C7 /* User.m in Sources */,
 				1A25B1C21FD910DA000B99B0 /* DataCenterSecondViewController.m in Sources */,
 				1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */,
+				1AC5C1DC1FDA39A300DE34F5 /* DCListCellTableViewCell.m in Sources */,
 				1A6C2C211FC7C70C002228C7 /* CTJSONKit.m in Sources */,
 				1A9F00991FCBB041005897B2 /* GTMBase64.m in Sources */,
 				1A6C2C391FC7C963002228C7 /* ITTPickView.m in Sources */,
@@ -829,6 +840,7 @@
 				1A8FC2011FD7CB0100F45656 /* TestViewController.m in Sources */,
 				1A6C2C171FC7B3CC002228C7 /* PersonalViewController.m in Sources */,
 				1A6C2C311FC7C7E7002228C7 /* NSFileManager+Extra.m in Sources */,
+				1AC5C1DF1FDA7CB700DE34F5 /* DCFolderTableViewCell.m in Sources */,
 				1A9F00921FCBAF37005897B2 /* Desthird.m in Sources */,
 				1A636A251FD0EF950016A58C /* CTTabBarView.m in Sources */,
 				1A6C2C0D1FC7B396002228C7 /* CommonInfoViewController.m in Sources */,

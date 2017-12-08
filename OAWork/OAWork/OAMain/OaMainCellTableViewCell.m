@@ -14,6 +14,18 @@
     [super awakeFromNib];
     // Initialization code
 }
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [_accessButton addTarget:self action:@selector(accessButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return self;
+}
+- (void)accessButtonTapped:(UIButton*)bt{
+    
+    
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

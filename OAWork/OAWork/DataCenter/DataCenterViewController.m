@@ -129,7 +129,7 @@
         [self.navigationController pushViewController:DCSctrl animated:YES];
     }else {
         DCListViewController *DCSctrl=[[DCListViewController alloc]init];
-        DCSctrl.DCListType=bt.tag-200;
+        DCSctrl.type=bt.tag-200+1;
         [self.navigationController pushViewController:DCSctrl animated:YES];
         
     }

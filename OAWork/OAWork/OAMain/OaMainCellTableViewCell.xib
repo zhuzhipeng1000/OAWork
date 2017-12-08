@@ -21,16 +21,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Nj-Jn-fvQ">
-                        <rect key="frame" x="57" y="0.0" width="180" height="44"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 &gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bsp-QJ-l4r">
-                        <rect key="frame" x="267" y="13" width="40" height="17.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="I64-DK-K6y"/>
-                        </constraints>
+                        <rect key="frame" x="57" y="0.0" width="227" height="44"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -41,26 +32,44 @@
                             <constraint firstAttribute="width" secondItem="QhT-1y-t4t" secondAttribute="height" multiplier="1:1" id="rDV-jO-cNL"/>
                         </constraints>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_down.png" highlightedImage="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="cJB-2q-peP">
+                        <rect key="frame" x="289" y="18" width="20" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="msC-BJ-scK"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WyW-Fe-d4T">
+                        <rect key="frame" x="258" y="2" width="60" height="39.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="Csb-Ir-8lr"/>
+                        </constraints>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Bsp-QJ-l4r" firstAttribute="leading" secondItem="4Nj-Jn-fvQ" secondAttribute="trailing" constant="30" id="2KA-TT-ETM"/>
-                    <constraint firstItem="Bsp-QJ-l4r" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="613-Q4-LTQ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="cJB-2q-peP" secondAttribute="trailing" constant="3" id="0oV-tS-It9"/>
                     <constraint firstItem="4Nj-Jn-fvQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8uW-ln-YGT"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Bsp-QJ-l4r" secondAttribute="bottom" constant="5" id="Aj8-XM-ogR"/>
                     <constraint firstItem="QhT-1y-t4t" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="Bnd-Nv-HeW"/>
+                    <constraint firstItem="WyW-Fe-d4T" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="QV0-Ej-zGS"/>
                     <constraint firstAttribute="bottom" secondItem="QhT-1y-t4t" secondAttribute="bottom" constant="2" id="RYC-wf-OqK"/>
+                    <constraint firstItem="cJB-2q-peP" firstAttribute="leading" secondItem="4Nj-Jn-fvQ" secondAttribute="trailing" constant="5" id="S6H-Xb-zEI"/>
+                    <constraint firstAttribute="bottom" secondItem="WyW-Fe-d4T" secondAttribute="bottom" constant="2" id="TTy-7y-M4S"/>
+                    <constraint firstAttribute="trailing" secondItem="WyW-Fe-d4T" secondAttribute="trailing" constant="2" id="Uny-Ny-zRD"/>
                     <constraint firstAttribute="bottom" secondItem="4Nj-Jn-fvQ" secondAttribute="bottom" id="Vds-hx-br1"/>
                     <constraint firstItem="QhT-1y-t4t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="W0k-rj-DVj"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="cJB-2q-peP" secondAttribute="bottom" constant="3.5" id="fBM-Q5-vgc"/>
                     <constraint firstItem="4Nj-Jn-fvQ" firstAttribute="leading" secondItem="QhT-1y-t4t" secondAttribute="trailing" constant="12.5" id="j2f-zV-x2Z"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Bsp-QJ-l4r" secondAttribute="trailing" constant="5" id="o0V-Ad-Pv9"/>
+                    <constraint firstItem="cJB-2q-peP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="lC3-Xt-iYi"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
-                <outlet property="detailLb" destination="Bsp-QJ-l4r" id="VJG-34-mbG"/>
+                <outlet property="accessButton" destination="WyW-Fe-d4T" id="jhp-4h-eBw"/>
                 <outlet property="headImage" destination="QhT-1y-t4t" id="7im-gq-lxE"/>
                 <outlet property="titleLB" destination="4Nj-Jn-fvQ" id="6FH-Bm-hWh"/>
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="arrow_down.png" width="17" height="10"/>
+    </resources>
 </document>

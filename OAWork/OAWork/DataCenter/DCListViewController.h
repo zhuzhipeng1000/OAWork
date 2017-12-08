@@ -8,10 +8,11 @@
 
 #import "BaseViewController.h"
 typedef NS_ENUM(NSInteger, DCListType) {
-    DCListOrder =0,
+    DCListOrder =1,
     DCListSave ,
     DCListRecommend,
 };
 @interface DCListViewController : BaseViewController
 @property (nonatomic,assign) DCListType type;
+@property (nonatomic,strong) NSString *currentIndexString;
 @end

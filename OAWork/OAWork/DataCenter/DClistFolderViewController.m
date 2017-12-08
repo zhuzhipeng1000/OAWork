@@ -7,9 +7,11 @@
 //
 
 #import "DClistFolderViewController.h"
+#import "OaMainCellTableViewCell.h"
 
 @interface DClistFolderViewController ()
-
+@property (nonatomic,strong) UITableView *demoTableView;
+@property (nonatomic,strong) NSMutableArray* allArray;
 @end
 
 @implementation DClistFolderViewController
@@ -21,21 +23,7 @@
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *avc;
-    if (indexPath.row==0) {
-        
-    }else if (indexPath.row==1) {
-        
-    }else if (indexPath.row==2) {
-        avc=[[NewIndexOaViewController alloc]initWithNibName:@"NewIndexOaViewController" bundle:nil];
-    }else if (indexPath.row==3) {
-        
-    }else if (indexPath.row==4) {
-        
-    }else if (indexPath.row==5) {
-        
-    }else if (indexPath.row==6) {
-        
-    }
+    
     if (avc) {
         [self.navigationController pushViewController:avc animated:YES];
     }
