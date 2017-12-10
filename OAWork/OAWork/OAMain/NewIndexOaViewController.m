@@ -18,22 +18,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *aa=@[@{@"type":@"公文类",@"detail":@[@"发文处理类"],@"事务":@[@"发文处理类的大食"]},@{@"type":@"事务",@"detail":@[@"发文处理",@"发文处理类的大食物的",@"发的文",@"发文处理类的大食物的味道",@"发文处理类的大食物的味道"]}];
+    UIScrollView *sc=[[UIScrollView alloc]initWithFrame:self.view.bounds];
+    sc.showsVerticalScrollIndicator=false;
+    sc.scrollEnabled=true;
+    sc.backgroundColor=[UIColor whiteColor];
+    [self.view addSubview:sc];
+    NSArray *aa=@[@{@"type":@"公文类",@"image":@"gongwenlei",@"detail":@[@"发文处理类",@"事务类",@"发文处理类的大食"]},@{@"type":@"事务类",@"image":@"shiwulei",@"detail":@[@"发文处理类"]},@{@"type":@"事务类",@"image":@"shiwulei",@"detail":@[@"发文处理",@"发文处理类的大食物的",@"发的文",@"发文处理类的大食物的味道",@"发文处理类的大食物的味道"]},@{@"type":@"会议类",@"image":@"huiyilei",@"detail":@[@"周程月报类"]},@{@"type":@"周程月报类",@"image":@"zhouchenglei",@"detail":@[@"发文处理类"]},@{@"type":@"中心服务类",@"image":@"zhongxinlei",@"detail":@[@"发文处理类"]},@{@"type":@"工会事务",@"image":@"gonghuilei",@"detail":@[@"发文处理类"]},@{@"type":@"系统服务类",@"image":@"xitonglei",@"detail":@[@"发文处理类"]}];
     int  startY=70;
   
     for (int d=0; d<aa.count; d++) {
         UIView *BigView=[[UIView alloc] init];
+        BigView.backgroundColor=[UIColor whiteColor];
         NSDictionary *dic=aa[d];
         NSString *type=dic[@"type"];
         NSArray *details=dic[@"detail"];
 //        long lineCount=(details.count%3)?(details.count)/3+1:(details.count)/3;
       
-        [self.view addSubview:BigView];
-       
+        [sc addSubview:BigView];
+        UIImageView *im=[[UIImageView alloc]initWithFrame:CGRectMake(10, (30-23)/2, 23, 23)];
+        im.image=[UIImage imageNamed:dic[@"image"]];
+        [BigView addSubview:im];
       
         UILabel *titleLabe=[[UILabel alloc]initWithFrame:CGRectMake(40, 0, SCREEN_WIDTH, 30)];
         titleLabe.textColor=[UIColor blackColor];
         titleLabe.text=type;
+        titleLabe.font=[UIFont systemFontOfSize:16.0f];
         [BigView addSubview:titleLabe];
         int   smallStartY=40;
        int  startX=20;
@@ -70,6 +79,7 @@
              
                 BigView.frame=CGRectMake(0, startY, SCREEN_WIDTH,detailBt.bottom+10);
                    startY= startY+ detailBt.bottom+10;
+                sc.contentSize=CGSizeMake(SCREEN_WIDTH, BigView.bottom);
             }
         }
         

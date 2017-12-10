@@ -237,8 +237,8 @@
     }
     else
     {
-        _background.frame = CGRectMake(0, screenHeight -constrainedSize.height, constrainedSize.width, constrainedSize.height);
-//        _contentView.frame = CGRectMake(0, screenHeight - constrainedSize.height, constrainedSize.width, constrainedSize.height);
+        _background.frame = CGRectMake((screenWidth- constrainedSize.width)/2,150,constrainedSize.width, constrainedSize.height);
+//       _contentView.frame = CGRectMake(0, screenHeight - constrainedSize.height, constrainedSize.width, constrainedSize.height);
     }
 }
 

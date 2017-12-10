@@ -108,7 +108,7 @@
     first.isSelected=YES;
     first.titleStr=@"首页";
     first.normalImgName=@"tab_1_1";
-    first.selectedImgName=@"tab_1_1";
+    first.selectedImgName=@"tab1xuanzhe";
     first.uri=@"information/pages/module_homepage/index.html";
     first.controllerName=@"OAMainViewController";
 
@@ -120,7 +120,7 @@
     second.isSelected=NO;
     second.titleStr=@"信息";
     second.normalImgName=@"tab_2";
-    second.selectedImgName=@"tab_2";
+    second.selectedImgName=@"tab_2-1";
     second.uri=@"https://www.baidu.com";
     second.controllerName=@"CommonInfoViewController";
     
@@ -130,7 +130,7 @@
     third.isSelected=NO;
     third.titleStr=@"资料库";
     third.normalImgName=@"tab_3";
-    third.selectedImgName=@"tab_3";
+    third.selectedImgName=@"tab_3-1";
     third.uri=@"followup/pages/module_myCustomerBf/index.html";
     third.controllerName=@"DataCenterViewController";
     
@@ -141,7 +141,7 @@
     myModuleEntity.isSelected=NO;
     myModuleEntity.titleStr=@"个人";
     myModuleEntity.normalImgName=@"tab_4";
-    myModuleEntity.selectedImgName=@"tab_4";
+    myModuleEntity.selectedImgName=@"tab_4-1";
     myModuleEntity.controllerName=@"PersonalViewController";
     myModuleEntity.uri = @"myaccount/pages/module_myAccount_bupmBf/index.html";
     

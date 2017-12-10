@@ -92,7 +92,7 @@
         }
         
         _type=type;
-        tableViewW=160;
+        tableViewW=130;
         if (type==1) {
 //            _tableView=[[SecondTabeleView alloc]init];
 //            _tableView.frame=CGRectMake(tableViewX, point.y + 8, tableViewW, tableViewH);
@@ -140,7 +140,7 @@
         cell.textLabel.font = [UIFont systemFontOfSize:16];
         UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, tableViewW, 44)];
         if (_imageArray) {
-            lab.frame=CGRectMake(0, 0, tableViewW-40, 44);
+            lab.frame=CGRectMake(50, 0, tableViewW-40, 44);
         }
         
         lab.tag=10;
@@ -152,7 +152,7 @@
             shapeLayer.fillColor = _cellColor.CGColor;
             cell.contentView.backgroundColor=_cellColor;
         }
-        UIImageView *ima=[[UIImageView alloc]initWithFrame:CGRectMake(tableViewW-30, 11, 20, 20)];
+        UIImageView *ima=[[UIImageView alloc]initWithFrame:CGRectMake(20, (44-13)/2, 13, 13)];
         ima.tag=11;
          [cell.contentView addSubview:ima];
     }

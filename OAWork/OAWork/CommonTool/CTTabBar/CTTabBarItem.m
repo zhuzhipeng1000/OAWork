@@ -37,8 +37,8 @@
         [self setImage:[UIImage imageNamed:entity.selectedImgName] forState:UIControlStateSelected];
         [self setImage:[UIImage imageNamed:entity.normalImgName] forState:UIControlStateHighlighted];
         [self setTitle:entity.titleStr forState:UIControlStateNormal];
-        [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [self setTitleColor:[Utils colorWithHexString:@"#5dbed8"] forState:UIControlStateSelected];
+        [self setTitleColor:[Utils colorWithHexString:@"#636363"] forState:UIControlStateNormal];
+        [self setTitleColor:[Utils colorWithHexString:@"#008fef"] forState:UIControlStateSelected];
         
 //        float itemIconY = (iPhone6 || iPhone6Plus ? 5:( iPhone5 ? 3:2));
 //        float itemTitleY = itemLength+itemIconY+(iPhone6 || iPhone6Plus || iPhone5 ? 5:2);

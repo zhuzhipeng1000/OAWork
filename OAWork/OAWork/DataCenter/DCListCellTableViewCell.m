@@ -22,7 +22,7 @@
         [self.contentView addSubview:_rightView];
         _selectImageView=[[UIImageView alloc]initWithFrame:CGRectMake(10, 18, 17, 17)];
         _selectImageView.userInteractionEnabled=YES;
-        [_selectImageView setImage:[UIImage imageNamed:@"project_unselected"]];
+        [_selectImageView setImage:[UIImage imageNamed:@"weixuanzhe"]];
         [self.contentView addSubview:_selectImageView];
     
         _selectBt=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 55, 55)];
@@ -65,17 +65,17 @@
         [self.delegate dic:_infoDic isSelected:_isAddInto];
     }
     if (_isAddInto) {
-        [_selectImageView setImage:[UIImage imageNamed:@"project_didselected"]];
+        [_selectImageView setImage:[UIImage imageNamed:@"xuanzhe"]];
     }else{
-        [_selectImageView setImage:[UIImage imageNamed:@"project_unselected"]];
+        [_selectImageView setImage:[UIImage imageNamed:@"weixuanzhe"]];
     }
 }
 -(void)setIsAddInto:(BOOL)isAddInto{
     _isAddInto=isAddInto;
     if (_isAddInto) {
-        [_selectImageView setImage:[UIImage imageNamed:@"project_didselected"]];
+        [_selectImageView setImage:[UIImage imageNamed:@"xuanzhe"]];
     }else{
-        [_selectImageView setImage:[UIImage imageNamed:@"project_unselected"]];
+        [_selectImageView setImage:[UIImage imageNamed:@"weixuanzhe"]];
     }
 }
 -(void)_accessButton:(UIButton*)bt{
@@ -98,9 +98,9 @@
     }
     
     if (_isAddInto) {
-        [_selectImageView setImage:[UIImage imageNamed:@"project_didselected"]];
+        [_selectImageView setImage:[UIImage imageNamed:@"xuanzhe"]];
     }else{
-        [_selectImageView setImage:[UIImage imageNamed:@"project_unselected"]];
+        [_selectImageView setImage:[UIImage imageNamed:@"weixuanzhe"]];
     }
     _rightView.frame=CGRectMake(_isStartEdit, 0, SCREEN_WIDTH, 55);
     
