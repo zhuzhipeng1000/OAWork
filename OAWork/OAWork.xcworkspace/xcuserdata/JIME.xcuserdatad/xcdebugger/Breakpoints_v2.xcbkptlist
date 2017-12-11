@@ -36,7 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OAWork/CommonTool/Utils/ListSelectView.m"
-            timestampString = "534613551.186258"
+            timestampString = "534693003.688137"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
@@ -52,7 +52,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OAWork/CommonTool/Utils/ListSelectView.m"
-            timestampString = "534613551.186863"
+            timestampString = "534693003.712288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "204"
@@ -68,7 +68,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OAWork/CommonTool/Utils/ListSelectView.m"
-            timestampString = "534613551.187388"
+            timestampString = "534693003.713816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "190"
@@ -84,7 +84,7 @@
                   moduleName = "OAWork"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/JIME/Desktop/business/oa/OAWork/OAWork/CommonTool/Utils/ListSelectView.m"
-                  timestampString = "534613551.590654"
+                  timestampString = "534699204.694732"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "190"
@@ -99,7 +99,7 @@
                   moduleName = "OAWork"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/JIME/Desktop/business/oa/OAWork/OAWork/CommonTool/Utils/ListSelectView.m"
-                  timestampString = "534613551.59554"
+                  timestampString = "534699204.697106"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "193"
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OAWork/OAMain/OAJobDetailViewController.m"
-            timestampString = "534613551.187831"
+            timestampString = "534699204.501103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "420"
-            endingLineNumber = "420"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "-navigationMenuView:clickedAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,12 +132,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OAWork/OAMain/OAJobDetailViewController.m"
-            timestampString = "534613551.187912"
+            timestampString = "534699204.501243"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
             landmarkName = "-navigationMenuView:clickedAtIndex:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OAWork/Personal/PersonalViewController.m"
+            timestampString = "534699204.501347"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
+            landmarkName = "-selecteFromLib"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[PersonalViewController selecteFromLib]"
+                  moduleName = "OAWork"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/JIME/Desktop/business/oa/OAWork/OAWork/Personal/PersonalViewController.m"
+                  timestampString = "534699204.709966"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "332"
+                  endingLineNumber = "332"
+                  offsetFromSymbolStart = "332">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__40-[PersonalViewController selecteFromLib]_block_invoke"
+                  moduleName = "OAWork"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/JIME/Desktop/business/oa/OAWork/OAWork/Personal/PersonalViewController.m"
+                  timestampString = "534699204.712444"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "333"
+                  endingLineNumber = "333"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OAWork/Personal/SurePickerPhotoView.m"
+            timestampString = "534699204.501888"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "-sureAction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OAWork/Personal/PersonalViewController.m"
+            timestampString = "534699204.501997"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

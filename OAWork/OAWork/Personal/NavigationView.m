@@ -21,9 +21,10 @@
 
 - (void)setUpView {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(15, 25, 30, 30);
+    button.frame = CGRectMake(15, 25, 50, 30);
     
-    [button setImage:[UIImage imageNamed:@"bcm_backWhite"] forState:UIControlStateNormal];
+    [button setTitle:@"取消" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self addSubview:button];
     [button addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -36,11 +37,26 @@
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont systemFontOfSize:18 weight:2];
     [self addSubview:titleLabel];
+    
+    UIButton* sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    sureButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width-74,25,50,30);
+    [sureButton setTitle:@"确定" forState:UIControlStateNormal];
+     [sureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    sureButton.layer.cornerRadius = 5;
+    
+    [sureButton addTarget:self action:@selector(sureAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:sureButton];
 }
 
 - (void)backAction:(id)sender {
     if (self.backBlock) {
         self.backBlock();
     }
+}
+-(void)sureAction:(id)sender{
+    if (self.surePickerPhontAction) {
+        self.surePickerPhontAction();
+    }
+    
 }
 @end

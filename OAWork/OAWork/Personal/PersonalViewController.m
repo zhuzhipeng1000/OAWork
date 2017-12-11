@@ -30,6 +30,9 @@
     NHPopoverViewController *ReBacInfoView;
     UIImage *selectedimv;
     BOOL _isReviseHeadView;
+    BOOL _isBoy;
+    UIButton *firstBT;
+    UIButton *secondBT;
 }
 @property (nonatomic,strong) NSMutableArray *allArray;
 
@@ -51,23 +54,27 @@
     backScroll.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
     [self.view addSubview:backScroll];
     
-    UIView *headBack=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 155)];
-    headBack.backgroundColor=[UIColor whiteColor];
-    [backScroll addSubview:headBack];
-    
-    headImage=[[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-86)/2, 20, 86, 86)];
-    [self imgeFromLoacl];
-    __weak __typeof(self) weakSelf = self;
     backScroll.mj_header =[MJRefreshNormalHeader headerWithRefreshingBlock:^{
         //Call this Block When enter the refresh status automatically
-       
+        
     }];
+    
+    UIView *headBack=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH/3)];
+    headBack.backgroundColor=[Utils colorWithHexString:@"#008fef"];
+    [backScroll addSubview:headBack];
+    
+    headImage=[[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-186-10)/2, (headBack.height-86)/2, 86, 86)];
+    [self imgeFromLoacl];
+    __weak __typeof(self) weakSelf = self;
     [backScroll addSubview:headImage];
     
-    nameTf=[[UITextField alloc]initWithFrame:CGRectMake(0, headImage.bottom, SCREEN_WIDTH, 40)];
+    
+    
+    nameTf=[[UITextField alloc]initWithFrame:CGRectMake(headImage.right+10, headImage.top+20, 100, 40)];
     nameTf.font=[UIFont systemFontOfSize:17.0f];
     nameTf.textAlignment=NSTextAlignmentLeft;
-    
+    nameTf.text=@"黄建新";
+    nameTf.textColor=[Utils colorWithHexString:@"#ffffff"];
     nameTf.text=[User shareUser].userName;
     [backScroll addSubview:nameTf];
     
@@ -78,48 +85,87 @@
     
 
     
-    UIImageView *arrImage=[[UIImageView alloc]initWithFrame:CGRectMake(nameTf.left, nameTf.bottom+10, 6, 11)];
-    arrImage.image=[UIImage imageNamed:@"left_arrow"];
-    [backScroll addSubview:arrImage];
+    firstBT=[[UIButton alloc]initWithFrame:CGRectMake(nameTf.left, nameTf.bottom+10,40, 16)];
+    if (_isBoy) {
+        [firstBT setImage:[UIImage imageNamed:@"b"] forState:UIControlStateNormal];
+        [firstBT setImage:[UIImage imageNamed:@"b"] forState:UIControlStateHighlighted];
+    }else{
+        [firstBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateNormal];
+        [firstBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateHighlighted];
+    }
+    [firstBT addTarget:self action:@selector(sexBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backScroll addSubview:firstBT];
+    
+    secondBT=[[UIButton alloc]initWithFrame:CGRectMake(firstBT.right+20, firstBT.top,firstBT.width, firstBT.height)];
+    if (_isBoy) {
+        [secondBT setImage:[UIImage imageNamed:@"g"] forState:UIControlStateNormal];
+        [secondBT setImage:[UIImage imageNamed:@"g"] forState:UIControlStateHighlighted];
+    }else{
+        [secondBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateNormal];
+        [secondBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateHighlighted];
+    }
+    [secondBT addTarget:self action:@selector(sexBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+    secondBT.hidden=YES;
+    [backScroll addSubview:secondBT];
 
-    _allArray = [@[@"手机号码",@"邮箱",@"部门",@"个人图章"] mutableCopy];
+    _allArray = [@[@{@"name":@"手机号码",@"image":@"p"},@{@"name":@"邮箱",@"image":@"m"},@{@"name":@"部门",@"image":@"liuchengjiankong"},@{@"name":@"个人图章",@"image":@"z"}] mutableCopy];
     
     for (int d=0; d<_allArray.count; d++) {
         NSDictionary *dic=_allArray[d];
-        UIView *smallBig=[[UIView alloc]initWithFrame:CGRectMake(0, 44*d+headBack.bottom, SCREEN_WIDTH, 44)];
+        UIView *smallBig=[[UIView alloc]initWithFrame:CGRectMake(0, 50*d+headBack.bottom, SCREEN_WIDTH, 50)];
         smallBig.backgroundColor=[UIColor whiteColor];
         [backScroll addSubview:smallBig];
         
-        UIImageView *imav=[[UIImageView alloc]initWithFrame:CGRectMake(20, 10, 20, 20)];
-        imav.image=[UIImage imageNamed:@""];
+        UIImageView *imav=[[UIImageView alloc]initWithFrame:CGRectMake(20,(smallBig.height-12)/2, 12, 12)];
+        imav.image=[UIImage imageNamed:dic[@"image"]];
         [smallBig addSubview:imav];
         
-        UILabel *lb=[[UILabel alloc]initWithFrame:CGRectMake(imav.right, 0, 70, 44)];
+        UILabel *lb=[[UILabel alloc]initWithFrame:CGRectMake(imav.right+10, 0, 120, smallBig.height)];
         lb.font=[UIFont systemFontOfSize:14.0];
         lb.textColor=[UIColor blackColor];
+        lb.text=dic[@"name"];
         [smallBig addSubview:lb];
         
         UITextField *nameTf=[[UITextField alloc]initWithFrame:CGRectMake(lb.right, lb.top, SCREEN_WIDTH-lb.right-20, lb.height)];
         nameTf.font=[UIFont systemFontOfSize:17.0f];
-        nameTf.textAlignment=NSTextAlignmentLeft;
+        nameTf.textAlignment=NSTextAlignmentRight;
+        nameTf.text=@"19388766788";
        [smallBig addSubview:nameTf];
         
-        UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,smallBig.bottom-1, smallBig.width, 1)];
+        UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,smallBig.height-1, smallBig.width, 1)];
         bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
         if (d!=(_allArray.count-1)) {
             [smallBig addSubview:bottomStrait];
         }
     
     }
-    
-    UIButton *revisePass=[[UIButton alloc]initWithFrame:CGRectMake(0, 44*(_allArray.count)+headBack.bottom+30, SCREEN_WIDTH, 44)];
+    UIButton *revisePass=[[UIButton alloc]initWithFrame:CGRectMake(0, 50*(_allArray.count)+headBack.bottom+30, SCREEN_WIDTH, 44)];
     revisePass.backgroundColor=[UIColor whiteColor];
-    [revisePass setTitle:@"保存" forState:UIControlStateNormal];
-    [revisePass setTitle:@"保存" forState:UIControlStateHighlighted];
-    [revisePass setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-     [revisePass setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    //    [revisePass setImage:[UIImage imageNamed:@"xiugaimima"] forState:UIControlStateNormal];
+    //    [revisePass setImage:[UIImage imageNamed:@"xiugaimima"]  forState:UIControlStateHighlighted];
+    //    [revisePass setTitle:@"修改密码" forState:UIControlStateNormal];
+    //    [revisePass setTitle:@"修改密码" forState:UIControlStateHighlighted];
+    //    [revisePass setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    //     [revisePass setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     [revisePass addTarget:self action:@selector(revisePass:) forControlEvents:UIControlEventTouchUpInside];
     [backScroll addSubview:revisePass];
+    
+    UIImageView *imav=[[UIImageView alloc]init];
+    
+    imav.image=[UIImage imageNamed:@"xiugaimima"];
+    [revisePass addSubview:imav];
+    
+    UILabel *lb=[[UILabel alloc]init];
+    
+    lb.font=[UIFont systemFontOfSize:14.0];
+    lb.textColor=[UIColor blackColor];
+    lb.text=@"修改密码";
+    [revisePass addSubview:lb];
+    CGSize size=[Utils sizeWithText:lb.text font:lb.font maxSize:CGSizeMake(SCREEN_WIDTH, 100)];
+    
+    imav.frame=CGRectMake((SCREEN_WIDTH-size.width-30)/2, (44-14)/2, 14, 14);
+    lb.frame=CGRectMake(imav.right+8, 0, size.width+10, 44);
+   
     
 //    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, headBack.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-50)];
 //    [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
@@ -134,12 +180,12 @@
     self.navigationController.navigationBarHidden=true;
     if (!_bar) {
         _bar=[[UIButton alloc]init];
-        [_bar setTitle:@"..." forState: UIControlStateNormal];
+        [_bar setTitle:@"编辑" forState: UIControlStateNormal];
         [_bar setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_bar setTitle:@"..." forState: UIControlStateHighlighted];
+        [_bar setTitle:@"编辑" forState: UIControlStateHighlighted];
         [_bar setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
         [_bar addTarget:self action:@selector(editTapped:) forControlEvents:UIControlEventTouchUpInside];
-        _bar.frame=CGRectMake(SCREEN_WIDTH-60, 0, 60, 44);
+        _bar.frame=CGRectMake(SCREEN_WIDTH-60, 20, 60, 44);
         [self.view addSubview:_bar];
     }
     _bar.hidden=false;
@@ -155,6 +201,18 @@
         nameTf.layer.borderWidth=1.0f;
         nameTf.layer.borderColor=[UIColor greenColor].CGColor;
         nameTf.clipsToBounds=true;
+        secondBT.hidden=false;
+        if (_isBoy) {
+            [firstBT setImage:[UIImage imageNamed:@"b"] forState:UIControlStateNormal];
+            [firstBT setImage:[UIImage imageNamed:@"b"] forState:UIControlStateHighlighted];
+            [secondBT setImage:[UIImage imageNamed:@"g"] forState:UIControlStateNormal];
+            [secondBT setImage:[UIImage imageNamed:@"g"] forState:UIControlStateHighlighted];
+        }else{
+            [firstBT setImage:[UIImage imageNamed:@"b1"] forState:UIControlStateNormal];
+            [firstBT setImage:[UIImage imageNamed:@"b1"] forState:UIControlStateHighlighted];
+            [secondBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateNormal];
+            [secondBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateHighlighted];
+        }
     }else{
         if (_isReviseHeadView) {
             [self uploadAttach];
@@ -162,14 +220,24 @@
         nameTf.userInteractionEnabled=false;
         nameTf.layer.cornerRadius=0.0f;
         nameTf.layer.borderWidth=0.0f;
-        [bt setTitle:@"..." forState:UIControlStateNormal];
-        [bt setTitle:@"..." forState:UIControlStateHighlighted];
+        [bt setTitle:@"编辑" forState:UIControlStateNormal];
+        [bt setTitle:@"编辑" forState:UIControlStateHighlighted];
+        secondBT.hidden=true;
+        if (_isBoy) {
+            [firstBT setImage:[UIImage imageNamed:@"b"] forState:UIControlStateNormal];
+            [firstBT setImage:[UIImage imageNamed:@"b"] forState:UIControlStateHighlighted];
+       }else{
+            [firstBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateNormal];
+            [firstBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateHighlighted];
+           
+        }
     }
+    
     
 }
 -(void)imgeFromLoacl{
     
-    [headImage sd_setImageWithURL:[NSURL URLWithString:[Utils getNotNullNotNill:[User shareUser].icon]] placeholderImage:[UIImage imageNamed:@"main_head_deafult"]];
+    [headImage sd_setImageWithURL:[NSURL URLWithString:[Utils getNotNullNotNill:[User shareUser].icon]] placeholderImage:[UIImage imageNamed:@"u"]];
     headImage.layer.cornerRadius=headImage.width/2;
     headImage.clipsToBounds=YES;
 }
@@ -196,18 +264,38 @@
             
         }
          ReBacInfoView = [[NHPopoverViewController alloc] initWithView:headTapPopView contentSize:headTapPopView.frame.size autoClose:FALSE];
-        [ReBacInfoView show];
+       
     }
-
+  [ReBacInfoView show];
 }
 -(void)chooseImage:(UIButton*)bt{
     
-    if (bt.tag==1001) {
-        [self takePic];
+    if (bt.tag==1000) {
+    
+        [self selecteFromLib];
     }else if (bt.tag==1001) {
-        [self takePic];
+            [self takePic];
+    }
+    [ReBacInfoView dismiss];
+    ReBacInfoView=nil;
+}
+-(void)sexBtTapped:(UIButton*)bt{
+    if (bt==firstBT) {
+        _isBoy=true;
+        
     }else{
-        [ReBacInfoView dismiss];
+        _isBoy=false;
+    }
+    if (_isBoy) {
+        [firstBT setImage:[UIImage imageNamed:@"b"] forState:UIControlStateNormal];
+        [firstBT setImage:[UIImage imageNamed:@"b"] forState:UIControlStateHighlighted];
+        [secondBT setImage:[UIImage imageNamed:@"g"] forState:UIControlStateNormal];
+        [secondBT setImage:[UIImage imageNamed:@"g"] forState:UIControlStateHighlighted];
+    }else{
+        [firstBT setImage:[UIImage imageNamed:@"b1"] forState:UIControlStateNormal];
+        [firstBT setImage:[UIImage imageNamed:@"b1"] forState:UIControlStateHighlighted];
+        [secondBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateNormal];
+        [secondBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateHighlighted];
     }
 }
 -(void)revisePass:(UIButton*)bt{
@@ -319,7 +407,8 @@
     NSMutableDictionary *dic=[NSMutableDictionary dictionary];
     
     [dic  setObject:@"image" forKey:@"fileType"];
-    NSURLSessionDataTask *task = [manager POST:@"http://14.23.156.164:8810/mobile/file/upload.jhtml" parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+    @"http://14.23.156.164:8810/mobile/file/upload.jhtml";
+    NSURLSessionDataTask *task = [manager POST:@"" parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         //            NSData *data = UIImagePNGRepresentation(selectedimv);
         float kCompressionQuality = 0.3;
         NSData *data = UIImageJPEGRepresentation(selectedimv, kCompressionQuality);

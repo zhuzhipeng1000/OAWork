@@ -11,6 +11,6 @@
 @interface NavigationView : UIView
 - (instancetype)initWithFrame:(CGRect)frame;
 @property(nonatomic,copy) void(^backBlock)(void);
-
+@property (nonatomic, copy) void(^surePickerPhontAction)(void);
 
 @end

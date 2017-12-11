@@ -10,6 +10,7 @@
 #import "NavigationView.h"
 #import "WQmacro.h"
 #import "InterceptionView.h"
+#import "SurePickerPhotoView.h"
 
 @interface TailoringViewController ()
 @property (nonatomic, strong) UIImageView* headerImageView;
@@ -45,7 +46,7 @@
     self.headerImageView.image = self.sourceImage;
     [self.view addSubview:self.headerImageView];
     
-    _interceView = [[InterceptionView alloc] initWithFrame:CGRectMake(0,64 ,SCREEEN_WIDTH ,SCREEEN_HEIGHT-104)];
+    _interceView = [[InterceptionView alloc] initWithFrame:CGRectMake(0,64 ,SCREEEN_WIDTH ,SCREEEN_HEIGHT-64)];
     _interceView.userInteractionEnabled = YES;
     _interceView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_interceView];
@@ -55,7 +56,11 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     };
     [self.view addSubview:navigationView];
-   
+//    SurePickerPhotoView* sureView = [[SurePickerPhotoView alloc] initWithFrame:CGRectMake(0, SCREEEN_HEIGHT-40,SCREEEN_WIDTH, 40)];
+    navigationView.surePickerPhontAction = ^ {
+        [self sureButtonAction];
+    };
+//    [self.view addSubview:sureView];
     [self controlHeaderImageView];
     
 }
