@@ -62,6 +62,11 @@
 		1A70744B1FDE1E6100213992 /* CIMessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70744A1FDE1E6100213992 /* CIMessageDetailViewController.m */; };
 		1A70744E1FDE1EC100213992 /* CIAllContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70744D1FDE1EC100213992 /* CIAllContactViewController.m */; };
 		1A7074511FDE1ED900213992 /* CIAreaContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074501FDE1ED900213992 /* CIAreaContactViewController.m */; };
+		1A7074551FDE7B6300213992 /* TailoringViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074541FDE7B6100213992 /* TailoringViewController.m */; };
+		1A7074591FDE7B6F00213992 /* WQAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074561FDE7B6E00213992 /* WQAlert.m */; };
+		1A70745E1FDE827000213992 /* InterceptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70745A1FDE826F00213992 /* InterceptionView.m */; };
+		1A70745F1FDE827000213992 /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70745C1FDE826F00213992 /* NavigationView.m */; };
+		1A7074621FDE82BD00213992 /* SurePickerPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074601FDE82BC00213992 /* SurePickerPhotoView.m */; };
 		1A71C04D1FD62DB100FBE94B /* aa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C04C1FD62DB100FBE94B /* aa.txt */; };
 		1A71C0561FD637FA00FBE94B /* aa.Json in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C0551FD637FA00FBE94B /* aa.Json */; };
 		1A8FC2011FD7CB0100F45656 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FC2001FD7CB0100F45656 /* TestViewController.m */; };
@@ -209,6 +214,17 @@
 		1A70744D1FDE1EC100213992 /* CIAllContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIAllContactViewController.m; sourceTree = "<group>"; };
 		1A70744F1FDE1ED900213992 /* CIAreaContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIAreaContactViewController.h; sourceTree = "<group>"; };
 		1A7074501FDE1ED900213992 /* CIAreaContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIAreaContactViewController.m; sourceTree = "<group>"; };
+		1A7074531FDE7B6100213992 /* TailoringViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TailoringViewController.h; sourceTree = "<group>"; };
+		1A7074541FDE7B6100213992 /* TailoringViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TailoringViewController.m; sourceTree = "<group>"; };
+		1A7074561FDE7B6E00213992 /* WQAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WQAlert.m; sourceTree = "<group>"; };
+		1A7074571FDE7B6E00213992 /* WQmacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WQmacro.h; sourceTree = "<group>"; };
+		1A7074581FDE7B6E00213992 /* WQAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WQAlert.h; sourceTree = "<group>"; };
+		1A70745A1FDE826F00213992 /* InterceptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterceptionView.m; sourceTree = "<group>"; };
+		1A70745B1FDE826F00213992 /* InterceptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterceptionView.h; sourceTree = "<group>"; };
+		1A70745C1FDE826F00213992 /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
+		1A70745D1FDE827000213992 /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
+		1A7074601FDE82BC00213992 /* SurePickerPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurePickerPhotoView.m; sourceTree = "<group>"; };
+		1A7074611FDE82BD00213992 /* SurePickerPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurePickerPhotoView.h; sourceTree = "<group>"; };
 		1A71C04C1FD62DB100FBE94B /* aa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = aa.txt; sourceTree = "<group>"; };
 		1A71C0551FD637FA00FBE94B /* aa.Json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aa.Json; sourceTree = "<group>"; };
 		1A8FC1FF1FD7CB0100F45656 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
@@ -332,6 +348,17 @@
 				1A6C2C141FC7B3CC002228C7 /* PersonalViewController.h */,
 				1A6C2C151FC7B3CC002228C7 /* PersonalViewController.m */,
 				1A6C2C161FC7B3CC002228C7 /* PersonalViewController.xib */,
+				1A7074531FDE7B6100213992 /* TailoringViewController.h */,
+				1A7074541FDE7B6100213992 /* TailoringViewController.m */,
+				1A7074611FDE82BD00213992 /* SurePickerPhotoView.h */,
+				1A7074601FDE82BC00213992 /* SurePickerPhotoView.m */,
+				1A70745B1FDE826F00213992 /* InterceptionView.h */,
+				1A70745A1FDE826F00213992 /* InterceptionView.m */,
+				1A70745D1FDE827000213992 /* NavigationView.h */,
+				1A70745C1FDE826F00213992 /* NavigationView.m */,
+				1A7074581FDE7B6E00213992 /* WQAlert.h */,
+				1A7074561FDE7B6E00213992 /* WQAlert.m */,
+				1A7074571FDE7B6E00213992 /* WQmacro.h */,
 				1A2BD1011FCFE7E40014837E /* PersonDetailViewController.h */,
 				1A2BD1021FCFE7E40014837E /* PersonDetailViewController.m */,
 				1A2BD1031FCFE7E40014837E /* PersonDetailViewController.xib */,
@@ -831,6 +858,7 @@
 				1A9F008F1FCBAF09005897B2 /* MyRequest.m in Sources */,
 				1A7074511FDE1ED900213992 /* CIAreaContactViewController.m in Sources */,
 				1A9F00A01FCBB1C0005897B2 /* NSUserDefaults+reviseSet.m in Sources */,
+				1A70745F1FDE827000213992 /* NavigationView.m in Sources */,
 				1A25B1C61FD91114000B99B0 /* DCListViewController.m in Sources */,
 				1A90B5B21FC65B4C008EDDB1 /* ViewController.m in Sources */,
 				1A70744E1FDE1EC100213992 /* CIAllContactViewController.m in Sources */,
@@ -844,14 +872,17 @@
 				1A2BD0F51FCFDFD80014837E /* NeedDoViewController.m in Sources */,
 				1A25B1C91FD91133000B99B0 /* DClistFolderViewController.m in Sources */,
 				1A6C2C3A1FC7C963002228C7 /* OMGToast.m in Sources */,
+				1A7074621FDE82BD00213992 /* SurePickerPhotoView.m in Sources */,
 				1A636A231FD0EF950016A58C /* CTTabBarEntity.m in Sources */,
 				1A90B5BD1FC65B4C008EDDB1 /* main.m in Sources */,
 				1A6C2C121FC7B3B2002228C7 /* DataCenterViewController.m in Sources */,
+				1A7074551FDE7B6300213992 /* TailoringViewController.m in Sources */,
 				1A434B4D1FD4F463006F6A92 /* ThemeManager.m in Sources */,
 				1A9F00851FCBAEB7005897B2 /* LoginViewController.m in Sources */,
 				1A9F009D1FCBB139005897B2 /* HostMangager.m in Sources */,
 				1A434B3E1FD4DEF3006F6A92 /* NHPopoverViewController.m in Sources */,
 				1A70744B1FDE1E6100213992 /* CIMessageDetailViewController.m in Sources */,
+				1A70745E1FDE827000213992 /* InterceptionView.m in Sources */,
 				1A2BD0FA1FCFE03F0014837E /* NeedDoTableViewCell.m in Sources */,
 				1A434B641FD527F3006F6A92 /* YZNavigationMenuView.m in Sources */,
 				1A7074481FDE1E4600213992 /* CIMessageListViewController.m in Sources */,
@@ -860,6 +891,7 @@
 				1A25B1C21FD910DA000B99B0 /* DataCenterSecondViewController.m in Sources */,
 				1A7074451FDE1E1700213992 /* MessageListCell.m in Sources */,
 				1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */,
+				1A7074591FDE7B6F00213992 /* WQAlert.m in Sources */,
 				1AC5C1DC1FDA39A300DE34F5 /* DCListCellTableViewCell.m in Sources */,
 				1A6C2C211FC7C70C002228C7 /* CTJSONKit.m in Sources */,
 				1A9F00991FCBB041005897B2 /* GTMBase64.m in Sources */,
