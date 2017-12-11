@@ -24,9 +24,9 @@
     self.navigationController.title=@"个人设置";
     [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
 
-    _allArray = [@[@"个人信息",@"修改密码"] mutableCopy];
+    _allArray = [@[@"手机号码",@"邮箱",@"部门",@"个人图章"] mutableCopy];
     
-    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH-20, SCREEN_HEIGHT-50)];
+    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT+1, SCREEN_WIDTH-20, SCREEN_HEIGHT-50)];
     [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
     _demoTableView.delegate=self;
     _demoTableView.dataSource=self;

@@ -146,7 +146,7 @@
          cell.isStartEdit=0;
     }
     cell.titleLB.text=_allArray[indexPath.row];
-    cell.imageView.image=[UIImage imageNamed:@"wifi"];
+    cell.headIcon.image=[UIImage imageNamed:@"wifi"];
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

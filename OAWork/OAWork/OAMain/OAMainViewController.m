@@ -65,12 +65,11 @@
     _allArray = [@[@{@"title":@"代办公文",@"normalImage":@"home_waitingOA",@"highLightedImage":@"home_waitingOA"},@{@"title":@"待阅公文",@"normalImage":@"home_waitingRead",@"highLightedImage":@"home_waitingRead"},@{@"title":@"流转公文",@"normalImage":@"home_liuzhuan",@"highLightedImage":@"home_liuzhuan"},@{@"title":@"收件箱",@"normalImage":@"shoujianxiang",@"highLightedImage":@"shoujianxiang"},@{@"title":@"我的收藏",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"},@{@"title":@"我的订阅",@"normalImage":@"dingyue",@"highLightedImage":@"dingyue"},@{@"title":@"已办公文",@"normalImage":@"yibangongwen",@"highLightedImage":@"yibangongwen"},@{@"title":@"已阅公文",@"normalImage":@"yiyuegongwen",@"highLightedImage":@"yiyuegongwen"},@{@"title":@"个人日程",@"normalImage":@"geRenRiCheng",@"highLightedImage":@"geRenRiCheng"}] mutableCopy];
     
     UIView *aView=[[UIView alloc]initWithFrame:CGRectMake(0,topView.bottom+10 , SCREEN_WIDTH, SCREEN_WIDTH)];
+     aView.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
     [self.view addSubview:aView];
     for (int d=0 ;d<_allArray.count; d++) {
         NSDictionary *detailDic=_allArray[d];
       
-        
-        
         UIView *smallBack=[[UIView alloc]initWithFrame:CGRectMake((d%3)*width, (d/3)*width, width, width)];
         smallBack.backgroundColor=[UIColor whiteColor];
         [aView addSubview:smallBack];
@@ -107,11 +106,19 @@
          [smallBack addSubview:lineleft];
         UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,width, width, 1)];
          bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        
+        UIView *lineRight=[[UIView alloc]initWithFrame:CGRectMake(width-1, 0, 1, width)];
+        lineRight.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+       
+        
         if (d%3==0) {  
             [lineleft removeFromSuperview];
         }
         if (d>(d-3)) {//最后面3个加上下划线
             [smallBack addSubview:bottomStrait];
+        }
+        if (d==(_allArray.count-1)&&(d%3)!=2){//最后一个，判断是非靠边
+            [smallBack addSubview:lineRight];
         }
         UIButton *bt=[[UIButton alloc]initWithFrame:smallBack.bounds];
         bt.backgroundColor=[UIColor clearColor];
@@ -120,8 +127,6 @@
         [smallBack addSubview:bt];
         
     }
-    
-    
     
     
     _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(10, self.navigationController.navigationBar.bottom, SCREEN_WIDTH-20, SCREEN_HEIGHT-50)];

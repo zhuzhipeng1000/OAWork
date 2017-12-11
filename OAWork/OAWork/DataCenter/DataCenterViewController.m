@@ -64,6 +64,7 @@
     _allArray = [@[@{@"title":@"我的订阅",@"normalImage":@"home_waitingOA",@"highLightedImage":@"home_waitingOA"},@{@"title":@"我的收藏",@"normalImage":@"home_waitingRead",@"highLightedImage":@"home_waitingRead"},@{@"title":@"我的推荐",@"normalImage":@"home_liuzhuan",@"highLightedImage":@"home_liuzhuan"}] mutableCopy];
     
     UIView *aView=[[UIView alloc]initWithFrame:CGRectMake(0,topView.bottom+10 , SCREEN_WIDTH, SCREEN_WIDTH)];
+     aView.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
     [self.view addSubview:aView];
     for (int d=0 ;d<_allArray.count; d++) {
         NSDictionary *detailDic=_allArray[d];
@@ -106,11 +107,17 @@
         [smallBack addSubview:lineleft];
         UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,width, width, 1)];
         bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        UIView *lineRight=[[UIView alloc]initWithFrame:CGRectMake(width-1, 0, 1, width)];
+        lineRight.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        
         if (d%3==0) {
             [lineleft removeFromSuperview];
         }
         if (d>(d-3)) {//最后面3个加上下划线
             [smallBack addSubview:bottomStrait];
+        }
+        if (d==(_allArray.count-1)&&(d%3)!=2){//最后一个，判断是非靠边
+            [smallBack addSubview:lineRight];
         }
         UIButton *bt=[[UIButton alloc]initWithFrame:smallBack.bounds];
         bt.backgroundColor=[UIColor clearColor];

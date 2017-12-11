@@ -57,6 +57,11 @@
 		1A6C2C381FC7C963002228C7 /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C321FC7C961002228C7 /* UIView+Utils.m */; };
 		1A6C2C391FC7C963002228C7 /* ITTPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C351FC7C962002228C7 /* ITTPickView.m */; };
 		1A6C2C3A1FC7C963002228C7 /* OMGToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C361FC7C962002228C7 /* OMGToast.m */; };
+		1A7074451FDE1E1700213992 /* MessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074441FDE1E1700213992 /* MessageListCell.m */; };
+		1A7074481FDE1E4600213992 /* CIMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074471FDE1E4600213992 /* CIMessageListViewController.m */; };
+		1A70744B1FDE1E6100213992 /* CIMessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70744A1FDE1E6100213992 /* CIMessageDetailViewController.m */; };
+		1A70744E1FDE1EC100213992 /* CIAllContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70744D1FDE1EC100213992 /* CIAllContactViewController.m */; };
+		1A7074511FDE1ED900213992 /* CIAreaContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074501FDE1ED900213992 /* CIAreaContactViewController.m */; };
 		1A71C04D1FD62DB100FBE94B /* aa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C04C1FD62DB100FBE94B /* aa.txt */; };
 		1A71C0561FD637FA00FBE94B /* aa.Json in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C0551FD637FA00FBE94B /* aa.Json */; };
 		1A8FC2011FD7CB0100F45656 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FC2001FD7CB0100F45656 /* TestViewController.m */; };
@@ -194,6 +199,16 @@
 		1A6C2C351FC7C962002228C7 /* ITTPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITTPickView.m; sourceTree = "<group>"; };
 		1A6C2C361FC7C962002228C7 /* OMGToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OMGToast.m; sourceTree = "<group>"; };
 		1A6C2C371FC7C962002228C7 /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
+		1A7074431FDE1E1600213992 /* MessageListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListCell.h; sourceTree = "<group>"; };
+		1A7074441FDE1E1700213992 /* MessageListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListCell.m; sourceTree = "<group>"; };
+		1A7074461FDE1E4600213992 /* CIMessageListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIMessageListViewController.h; sourceTree = "<group>"; };
+		1A7074471FDE1E4600213992 /* CIMessageListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIMessageListViewController.m; sourceTree = "<group>"; };
+		1A7074491FDE1E6100213992 /* CIMessageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIMessageDetailViewController.h; sourceTree = "<group>"; };
+		1A70744A1FDE1E6100213992 /* CIMessageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIMessageDetailViewController.m; sourceTree = "<group>"; };
+		1A70744C1FDE1EC100213992 /* CIAllContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIAllContactViewController.h; sourceTree = "<group>"; };
+		1A70744D1FDE1EC100213992 /* CIAllContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIAllContactViewController.m; sourceTree = "<group>"; };
+		1A70744F1FDE1ED900213992 /* CIAreaContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIAreaContactViewController.h; sourceTree = "<group>"; };
+		1A7074501FDE1ED900213992 /* CIAreaContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIAreaContactViewController.m; sourceTree = "<group>"; };
 		1A71C04C1FD62DB100FBE94B /* aa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = aa.txt; sourceTree = "<group>"; };
 		1A71C0551FD637FA00FBE94B /* aa.Json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aa.Json; sourceTree = "<group>"; };
 		1A8FC1FF1FD7CB0100F45656 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
@@ -394,6 +409,16 @@
 				1A6C2C0A1FC7B396002228C7 /* CommonInfoViewController.h */,
 				1A6C2C0B1FC7B396002228C7 /* CommonInfoViewController.m */,
 				1A6C2C0C1FC7B396002228C7 /* CommonInfoViewController.xib */,
+				1A70744C1FDE1EC100213992 /* CIAllContactViewController.h */,
+				1A70744D1FDE1EC100213992 /* CIAllContactViewController.m */,
+				1A70744F1FDE1ED900213992 /* CIAreaContactViewController.h */,
+				1A7074501FDE1ED900213992 /* CIAreaContactViewController.m */,
+				1A7074461FDE1E4600213992 /* CIMessageListViewController.h */,
+				1A7074471FDE1E4600213992 /* CIMessageListViewController.m */,
+				1A7074491FDE1E6100213992 /* CIMessageDetailViewController.h */,
+				1A70744A1FDE1E6100213992 /* CIMessageDetailViewController.m */,
+				1A7074431FDE1E1600213992 /* MessageListCell.h */,
+				1A7074441FDE1E1700213992 /* MessageListCell.m */,
 			);
 			path = CommonInfo;
 			sourceTree = "<group>";
@@ -804,9 +829,11 @@
 				1A6C2C1C1FC7BFB0002228C7 /* BaseViewController.m in Sources */,
 				1A434B3B1FD4DED2006F6A92 /* ISAlertView.m in Sources */,
 				1A9F008F1FCBAF09005897B2 /* MyRequest.m in Sources */,
+				1A7074511FDE1ED900213992 /* CIAreaContactViewController.m in Sources */,
 				1A9F00A01FCBB1C0005897B2 /* NSUserDefaults+reviseSet.m in Sources */,
 				1A25B1C61FD91114000B99B0 /* DCListViewController.m in Sources */,
 				1A90B5B21FC65B4C008EDDB1 /* ViewController.m in Sources */,
+				1A70744E1FDE1EC100213992 /* CIAllContactViewController.m in Sources */,
 				1A9F00A71FCBE632005897B2 /* OaMainCellTableViewCell.m in Sources */,
 				1A6C2C381FC7C963002228C7 /* UIView+Utils.m in Sources */,
 				1A2BD0EB1FCF9FF40014837E /* ListSelectView.m in Sources */,
@@ -824,11 +851,14 @@
 				1A9F00851FCBAEB7005897B2 /* LoginViewController.m in Sources */,
 				1A9F009D1FCBB139005897B2 /* HostMangager.m in Sources */,
 				1A434B3E1FD4DEF3006F6A92 /* NHPopoverViewController.m in Sources */,
+				1A70744B1FDE1E6100213992 /* CIMessageDetailViewController.m in Sources */,
 				1A2BD0FA1FCFE03F0014837E /* NeedDoTableViewCell.m in Sources */,
 				1A434B641FD527F3006F6A92 /* YZNavigationMenuView.m in Sources */,
+				1A7074481FDE1E4600213992 /* CIMessageListViewController.m in Sources */,
 				1A6C2C081FC7B382002228C7 /* OAMainViewController.m in Sources */,
 				1A6C2C251FC7C77C002228C7 /* User.m in Sources */,
 				1A25B1C21FD910DA000B99B0 /* DataCenterSecondViewController.m in Sources */,
+				1A7074451FDE1E1700213992 /* MessageListCell.m in Sources */,
 				1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */,
 				1AC5C1DC1FDA39A300DE34F5 /* DCListCellTableViewCell.m in Sources */,
 				1A6C2C211FC7C70C002228C7 /* CTJSONKit.m in Sources */,

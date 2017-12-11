@@ -183,7 +183,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     };
     cell.titleLB.text=_allArray[indexPath.row][@"title"];
-    cell.imageView.image=[UIImage imageNamed:@"wifi"];
+    cell.headIcon.image=[UIImage imageNamed:@"wifi"];
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
