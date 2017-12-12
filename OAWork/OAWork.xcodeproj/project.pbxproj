@@ -67,6 +67,14 @@
 		1A70745E1FDE827000213992 /* InterceptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70745A1FDE826F00213992 /* InterceptionView.m */; };
 		1A70745F1FDE827000213992 /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70745C1FDE826F00213992 /* NavigationView.m */; };
 		1A7074621FDE82BD00213992 /* SurePickerPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074601FDE82BC00213992 /* SurePickerPhotoView.m */; };
+		1A7074C11FDFB67D00213992 /* HWDownSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074BE1FDFB67D00213992 /* HWDownSelectedView.m */; };
+		1A7074C21FDFB67D00213992 /* arrow_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A7074C01FDFB67D00213992 /* arrow_up@2x.png */; };
+		1A7074CC1FDFB69E00213992 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A7074C51FDFB69D00213992 /* city.plist */; };
+		1A7074CD1FDFB69E00213992 /* CZHAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074C71FDFB69D00213992 /* CZHAddressPickerView.m */; };
+		1A7074CE1FDFB69E00213992 /* UIButton+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074C91FDFB69D00213992 /* UIButton+CZHExtension.m */; };
+		1A7074CF1FDFB69E00213992 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074CB1FDFB69D00213992 /* UIView+CZHExtension.m */; };
+		1A7074D21FDFBC3900213992 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074D11FDFBC3800213992 /* SignViewController.m */; };
+		1A7074D51FDFBCBF00213992 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074D41FDFBCBF00213992 /* UIView+Helper.m */; };
 		1A71C04D1FD62DB100FBE94B /* aa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C04C1FD62DB100FBE94B /* aa.txt */; };
 		1A71C0561FD637FA00FBE94B /* aa.Json in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C0551FD637FA00FBE94B /* aa.Json */; };
 		1A8FC2011FD7CB0100F45656 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FC2001FD7CB0100F45656 /* TestViewController.m */; };
@@ -225,6 +233,21 @@
 		1A70745D1FDE827000213992 /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
 		1A7074601FDE82BC00213992 /* SurePickerPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurePickerPhotoView.m; sourceTree = "<group>"; };
 		1A7074611FDE82BD00213992 /* SurePickerPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurePickerPhotoView.h; sourceTree = "<group>"; };
+		1A7074BD1FDFB67D00213992 /* HWDownSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWDownSelectedView.h; sourceTree = "<group>"; };
+		1A7074BE1FDFB67D00213992 /* HWDownSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWDownSelectedView.m; sourceTree = "<group>"; };
+		1A7074C01FDFB67D00213992 /* arrow_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_up@2x.png"; sourceTree = "<group>"; };
+		1A7074C41FDFB69D00213992 /* AddressPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerHeader.h; sourceTree = "<group>"; };
+		1A7074C51FDFB69D00213992 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
+		1A7074C61FDFB69D00213992 /* CZHAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZHAddressPickerView.h; sourceTree = "<group>"; };
+		1A7074C71FDFB69D00213992 /* CZHAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZHAddressPickerView.m; sourceTree = "<group>"; };
+		1A7074C81FDFB69D00213992 /* UIButton+CZHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CZHExtension.h"; sourceTree = "<group>"; };
+		1A7074C91FDFB69D00213992 /* UIButton+CZHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CZHExtension.m"; sourceTree = "<group>"; };
+		1A7074CA1FDFB69D00213992 /* UIView+CZHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CZHExtension.h"; sourceTree = "<group>"; };
+		1A7074CB1FDFB69D00213992 /* UIView+CZHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CZHExtension.m"; sourceTree = "<group>"; };
+		1A7074D01FDFBC3800213992 /* SignViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignViewController.h; sourceTree = "<group>"; };
+		1A7074D11FDFBC3800213992 /* SignViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignViewController.m; sourceTree = "<group>"; };
+		1A7074D31FDFBCBE00213992 /* UIView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Helper.h"; sourceTree = "<group>"; };
+		1A7074D41FDFBCBF00213992 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Helper.m"; sourceTree = "<group>"; };
 		1A71C04C1FD62DB100FBE94B /* aa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = aa.txt; sourceTree = "<group>"; };
 		1A71C0551FD637FA00FBE94B /* aa.Json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aa.Json; sourceTree = "<group>"; };
 		1A8FC1FF1FD7CB0100F45656 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
@@ -345,6 +368,8 @@
 		1A6C2BF61FC7B299002228C7 /* Personal */ = {
 			isa = PBXGroup;
 			children = (
+				1A7074D01FDFBC3800213992 /* SignViewController.h */,
+				1A7074D11FDFBC3800213992 /* SignViewController.m */,
 				1A6C2C141FC7B3CC002228C7 /* PersonalViewController.h */,
 				1A6C2C151FC7B3CC002228C7 /* PersonalViewController.m */,
 				1A6C2C161FC7B3CC002228C7 /* PersonalViewController.xib */,
@@ -453,6 +478,8 @@
 		1A6C2C1D1FC7C6F7002228C7 /* CommonTool */ = {
 			isa = PBXGroup;
 			children = (
+				1A7074C31FDFB69D00213992 /* AddressPickerView */,
+				1A7074BC1FDFB67D00213992 /* HWDownSelectedView */,
 				1A434B4A1FD4F454006F6A92 /* theme */,
 				1A636A2C1FD0EFA80016A58C /* TTTAttributedLabel */,
 				1A636A1C1FD0EF950016A58C /* CTTabBar */,
@@ -503,6 +530,8 @@
 				1A6C2C361FC7C962002228C7 /* OMGToast.m */,
 				1A6C2C371FC7C962002228C7 /* UIView+Utils.h */,
 				1A6C2C321FC7C961002228C7 /* UIView+Utils.m */,
+				1A7074D31FDFBCBE00213992 /* UIView+Helper.h */,
+				1A7074D41FDFBCBF00213992 /* UIView+Helper.m */,
 				1A6C2C241FC7C77C002228C7 /* User.h */,
 				1A6C2C231FC7C77C002228C7 /* User.m */,
 				1A9F008D1FCBAF08005897B2 /* MyRequest.h */,
@@ -519,6 +548,40 @@
 				1A6C2C2C1FC7C798002228C7 /* BackButton.m */,
 			);
 			path = BackButton;
+			sourceTree = "<group>";
+		};
+		1A7074BC1FDFB67D00213992 /* HWDownSelectedView */ = {
+			isa = PBXGroup;
+			children = (
+				1A7074BD1FDFB67D00213992 /* HWDownSelectedView.h */,
+				1A7074BE1FDFB67D00213992 /* HWDownSelectedView.m */,
+				1A7074BF1FDFB67D00213992 /* Resources */,
+			);
+			path = HWDownSelectedView;
+			sourceTree = "<group>";
+		};
+		1A7074BF1FDFB67D00213992 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1A7074C01FDFB67D00213992 /* arrow_up@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1A7074C31FDFB69D00213992 /* AddressPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				1A7074C41FDFB69D00213992 /* AddressPickerHeader.h */,
+				1A7074C51FDFB69D00213992 /* city.plist */,
+				1A7074C61FDFB69D00213992 /* CZHAddressPickerView.h */,
+				1A7074C71FDFB69D00213992 /* CZHAddressPickerView.m */,
+				1A7074C81FDFB69D00213992 /* UIButton+CZHExtension.h */,
+				1A7074C91FDFB69D00213992 /* UIButton+CZHExtension.m */,
+				1A7074CA1FDFB69D00213992 /* UIView+CZHExtension.h */,
+				1A7074CB1FDFB69D00213992 /* UIView+CZHExtension.m */,
+			);
+			name = AddressPickerView;
+			path = ../../../../../Downloads/CZHAddressPickerView/CZHAddressPickerView/AddressPickerView;
 			sourceTree = "<group>";
 		};
 		1A90B5A11FC65B4C008EDDB1 = {
@@ -749,6 +812,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A71C04D1FD62DB100FBE94B /* aa.txt in Resources */,
+				1A7074C21FDFB67D00213992 /* arrow_up@2x.png in Resources */,
 				1A6C2C0E1FC7B396002228C7 /* CommonInfoViewController.xib in Resources */,
 				1A2BD0F11FCFA1190014837E /* arrow_down@3x.png in Resources */,
 				1A434B531FD4F71D006F6A92 /* closed.png in Resources */,
@@ -764,6 +828,7 @@
 				1A25B1C31FD910DA000B99B0 /* DataCenterSecondViewController.xib in Resources */,
 				1A434B541FD4F71D006F6A92 /* closed@2x.png in Resources */,
 				1A9F008C1FCBAEE4005897B2 /* ForgetPassWordViewController.xib in Resources */,
+				1A7074CC1FDFB69E00213992 /* city.plist in Resources */,
 				1A6C2C131FC7B3B2002228C7 /* DataCenterViewController.xib in Resources */,
 				1A2BD0EF1FCFA1190014837E /* arrow_down.png in Resources */,
 				3A47F6CB1FD4483E00EF8BD4 /* unchecked.png in Resources */,
@@ -883,6 +948,7 @@
 				1A434B3E1FD4DEF3006F6A92 /* NHPopoverViewController.m in Sources */,
 				1A70744B1FDE1E6100213992 /* CIMessageDetailViewController.m in Sources */,
 				1A70745E1FDE827000213992 /* InterceptionView.m in Sources */,
+				1A7074D21FDFBC3900213992 /* SignViewController.m in Sources */,
 				1A2BD0FA1FCFE03F0014837E /* NeedDoTableViewCell.m in Sources */,
 				1A434B641FD527F3006F6A92 /* YZNavigationMenuView.m in Sources */,
 				1A7074481FDE1E4600213992 /* CIMessageListViewController.m in Sources */,
@@ -891,19 +957,24 @@
 				1A25B1C21FD910DA000B99B0 /* DataCenterSecondViewController.m in Sources */,
 				1A7074451FDE1E1700213992 /* MessageListCell.m in Sources */,
 				1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */,
+				1A7074CE1FDFB69E00213992 /* UIButton+CZHExtension.m in Sources */,
 				1A7074591FDE7B6F00213992 /* WQAlert.m in Sources */,
 				1AC5C1DC1FDA39A300DE34F5 /* DCListCellTableViewCell.m in Sources */,
 				1A6C2C211FC7C70C002228C7 /* CTJSONKit.m in Sources */,
 				1A9F00991FCBB041005897B2 /* GTMBase64.m in Sources */,
 				1A6C2C391FC7C963002228C7 /* ITTPickView.m in Sources */,
+				1A7074D51FDFBCBF00213992 /* UIView+Helper.m in Sources */,
 				1A636A2F1FD0EFA80016A58C /* TTTAttributedLabel.m in Sources */,
 				1A2BD0FF1FCFE3FB0014837E /* OAJobDetailViewController.m in Sources */,
 				1A636A241FD0EF950016A58C /* CTTabBarItem.m in Sources */,
 				1A8FC2011FD7CB0100F45656 /* TestViewController.m in Sources */,
 				1A6C2C171FC7B3CC002228C7 /* PersonalViewController.m in Sources */,
 				1A6C2C311FC7C7E7002228C7 /* NSFileManager+Extra.m in Sources */,
+				1A7074C11FDFB67D00213992 /* HWDownSelectedView.m in Sources */,
 				1AC5C1DF1FDA7CB700DE34F5 /* DCFolderTableViewCell.m in Sources */,
 				1A9F00921FCBAF37005897B2 /* Desthird.m in Sources */,
+				1A7074CF1FDFB69E00213992 /* UIView+CZHExtension.m in Sources */,
+				1A7074CD1FDFB69E00213992 /* CZHAddressPickerView.m in Sources */,
 				1A636A251FD0EF950016A58C /* CTTabBarView.m in Sources */,
 				1A6C2C0D1FC7B396002228C7 /* CommonInfoViewController.m in Sources */,
 				1A9F008B1FCBAEE4005897B2 /* ForgetPassWordViewController.m in Sources */,
