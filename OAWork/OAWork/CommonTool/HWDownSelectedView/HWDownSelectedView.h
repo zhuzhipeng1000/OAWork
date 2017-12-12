@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger,HWDownType) {
+    HWDownTypeCanEdit =0,         // slow at beginning and end
+    HWDownTypeNoEdit,
+};
 @class HWDownSelectedView;
 @protocol HWDownSelectedViewDelegate <NSObject>
 
@@ -28,9 +32,11 @@
 @property (nonatomic, copy) NSString *placeholder;
 
 @property (nonatomic, copy, readonly) NSString *text;
+@property (nonatomic,assign) HWDownType type;
 
 
 - (void)show;
 - (void)close;
 
 @end
+

@@ -9,15 +9,14 @@
 #import "OAJobDetailViewController.h"
 #import <RadioButton/RadioButton.h>
 #import "ITTPickView.h"
-#import "ListSelectView.h"
-#import "ITTPickView.h"
 #import "YZNavigationMenuView.h"
 #import "NHPopoverViewController.h"
+#import "HWDownSelectedView.h"
 
-@interface OAJobDetailViewController ()<ITTPickViewDelegate,ListSelectViewDelegate,UITableViewDelegate,UITableViewDataSource,YZNavigationMenuViewDelegate>
+@interface OAJobDetailViewController ()<ITTPickViewDelegate,HWDownSelectedViewDelegate,UITableViewDelegate,UITableViewDataSource,YZNavigationMenuViewDelegate>
 {
     ITTPickView *_datePicker;
-    ListSelectView *_listView;
+//    ListSelectView *_listView;
     UITableView *_aaaatableView;
     UIButton *_bar;
     YZNavigationMenuView *_menuView;
@@ -87,23 +86,28 @@
             areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, textSize.height);
            
         }else if ([detaiDic[@"type"] isEqualToString:@"spin"]) {
-            UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
-            lb.text=@"spin";
-            lb.textColor=[UIColor blackColor];
-            lb.tag=102;
-            lb.font=[UIFont systemFontOfSize:14.0f];
-            lb.userInteractionEnabled=true;
-            [areaView addSubview:lb];
-            
-            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
-            im.frame=CGRectMake(lb.width-10, (lb.height-5)/2, 8, 5);
-            [lb addSubview:im];
-            
-            
-            UIButton *bt=[[UIButton alloc]initWithFrame:lb.bounds];
-            [lb addSubview:bt];
-            bt.backgroundColor=[UIColor clearColor];
-            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+            HWDownSelectedView *aVie=[[HWDownSelectedView alloc]initWithFrame:nextFrame];
+            aVie.placeholder = @"spin";
+            aVie.listArray = @[@"22", @"23", @"24", @"25", @"26"];
+            [areaView addSubview:aVie];
+
+//            UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
+//            lb.text=@"spin";
+//            lb.textColor=[UIColor blackColor];
+//            lb.tag=102;
+//            lb.font=[UIFont systemFontOfSize:14.0f];
+//            lb.userInteractionEnabled=true;
+//            [areaView addSubview:lb];
+//
+//            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
+//            im.frame=CGRectMake(lb.width-10, (lb.height-5)/2, 8, 5);
+//            [lb addSubview:im];
+//
+//
+//            UIButton *bt=[[UIButton alloc]initWithFrame:lb.bounds];
+//            [lb addSubview:bt];
+//            bt.backgroundColor=[UIColor clearColor];
+//            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
 //            ListSelectView *aList=[[ListSelectView alloc]];
 //            if ([detaiDic[@"type"] isEqualToString:@"spinInput"]) {
 //                aList.listViewType=ListViewTextField;
@@ -111,23 +115,29 @@
 //            [areaView addSubview:aList];
 //            aList.titleArray=@[@"全部",@"工程审计",@"跟踪审计",@"专项审计"];
         }else if ([detaiDic[@"type"] isEqualToString:@"spinInput"]) {
-            UITextField *tf=[[UITextField alloc]initWithFrame:nextFrame];
-            tf.font=[UIFont systemFontOfSize:15.0f];
-            tf.text=@"spinInput";
-            tf.tag=102;
-            tf.font=[UIFont systemFontOfSize:14.0f];
-            tf.userInteractionEnabled=true;
-            [areaView addSubview:tf];
             
-            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
-            im.frame=CGRectMake(tf.width-10, (tf.height-5)/2, 8, 5);
-            [tf addSubview:im];
-            
-            
-            UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(tf.width-tf.height,0, tf.height, tf.height)];
-            [tf addSubview:bt];
-            bt.backgroundColor=[UIColor clearColor];
-            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+            HWDownSelectedView *aVie=[[HWDownSelectedView alloc]initWithFrame:nextFrame];
+            aVie.placeholder = @"spinInput";
+            aVie.listArray = @[@"22", @"23", @"24", @"25", @"26"];
+            [areaView addSubview:aVie];
+
+//            UITextField *tf=[[UITextField alloc]initWithFrame:nextFrame];
+//            tf.font=[UIFont systemFontOfSize:15.0f];
+//            tf.text=@"spinInput";
+//            tf.tag=102;
+//            tf.font=[UIFont systemFontOfSize:14.0f];
+//            tf.userInteractionEnabled=true;
+//            [areaView addSubview:tf];
+//
+//            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
+//            im.frame=CGRectMake(tf.width-10, (tf.height-5)/2, 8, 5);
+//            [tf addSubview:im];
+//
+//
+//            UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(tf.width-tf.height,0, tf.height, tf.height)];
+//            [tf addSubview:bt];
+//            bt.backgroundColor=[UIColor clearColor];
+//            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
             
         }else if ([detaiDic[@"type"] isEqualToString:@"input"]) {
             UITextField *tf=[[UITextField alloc]init];
@@ -328,19 +338,19 @@
     [self textFieldUserEnable:false OfView:self.view];
     
 }
--(void) listBtTapped:(UIButton*)bt{
-    UIView *aView=bt.superview;
-    CGPoint convertpoint=[aView convertPoint:CGPointZero toView:self.view ];
-     CGRect frame=CGRectMake(convertpoint.x, convertpoint.y+aView.height,aView.width,100);
-    _aaaatableView=[[UITableView alloc]initWithFrame:frame];
-    _aaaatableView.dataSource=self;
-    _aaaatableView.delegate=self;
-    _aaaatableView.backgroundColor=[UIColor whiteColor];
-    _aaaatableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_aaaatableView];
- 
-    
-}
+//-(void) listBtTapped:(UIButton*)bt{
+//    UIView *aView=bt.superview;
+//    CGPoint convertpoint=[aView convertPoint:CGPointZero toView:self.view ];
+//     CGRect frame=CGRectMake(convertpoint.x, convertpoint.y+aView.height,aView.width,100);
+//    _aaaatableView=[[UITableView alloc]initWithFrame:frame];
+//    _aaaatableView.dataSource=self;
+//    _aaaatableView.delegate=self;
+//    _aaaatableView.backgroundColor=[UIColor whiteColor];
+//    _aaaatableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+//    [self.view addSubview:_aaaatableView];
+//
+//
+//}
 
 -(void)textFieldUserEnable:(BOOL)userEnable OfView:(UIView*)aView{
     for (UIView  *Aview in aView.subviews) {
@@ -363,12 +373,11 @@
      [self textFieldUserEnable:true OfView:self.view];
     
 }
-#pragma mark listViewDelegate
-- (void)ListSelectView:(ListSelectView*)listSelectView didSelecteText:(NSString*)text andIndex:(NSInteger)index{
+#pragma mark HWDownDelegate
+- (void)downSelectedView:(HWDownSelectedView *)selectedView didSelectedAtIndex:(NSIndexPath *)indexPath{
     
-    listSelectView.hidden=YES;
+    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

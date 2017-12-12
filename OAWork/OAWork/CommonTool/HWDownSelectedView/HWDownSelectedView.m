@@ -33,7 +33,7 @@ CGFloat angleValue(CGFloat angle) {
 
 @implementation HWDownSelectedView
 
-#pragma mark - life cycle 
+#pragma mark - life cycle
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -57,7 +57,7 @@ CGFloat angleValue(CGFloat angle) {
 {
     /// 默认设置
     //self.backgroundColor = [UIColor whiteColor];
-    
+    _type=HWDownTypeNoEdit;
     _font = [UIFont systemFontOfSize:14.f];
     _textColor = [UIColor blackColor];
     _textAlignment = NSTextAlignmentLeft;
@@ -92,7 +92,7 @@ CGFloat angleValue(CGFloat angle) {
             }
         }
     }
-
+    
     if (_isOpen) {
         [self close];
     } else {
@@ -104,7 +104,7 @@ CGFloat angleValue(CGFloat angle) {
 - (void)show
 {
     if (_isOpen || _listArray.count == 0) return;
-
+    
     _beDone = NO;
     
     [self.superview addSubview:self.listTableView];
@@ -118,7 +118,7 @@ CGFloat angleValue(CGFloat angle) {
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-    
+                         
                          if (self.listArray.count > 0) {
                              [self.listTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                                                        atScrollPosition:UITableViewScrollPositionTop
@@ -138,10 +138,10 @@ CGFloat angleValue(CGFloat angle) {
                          self.arrowImgView.transform = CGAffineTransformIdentity;
                      }
                      completion:^(BOOL finished) {
-
+                         
                          _beDone = YES;
                          _isOpen = YES;
-
+                         
                      }
      ];
 }
@@ -173,7 +173,7 @@ CGFloat angleValue(CGFloat angle) {
                          
                      }
      ];
-
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -273,7 +273,7 @@ CGFloat angleValue(CGFloat angle) {
     if (!_contentLabel) {
         _contentLabel = [UITextField new];
         _contentLabel.placeholder = @"点击进行选择";
-        _contentLabel.enabled = NO;
+        _contentLabel.enabled = YES;
         _contentLabel.backgroundColor = [UIColor clearColor];
         _contentLabel.textColor = _textColor;
         _contentLabel.font = _font;
@@ -287,8 +287,8 @@ CGFloat angleValue(CGFloat angle) {
     if (!_clickBtn) {
         _clickBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _clickBtn.backgroundColor = [UIColor clearColor];
-        _clickBtn.layer.borderColor = kLineColor.CGColor;
-        _clickBtn.layer.borderWidth = 0.5f;
+//        _clickBtn.layer.borderColor = kLineColor.CGColor;
+//        _clickBtn.layer.borderWidth = 0.5f;
         [_clickBtn addTarget:self action:@selector(clickBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     }
     return _clickBtn;
@@ -425,7 +425,7 @@ CGFloat angleValue(CGFloat angle) {
                                               [NSLayoutConstraint constraintWithItem:self.clickBtn
                                                                            attribute:NSLayoutAttributeLeft
                                                                            relatedBy:NSLayoutRelationEqual
-                                                                              toItem:self
+                                                                              toItem:_type?self:self.arrowImgBgView
                                                                            attribute:NSLayoutAttributeLeft
                                                                           multiplier:1.0
                                                                             constant:0.0],
@@ -455,3 +455,4 @@ CGFloat angleValue(CGFloat angle) {
 }
 
 @end
+
