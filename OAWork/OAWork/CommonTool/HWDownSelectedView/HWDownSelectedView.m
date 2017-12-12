@@ -106,11 +106,14 @@ CGFloat angleValue(CGFloat angle) {
     if (_isOpen || _listArray.count == 0) return;
     
     _beDone = NO;
-    
-    [self.superview addSubview:self.listTableView];
+    UIViewController *avct=[self viewControllerOfView:self];
+    CGRect re=[self convertRect:self.bounds toView:avct.view];
+    [avct.view addSubview:self.listTableView];
     /// 避免被其他子视图遮盖住
-    [self.superview bringSubviewToFront:self.listTableView];
-    CGRect frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMaxY(self.frame), CGRectGetWidth(self.frame), 0);
+    [avct.view bringSubviewToFront:self.listTableView];
+   
+    
+    CGRect frame = CGRectMake(CGRectGetMinX(re), CGRectGetMaxY(re), CGRectGetWidth(self.frame), 0);
     [self.listTableView setFrame:frame];
     self.listTableView.rowHeight = CGRectGetHeight(self.frame);
     
@@ -453,6 +456,14 @@ CGFloat angleValue(CGFloat angle) {
                                               ]];
     [super updateConstraints];
 }
-
+- (UIViewController *)viewControllerOfView:(UIView*) Aview{
+    for (UIView* next = [Aview superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
 @end
 

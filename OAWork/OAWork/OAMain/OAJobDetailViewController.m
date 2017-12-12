@@ -30,8 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+      self.title=@"新建公文";
     self.view.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
-    NSString* jsonS=[NSString stringWithContentsOfURL:[[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] URLByAppendingPathComponent:@"aa.Json"] encoding:NSUTF8StringEncoding error:nil];
+    NSURL *dect=[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL * documentProtocolUrl =  [dect URLByAppendingPathComponent:@"www/aa.tt"];
+    
+    NSString* jsonS=[NSString stringWithContentsOfURL:documentProtocolUrl encoding:NSUTF8StringEncoding error:nil];
     NSLog(@"jsonS%@",jsonS);
     NSDictionary *dic=[jsonS objectFromCTJSONString];
 //    self.title=dic[@"result"][@"docName"];
@@ -119,6 +123,7 @@
             HWDownSelectedView *aVie=[[HWDownSelectedView alloc]initWithFrame:nextFrame];
             aVie.placeholder = @"spinInput";
             aVie.listArray = @[@"22", @"23", @"24", @"25", @"26"];
+            aVie.type=HWDownTypeCanEdit;
             [areaView addSubview:aVie];
 
 //            UITextField *tf=[[UITextField alloc]initWithFrame:nextFrame];

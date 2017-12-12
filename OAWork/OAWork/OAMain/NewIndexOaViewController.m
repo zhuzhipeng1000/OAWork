@@ -18,13 +18,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=@"新建公文";
     UIScrollView *sc=[[UIScrollView alloc]initWithFrame:self.view.bounds];
     sc.showsVerticalScrollIndicator=false;
     sc.scrollEnabled=true;
     sc.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:sc];
     NSArray *aa=@[@{@"type":@"公文类",@"image":@"gongwenlei",@"detail":@[@"发文处理类",@"事务类",@"发文处理类的大食"]},@{@"type":@"事务类",@"image":@"shiwulei",@"detail":@[@"发文处理类"]},@{@"type":@"事务类",@"image":@"shiwulei",@"detail":@[@"发文处理",@"发文处理类的大食物的",@"发的文",@"发文处理类的大食物的味道",@"发文处理类的大食物的味道"]},@{@"type":@"会议类",@"image":@"huiyilei",@"detail":@[@"周程月报类"]},@{@"type":@"周程月报类",@"image":@"zhouchenglei",@"detail":@[@"发文处理类"]},@{@"type":@"中心服务类",@"image":@"zhongxinlei",@"detail":@[@"发文处理类"]},@{@"type":@"工会事务",@"image":@"gonghuilei",@"detail":@[@"发文处理类"]},@{@"type":@"系统服务类",@"image":@"xitonglei",@"detail":@[@"发文处理类"]}];
-    int  startY=70;
+    int  startY=20;
   
     for (int d=0; d<aa.count; d++) {
         UIView *BigView=[[UIView alloc] init];

@@ -118,6 +118,7 @@
         
         UIImageView *imav=[[UIImageView alloc]initWithFrame:CGRectMake(20,(smallBig.height-12)/2, 12, 12)];
         imav.image=[UIImage imageNamed:dic[@"image"]];
+        imav.contentMode=UIViewContentModeScaleAspectFit;
         [smallBig addSubview:imav];
         
         UILabel *lb=[[UILabel alloc]initWithFrame:CGRectMake(imav.right+10, 0, 120, smallBig.height)];

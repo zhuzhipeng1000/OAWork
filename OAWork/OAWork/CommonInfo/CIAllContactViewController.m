@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+       self.title=@"全区通讯录";
     _allArray=[@[@"广州",@"行政",@"人事",@"财务"]  mutableCopy];
     
     _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-TOPBARCONTENTHEIGHT)];
@@ -45,17 +46,23 @@
     if (cell == nil) {
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentiferId];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        UILabel *tileLb=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, SCREEN_WIDTH-60, 40)];
+        UILabel *tileLb=[[UILabel alloc]initWithFrame:CGRectMake(30, 0, SCREEN_WIDTH-60, 40)];
         tileLb.textColor=[UIColor lightGrayColor];
         tileLb.font=[UIFont systemFontOfSize:14.0];
         tileLb.tag=1001;
         [cell.contentView addSubview:tileLb];
         
-        UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@""]];
+        UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
         im.frame=CGRectMake(tileLb.right, tileLb.top+(tileLb.height-20)/2, 24, 20);
         im.tag=1002;
+        im.contentMode=UIViewContentModeScaleAspectFit;
+        im.transform=CGAffineTransformMakeRotation((M_PI_2*3));// 像右往左转
+        im.transform=CGAffineTransformScale(im.transform, 0.5, 0.5);
         [cell.contentView addSubview:im];
         
+        UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,tileLb.height-1, SCREEN_WIDTH, 1)];
+        bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        [cell.contentView addSubview:bottomStrait];
     };
     UILabel *lb=[cell.contentView viewWithTag:1001];
     lb.text=_allArray[indexPath.row];
@@ -67,7 +74,7 @@
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    return 42;
     
 }
 

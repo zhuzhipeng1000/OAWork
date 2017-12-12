@@ -33,8 +33,24 @@
     self.view.backgroundColor=[UIColor whiteColor];
 //     [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
   
-    
-    
+    NSString *path= [[[[NSBundle mainBundle] resourceURL ]URLByAppendingPathComponent:@"www/aa.json"] path];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSURL *dect=[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+      bool is= [ [NSFileManager defaultManager] copyItemAtURL:[NSURL fileURLWithPath:path] toURL:dect error:nil];
+        if (is) {
+            NSLog(@"dect");
+        }
+    }
+    NSURL * bundleUrl = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"www" isDirectory:YES];
+    NSURL *dect=[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL * documentProtocolUrl =  [dect URLByAppendingPathComponent:@"www"];
+    if([FS fileExistsAtPath:[documentProtocolUrl path]]){
+        [FS removeItemAtURL:documentProtocolUrl error:nil];
+    }
+    NSError *error=nil;
+    [FS copyItemAtURL:bundleUrl toURL:documentProtocolUrl error:nil];
+    if(error)
+        NSLog(@"复制协议html失败：%@",error);
 //    _tabBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-tabbarHeight, 320, tabbarHeight)];
 //        _tabBarView.userInteractionEnabled = YES; //这一步一定要设置为YES，否则不能和用户交互
 //       

@@ -21,10 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _allArray=[@[@"广州",@"行政",@"人事",@"财务"]  mutableCopy];
+    self.view.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
     
-    _searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(20, TOPBARCONTENTHEIGHT,SCREEN_WIDTH-20, 44)];
+    _searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(20, TOPBARCONTENTHEIGHT+10,SCREEN_WIDTH-40, 35)];
     _searchBar.delegate=self;
-    UIImage* searchBarBg = [Utils GetImageWithColor:[Utils colorWithHexString:@"#f7f7f7"] andHeight:32.0f];
+    UIImage* searchBarBg = [Utils GetImageWithColor:[UIColor whiteColor] andHeight:32.0f];
     //设置背景图片
     [_searchBar setBackgroundImage:searchBarBg];
     //设置背景色
@@ -32,14 +33,14 @@
     //设置文本框背景
     [_searchBar setSearchFieldBackgroundImage:searchBarBg forState:UIControlStateNormal];
     //    seach. barStyle= UIBarStyleBlack;
-    _searchBar.backgroundColor=[Utils colorWithHexString:@"#5dbed8"];
+    _searchBar.backgroundColor=[UIColor whiteColor];
     //    _searchBar.showsCancelButton=YES;
     _searchBar.placeholder=@"请输入关键词";
     _searchBar.layer.cornerRadius=20;
     _searchBar.clipsToBounds=true;
     [self.view addSubview:_searchBar];
     
-    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0,_searchBar.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-_searchBar.bottom)];
+    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0,_searchBar.bottom+10, SCREEN_WIDTH, SCREEN_HEIGHT-_searchBar.bottom)];
     [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
     _demoTableView.delegate=self;
     _demoTableView.dataSource=self;
@@ -63,29 +64,33 @@
        
         
         UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@""]];
-        im.frame=CGRectMake(10, 10, 20, 20);
+        im.frame=CGRectMake(15, 15, 40, 40);
         im.tag=1001;
         [cell.contentView addSubview:im];
         
-        UILabel *nameLb=[[UILabel alloc]initWithFrame:CGRectMake(im.right+10, 0, SCREEN_WIDTH-im.right-10-200, 40)];
+        UILabel *nameLb=[[UILabel alloc]initWithFrame:CGRectMake(im.right+10, 0, SCREEN_WIDTH-im.right-10-200, im.bottom+im.top)];
         nameLb.textColor=[UIColor lightGrayColor];
         nameLb.font=[UIFont systemFontOfSize:14.0];
         nameLb.tag=1002;
         [cell.contentView addSubview:nameLb];
         
-        UILabel *phoneNu=[[UILabel alloc]initWithFrame:CGRectMake(nameLb.right, 0, SCREEN_WIDTH-nameLb.right, 20)];
-        phoneNu.textColor=[UIColor lightGrayColor];
+        UILabel *phoneNu=[[UILabel alloc]initWithFrame:CGRectMake(nameLb.right, 0, SCREEN_WIDTH-nameLb.right-10, 40)];
+        phoneNu.textColor=[Utils colorWithHexString:@"#363636"];
         phoneNu.font=[UIFont systemFontOfSize:14.0];
+        phoneNu.textAlignment=NSTextAlignmentRight;
         phoneNu.tag=1003;
         [cell.contentView addSubview:phoneNu];
         
-        UILabel *emailLB=[[UILabel alloc]initWithFrame:CGRectMake(nameLb.right, phoneNu.bottom, SCREEN_WIDTH-nameLb.right, 20)];
-        emailLB.textColor=[UIColor lightGrayColor];
+        UILabel *emailLB=[[UILabel alloc]initWithFrame:CGRectMake(nameLb.right, phoneNu.bottom, SCREEN_WIDTH-nameLb.right-10, 30)];
+        emailLB.textAlignment=NSTextAlignmentRight;
+        emailLB.textColor=[Utils colorWithHexString:@"#898989"];;
         emailLB.font=[UIFont systemFontOfSize:14.0];
         emailLB.tag=1004;
         [cell.contentView addSubview:emailLB];
         
-        
+        UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,im.bottom+im.top-1, SCREEN_WIDTH, 1)];
+        bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        [cell.contentView addSubview:bottomStrait];
     };
     UIImageView *imv=[cell.contentView viewWithTag:1001];
     UILabel *nameLb=[cell.contentView viewWithTag:1002];
@@ -102,7 +107,7 @@
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 40;
+    return 70;
     
 }
 
