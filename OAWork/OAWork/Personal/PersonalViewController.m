@@ -19,6 +19,7 @@
 #import "WQAlert.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AFNetworking/AFNetworking.h>
+#import "SignViewController.h"
 
 
 @interface PersonalViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>{
@@ -33,8 +34,11 @@
     BOOL _isBoy;
     UIButton *firstBT;
     UIButton *secondBT;
+    
 }
 @property (nonatomic,strong) NSMutableArray *allArray;
+@property (nonatomic,strong) UIImageView *signImav;
+@property (nonatomic,assign) BOOL isReviseSign;
 
 @end
 
@@ -46,6 +50,7 @@
     
      self.title=@"个人设置";
     _isEdit=false;
+    _isReviseSign=false;
     self.navigationController.title=@"个人设置";
     [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imgeFromLoacl) name:@"HEADiMAGEcHANGED" object:nil];
@@ -65,7 +70,7 @@
     
     headImage=[[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-186-10)/2, (headBack.height-86)/2, 86, 86)];
     [self imgeFromLoacl];
-    __weak __typeof(self) weakSelf = self;
+  
     [backScroll addSubview:headImage];
     
     
@@ -132,6 +137,19 @@
         nameTf.textAlignment=NSTextAlignmentRight;
         nameTf.text=@"19388766788";
        [smallBig addSubview:nameTf];
+        
+        if (d==(_allArray.count-1)){
+            nameTf.hidden=YES;
+            _signImav=[[UIImageView alloc]initWithFrame:nameTf.frame];
+            _signImav.image=[UIImage imageNamed:dic[@"image"]];
+            _signImav.contentMode=UIViewContentModeScaleAspectFit;
+            [smallBig addSubview:_signImav];
+            
+            UIButton *bt=[[UIButton alloc]initWithFrame:nameTf.frame];
+            bt.backgroundColor=[UIColor clearColor];
+            [bt addTarget:self action:@selector(signVieTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [smallBig addSubview:bt];
+        }
         
         UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,smallBig.height-1, smallBig.width, 1)];
         bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
@@ -305,6 +323,16 @@
  
     [self.navigationController pushViewController:avc animated:YES];
 }
+-(void)signVieTapped:(UIButton*)bt{
+    SignViewController *svct=[[SignViewController alloc]init];
+      __weak __typeof(self) weakSelf = self;
+    [svct signResultWithBlock:^(UIImage *signImage) {
+        weakSelf.signImav.image=signImage;
+        weakSelf.isReviseSign=true;
+    }];
+    [self.navigationController presentViewController:svct animated:YES completion:nil];
+    
+}
 -(void)takePic{
     {
         UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -468,6 +496,12 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50;
     
+}
+-(BOOL)shouldAutorotate{
+    return NO;
+}
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

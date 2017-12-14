@@ -39,6 +39,7 @@
 		1A636A241FD0EF950016A58C /* CTTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A636A201FD0EF950016A58C /* CTTabBarItem.m */; };
 		1A636A251FD0EF950016A58C /* CTTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A636A221FD0EF950016A58C /* CTTabBarView.m */; };
 		1A636A2F1FD0EFA80016A58C /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A636A2E1FD0EFA80016A58C /* TTTAttributedLabel.m */; };
+		1A66470B1FE25AD70050C955 /* UIViewController+UpResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6647091FE25AD70050C955 /* UIViewController+UpResponder.m */; };
 		1A6C2C081FC7B382002228C7 /* OAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C061FC7B382002228C7 /* OAMainViewController.m */; };
 		1A6C2C091FC7B382002228C7 /* OAMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A6C2C071FC7B382002228C7 /* OAMainViewController.xib */; };
 		1A6C2C0D1FC7B396002228C7 /* CommonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C2C0B1FC7B396002228C7 /* CommonInfoViewController.m */; };
@@ -177,6 +178,8 @@
 		1A636A221FD0EF950016A58C /* CTTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTTabBarView.m; sourceTree = "<group>"; };
 		1A636A2D1FD0EFA80016A58C /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		1A636A2E1FD0EFA80016A58C /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		1A6647091FE25AD70050C955 /* UIViewController+UpResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+UpResponder.m"; sourceTree = "<group>"; };
+		1A66470A1FE25AD70050C955 /* UIViewController+UpResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+UpResponder.h"; sourceTree = "<group>"; };
 		1A6C2C051FC7B382002228C7 /* OAMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAMainViewController.h; sourceTree = "<group>"; };
 		1A6C2C061FC7B382002228C7 /* OAMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAMainViewController.m; sourceTree = "<group>"; };
 		1A6C2C071FC7B382002228C7 /* OAMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OAMainViewController.xib; sourceTree = "<group>"; };
@@ -485,6 +488,8 @@
 		1A6C2C1E1FC7C70B002228C7 /* CTJSONKit */ = {
 			isa = PBXGroup;
 			children = (
+				1A66470A1FE25AD70050C955 /* UIViewController+UpResponder.h */,
+				1A6647091FE25AD70050C955 /* UIViewController+UpResponder.m */,
 				1A6C2C1F1FC7C70B002228C7 /* CTJSONKit.h */,
 				1A6C2C201FC7C70B002228C7 /* CTJSONKit.m */,
 			);
@@ -943,6 +948,7 @@
 				1A8FC2011FD7CB0100F45656 /* TestViewController.m in Sources */,
 				1A6C2C171FC7B3CC002228C7 /* PersonalViewController.m in Sources */,
 				1A6C2C311FC7C7E7002228C7 /* NSFileManager+Extra.m in Sources */,
+				1A66470B1FE25AD70050C955 /* UIViewController+UpResponder.m in Sources */,
 				1A7074C11FDFB67D00213992 /* HWDownSelectedView.m in Sources */,
 				1AC5C1DF1FDA7CB700DE34F5 /* DCFolderTableViewCell.m in Sources */,
 				1A9F00921FCBAF37005897B2 /* Desthird.m in Sources */,

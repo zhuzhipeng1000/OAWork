@@ -11,6 +11,7 @@
 #import "ViewController.h"
 #import "OAJobDetailViewController.h"
 #import "TestViewController.h"
+#import "UIViewController+UpResponder.h"
 
 @interface AppDelegate ()
 
@@ -36,7 +37,21 @@
     
    return (AppDelegate *)[[UIApplication sharedApplication] delegate];;
 }
-
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+    if (window && [application.windows firstObject] == window) {
+        
+        UIViewController *viewController = [window.rootViewController getUpResponder];
+        UIInterfaceOrientationMask orientationMask = [viewController supportedInterfaceOrientations];
+        return orientationMask;
+    }else if(window){
+        UIWindow *upResponderWindow = [application.windows firstObject];
+        UIViewController *viewController = [upResponderWindow.rootViewController getUpResponder];
+        UIInterfaceOrientationMask orientationMask = [viewController supportedInterfaceOrientations];
+        return orientationMask;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+    
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

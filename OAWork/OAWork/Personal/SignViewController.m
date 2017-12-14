@@ -223,6 +223,9 @@
         self.placeHoalderLabel.text = @"签名区域";
     }
 }
+-(BOOL)shouldAutorotate{
+    return NO;
+}
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskLandscapeLeft;
 }
