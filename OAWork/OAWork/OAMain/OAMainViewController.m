@@ -9,6 +9,9 @@
 #import "OAMainViewController.h"
 #import "OaMainCellTableViewCell.h"
 #import "NewIndexOaViewController.h"
+#import "WScViewController.h"
+#import "OAListViewController.h"
+
 
 @interface OAMainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSMutableArray *allArray;
@@ -129,12 +132,7 @@
     }
     
     
-    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(10, self.navigationController.navigationBar.bottom, SCREEN_WIDTH-20, SCREEN_HEIGHT-50)];
-    [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
-    _demoTableView.delegate=self;
-    _demoTableView.dataSource=self;
-    _demoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-//    [self.view addSubview:_demoTableView];
+  
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -163,7 +161,15 @@
             break;
         case 200:
         {
+            OAListViewController *CTL=[[OAListViewController alloc]init];
+            [self.navigationController pushViewController:CTL animated:YES];
             
+        }
+            break;
+        case 208:
+        {
+            WScViewController *CTL=[[WScViewController alloc]init];
+            [self.navigationController pushViewController:CTL animated:YES];
         }
             break;
             
@@ -174,25 +180,9 @@
 }
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIViewController *avc;
-    if (indexPath.row==0) {
-        
-    }else if (indexPath.row==1) {
-        
-    }else if (indexPath.row==2) {
-        avc=[[NewIndexOaViewController alloc]initWithNibName:@"NewIndexOaViewController" bundle:nil];
-    }else if (indexPath.row==3) {
-        
-    }else if (indexPath.row==4) {
-        
-    }else if (indexPath.row==5) {
-        
-    }else if (indexPath.row==6) {
-        
-    }
-    if (avc) {
-        [self.navigationController pushViewController:avc animated:YES];
-    }
+    
+    
+ 
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -211,7 +201,7 @@
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    return 130;
     
 }
 

@@ -83,6 +83,16 @@
 		1A90B5BD1FC65B4C008EDDB1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5BC1FC65B4C008EDDB1 /* main.m */; };
 		1A90B5C71FC65B4D008EDDB1 /* OAWorkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5C61FC65B4D008EDDB1 /* OAWorkTests.m */; };
 		1A90B5D21FC65B4D008EDDB1 /* OAWorkUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B5D11FC65B4D008EDDB1 /* OAWorkUITests.m */; };
+		1A9DD70C1FE61E46003112E2 /* WScViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DD70B1FE61E46003112E2 /* WScViewController.m */; };
+		1A9DD7331FE62DC2003112E2 /* WSCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DD72D1FE62DC2003112E2 /* WSCalendarView.m */; };
+		1A9DD7341FE62DC2003112E2 /* WSCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A9DD72E1FE62DC2003112E2 /* WSCalendarView.xib */; };
+		1A9DD7351FE62DC2003112E2 /* WSEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DD7301FE62DC2003112E2 /* WSEventView.m */; };
+		1A9DD7361FE62DC2003112E2 /* WSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DD7321FE62DC2003112E2 /* WSLabel.m */; };
+		1A9DD7391FE62F81003112E2 /* WSCalendar_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9DD7371FE62F81003112E2 /* WSCalendar_1.png */; };
+		1A9DD73A1FE62F81003112E2 /* WSCalendar_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9DD7381FE62F81003112E2 /* WSCalendar_2.png */; };
+		1A9DD73D1FE6A387003112E2 /* EventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DD73C1FE6A387003112E2 /* EventListViewController.m */; };
+		1A9DD7401FE6A395003112E2 /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DD73F1FE6A395003112E2 /* EventDetailViewController.m */; };
+		1A9DD7431FE6A982003112E2 /* OAListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DD7421FE6A982003112E2 /* OAListViewController.m */; };
 		1A9F00851FCBAEB7005897B2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00831FCBAEB7005897B2 /* LoginViewController.m */; };
 		1A9F00871FCBAEC7005897B2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F00861FCBAEC7005897B2 /* LoginViewController.xib */; };
 		1A9F008B1FCBAEE4005897B2 /* ForgetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F00881FCBAEE3005897B2 /* ForgetPassWordViewController.m */; };
@@ -260,6 +270,23 @@
 		1A90B5CD1FC65B4D008EDDB1 /* OAWorkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OAWorkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A90B5D11FC65B4D008EDDB1 /* OAWorkUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAWorkUITests.m; sourceTree = "<group>"; };
 		1A90B5D31FC65B4D008EDDB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A9DD70A1FE61E46003112E2 /* WScViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WScViewController.h; sourceTree = "<group>"; };
+		1A9DD70B1FE61E46003112E2 /* WScViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WScViewController.m; sourceTree = "<group>"; };
+		1A9DD72C1FE62DC2003112E2 /* WSCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCalendarView.h; sourceTree = "<group>"; };
+		1A9DD72D1FE62DC2003112E2 /* WSCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCalendarView.m; sourceTree = "<group>"; };
+		1A9DD72E1FE62DC2003112E2 /* WSCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSCalendarView.xib; sourceTree = "<group>"; };
+		1A9DD72F1FE62DC2003112E2 /* WSEventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSEventView.h; sourceTree = "<group>"; };
+		1A9DD7301FE62DC2003112E2 /* WSEventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSEventView.m; sourceTree = "<group>"; };
+		1A9DD7311FE62DC2003112E2 /* WSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSLabel.h; sourceTree = "<group>"; };
+		1A9DD7321FE62DC2003112E2 /* WSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLabel.m; sourceTree = "<group>"; };
+		1A9DD7371FE62F81003112E2 /* WSCalendar_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WSCalendar_1.png; sourceTree = "<group>"; };
+		1A9DD7381FE62F81003112E2 /* WSCalendar_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WSCalendar_2.png; sourceTree = "<group>"; };
+		1A9DD73B1FE6A387003112E2 /* EventListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventListViewController.h; sourceTree = "<group>"; };
+		1A9DD73C1FE6A387003112E2 /* EventListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventListViewController.m; sourceTree = "<group>"; };
+		1A9DD73E1FE6A395003112E2 /* EventDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
+		1A9DD73F1FE6A395003112E2 /* EventDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
+		1A9DD7411FE6A982003112E2 /* OAListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAListViewController.h; sourceTree = "<group>"; };
+		1A9DD7421FE6A982003112E2 /* OAListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAListViewController.m; sourceTree = "<group>"; };
 		1A9F00831FCBAEB7005897B2 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1A9F00841FCBAEB7005897B2 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1A9F00861FCBAEC7005897B2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -393,6 +420,8 @@
 			children = (
 				1A6C2C051FC7B382002228C7 /* OAMainViewController.h */,
 				1A6C2C061FC7B382002228C7 /* OAMainViewController.m */,
+				1A9DD7411FE6A982003112E2 /* OAListViewController.h */,
+				1A9DD7421FE6A982003112E2 /* OAListViewController.m */,
 				1A6C2C071FC7B382002228C7 /* OAMainViewController.xib */,
 				1A2BD0FC1FCFE3FB0014837E /* OAJobDetailViewController.h */,
 				1A2BD0FD1FCFE3FB0014837E /* OAJobDetailViewController.m */,
@@ -407,6 +436,12 @@
 				1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */,
 				1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */,
 				1A9F00A41FCBE632005897B2 /* OaMainCellTableViewCell.h */,
+				1A9DD70A1FE61E46003112E2 /* WScViewController.h */,
+				1A9DD70B1FE61E46003112E2 /* WScViewController.m */,
+				1A9DD73B1FE6A387003112E2 /* EventListViewController.h */,
+				1A9DD73C1FE6A387003112E2 /* EventListViewController.m */,
+				1A9DD73E1FE6A395003112E2 /* EventDetailViewController.h */,
+				1A9DD73F1FE6A395003112E2 /* EventDetailViewController.m */,
 				1A9F00A51FCBE632005897B2 /* OaMainCellTableViewCell.m */,
 				1A9F00A61FCBE632005897B2 /* OaMainCellTableViewCell.xib */,
 			);
@@ -472,6 +507,7 @@
 		1A6C2C1D1FC7C6F7002228C7 /* CommonTool */ = {
 			isa = PBXGroup;
 			children = (
+				1A9DD72B1FE62DC2003112E2 /* WSCalendar */,
 				1A7074BC1FDFB67D00213992 /* HWDownSelectedView */,
 				1A434B4A1FD4F454006F6A92 /* theme */,
 				1A636A2C1FD0EFA80016A58C /* TTTAttributedLabel */,
@@ -634,6 +670,22 @@
 			path = OAWorkUITests;
 			sourceTree = "<group>";
 		};
+		1A9DD72B1FE62DC2003112E2 /* WSCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				1A9DD7371FE62F81003112E2 /* WSCalendar_1.png */,
+				1A9DD7381FE62F81003112E2 /* WSCalendar_2.png */,
+				1A9DD72C1FE62DC2003112E2 /* WSCalendarView.h */,
+				1A9DD72D1FE62DC2003112E2 /* WSCalendarView.m */,
+				1A9DD72E1FE62DC2003112E2 /* WSCalendarView.xib */,
+				1A9DD72F1FE62DC2003112E2 /* WSEventView.h */,
+				1A9DD7301FE62DC2003112E2 /* WSEventView.m */,
+				1A9DD7311FE62DC2003112E2 /* WSLabel.h */,
+				1A9DD7321FE62DC2003112E2 /* WSLabel.m */,
+			);
+			path = WSCalendar;
+			sourceTree = "<group>";
+		};
 		1A9F00931FCBB041005897B2 /* DES */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,7 +803,7 @@
 				TargetAttributes = {
 					1A90B5A91FC65B4C008EDDB1 = {
 						CreatedOnToolsVersion = 9.0.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					1A90B5C11FC65B4D008EDDB1 = {
 						CreatedOnToolsVersion = 9.0.1;
@@ -795,6 +847,7 @@
 				1A6C2C0E1FC7B396002228C7 /* CommonInfoViewController.xib in Resources */,
 				1A2BD0F11FCFA1190014837E /* arrow_down@3x.png in Resources */,
 				1A434B531FD4F71D006F6A92 /* closed.png in Resources */,
+				1A9DD73A1FE62F81003112E2 /* WSCalendar_2.png in Resources */,
 				1A2BD1001FCFE3FB0014837E /* OAJobDetailViewController.xib in Resources */,
 				1A6C2C2D1FC7C798002228C7 /* back.png in Resources */,
 				1A2BD1051FCFE7E40014837E /* PersonDetailViewController.xib in Resources */,
@@ -809,7 +862,9 @@
 				1A434B541FD4F71D006F6A92 /* closed@2x.png in Resources */,
 				1A9F008C1FCBAEE4005897B2 /* ForgetPassWordViewController.xib in Resources */,
 				1A6C2C131FC7B3B2002228C7 /* DataCenterViewController.xib in Resources */,
+				1A9DD7391FE62F81003112E2 /* WSCalendar_1.png in Resources */,
 				1A2BD0EF1FCFA1190014837E /* arrow_down.png in Resources */,
+				1A9DD7341FE62DC2003112E2 /* WSCalendarView.xib in Resources */,
 				3A47F6CB1FD4483E00EF8BD4 /* unchecked.png in Resources */,
 				1A90B5B51FC65B4C008EDDB1 /* Main.storyboard in Resources */,
 				1A6C2C181FC7B3CC002228C7 /* PersonalViewController.xib in Resources */,
@@ -906,6 +961,7 @@
 				1A25B1C61FD91114000B99B0 /* DCListViewController.m in Sources */,
 				1A90B5B21FC65B4C008EDDB1 /* ViewController.m in Sources */,
 				1A70744E1FDE1EC100213992 /* CIAllContactViewController.m in Sources */,
+				1A9DD7331FE62DC2003112E2 /* WSCalendarView.m in Sources */,
 				1A9F00A71FCBE632005897B2 /* OaMainCellTableViewCell.m in Sources */,
 				1A6C2C381FC7C963002228C7 /* UIView+Utils.m in Sources */,
 				1A2BD0EB1FCF9FF40014837E /* ListSelectView.m in Sources */,
@@ -913,10 +969,13 @@
 				1A5A32211FCD33EE002B1177 /* NewIndexOaViewController.m in Sources */,
 				1A434B381FD4DB66006F6A92 /* PopoverView.m in Sources */,
 				1A6C2C281FC7C787002228C7 /* Utils.m in Sources */,
+				1A9DD70C1FE61E46003112E2 /* WScViewController.m in Sources */,
 				1A2BD0F51FCFDFD80014837E /* NeedDoViewController.m in Sources */,
 				1A25B1C91FD91133000B99B0 /* DClistFolderViewController.m in Sources */,
 				1A6C2C3A1FC7C963002228C7 /* OMGToast.m in Sources */,
+				1A9DD7351FE62DC2003112E2 /* WSEventView.m in Sources */,
 				1A7074621FDE82BD00213992 /* SurePickerPhotoView.m in Sources */,
+				1A9DD7361FE62DC2003112E2 /* WSLabel.m in Sources */,
 				1A636A231FD0EF950016A58C /* CTTabBarEntity.m in Sources */,
 				1A90B5BD1FC65B4C008EDDB1 /* main.m in Sources */,
 				1A6C2C121FC7B3B2002228C7 /* DataCenterViewController.m in Sources */,
@@ -942,6 +1001,7 @@
 				1A9F00991FCBB041005897B2 /* GTMBase64.m in Sources */,
 				1A6C2C391FC7C963002228C7 /* ITTPickView.m in Sources */,
 				1A7074D51FDFBCBF00213992 /* UIView+Helper.m in Sources */,
+				1A9DD7401FE6A395003112E2 /* EventDetailViewController.m in Sources */,
 				1A636A2F1FD0EFA80016A58C /* TTTAttributedLabel.m in Sources */,
 				1A2BD0FF1FCFE3FB0014837E /* OAJobDetailViewController.m in Sources */,
 				1A636A241FD0EF950016A58C /* CTTabBarItem.m in Sources */,
@@ -954,10 +1014,12 @@
 				1A9F00921FCBAF37005897B2 /* Desthird.m in Sources */,
 				1A636A251FD0EF950016A58C /* CTTabBarView.m in Sources */,
 				1A6C2C0D1FC7B396002228C7 /* CommonInfoViewController.m in Sources */,
+				1A9DD7431FE6A982003112E2 /* OAListViewController.m in Sources */,
 				1A9F008B1FCBAEE4005897B2 /* ForgetPassWordViewController.m in Sources */,
 				1A9F009A1FCBB041005897B2 /* JKEncrypt.m in Sources */,
 				3ADE737E1FD4344800A3A97F /* UIView+Utils.m in Sources */,
 				1A6C2C2E1FC7C798002228C7 /* BackButton.m in Sources */,
+				1A9DD73D1FE6A387003112E2 /* EventListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1121,17 +1183,18 @@
 			baseConfigurationReference = 39B254463B632888503F40E0 /* Pods-OAWork.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7W78ZPVU92;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Infinitus China Company Ltd,C=CN";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Infinitus China Company Ltd,C=CN";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = OAWork/OAWork.pch;
 				INFOPLIST_FILE = OAWork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = James.OAWora;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infinitus.idep.bupm.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = distributionbupmideppre;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1141,17 +1204,18 @@
 			baseConfigurationReference = 8C4E396E92F8101F3409C4C2 /* Pods-OAWork.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7W78ZPVU92;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Infinitus China Company Ltd,C=CN";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Infinitus China Company Ltd,C=CN";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = OAWork/OAWork.pch;
 				INFOPLIST_FILE = OAWork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = James.OAWora;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infinitus.idep.bupm.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = distributionbupmideppre;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
