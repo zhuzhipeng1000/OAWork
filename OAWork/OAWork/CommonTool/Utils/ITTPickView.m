@@ -102,6 +102,11 @@
  * 从窗口移除本控件
  */
 - (void)removeView {
+    if (!self.resultString.length) {
+        if ([self.delegate respondsToSelector:@selector(toobarDonBtnHaveClick:resultString:)]) {
+            [self.delegate toobarDonBtnHaveClick:self resultString:self.resultString];
+        }
+    }
     [UIView animateWithDuration:0.25f animations:^{
         self.frame = CGRectMake(self.frame.origin.x, self.selfViewInitH, self.frame.size.width, self.frame.size.height);
     } completion:^(BOOL finished) {

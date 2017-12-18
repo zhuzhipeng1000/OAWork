@@ -81,6 +81,7 @@
         
         UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:detailDic[@"normalImage"]]];
         [centralView addSubview:im];
+         im.contentMode=UIViewContentModeScaleAspectFit;
         im.frame=CGRectMake((width-imageWith)/2, 0, imageWith, imageWith);
         
         UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, im.bottom, width, 40)];

@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor whiteColor];
     if (self.type==DCListSave) {
         _currentIndexString=@"收藏";
     }else if (self.type==DCListOrder) {
@@ -35,15 +36,15 @@
     }else if (self.type==DCListRecommend) {
         _currentIndexString=@"推荐";
     }else{
-        [[_currentIndexString componentsSeparatedByString:@">"] lastObject];
+      _currentIndexString= [[_currentIndexString componentsSeparatedByString:@">"] lastObject];
     }
     self.title=_currentIndexString;
     
-    self.navigationController.title=@"电子资料库";
+    
     _isEdite=false;
     _allArray=[@[@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库"] mutableCopy];
     
-    _searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(20, TOPBARCONTENTHEIGHT,SCREEN_WIDTH-20, 44)];
+    _searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(10, TOPBARCONTENTHEIGHT+10,SCREEN_WIDTH-20, 35)];
     _searchBar.delegate=self;
     UIImage* searchBarBg = [Utils GetImageWithColor:[Utils colorWithHexString:@"#f7f7f7"] andHeight:32.0f];
     //设置背景图片
@@ -56,18 +57,18 @@
     _searchBar.backgroundColor=[Utils colorWithHexString:@"#5dbed8"];
     //    _searchBar.showsCancelButton=YES;
     _searchBar.placeholder=@"请输入关键词";
-    _searchBar.layer.cornerRadius=20;
+    _searchBar.layer.cornerRadius=_searchBar.height/2;
     _searchBar.clipsToBounds=true;
     [self.view addSubview:_searchBar];
-    if (self.type) {
-        _currentIndexlb=[[UILabel alloc]initWithFrame:CGRectMake(_searchBar.left, _searchBar.bottom, _searchBar.width,30)];
-        [_currentIndexlb setTextColor:[UIColor lightGrayColor]];
-        _currentIndexlb.text=[NSString stringWithFormat:@"%@",_currentIndexString];
-        _currentIndexlb.font=[UIFont systemFontOfSize:14.0f];
-        [self.view addSubview:_currentIndexlb];
-    }
+//    if (self.type) {
+//        _currentIndexlb=[[UILabel alloc]initWithFrame:CGRectMake(_searchBar.left, _searchBar.bottom, _searchBar.width,30)];
+//        [_currentIndexlb setTextColor:[UIColor lightGrayColor]];
+//        _currentIndexlb.text=[NSString stringWithFormat:@"%@",_currentIndexString];
+//        _currentIndexlb.font=[UIFont systemFontOfSize:14.0f];
+//        [self.view addSubview:_currentIndexlb];
+//    }
     
-    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(10,self.type?_currentIndexlb.bottom:_searchBar.bottom, SCREEN_WIDTH-20, SCREEN_HEIGHT-_searchBar.bottom)];
+    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0,_searchBar.bottom+10, SCREEN_WIDTH, SCREEN_HEIGHT-_searchBar.bottom-10)];
     [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
     _demoTableView.delegate=self;
     _demoTableView.dataSource=self;
@@ -142,12 +143,12 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     };
     if (_isEdite) {
-        cell.isStartEdit=40;
+        cell.isStartEdit=20;
     }else{
          cell.isStartEdit=0;
     }
     cell.titleLB.text=_allArray[indexPath.row];
-    cell.headIcon.image=[UIImage imageNamed:@"wifi"];
+    cell.headIcon.image=[UIImage imageNamed:@"w"];
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

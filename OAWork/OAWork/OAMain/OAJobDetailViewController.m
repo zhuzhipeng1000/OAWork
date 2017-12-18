@@ -21,7 +21,8 @@
     UIButton *_bar;
     YZNavigationMenuView *_menuView;
     NHPopoverViewController *ReBacInfoView;
-    
+    UIScrollView *_scrollView;
+    UIButton *_confirmBt;
 }
 @end
 
@@ -40,7 +41,10 @@
     NSDictionary *dic=[jsonS objectFromCTJSONString];
 //    self.title=dic[@"result"][@"docName"];
     NSArray *viewInfoArray=dic[@"result"][@"formData"];
-    int topHeight=TOPBARCONTENTHEIGHT;
+    int topHeight=0;
+    _scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-TOPBARCONTENTHEIGHT)];
+    _scrollView.showsVerticalScrollIndicator=false;
+    [self.view addSubview:_scrollView];
     
     for (int d=0; d<viewInfoArray.count; d++) {
         NSDictionary *detaiDic=viewInfoArray[d];
@@ -62,7 +66,7 @@
         UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 30)];
 
         areaView.backgroundColor=[UIColor whiteColor];
-        [self.view addSubview:areaView];
+        [_scrollView addSubview:areaView];
         
         UILabel *titleLB=[[UILabel alloc]init];
         titleLB.text=detaiDic[@"name"];
@@ -79,6 +83,7 @@
             titleLB.numberOfLines=0;
             titleLB.font=[UIFont systemFontOfSize:18.0f];
             titleLB.lineBreakMode=NSLineBreakByWordWrapping;
+            titleLB.textAlignment=NSTextAlignmentCenter;
             areaView.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
             textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(SCREEN_WIDTH-40, 30)];
             if ([detaiDic[@"name"] isEqualToString:@""]||[detaiDic[@"name"] isKindOfClass:[NSNull class]]) {
@@ -93,6 +98,7 @@
             HWDownSelectedView *aVie=[[HWDownSelectedView alloc]initWithFrame:nextFrame];
             aVie.placeholder = @"spin";
             aVie.listArray = @[@"22", @"23", @"24", @"25", @"26"];
+            aVie.delegate=self;
             [areaView addSubview:aVie];
 
 //            UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
@@ -124,6 +130,7 @@
             aVie.placeholder = @"spinInput";
             aVie.listArray = @[@"22", @"23", @"24", @"25", @"26"];
             aVie.type=HWDownTypeCanEdit;
+            aVie.delegate=self;
             [areaView addSubview:aVie];
 
 //            UITextField *tf=[[UITextField alloc]initWithFrame:nextFrame];
@@ -237,6 +244,20 @@
         topHeight=areaView.bottom+1;
        
     }
+    _confirmBt=[[UIButton alloc]init];
+    [_confirmBt setTitle:@"发送" forState: UIControlStateNormal];
+    [_confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_confirmBt setTitle:@"发送" forState: UIControlStateHighlighted];
+    _confirmBt.titleLabel.font=[UIFont boldSystemFontOfSize:16];
+    [_confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [_confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
+    [_confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
+    [_confirmBt addTarget:self action:@selector(showReBacInfeoViewDissMiss:) forControlEvents:UIControlEventTouchUpInside];
+    _confirmBt.layer.cornerRadius=40/2;
+    _confirmBt.clipsToBounds=true;
+    _confirmBt.frame=CGRectMake(20, topHeight+20,SCREEN_WIDTH-40, 40);
+    [_scrollView addSubview:_confirmBt];
+    _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, _confirmBt.bottom+20);
 
     
     // Do any additional setup after loading the view from its nib.
@@ -361,7 +382,7 @@
     for (UIView  *Aview in aView.subviews) {
         if ([Aview isKindOfClass:[UITextField class]]||[Aview isKindOfClass:[UITextView class]]) {
             Aview.userInteractionEnabled=userEnable;
-            
+
         }else{
             [self textFieldUserEnable:userEnable OfView:Aview];
         }
@@ -374,8 +395,10 @@
 #pragma  mark DataPickDelgate
 -(void)toobarDonBtnHaveClick:(ITTPickView *)pickView resultString:(NSString *)resultString{
     //    dateInterval=datePicker.date.timeIntervalSinceReferenceDate;
-    pickView.textView.text=resultString;
-     [self textFieldUserEnable:true OfView:self.view];
+    if (resultString.length) {
+        pickView.textView.text=resultString;
+    }
+    [self textFieldUserEnable:true OfView:self.view];
     
 }
 #pragma mark HWDownDelegate
@@ -383,7 +406,16 @@
     
     
 }
-
+-(void)downSelectedView:(UIView *)aView WillShow:(BOOL)show orClose:(BOOL)close{
+    if (show) {
+        _scrollView.scrollEnabled=false;
+          [self textFieldUserEnable:false OfView:self.view];
+        
+    }else{
+        _scrollView.scrollEnabled=true;
+          [self textFieldUserEnable:true OfView:self.view];
+    }    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

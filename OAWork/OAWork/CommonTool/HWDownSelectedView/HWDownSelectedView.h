@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger,HWDownType) {
 
 @required
 - (void)downSelectedView:(HWDownSelectedView *)selectedView didSelectedAtIndex:(NSIndexPath *)indexPath;
-
+-(void)downSelectedView:(UIView *)aView WillShow:(BOOL)show orClose:(BOOL)close;
 @end
 
 @interface HWDownSelectedView : UIView

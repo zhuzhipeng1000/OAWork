@@ -7,6 +7,7 @@
 //
 
 #import "DCListCellTableViewCell.h"
+#import "Utils.h"
 
 @implementation DCListCellTableViewCell
 
@@ -33,19 +34,21 @@
         _isAddInto=NO;
         _isStartEdit=NO;
         
-        self.headIcon=[[UIImageView alloc]initWithFrame:CGRectMake(12, 10, 35, 35)];
+        self.headIcon=[[UIImageView alloc]initWithFrame:CGRectMake(12, 10, 20, 20)];
         [_rightView addSubview:self.headIcon];
         
-        self.titleLB=[[UILabel alloc]initWithFrame:CGRectMake(self.headIcon.right+10, self.headIcon.top,_rightView.width-self.headIcon.right-50, 20)];
+        self.titleLB=[[UILabel alloc]initWithFrame:CGRectMake(self.headIcon.right+10, self.headIcon.top,_rightView.width-self.headIcon.right-30, self.headIcon.height)];
         self.titleLB.backgroundColor=[UIColor whiteColor];
         self.titleLB.font=[UIFont systemFontOfSize:14.0f];
-        self.titleLB.textColor=[UIColor blackColor];
+        self.titleLB.textColor=[Utils colorWithHexString:@"#363636"];
         [_rightView addSubview:self.titleLB];
         
         _accessImage=[[UIImageView alloc]initWithFrame:CGRectMake(self.titleLB.right, 18, 20, 14)];
         
         [_accessImage setImage:[UIImage imageNamed:@"arrow_down"]];
         [_rightView addSubview:_accessImage];
+        _accessImage.transform=CGAffineTransformMakeRotation((M_PI_2*3));// 像右往左转
+        _accessImage.transform=CGAffineTransformScale(_accessImage.transform, 0.5, 0.5);
         
         _accessButton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, _rightView.height, 55)];
         _accessButton.backgroundColor=[UIColor clearColor];

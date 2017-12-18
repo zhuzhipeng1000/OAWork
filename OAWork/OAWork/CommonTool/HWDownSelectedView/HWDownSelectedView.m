@@ -25,6 +25,7 @@ CGFloat angleValue(CGFloat angle) {
 @property (nonatomic, strong) UIImageView *arrowImgView;
 @property (nonatomic, strong) UIView *arrowImgBgView;
 @property (nonatomic, strong) UITableView *listTableView;
+@property (nonatomic,strong) NSMutableArray *backGroundViews;
 @property (nonatomic, assign) BOOL isOpen;
 /// 执行打开关闭动画是否结束
 @property (nonatomic, assign) BOOL beDone;
@@ -95,8 +96,14 @@ CGFloat angleValue(CGFloat angle) {
     
     if (_isOpen) {
         [self close];
+        if ([self.delegate respondsToSelector:@selector(downSelectedView:WillShow:orClose:)]){
+            [self.delegate downSelectedView:self WillShow:NO orClose:YES];
+        }
     } else {
         [self show];
+        if ([self.delegate respondsToSelector:@selector(downSelectedView:WillShow:orClose:)]){
+            [self.delegate downSelectedView:self WillShow:YES orClose:NO];
+        }
     }
 }
 
@@ -106,11 +113,40 @@ CGFloat angleValue(CGFloat angle) {
     if (_isOpen || _listArray.count == 0) return;
     
     _beDone = NO;
+  
+    
     UIViewController *avct=[self viewControllerOfView:self];
     CGRect re=[self convertRect:self.bounds toView:avct.view];
+  
+    if (!_backGroundViews) {
+        _backGroundViews=[NSMutableArray array];
+        for (int d=0 ;d<4;d++) {
+            UIView *aView;
+            if (d==0) {
+                aView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, re.origin.x, SCREEN_HEIGHT)];
+            }else if(d==1){
+                aView=[[UIView alloc]initWithFrame:CGRectMake(re.origin.x,0, re.size.width, re.origin.y)];
+            }else if(d==2){
+                aView=[[UIView alloc]initWithFrame:CGRectMake(re.origin.x+re.size.width, 0,SCREEN_WIDTH-re.origin.x-re.size.width, SCREEN_HEIGHT)];
+            }else if(d==3){
+                aView=[[UIView alloc]initWithFrame:CGRectMake(re.origin.x, re.origin.y+re.size.height, re.size.width, SCREEN_HEIGHT-re.origin.y-re.size.height)];
+            }
+            aView.userInteractionEnabled=false;
+            [avct.view addSubview:aView];
+            /// 避免被其他子视图遮盖住
+            [avct.view bringSubviewToFront:aView];
+            [_backGroundViews addObject:aView];
+        }
+    }
+ 
+   
+    
     [avct.view addSubview:self.listTableView];
     /// 避免被其他子视图遮盖住
     [avct.view bringSubviewToFront:self.listTableView];
+   
+    
+  
    
     
     CGRect frame = CGRectMake(CGRectGetMinX(re), CGRectGetMaxY(re), CGRectGetWidth(self.frame), 0);
@@ -170,7 +206,13 @@ CGFloat angleValue(CGFloat angle) {
                          
                          [self.listTableView setContentOffset:CGPointZero animated:NO];
                          if (self.listTableView.superview) [self.listTableView removeFromSuperview];
-                         
+                         for (UIView *Aview in _backGroundViews) {
+                             if (Aview.superview) {
+                                 [Aview removeFromSuperview];
+                             }
+                         }
+                         [_backGroundViews removeAllObjects];
+                         _backGroundViews=nil;
                          _beDone = YES;
                          _isOpen = NO;
                          
