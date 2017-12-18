@@ -11,6 +11,7 @@
 #import "NewIndexOaViewController.h"
 #import "WScViewController.h"
 #import "OAListViewController.h"
+#import "CIAllContactViewController.h"
 
 
 @interface OAMainViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -156,6 +157,8 @@
             break;
         case 102:
         {
+            CIAllContactViewController *DCSctrl=[[CIAllContactViewController alloc]init];
+            [self.navigationController pushViewController:DCSctrl animated:YES];
             
         }
             break;

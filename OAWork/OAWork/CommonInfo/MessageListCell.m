@@ -28,7 +28,7 @@
         self.headIcon=[[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 80, 80)];
         [self.contentView addSubview:self.headIcon];
         
-        self.titleLb=[[UILabel alloc]initWithFrame:CGRectMake(self.headIcon.right+10, self.headIcon.top,SCREEN_WIDTH-self.headIcon.right+10, 50)];//给宽110
+        self.titleLb=[[UILabel alloc]initWithFrame:CGRectMake(self.headIcon.right+10,2,SCREEN_WIDTH-self.headIcon.right+10, 50)];//给宽110
         self.titleLb.backgroundColor=[UIColor whiteColor];
         self.titleLb.font=[UIFont systemFontOfSize:14.0f];
         self.titleLb.numberOfLines=0;

@@ -110,6 +110,8 @@
         }
         UIButton *bt=[[UIButton alloc]initWithFrame:smallBack.bounds];
         bt.backgroundColor=[UIColor clearColor];
+        [bt setTitle:detailDic[@"title"] forState:UIControlStateNormal];
+        [bt setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
         [bt addTarget:self action:@selector(bttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         bt.tag=200+d;
         [smallBack addSubview:bt];
@@ -157,7 +159,7 @@
     if (_allArray.count>6) {
          [self hiddenMoreView:true];
     }
-//    currentType=[bt titleForState:UIControlStateNormal];
+   NSString*  currentIndexString=[bt titleForState:UIControlStateNormal];
 //    [_demoTableView reloadData];
     DCListViewController *DCSctrl=[[DCListViewController alloc]init];
     DCSctrl.currentIndexString=[NSString stringWithFormat:@"电子资料管理>%@",[bt titleForState:UIControlStateNormal]];

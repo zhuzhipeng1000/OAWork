@@ -37,6 +37,7 @@
     }else{
         [[_currentIndexString componentsSeparatedByString:@">"] lastObject];
     }
+    self.title=_currentIndexString;
     
     self.navigationController.title=@"电子资料库";
     _isEdite=false;
