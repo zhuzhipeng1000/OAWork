@@ -54,10 +54,10 @@
         [_shapeView.layer addSublayer:shapeLayer];
         
         UIBezierPath *bezierPath = [UIBezierPath bezierPath];
-        [bezierPath moveToPoint:CGPointMake(6, 0)];
-        [bezierPath addLineToPoint:CGPointMake(0, 8)];
-        [bezierPath addLineToPoint:CGPointMake(12, 8)];
+        [bezierPath moveToPoint:CGPointMake(0, 8)];
         [bezierPath addLineToPoint:CGPointMake(6, 0)];
+        [bezierPath addLineToPoint:CGPointMake(12, 8)];
+        //        [bezierPath addLineToPoint:CGPointMake(6, 0)];
         shapeLayer.path = bezierPath.CGPath;
         
         _titleArray = titleArray;
@@ -94,13 +94,13 @@
         _type=type;
         tableViewW=130;
         if (type==1) {
-//            _tableView=[[SecondTabeleView alloc]init];
-//            _tableView.frame=CGRectMake(tableViewX, point.y + 8, tableViewW, tableViewH);
-//            _tableView.layer.cornerRadius = 4;
-//            [self addSubview:_tableView.v];
+            //            _tableView=[[SecondTabeleView alloc]init];
+            //            _tableView.frame=CGRectMake(tableViewX, point.y + 8, tableViewW, tableViewH);
+            //            _tableView.layer.cornerRadius = 4;
+            //            [self addSubview:_tableView.v];
         }else if(type==2){//
             
-        
+            
         }else{
             _tableView = [[UITableView alloc] initWithFrame:CGRectMake(tableViewX, point.y + 8, tableViewW, tableViewH) style:UITableViewStylePlain];
             _tableView.delegate = self;
@@ -110,7 +110,7 @@
             _tableView.scrollEnabled = scrollEnabled;
             [self addSubview:_tableView];
         }
-
+        
     }
     
     return self;
@@ -122,9 +122,9 @@
         shapeLayer.fillColor = _cellColor.CGColor;
         [self addSubview:_shapeView];
     }else{
-    
+        
     }
-
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -154,9 +154,9 @@
         }
         UIImageView *ima=[[UIImageView alloc]initWithFrame:CGRectMake(20, (44-13)/2, 13, 13)];
         ima.tag=11;
-         [cell.contentView addSubview:ima];
+        [cell.contentView addSubview:ima];
     }
-//    跟踪，专项，工程
+    //    跟踪，专项，工程
     
     UILabel *Albel=[cell viewWithTag:10];
     Albel.text=[_titleArray objectAtIndex:indexPath.row];
@@ -165,11 +165,11 @@
     if (_imageArray.count>indexPath.row) {
         aImage.image=_imageArray[indexPath.row];
     }
-   
     
     
-//    cell.imageView.image = [_imageArray objectAtIndex:indexPath.row];
-//    cell.textLabel.text = [_titleArray objectAtIndex:indexPath.row];
+    
+    //    cell.imageView.image = [_imageArray objectAtIndex:indexPath.row];
+    //    cell.textLabel.text = [_titleArray objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -194,7 +194,7 @@
         _tableView.transform = CGAffineTransformMakeScale(0.001, 0.001);
         _tableView.alpha = 0.0f;
         _shapeView.alpha = 0.0f;
-
+        
     } completion:^(BOOL finished) {
         [_shapeView removeFromSuperview];
         [self removeFromSuperview];
@@ -204,15 +204,15 @@
 - (void)willMoveToSuperview:(nullable UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];
-   
+    
     if (newSuperview) {
         CGRect tableViewFrame = _tableView.frame;
-
-       UIViewController *nextResponder = (UIViewController *)[newSuperview nextResponder];
+        
+        UIViewController *nextResponder = (UIViewController *)[newSuperview nextResponder];
         if (!_shapeView.superview && [nextResponder isKindOfClass:[UIViewController class]]) {
             if (nextResponder.navigationController && _shapeView.frame.origin.y < 64) {
                 
-//                [nextResponder.navigationController.view addSubview:_shapeView];
+                //                [nextResponder.navigationController.view addSubview:_shapeView];
                 tableViewFrame.origin.y = 64;
                 _tableView.frame = tableViewFrame;
                 [self addSubview:_shapeView];
@@ -230,26 +230,34 @@
         _tableView.transform = CGAffineTransformMakeScale(0.001, 0.001);
         
         [UIView animateWithDuration:.2f animations:^{
-            self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3f];
+            //            self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3f];
             _tableView.transform = CGAffineTransformMakeScale(1, 1);
             _tableView.alpha = 1.0f;
-            _shapeView.alpha = 1.0f;
+            _tableView.layer.borderWidth=0.5;
+            _tableView.layer.borderColor=[UIColor lightGrayColor].CGColor;
             
+            _shapeView.alpha = 1.0f;
+            shapeLayer.strokeColor=[UIColor lightGrayColor].CGColor;
         }];
-
+        
     }
-
+    
 }
-
+- (void)dealloc
+{
+    
+    NSLog(@"YZNavigationMenuView dealloc");
+}
 
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 
 @end
+
