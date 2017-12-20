@@ -10,8 +10,9 @@
 #import "DClistFolderViewController.h"
 #import "DCListViewController.h"
 #import "DCListCellTableViewCell.h"
+#import "YZNavigationMenuView.h"
 
-@interface DataCenterSecondViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+@interface DataCenterSecondViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,YZNavigationMenuViewDelegate>
 {
     NSMutableArray *_allArray;
     UIView * headView;
@@ -24,6 +25,7 @@
     NSDictionary *other;
     UIScrollView *_scrollView;
 }
+@property (nonatomic,strong)  YZNavigationMenuView *menuView;
 @end
 
 @implementation DataCenterSecondViewController
@@ -119,11 +121,16 @@
         [smallBack addSubview:lineleft];
         UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,width, width, 1)];
         bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        UIView *lineRight=[[UIView alloc]initWithFrame:CGRectMake(width-1, 0, 1, width)];
+        lineRight.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
         if (d%3==0) {
             [lineleft removeFromSuperview];
         }
         if (d>(d-3)) {//最后面3个加上下划线
             [smallBack addSubview:bottomStrait];
+        }
+        if (d==(_allArray.count-1)&&(d%3)!=2){//最后一个，判断是非靠边
+            [smallBack addSubview:lineRight];
         }
         UIButton *bt=[[UIButton alloc]initWithFrame:smallBack.bounds];
         bt.backgroundColor=[UIColor clearColor];
@@ -134,25 +141,27 @@
         [smallBack addSubview:bt];
     }
     if (!_demoTableView) {
+        _demoTableView=[[UITableView alloc]init];
         [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
         _demoTableView.delegate=self;
         _demoTableView.dataSource=self;
         _demoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+        [_scrollView addSubview:_demoTableView];
     }
-     _demoTableView.frame=CGRectMake(0,headView.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-headView.bottom);
+     _demoTableView.frame=CGRectMake(0,headView.bottom+2, SCREEN_WIDTH, SCREEN_HEIGHT-headView.bottom);
     if ((SCREEN_HEIGHT-headView.bottom)<200) {
-        _demoTableView.frame=CGRectMake(0, headView.bottom, SCREEN_WIDTH, 200);
+        _demoTableView.frame=CGRectMake(0, headView.bottom+2, SCREEN_WIDTH, 200);
     }
     [_demoTableView reloadData];
-   _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, _demoTableView.bottom);
+   _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, _demoTableView.bottom+200);
   
 }
 - (void)hiddenMoreView:(BOOL)hidden{
     
     if(_allArray.count>6&&hidden){
         _showedArray= [NSMutableArray array];
-        for (int d=0 ;d<6; d++) {
-            if (d>=_allArray.count) {
+        for (int d=0 ;d<5; d++) {
+            if (d<_allArray.count) {
                 [_showedArray addObject:_allArray[d]];
             }
         }
@@ -203,6 +212,7 @@
     if (cell == nil) {
         cell=[[DCListCellTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentiferId];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate=self;
     };
     cell.titleLB.text=_allArray[indexPath.row][@"title"];
     cell.headIcon.image=[UIImage imageNamed:@"wifi"];
@@ -222,7 +232,38 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)navigationMenuView:(YZNavigationMenuView *)menuView clickedAtIndex:(NSInteger)index{
+    [self removeMenuView];
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+     [super touchesBegan:touches withEvent:event];
+    if (_menuView.superview) {
+         [self removeMenuView];
+    }
+}
+-(void)removeMenuView{
+    [_menuView removeFromSuperview];
+    _menuView.hidden=true;
+    _menuView=nil;
+}
+- (void)accessBTtapped:(UIButton*)bt onCell:(DCListCellTableViewCell*) cell{
+    
+    
+    if (!_menuView) {
+        //        NSArray *imageArray = @[@"newInfo_whiteBack",@"newPro_whiteBack",@"edit_whiteBack"];
+        NSArray *imageArray = @[@"liuchengjiankong",@"baocun",@"in",@"link"];
+        
+        CGRect re=[bt convertRect:bt.bounds toView:self.view];
+        _menuView= [[YZNavigationMenuView alloc] initWithPositionOfDirection:CGPointMake(SCREEN_WIDTH-40 ,re.origin.y+30) images:imageArray titleArray:@[@"删除",@"订阅",@"收藏",@"推荐",] andType :0];
+        _menuView.cellColor=[UIColor whiteColor];
+        _menuView.delegate = self;
+        _menuView.userInteractionEnabled=true;
+        _menuView.textLabelTextAlignment=NSTextAlignmentLeft;
+    }
+    
+    [self.view addSubview:_menuView];
+    
+}
 /*
 #pragma mark - Navigation
 

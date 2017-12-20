@@ -8,7 +8,8 @@
 
 #import "DCListCellTableViewCell.h"
 #import "Utils.h"
-
+@interface DCListCellTableViewCell()
+@end
 @implementation DCListCellTableViewCell
 
 - (void)awakeFromNib {
@@ -19,14 +20,14 @@
 
     self=[super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _rightView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 55)];
+        _rightView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
         [self.contentView addSubview:_rightView];
         _selectImageView=[[UIImageView alloc]initWithFrame:CGRectMake(10, 18, 17, 17)];
         _selectImageView.userInteractionEnabled=YES;
         [_selectImageView setImage:[UIImage imageNamed:@"weixuanzhe"]];
         [self.contentView addSubview:_selectImageView];
     
-        _selectBt=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 55, 55)];
+        _selectBt=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 55, 50)];
         _selectBt.backgroundColor=[UIColor clearColor];
         [_selectBt addTarget:self action:@selector(btTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_selectBt];
@@ -50,12 +51,12 @@
         _accessImage.transform=CGAffineTransformMakeRotation((M_PI_2*3));// 像右往左转
         _accessImage.transform=CGAffineTransformScale(_accessImage.transform, 0.5, 0.5);
         
-        _accessButton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, _rightView.height, 55)];
+        _accessButton=[[UIButton alloc]initWithFrame:CGRectMake(self.titleLB.right-10,0, _rightView.height, 50)];
         _accessButton.backgroundColor=[UIColor clearColor];
         
         [_accessButton addTarget:self action:@selector(_accessButton:) forControlEvents:UIControlEventTouchUpInside];
         
-        [_rightView addSubview:_selectBt];
+        [_rightView addSubview:_accessButton];
         
     }
     
@@ -82,6 +83,12 @@
     }
 }
 -(void)_accessButton:(UIButton*)bt{
+    if (_isStartEdit>0) {
+        return;
+    }
+    if ([self.delegate respondsToSelector:@selector(accessBTtapped:onCell:)]) {
+        [self.delegate accessBTtapped:bt onCell:self];
+    }
     
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -93,7 +100,6 @@
     if (_isStartEdit>0) {
         _selectBt.hidden=NO;
         _selectImageView.hidden=NO;
-       
     }else{
 
         _selectBt.hidden=YES;
@@ -106,6 +112,20 @@
         [_selectImageView setImage:[UIImage imageNamed:@"weixuanzhe"]];
     }
     _rightView.frame=CGRectMake(_isStartEdit, 0, SCREEN_WIDTH, 55);
+    
+    
+}
+- (UITableView *)viewControllerOfView:(UIView*) Aview{
+    for (UIView* next = [Aview superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UITableView class]]) {
+            return (UITableView *)nextResponder;
+        }
+    }
+    return nil;
+}
+
+-(void)didiSelextNames:(NSMutableArray*)names{
     
     
 }

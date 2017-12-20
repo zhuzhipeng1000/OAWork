@@ -34,9 +34,10 @@
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSArray *Arra=_searchBar.text.length?_searchArr:_allArray;
-    NSDictionary *Adic =Arra[indexPath.row];
+    NSString *Adic =Arra[indexPath.row];
     CIAreaContactViewController *civct=[[CIAreaContactViewController alloc]init];
-    civct.area=@"";
+    civct.area=Adic;
+    civct.title=Adic;
     [self.navigationController pushViewController:civct animated:YES];
    
 }

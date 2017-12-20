@@ -48,7 +48,12 @@
 
     };
     cell.titleLb.text=@"广州最新教育用还是怕的啊的哈逗逼娃";
-    cell.headIcon.image=[UIImage imageNamed:@"wifi"];
+    if (indexPath.row==0) {
+    cell.headIcon.image=[UIImage imageNamed:@"nothing"];
+    }else{
+       cell.headIcon.image=[UIImage imageNamed:@"user"];
+    }
+    
     cell.personNameLB.text=@"吴中找工作";
     cell.timeLB.text=@"2017-10-18";
     cell.departmentNameLB.text=@"人事部";

@@ -8,6 +8,7 @@
 
 #import "DCListViewController.h"
 #import "DCListCellTableViewCell.h"
+#import "YZNavigationMenuView.h"
 
 @interface DCListViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 {
@@ -21,7 +22,7 @@
 @property (nonatomic,strong) NSMutableArray *searchArr;
 @property (nonatomic,strong) UISearchBar *searchBar;
 @property (nonatomic,strong) UILabel *currentIndexlb;
-
+@property (nonatomic,strong)  YZNavigationMenuView *menuView;
 @end
 
 @implementation DCListViewController
@@ -159,7 +160,9 @@
     return 50;
     
 }
-
+- (void)navigationMenuView:(YZNavigationMenuView *)menuView clickedAtIndex:(NSInteger)index{
+    _menuView.hidden=true;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

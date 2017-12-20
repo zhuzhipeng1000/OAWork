@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class DCListCellTableViewCell;
 @protocol DCListCellTableViewCellDelegate<NSObject>
 - (void)dic:(NSDictionary*)dic isSelected:(BOOL) isSelected;
+- (void)accessBTtapped:(UIButton*)bt onCell:(DCListCellTableViewCell*) cell;
 @end
 @interface DCListCellTableViewCell : UITableViewCell
 @property (nonatomic,strong) UIView *rightView;
@@ -23,4 +25,5 @@
 @property (nonatomic,strong)  UIButton *selectBt;
 @property (nonatomic,strong)  UIImageView *selectImageView;
 @property (nonatomic,weak) id delegate;
+
 @end

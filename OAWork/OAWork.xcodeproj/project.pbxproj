@@ -113,6 +113,7 @@
 		3A47F6CA1FD4483E00EF8BD4 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C61FD4483D00EF8BD4 /* checked.png */; };
 		3A47F6CB1FD4483E00EF8BD4 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C71FD4483E00EF8BD4 /* unchecked.png */; };
 		3A47F6CD1FD5955F00EF8BD4 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6CC1FD5955F00EF8BD4 /* image.xcassets */; };
+		3AA7A6581FE96EC6005C5DF6 /* OAprogressMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7A6571FE96EC6005C5DF6 /* OAprogressMonitorViewController.m */; };
 		3ADE737E1FD4344800A3A97F /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE737D1FD4344800A3A97F /* UIView+Utils.m */; };
 		3AE29B531FE01666007F56FC /* www in Resources */ = {isa = PBXBuildFile; fileRef = 3AE29B521FE01665007F56FC /* www */; };
 		55F6E9E014CB6792564369ED /* libPods-OAWork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BB2E76F7CDD3B627FF0A2B /* libPods-OAWork.a */; };
@@ -320,6 +321,8 @@
 		3A47F6C61FD4483D00EF8BD4 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		3A47F6C71FD4483E00EF8BD4 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
 		3A47F6CC1FD5955F00EF8BD4 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
+		3AA7A6561FE96EC6005C5DF6 /* OAprogressMonitorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAprogressMonitorViewController.h; sourceTree = "<group>"; };
+		3AA7A6571FE96EC6005C5DF6 /* OAprogressMonitorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAprogressMonitorViewController.m; sourceTree = "<group>"; };
 		3ADE737C1FD4344800A3A97F /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		3ADE737D1FD4344800A3A97F /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		3AE29B521FE01665007F56FC /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = SOURCE_ROOT; };
@@ -427,6 +430,8 @@
 				1A2BD0FD1FCFE3FB0014837E /* OAJobDetailViewController.m */,
 				1A2BD0FE1FCFE3FB0014837E /* OAJobDetailViewController.xib */,
 				1A2BD0F21FCFDFD80014837E /* NeedDoViewController.h */,
+				3AA7A6561FE96EC6005C5DF6 /* OAprogressMonitorViewController.h */,
+				3AA7A6571FE96EC6005C5DF6 /* OAprogressMonitorViewController.m */,
 				1A2BD0F31FCFDFD80014837E /* NeedDoViewController.m */,
 				1A2BD0F41FCFDFD80014837E /* NeedDoViewController.xib */,
 				1A2BD0F71FCFE03E0014837E /* NeedDoTableViewCell.h */,
@@ -993,6 +998,7 @@
 				1A6C2C081FC7B382002228C7 /* OAMainViewController.m in Sources */,
 				1A6C2C251FC7C77C002228C7 /* User.m in Sources */,
 				1A25B1C21FD910DA000B99B0 /* DataCenterSecondViewController.m in Sources */,
+				3AA7A6581FE96EC6005C5DF6 /* OAprogressMonitorViewController.m in Sources */,
 				1A7074451FDE1E1700213992 /* MessageListCell.m in Sources */,
 				1A90B5AF1FC65B4C008EDDB1 /* AppDelegate.m in Sources */,
 				1A7074591FDE7B6F00213992 /* WQAlert.m in Sources */,

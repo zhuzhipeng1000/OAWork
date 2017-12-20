@@ -12,6 +12,7 @@
 #import "YZNavigationMenuView.h"
 #import "NHPopoverViewController.h"
 #import "HWDownSelectedView.h"
+#import "OAprogressMonitorViewController.h"
 
 @interface OAJobDetailViewController ()<ITTPickViewDelegate,HWDownSelectedViewDelegate,UITableViewDelegate,UITableViewDataSource,YZNavigationMenuViewDelegate>
 {
@@ -332,10 +333,6 @@
     
 }
 -(void)showReBacInfeoViewDissMiss:(UIButton*)BT{
-    
-    [ReBacInfoView dismiss];
-}
-- (void)editTapped:(UIButton*)bt{
     if (!_menuView) {
         //        NSArray *imageArray = @[@"newInfo_whiteBack",@"newPro_whiteBack",@"edit_whiteBack"];
         NSArray *imageArray = @[@"liuchengjiankong",@"baocun"];
@@ -348,6 +345,10 @@
     [self.view addSubview:_menuView];
     
     _menuView.hidden=!_menuView.isHidden;
+    [ReBacInfoView dismiss];
+}
+- (void)editTapped:(UIButton*)bt{
+    
     
     [self showReBacInfoView];
     
@@ -468,7 +469,8 @@
            
         case 0:
         {
-           
+            OAprogressMonitorViewController *moct=[[OAprogressMonitorViewController alloc]init];
+            [self.navigationController pushViewController:moct animated:YES];
         }
             break;
         case 1:

@@ -92,6 +92,7 @@
     NSString *title=[bt titleForState:UIControlStateNormal];
     NSLog(@"titie%@",title);
     OAJobDetailViewController *AA=[[OAJobDetailViewController alloc]init];
+    AA.title=title;
     [self.navigationController pushViewController:AA animated:YES];
 //    ISAlertView *al=[[ISAlertView alloc]initWithTitle:nil message:@"确定删除该公文吗？" delegate:self cancelButtonTitle:nil otherButtonTitles:[@"确定"]];
 //    [al show];

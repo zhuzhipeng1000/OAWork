@@ -80,7 +80,7 @@
     nameTf.textAlignment=NSTextAlignmentLeft;
     nameTf.text=@"黄建新";
     nameTf.textColor=[Utils colorWithHexString:@"#ffffff"];
-    nameTf.text=[User shareUser].userName;
+//    nameTf.text=[User shareUser].userName;
     [backScroll addSubview:nameTf];
     
     UIButton *headBt=[[UIButton alloc]initWithFrame:CGRectMake(headImage.left, headImage.top, headImage.width, headImage.height)];

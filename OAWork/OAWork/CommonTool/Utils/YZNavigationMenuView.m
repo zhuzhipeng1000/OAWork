@@ -92,7 +92,7 @@
         }
         
         _type=type;
-        tableViewW=130;
+        tableViewW=120;
         if (type==1) {
             //            _tableView=[[SecondTabeleView alloc]init];
             //            _tableView.frame=CGRectMake(tableViewX, point.y + 8, tableViewW, tableViewH);
@@ -189,16 +189,16 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-    [UIView animateWithDuration:.2f animations:^{
-        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-        _tableView.transform = CGAffineTransformMakeScale(0.001, 0.001);
-        _tableView.alpha = 0.0f;
-        _shapeView.alpha = 0.0f;
-        
-    } completion:^(BOOL finished) {
-        [_shapeView removeFromSuperview];
-        [self removeFromSuperview];
-    }];
+//    [UIView animateWithDuration:.2f animations:^{
+//        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+//        _tableView.transform = CGAffineTransformMakeScale(0.001, 0.001);
+//        _tableView.alpha = 0.0f;
+//        _shapeView.alpha = 0.0f;
+//
+//    } completion:^(BOOL finished) {
+//        [_shapeView removeFromSuperview];
+//        [self removeFromSuperview];
+//    }];
 }
 
 - (void)willMoveToSuperview:(nullable UIView *)newSuperview
