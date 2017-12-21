@@ -20,9 +20,9 @@
 
     self=[super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _rightView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
+        _rightView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
         [self.contentView addSubview:_rightView];
-        _selectImageView=[[UIImageView alloc]initWithFrame:CGRectMake(10, 18, 17, 17)];
+        _selectImageView=[[UIImageView alloc]initWithFrame:CGRectMake(8, 12, 16, 16)];
         _selectImageView.userInteractionEnabled=YES;
         [_selectImageView setImage:[UIImage imageNamed:@"weixuanzhe"]];
         [self.contentView addSubview:_selectImageView];

@@ -10,7 +10,7 @@
 #import "DCListCellTableViewCell.h"
 #import "YZNavigationMenuView.h"
 
-@interface DCListViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface DCListViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YZNavigationMenuViewDelegate>
 {
 //   UIBarButtonItem *_bar;
     BOOL _isEdite;
@@ -142,12 +142,14 @@
     if (cell == nil) {
         cell=[[DCListCellTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentiferId];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate=self;
     };
     if (_isEdite) {
         cell.isStartEdit=20;
     }else{
          cell.isStartEdit=0;
     }
+
     cell.titleLB.text=_allArray[indexPath.row];
     cell.headIcon.image=[UIImage imageNamed:@"w"];
     return  cell;
@@ -157,11 +159,41 @@
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    return 40;
     
 }
+
 - (void)navigationMenuView:(YZNavigationMenuView *)menuView clickedAtIndex:(NSInteger)index{
+    [self removeMenuView];
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    if (_menuView.superview) {
+        [self removeMenuView];
+    }
+}
+-(void)removeMenuView{
+    [_menuView removeFromSuperview];
     _menuView.hidden=true;
+    _menuView=nil;
+}
+- (void)accessBTtapped:(UIButton*)bt onCell:(DCListCellTableViewCell*) cell{
+    
+    
+    if (!_menuView) {
+        //        NSArray *imageArray = @[@"newInfo_whiteBack",@"newPro_whiteBack",@"edit_whiteBack"];
+        NSArray *imageArray = @[@"liuchengjiankong",@"baocun",@"in",@"link"];
+        
+        CGRect re=[bt convertRect:bt.bounds toView:self.view];
+        _menuView= [[YZNavigationMenuView alloc] initWithPositionOfDirection:CGPointMake(SCREEN_WIDTH-40 ,re.origin.y+30) images:imageArray titleArray:@[@"删除",@"订阅",@"收藏",@"推荐",] andType :0];
+        _menuView.cellColor=[UIColor whiteColor];
+        _menuView.delegate = self;
+        _menuView.userInteractionEnabled=true;
+        _menuView.textLabelTextAlignment=NSTextAlignmentLeft;
+    }
+    
+    [self.view addSubview:_menuView];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

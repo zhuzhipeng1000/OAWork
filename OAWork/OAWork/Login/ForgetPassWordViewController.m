@@ -7,19 +7,15 @@
 //
 
 #import "ForgetPassWordViewController.h"
-//#import "ResetPassViewController.h"
 #import "LoginViewController.h"
 
 @interface ForgetPassWordViewController ()
 {
+
+    UITextField *textFil;
+    UITextField *confirmtf;
+    UITextField *reConfirmtf;
     UIButton *loginbt;
-    UITextField *accountTF;
-    UITextField *veriyTf;
-    UIButton *getVerifyBt;
-    NSInteger count;
-    NSTimer *timer;
-    NSString *verifyCode;
-    NSString *phoneSt;
     NSMutableDictionary *paraDic;
 }
 
@@ -29,174 +25,82 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"重置密码";
-    int adjustHeight=0;
-    if ([self.navigationController.viewControllers[1] isKindOfClass:[LoginViewController class]]) {
-        adjustHeight=64;
-    }
-    UIView *aView=[self textEditViewOfFrame:CGRectMake(0, StartHeight+adjustHeight, SCREEN_WIDTH, 50) tag:55 text:@"手机号码" accessibilityHint:@"请输入您的手机号码"];
-
-    getVerifyBt=[[UIButton alloc]initWithFrame:CGRectMake(aView.width-100,5,90,aView.height-10)];
-    [getVerifyBt setTitle:@"发送验证码" forState:UIControlStateNormal];
-    getVerifyBt.titleLabel.font=[UIFont systemFontOfSize:15.0f];
-    [getVerifyBt setTitle:@"发送验证码" forState:UIControlStateNormal];
-    [getVerifyBt setTitleColor:[UIColor whiteColor]  forState:UIControlStateNormal];
-    [getVerifyBt setTitleColor:[UIColor whiteColor]  forState:UIControlStateHighlighted];
-    [getVerifyBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#5dbed8"]] forState:UIControlStateNormal];
-    [getVerifyBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#359eba"]] forState:UIControlStateHighlighted];
+    self.title=@"修改密码";
+    UIView *backview=[[UIView alloc]initWithFrame:CGRectMake(00, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-TOPBARCONTENTHEIGHT)];
+    backview.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
+    [self.view addSubview:backview];
     
-    getVerifyBt.clipsToBounds=YES;
-    getVerifyBt.layer.cornerRadius=3.0f;
-    [getVerifyBt addTarget:self action:@selector(dataReuest) forControlEvents:UIControlEventTouchUpInside];
-    [aView addSubview:getVerifyBt];
+    UILabel *titleLB=[[UILabel alloc]init];
+    titleLB.text=@"  修改个人登陆密码";
+    titleLB.font=[UIFont systemFontOfSize:14.0F];
+    titleLB.textColor=[Utils colorWithHexString:@"#f7f7f7"];
+    titleLB.frame=CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, 44);
+    titleLB.textColor=[Utils colorWithHexString:@"#898989"];
+    [self.view addSubview:titleLB];
+   
+    UIView *Aview=[[UIView alloc]initWithFrame:CGRectMake(0, titleLB.bottom, SCREEN_WIDTH, 50)];
+    Aview.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
+    [self.view addSubview:Aview];
     
-    [self.view addSubview:aView];
-
-    accountTF=[self.view viewWithTag:55];
-    accountTF.text=[UD objectForKey:KuserName];;
+    textFil=[[UITextField alloc]initWithFrame:CGRectMake(20, titleLB.bottom, SCREEN_WIDTH-20, 50)];
+    textFil.userInteractionEnabled=YES;
+    textFil.textColor=[UIColor grayColor];
+      textFil.font=[UIFont systemFontOfSize:14.0F];
+    textFil.placeholder=@" 请输入登录密码";
+    textFil.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
+    [self.view addSubview:textFil];
     
-    UIView *secondView =[self textEditViewOfFrame:CGRectMake(0, aView.bottom, SCREEN_WIDTH, 50) tag:56 text:@"验证码" accessibilityHint:@"请输入您的验证码"];
-    [self.view addSubview:secondView];
+    UIView *sview=[[UIView alloc]initWithFrame:CGRectMake(0, textFil.bottom+20, SCREEN_WIDTH, 50)];
+    sview.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
+    [self.view addSubview:sview];
     
-    veriyTf=[self.view viewWithTag:56];
+    confirmtf=[[UITextField alloc]initWithFrame:CGRectMake(20, textFil.bottom+20, SCREEN_WIDTH-40, 50)];
+    confirmtf.userInteractionEnabled=YES;
+    confirmtf.textColor=[UIColor grayColor];
+    confirmtf.placeholder=@" 请输入新密码";
+    confirmtf.font=[UIFont systemFontOfSize:14.0F];
+    confirmtf.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
+    [self.view addSubview:confirmtf];
+    
+    UIView *tview=[[UIView alloc]initWithFrame:CGRectMake(0, confirmtf.bottom+1, SCREEN_WIDTH, 50)];
+    tview.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
+    [self.view addSubview:tview];
+    
+    reConfirmtf=[[UITextField alloc]initWithFrame:CGRectMake(20, confirmtf.bottom+1, SCREEN_WIDTH-40, 50)];
+    reConfirmtf.userInteractionEnabled=YES;
+    reConfirmtf.textColor=[UIColor grayColor];
+    reConfirmtf.font=[UIFont systemFontOfSize:14.0F];
+    reConfirmtf.placeholder=@" 请再次输入新密码";
+    reConfirmtf.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
+    [self.view addSubview:reConfirmtf];
     
     
-    UILabel *lineLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, secondView.bottom, SCREEN_WIDTH-20, kMinPixels)];
-    lineLabel.textColor=[Utils colorWithHexString:@"#cccccc"];
-    [aView addSubview:lineLabel];
-    
-    UILabel *noticeLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, secondView.bottom, SCREEN_WIDTH-20, 30)];
-    noticeLabel.textColor=[Utils colorWithHexString:@"#cccccc"];
-    noticeLabel.text=@"请输入您的手机号码，我们将发送验证码到您绑定的手机上";
-    noticeLabel.font=[UIFont systemFontOfSize:14.0f];
-    noticeLabel.adjustsFontSizeToFitWidth=YES;
-    [self.view addSubview:noticeLabel];
-    
-    loginbt=[[UIButton alloc]initWithFrame:CGRectMake(10, noticeLabel.bottom+20, SCREEN_WIDTH-20, 45)];
-    [loginbt setTitle:@"下一步" forState:UIControlStateNormal];
-    [loginbt setTitle:@"下一步" forState:UIControlStateNormal];
+    loginbt=[[UIButton alloc]initWithFrame:CGRectMake(40, reConfirmtf.bottom+20, SCREEN_WIDTH-80, 45)];
+    [loginbt setTitle:@"确 定" forState:UIControlStateNormal];
+    [loginbt setTitle:@"确 定" forState:UIControlStateNormal];
     [loginbt setTitleColor:[UIColor whiteColor]  forState:UIControlStateNormal];
     [loginbt setTitleColor:[UIColor whiteColor]  forState:UIControlStateHighlighted];
-    [loginbt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#5dbed8"]] forState:UIControlStateNormal];
-    [loginbt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#359eba"]] forState:UIControlStateHighlighted];
+    [loginbt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
+    [loginbt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
 
     loginbt.clipsToBounds=YES;
-    loginbt.layer.cornerRadius=3.0f;
+    loginbt.layer.cornerRadius=loginbt.height/2;
     [loginbt addTarget:self action:@selector(nextBTTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginbt];
     // Do any additional setup after loading the view from its nib.
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden=NO;
-    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent = NO;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+   
 }
--(void)scrollTimer{
-    
-    [getVerifyBt setTitle:[NSString stringWithFormat:@"%lds",(long)count] forState:UIControlStateNormal];
-    [getVerifyBt setTitle:[NSString stringWithFormat:@"%lds",(long)count] forState:UIControlStateHighlighted];
-    [getVerifyBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#b7b7b7"]] forState:UIControlStateNormal];
-    [getVerifyBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#b7b7b7"]] forState:UIControlStateHighlighted];
-    count--;
-    if (count==0||count<0) {
-        
-        [getVerifyBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#5dbed8"]] forState:UIControlStateNormal];
-        [getVerifyBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#5dbed8"]] forState:UIControlStateHighlighted];
-        [getVerifyBt setTitle:@"发送验证码" forState:UIControlStateNormal];
-        [getVerifyBt setTitle:@"发送验证码" forState:UIControlStateNormal];
-        getVerifyBt.userInteractionEnabled=YES;
-        [timer invalidate];
-        timer=nil;
-    }
-}
+
 -(void)dataReuest{
-    if (!([accountTF.text isKindOfClass:[NSString class]]&&accountTF.text.length>0)) {
-        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"请输入手机号码" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [al show];
-        return;
-    }
-    paraDic=[NSMutableDictionary dictionary];
-    [paraDic setObject:accountTF.text forKey:@"phone"];
-
-    if (!timer) {
-         count=120;
-        timer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
-        [timer fire];
-
-        getVerifyBt.userInteractionEnabled=NO;
-    }
     
-    NSDictionary *parameters=@{@"phone":accountTF.text};
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.labelText = @"验证码获取中";
-    __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager getValidateCodenUrl] andPara:parameters isAddUserId:NO Success:^(NSDictionary *dict, BOOL success) {
-        [weakSelf.hud hide:YES];
-        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"errrorCode"] intValue]==200) {
-            verifyCode=dict[@"data"];
-            phoneSt=parameters[@"phone"];
-        }else{
-            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:dict[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [al show];
-        }
-       
-    } fail:^(NSError *error) {
-        [weakSelf.hud hide:YES];
-        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"获取验证码失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [al show];
-    }];
-}
--(UIView*)textEditViewOfFrame:(CGRect)frame tag:(NSInteger)aTag text:(NSString*)aText accessibilityHint:(NSString*)accessibilityHint {
-    UIView *aView=[[UIView alloc]initWithFrame:frame];
-    aView.userInteractionEnabled=YES;
-    aView.backgroundColor=[UIColor whiteColor];
-    
-    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(10, 0, 80, 49)];
-    label.text=aText;
-    label.backgroundColor=[UIColor whiteColor];
-    [aView addSubview:label];
-    
-    UITextField *textFil=[[UITextField alloc]initWithFrame:CGRectMake(label.right, label.top, SCREEN_WIDTH-label.width-10, label.height)];
-    textFil.userInteractionEnabled=YES;
-    textFil.textColor=[UIColor grayColor];
-    textFil.placeholder=accessibilityHint;
-    textFil.tag=aTag;
-    [aView addSubview:textFil];
-    
-    UILabel *lineLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, textFil.bottom, SCREEN_WIDTH-20, kMinPixels)];
-    lineLabel.backgroundColor=[UIColor grayColor];
-    [aView addSubview:lineLabel];
-    
-    return aView;
 }
 
 - (IBAction)nextBTTapped:(UIButton *)sender {
     NSString *inde=@"";
-    if (!veriyTf.text||( [veriyTf.text isKindOfClass:[NSString class]]&&veriyTf.text.length==0)) {
-       inde=@"请输入验证码";
-    }
-    if (!verifyCode) {
-        inde=@"请先获取验证码";
-    }
-    
-//    if (![veriyTf.text isEqualToString:verifyCode]) {//verifyCode 为 验证码发送成功！
-//         inde=@"验证码不正确，请重试！";
-//    }
-    if (inde.length) {
-        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:inde delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [al show];
-        
-        return;
-    }
-
-    [paraDic setObject:veriyTf.text forKey:@"validationCode"];
-    [paraDic setObject:accountTF.text forKey:@"phone"];
-//    ResetPassViewController *rest=[[ResetPassViewController alloc]initWithNibName:@"ResetPassViewController" bundle:nil];
-//    rest.dic=paraDic;
-//    [self.navigationController pushViewController:rest animated:YES];
+  
     
 }
 

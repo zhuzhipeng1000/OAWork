@@ -140,7 +140,7 @@
         cell.textLabel.font = [UIFont systemFontOfSize:16];
         UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, tableViewW, 44)];
         if (_imageArray) {
-            lab.frame=CGRectMake(50, 0, tableViewW-40, 44);
+            lab.frame=CGRectMake(40, 0, tableViewW-40, 44);
         }
         
         lab.tag=10;

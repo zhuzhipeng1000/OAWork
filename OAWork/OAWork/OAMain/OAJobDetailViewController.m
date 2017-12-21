@@ -300,7 +300,7 @@
 //        [bt setImage:[UIImage imageNamed:@"x"]  forState: UIControlStateHighlighted];
 //        bt.titleLabel.font=[UIFont boldSystemFontOfSize:24];
 //        [bt setTitleColor:[Utils colorWithHexString:@"#008fef"] forState:UIControlStateHighlighted];
-        [bt addTarget:self action:@selector(showReBacInfeoViewDissMiss:) forControlEvents:UIControlEventTouchUpInside];
+        [bt addTarget:self action:@selector(dissMissReBacInfoView) forControlEvents:UIControlEventTouchUpInside];
         bt.frame=CGRectMake(titleLb.right, titleLb.top, aView.width-titleLb.right, titleLb.height);
         [aView addSubview:bt];
         
@@ -321,7 +321,7 @@
         [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
         [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
-        [confirmBt addTarget:self action:@selector(showReBacInfeoViewDissMiss:) forControlEvents:UIControlEventTouchUpInside];
+        [confirmBt addTarget:self action:@selector(dissMissReBacInfoView) forControlEvents:UIControlEventTouchUpInside];
         confirmBt.layer.cornerRadius=titleLb.height/2;
         confirmBt.clipsToBounds=true;
         confirmBt.frame=CGRectMake(tf.left+20, tf.bottom+20, aView.width-2*(tf.left+20), titleLb.height);
@@ -333,6 +333,15 @@
     
 }
 -(void)showReBacInfeoViewDissMiss:(UIButton*)BT{
+     [self showReBacInfoView];
+    
+}
+-(void)dissMissReBacInfoView{
+    [ReBacInfoView dismiss];
+    ReBacInfoView=nil;
+}
+- (void)editTapped:(UIButton*)bt{
+    
     if (!_menuView) {
         //        NSArray *imageArray = @[@"newInfo_whiteBack",@"newPro_whiteBack",@"edit_whiteBack"];
         NSArray *imageArray = @[@"liuchengjiankong",@"baocun"];
@@ -341,16 +350,13 @@
         _menuView.cellColor=[UIColor whiteColor];
         _menuView.delegate = self;
         _menuView.textLabelTextAlignment=NSTextAlignmentLeft;
+    }else{
+      _menuView.hidden=!_menuView.isHidden;
     }
     [self.view addSubview:_menuView];
     
-    _menuView.hidden=!_menuView.isHidden;
     [ReBacInfoView dismiss];
-}
-- (void)editTapped:(UIButton*)bt{
-    
-    
-    [self showReBacInfoView];
+   
     
 }
 -(void) dateBtTapped:(UIButton*)bt{

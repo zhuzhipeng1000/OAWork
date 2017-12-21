@@ -10,7 +10,7 @@
 
 @interface CIMessageDetailViewController ()
 {
-    
+     UIScrollView *_scrollView;
     
 }
 @end
@@ -20,12 +20,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"销售弄长跑";
+    _scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-TOPBARCONTENTHEIGHT)];
+    _scrollView.showsVerticalScrollIndicator=false;
+    [self.view addSubview:_scrollView];
     
-    UIImageView *imv=[[UIImageView alloc]initWithFrame:CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, (200*SCREEN_WIDTH)/758)];
+    UIImageView *imv=[[UIImageView alloc]initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, (200*SCREEN_WIDTH)/758)];
     imv.backgroundColor=[UIColor whiteColor];
     imv.contentMode=UIViewContentModeScaleAspectFit;
     imv.image=[UIImage imageNamed:@"user_copy"];
-    [self.view addSubview:imv];
+    [_scrollView addSubview:imv];
     
     UILabel* titleLB=[[UILabel alloc]init];
     titleLB.backgroundColor=[UIColor clearColor];
@@ -35,10 +38,11 @@
     titleLB.lineBreakMode=NSLineBreakByWordWrapping;
     titleLB.textAlignment=NSTextAlignmentCenter;
     titleLB.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
-    CGSize textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(SCREEN_WIDTH, 100)];
+    CGSize textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(SCREEN_WIDTH, 1000)];
     
     titleLB.frame=CGRectMake(0,imv.bottom, SCREEN_WIDTH, textSize.height+10);
-    [self.view addSubview:titleLB];
+    _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, titleLB.bottom+10);
+    [_scrollView addSubview:titleLB];
     // Do any additional setup after loading the view.
 }
 

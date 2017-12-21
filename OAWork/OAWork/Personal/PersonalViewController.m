@@ -34,6 +34,12 @@
     BOOL _isBoy;
     UIButton *firstBT;
     UIButton *secondBT;
+    NSString *signPath;
+    UITextField *phoneTf;
+    UITextField *emailTf;
+    UITextField *departTf;
+    UIButton *reviseSignbt;
+    UIButton *headBt;
     
 }
 @property (nonatomic,strong) NSMutableArray *allArray;
@@ -51,6 +57,8 @@
      self.title=@"个人设置";
     _isEdit=false;
     _isReviseSign=false;
+    NSString *path=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
+    signPath = [path stringByAppendingPathComponent:@"fileName"];
     self.navigationController.title=@"个人设置";
     [self createNaviTopBarWithShowBackBtn:false showTitle:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imgeFromLoacl) name:@"HEADiMAGEcHANGED" object:nil];
@@ -83,7 +91,7 @@
 //    nameTf.text=[User shareUser].userName;
     [backScroll addSubview:nameTf];
     
-    UIButton *headBt=[[UIButton alloc]initWithFrame:CGRectMake(headImage.left, headImage.top, headImage.width, headImage.height)];
+    headBt=[[UIButton alloc]initWithFrame:CGRectMake(headImage.left, headImage.top, headImage.width, headImage.height)];
     headBt.backgroundColor=[UIColor clearColor];
     [headBt addTarget:self action:@selector(headBtTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backScroll addSubview:headBt];
@@ -137,18 +145,33 @@
         nameTf.textAlignment=NSTextAlignmentRight;
         nameTf.text=@"19388766788";
        [smallBig addSubview:nameTf];
+
+        if (d==0) {
+            phoneTf=nameTf;
+        }else if (d==1) {
+            emailTf=nameTf;
+            emailTf.text=@"fafaf@qq.com";
+        }else if (d==2) {
+            departTf=nameTf;
+            departTf.text=@"人事部";
+        }
         
         if (d==(_allArray.count-1)){
             nameTf.hidden=YES;
             _signImav=[[UIImageView alloc]initWithFrame:nameTf.frame];
             _signImav.image=[UIImage imageNamed:dic[@"image"]];
+            NSData *imageData = [NSData dataWithContentsOfFile: signPath];
+            if (imageData) {
+                UIImage *image = [UIImage imageWithData: imageData];
+                _signImav.image=image;
+            }
             _signImav.contentMode=UIViewContentModeScaleAspectFit;
             [smallBig addSubview:_signImav];
             
-            UIButton *bt=[[UIButton alloc]initWithFrame:nameTf.frame];
-            bt.backgroundColor=[UIColor clearColor];
-            [bt addTarget:self action:@selector(signVieTapped:) forControlEvents:UIControlEventTouchUpInside];
-            [smallBig addSubview:bt];
+            reviseSignbt=[[UIButton alloc]initWithFrame:nameTf.frame];
+            reviseSignbt.backgroundColor=[UIColor clearColor];
+            [reviseSignbt addTarget:self action:@selector(signVieTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [smallBig addSubview:reviseSignbt];
         }
         
         UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,smallBig.height-1, smallBig.width, 1)];
@@ -232,6 +255,12 @@
             [secondBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateNormal];
             [secondBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateHighlighted];
         }
+        [headBt setUserInteractionEnabled: true];
+        [phoneTf setUserInteractionEnabled: true];
+         [emailTf setUserInteractionEnabled:true];
+         [departTf setUserInteractionEnabled:true];
+        [reviseSignbt setUserInteractionEnabled:true];
+       
     }else{
         if (_isReviseHeadView) {
             [self uploadAttach];
@@ -250,6 +279,11 @@
             [firstBT setImage:[UIImage imageNamed:@"g_2"] forState:UIControlStateHighlighted];
            
         }
+        [headBt setUserInteractionEnabled: false];
+        [phoneTf setUserInteractionEnabled:false];
+        [emailTf setUserInteractionEnabled:false];
+        [departTf setUserInteractionEnabled:false];
+        [reviseSignbt setUserInteractionEnabled:false];
     }
     
     
@@ -327,6 +361,15 @@
     SignViewController *svct=[[SignViewController alloc]init];
       __weak __typeof(self) weakSelf = self;
     [svct signResultWithBlock:^(UIImage *signImage) {
+      
+        
+        NSData *data = UIImagePNGRepresentation(signImage);
+        BOOL isscuess= [data writeToFile:signPath atomically:YES];
+        
+        if (isscuess) {
+            NSLog(@"bao chun cheng gong");
+            _isReviseHeadView=YES;
+        }
         weakSelf.signImav.image=signImage;
         weakSelf.isReviseSign=true;
     }];
