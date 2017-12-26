@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,52 +18,8 @@
             <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="339" height="127.5"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="标题：王小中2017-9-18上午请假上申请" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Nj-Jn-fvQ">
-                        <rect key="frame" x="0.0" y="0.0" width="339" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申请人：朱志的" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSM-TS-rIu">
-                        <rect key="frame" x="8" y="59" width="323" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="部门：财务部" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lm-jX-ai2">
-                        <rect key="frame" x="8" y="98" width="323" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="时间：2017-10-12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2h-0f-4nc">
-                        <rect key="frame" x="8" y="28" width="323" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                </subviews>
-                <constraints>
-                    <constraint firstAttribute="trailing" secondItem="4Nj-Jn-fvQ" secondAttribute="trailing" id="2OV-kc-0mI"/>
-                    <constraint firstItem="4Nj-Jn-fvQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="3yv-Yb-vks"/>
-                    <constraint firstItem="JSM-TS-rIu" firstAttribute="top" secondItem="O2h-0f-4nc" secondAttribute="bottom" constant="10" id="7DF-sh-I4j"/>
-                    <constraint firstItem="0lm-jX-ai2" firstAttribute="top" secondItem="JSM-TS-rIu" secondAttribute="bottom" constant="18" id="AdZ-sX-wcU"/>
-                    <constraint firstItem="O2h-0f-4nc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="DKl-IO-hxR"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="JSM-TS-rIu" secondAttribute="trailing" id="EJZ-gN-cXq"/>
-                    <constraint firstItem="4Nj-Jn-fvQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="FPK-HG-Hm4"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="0lm-jX-ai2" secondAttribute="trailing" id="KL8-yc-ohU"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="0lm-jX-ai2" secondAttribute="bottom" constant="0.5" id="Kz5-ta-VRh"/>
-                    <constraint firstItem="O2h-0f-4nc" firstAttribute="top" secondItem="4Nj-Jn-fvQ" secondAttribute="bottom" constant="7.5" id="L3X-0I-4RR"/>
-                    <constraint firstItem="JSM-TS-rIu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="dQp-Ik-GZr"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="O2h-0f-4nc" secondAttribute="trailing" id="kcF-SO-CPw"/>
-                    <constraint firstItem="0lm-jX-ai2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="o5R-tI-fAw"/>
-                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
-            <connections>
-                <outlet property="titleLB" destination="4Nj-Jn-fvQ" id="6FH-Bm-hWh"/>
-            </connections>
             <point key="canvasLocation" x="120.5" y="199"/>
         </tableViewCell>
     </objects>
