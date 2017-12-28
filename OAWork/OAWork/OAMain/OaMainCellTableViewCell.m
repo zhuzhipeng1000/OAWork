@@ -131,16 +131,22 @@
     [self.contentView addSubview:_seeDetailButton];
 }
 -(void)returnButtonTapped:(UIButton*)bt{
-    
+    if ([self.delagate respondsToSelector:@selector(returnBtTappedOnCell:)]) {
+        [self.delagate returnBtTappedOnCell:self];
+    }
     
 }
 -(void)deleteButtonTapped:(UIButton*)bt{
-    
+    if ([self.delagate respondsToSelector:@selector(deleteBtTappedOnCell:)]) {
+        [self.delagate deleteBtTappedOnCell:self];
+    }
     
 }
 -(void)seeDetailButtonTapped:(UIButton*)bt{
     
-    
+    if ([self.delagate respondsToSelector:@selector(seeDetailBtTappedOnCell:)]) {
+        [self.delagate seeDetailBtTappedOnCell:self];
+    }
 }
 - (void)accessButtonTapped:(UIButton*)bt{
     

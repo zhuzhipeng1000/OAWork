@@ -21,11 +21,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    UIViewController *login;
+//    UIViewController *login;
 //    OAJobDetailViewController *login=[[OAJobDetailViewController alloc]init];
-//    LoginViewController *login=[[LoginViewController alloc]init];
-    login=[[TestViewController alloc]init];
-     login=[[ViewController alloc]init];
+    LoginViewController *login=[[LoginViewController alloc]init];
+//    login=[[TestViewController alloc]init];
+//     login=[[ViewController alloc]init];
      self.navi=[[UINavigationController alloc]initWithRootViewController:login];
  
     self.window.rootViewController=self.navi;

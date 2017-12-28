@@ -81,10 +81,23 @@
     [super viewWillAppear:animated];
     if (!_bar) {
         _bar=[[UIButton alloc]init];
-        [_bar setTitle:@"编辑" forState: UIControlStateNormal];
-        [_bar setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-         [_bar setTitle:@"编辑" forState: UIControlStateHighlighted];
-       [_bar setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        NSString *bttitle=@"编辑";
+        UIColor * titleColor=[UIColor blackColor];
+        if (self.type==DCListSave) {
+            bttitle=@"取消收藏";
+            titleColor=[Utils colorWithHexString:@"#008fef"];
+        }else if (self.type==DCListOrder) {
+            bttitle=@"取消订阅";
+            titleColor=[Utils colorWithHexString:@"#008fef"];
+        }else if (self.type==DCListRecommend) {
+            bttitle=@"取消推荐";
+            titleColor=[Utils colorWithHexString:@"#008fef"];
+        }
+       
+        [_bar setTitle:bttitle forState: UIControlStateNormal];
+        [_bar setTitleColor:titleColor forState:UIControlStateNormal];
+         [_bar setTitle:bttitle forState: UIControlStateHighlighted];
+       [_bar setTitleColor:titleColor forState:UIControlStateHighlighted];
         [_bar addTarget:self action:@selector(editTapped:) forControlEvents:UIControlEventTouchUpInside];
        UIBarButtonItem* barButton = [[UIBarButtonItem alloc] initWithCustomView:_bar];
         self.navigationItem.rightBarButtonItem = barButton;

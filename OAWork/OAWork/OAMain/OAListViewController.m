@@ -9,7 +9,8 @@
 #import "OAListViewController.h"
 #import "OaMainCellTableViewCell.h"
 #import "OAJobDetailViewController.h"
-@interface OAListViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+#import "NeedDoViewController.h"
+@interface OAListViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,OaMainCellTableViCellDelegate>
 @property (nonatomic,strong) NSMutableArray *allArray;
 @property (nonatomic,strong) UITableView *demoTableView;
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -47,22 +48,22 @@
     _searchBar.clipsToBounds=true;
     [_headBackView addSubview:_searchBar];
     
-    _arr=@[(@"中心合同审批处理表  2"),@"中心请款处理表  10",@"中心合同审批处理表  2",@"内部事务  2",@"行政办公会议材料上报处理表 2",@"个人请假表  2"];
+    _arr=@[(@"中心合同审批处理表"),@"中心请款处理表",@"中心合同审批处理表",@"内部事务",@"行政办公会议材料上报处理表",@"个人请假表"];
     _hiddenTopBt=true;
     for (int d=0; d<_arr.count; d++) {
         UIButton* _returnButton=[[UIButton alloc]init];
         _returnButton.tag=1000+d;
         [_returnButton addTarget:self action:@selector(returnButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
-        NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:_arr[d] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#008fef"]}];
-        NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  %d",d+1] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#09bb07"]}];
+        NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:_arr[d] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#008fef"]}];
+        NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  %d",d+1] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#09bb07"]}];
         [nameString appendAttributedString:countString];
         [_returnButton setAttributedTitle:nameString forState:UIControlStateNormal];
-        _returnButton.titleLabel.adjustsFontSizeToFitWidth=YES;
-        _returnButton.titleLabel.font=[UIFont systemFontOfSize:14.0];
+//        _returnButton.titleLabel.adjustsFontSizeToFitWidth=YES;
+//        _returnButton.titleLabel.font=[UIFont systemFontOfSize:13.0];
         _returnButton.layer.cornerRadius=10;
         _returnButton.backgroundColor=[UIColor whiteColor];
-        _returnButton.layer.borderColor=[UIColor lightGrayColor].CGColor;
+//        _returnButton.layer.borderColor=[UIColor lightGrayColor].CGColor;
         _returnButton.layer.borderWidth=1.0f;
         _returnButton.frame=CGRectMake((d%2)?(SCREEN_WIDTH/2)+5:20,_searchBar.bottom+10+40*(d/2), SCREEN_WIDTH/2-25, 35);
         [_headBackView addSubview:_returnButton];
@@ -74,10 +75,11 @@
         _headBackView.frame=CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, _searchBar.bottom+ 120);
         _moreView=[[UIView alloc]initWithFrame:CGRectMake(40, _headBackView.height-40, SCREEN_WIDTH-80, 30)];
         [_headBackView addSubview:_moreView];
-        UIImageView *imv=[[UIImageView alloc]initWithFrame:CGRectMake(_moreView.width/2-40, 0, 13, 13)];
-        [imv setImage:[UIImage imageNamed:@"xuanzhe"]];
+        UIImageView *imv=[[UIImageView alloc]initWithFrame:CGRectMake(_moreView.width/2-40,(_moreView.height-13)/2, 13, 13)];
+        imv.tag=20011;
+        [imv setImage:[UIImage imageNamed:@"arrow_up"]];
         [_moreView addSubview:imv];
-        UILabel *lb=[[UILabel alloc]initWithFrame:CGRectMake(imv.right, 0, 45, _moreView.height)];
+        UILabel *lb=[[UILabel alloc]initWithFrame:CGRectMake(imv.right+20, 0, 45, _moreView.height)];
         lb.text=@"展开";
         lb.tag=20010;
         lb.textColor=[Utils colorWithHexString:@"#008fef"];
@@ -101,21 +103,37 @@
         [self.view addSubview:_demoTableView];
     // Do any additional setup after loading the view.
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
+}
 -(void)returnButtonTapped:(UIButton*)bt{
     
     
 }
+
 -(void)moreBtTapped:(UIButton*)bt{
     _hiddenTopBt=!_hiddenTopBt;
     if (!_hiddenTopBt) {
         for (UIView *aView in _headBackView.subviews) {
             aView.hidden=false;
         }
-        _headBackView.frame=CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, 55+(_arr.count%2)?40*(_arr.count/2+2):40*(_arr.count/2+1));
+        _headBackView.frame=CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, 55+((_arr.count%2)?40*(_arr.count/2+2):40*(_arr.count/2+1)));
         _moreView.frame=CGRectMake(40, _headBackView.height-40, SCREEN_WIDTH-80, 30);
         
         UILabel* alb= [_moreView viewWithTag:20010] ;
         [alb setText:@"缩起"];
+        UIImageView* imv= [_moreView viewWithTag:20011] ;
+        imv.transform =CGAffineTransformRotate(imv.transform, 0);
         
     }else{
         for (UIView *aView in _headBackView.subviews) {
@@ -127,6 +145,8 @@
          _moreView.frame=CGRectMake(40, _headBackView.height-40, SCREEN_WIDTH-80, 30);
         UILabel* alb= [_moreView viewWithTag:20010] ;
         [alb setText:@"展开"];
+        UIImageView* imv= [_moreView viewWithTag:20011] ;
+        imv.transform =CGAffineTransformRotate(imv.transform, 180);
     }
     _demoTableView.frame=CGRectMake(0, _headBackView.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-_headBackView.bottom);
     
@@ -135,7 +155,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *avc;
     
-        avc=[[OAJobDetailViewController alloc]initWithNibName:@"OAJobDetailViewController" bundle:nil];
+        avc=[[NeedDoViewController alloc]initWithNibName:@"NeedDoViewController" bundle:nil];
    
     if (avc) {
         [self.navigationController pushViewController:avc animated:YES];
@@ -148,7 +168,9 @@
     if (cell == nil) {
         cell=[[OaMainCellTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentiferId];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
     };
+    cell.delagate=self;
     cell.titleLB.text=_allArray[indexPath.row];
     cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"p_%ld",(indexPath.row%3+1)]];
     cell.senderLB.text=@"王小动";
@@ -162,6 +184,43 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 130;
     
+}
+-(void)returnBtTappedOnCell:(OaMainCellTableViewCell*)cell{
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"提交中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
+}
+-(void)deleteBtTappedOnCell:(OaMainCellTableViewCell*)cell{
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"提交中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
+    
+}
+-(void)seeDetailBtTappedOnCell:(OaMainCellTableViewCell*)cell{
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"提交中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

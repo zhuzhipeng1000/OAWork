@@ -45,6 +45,7 @@
 @property (nonatomic,strong) NSMutableArray *allArray;
 @property (nonatomic,strong) UIImageView *signImav;
 @property (nonatomic,assign) BOOL isReviseSign;
+@property (nonatomic,assign) BOOL hasRevised;
 
 @end
 
@@ -120,7 +121,7 @@
     [secondBT addTarget:self action:@selector(sexBtTapped:) forControlEvents:UIControlEventTouchUpInside];
     secondBT.hidden=YES;
     [backScroll addSubview:secondBT];
-
+    _hasRevised=false;
     _allArray = [@[@{@"name":@"手机号码",@"image":@"p"},@{@"name":@"邮箱",@"image":@"m"},@{@"name":@"部门",@"image":@"liuchengjiankong"},@{@"name":@"个人图章",@"image":@"z"}] mutableCopy];
     
     for (int d=0; d<_allArray.count; d++) {
@@ -208,7 +209,18 @@
     imav.frame=CGRectMake((SCREEN_WIDTH-size.width-30)/2, (44-14)/2, 14, 14);
     lb.frame=CGRectMake(imav.right+8, 0, size.width+10, 44);
    
-    
+   
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
+
 //    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, headBack.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-50)];
 //    [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
 //    _demoTableView.delegate=self;
@@ -264,6 +276,19 @@
     }else{
         if (_isReviseHeadView) {
             [self uploadAttach];
+        }
+        _hasRevised=true;
+        if (_hasRevised) {
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            self.hud.labelText = @"数据提交中";
+            __weak __typeof(self) weakSelf = self;
+            [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+                [weakSelf.hud hide:YES];
+                
+            } fail:^(NSError *error) {
+                [weakSelf.hud hide:YES];
+                
+            }];
         }
         nameTf.userInteractionEnabled=false;
         nameTf.layer.cornerRadius=0.0f;
@@ -479,7 +504,7 @@
     NSMutableDictionary *dic=[NSMutableDictionary dictionary];
     
     [dic  setObject:@"image" forKey:@"fileType"];
-    @"http://14.23.156.164:8810/mobile/file/upload.jhtml";
+    @"http:///mobile/file/upload.jhtml";
     NSURLSessionDataTask *task = [manager POST:@"" parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         //            NSData *data = UIImagePNGRepresentation(selectedimv);
         float kCompressionQuality = 0.3;

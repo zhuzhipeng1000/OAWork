@@ -95,13 +95,32 @@
 }
 
 -(void)dataReuest{
-    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据提交中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
 }
 
 - (IBAction)nextBTTapped:(UIButton *)sender {
-    NSString *inde=@"";
+
+    if (!textFil.text.length||!confirmtf.text.length||!reConfirmtf.text.length) {
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"请输入完整信息" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+        return;
+    }if (![confirmtf.text isEqualToString:reConfirmtf.text]) {
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"两次密码不一致" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+        return;
+    }else{
+        [self dataReuest];
+    }
   
-    
 }
 
 - (void)didReceiveMemoryWarning {

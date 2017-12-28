@@ -127,6 +127,16 @@
         [smallBack addSubview:bt];
         
     }
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -143,9 +153,10 @@
     }
     
 }
-- (void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=true;
+    
 }
 
 - (void)didReceiveMemoryWarning {

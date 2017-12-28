@@ -10,6 +10,10 @@
 
 #import "SignViewController.h"
 #import "UIView+Helper.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "MyRequest.h"
+#import "HostMangager.h"
+
 
 @interface SignViewController ()
 @property(nonatomic, strong) UIImageView *signImageView;
@@ -20,6 +24,7 @@
 @property(nonatomic, strong) NSMutableArray *pointYs;
 
 @property (nonatomic, copy) SignResult result;
+@property(nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -208,6 +213,17 @@
     self.result = result;
 }
 - (void)signDoneAction:(UIButton *)sender {
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据提交中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
     if (self.result) {
         self.result(self.signImageView.image);
     }

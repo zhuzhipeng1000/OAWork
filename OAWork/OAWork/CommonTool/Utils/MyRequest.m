@@ -126,7 +126,7 @@
         // 这里可以获取到目前数据请求的进度
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         // 请求成功
-        dispatch_async(dispatch_get_main_queue(), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
 
         if(responseObject){
            
@@ -139,16 +139,20 @@
                 NSLog(@"url:%@ /n success:%@",dict,url );
             
         } else {
-            success(@{@"msg":@"暂无数据"}, NO);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                  success(@{@"msg":@"暂无数据"}, NO);
+            });
         }
-        });
+//        });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         // 请求失败
         dispatch_async(dispatch_get_main_queue(), ^{
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"请求失败url:%@ /n success:%@",error,url );
+                fail(error);
+//            });
         
-        NSLog(@"请求失败url:%@ /n success:%@",error,url );
-            fail(error);
         });
     }];
 }
@@ -197,7 +201,7 @@
                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8));
     DLog(@"加密后参数%@",encodedValue);
     
-    url=[NSString stringWithFormat:@"http://14.23.156.164:8810%@?paramStr=%@",url,encodedValue];
+    url=[NSString stringWithFormat:@"http://14.26.164:8810%@?paramStr=%@",url,encodedValue];
     return url;
   
 }

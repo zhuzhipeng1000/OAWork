@@ -151,11 +151,8 @@
 }
 #pragma  mark BtTarget
 -(void)loginbTTapped:(UIButton*)bt{
-    ViewController* main = [[ViewController alloc] init];
-    self.navigationController.viewControllers=@[main];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+   
     
-    return;
     if (!accountTF.text.length||!passwordTF.text.length) {
         UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"请输入帐号和密码" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [al show];
@@ -193,16 +190,24 @@
             }
         }else{
             [weakSelf.hud hide:YES];
-            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [al show];
+//            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//            [al show];
+            [self goToMain];
         }
        
     } fail:^(NSError *error) {
         bt.userInteractionEnabled=YES;
-        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [al show];
+          [self goToMain];
+//        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//        [al show];
     }];
     
+}
+-(void)goToMain{
+    
+    ViewController* main = [[ViewController alloc] init];
+    self.navigationController.viewControllers=@[main];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 -(void)autoLoginbTTapped:(UIButton*)bt{
     isSelectAutoLogin=!isSelectAutoLogin;

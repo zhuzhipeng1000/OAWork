@@ -7,12 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+@class OaMainCellTableViewCell;
 typedef NS_ENUM(NSInteger, OAStatueType) {
     OAStatueTypeNormal = 0,
     OAStatueTypeUrget ,
     
     OAStatueTypeProier
 };
+@protocol OaMainCellTableViCellDelegate <NSObject>
+
+-(void)returnBtTappedOnCell:(OaMainCellTableViewCell*)cell;
+-(void)deleteBtTappedOnCell:(OaMainCellTableViewCell*)cell;
+-(void)seeDetailBtTappedOnCell:(OaMainCellTableViewCell*)cell;
+@end
 @interface OaMainCellTableViewCell : UITableViewCell
 @property (strong, nonatomic)  UILabel *titleLB;
 @property (strong, nonatomic)  UILabel *senderLB;
@@ -26,4 +33,5 @@ typedef NS_ENUM(NSInteger, OAStatueType) {
 @property (strong, nonatomic)  UIButton *seeDetailButton;
 @property (nonatomic,assign) OAStatueType type;
 @property (nonatomic,strong) UIView *backView;
+@property (nonatomic,weak) id delagate;
 @end
