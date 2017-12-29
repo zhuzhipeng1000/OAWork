@@ -9,8 +9,14 @@
 #import "NeedDoViewController.h"
 #import "NeedDoTableViewCell.h"
 #import "OAJobDetailViewController.h"
+#import "YZNavigationMenuView.h"
+#import "NHPopoverViewController.h"
 
-@interface NeedDoViewController ()
+@interface NeedDoViewController ()<YZNavigationMenuViewDelegate>{
+        NHPopoverViewController *ReBacInfoView;
+    UITextView *_contetnView;
+    UITextView *tf;
+}
 @property (nonatomic ,strong) NSMutableArray *exampleArr; //用于普通显示的数据
 @property (nonatomic ,strong)NSMutableArray *searchArr; //用于搜索后显示的数据
 @property (nonatomic,strong) NSMutableArray *allArray;//服务返回的数据
@@ -69,10 +75,16 @@
 //            }
         [areaView addSubview:detaiLb];
         
+       
+        
         detaiLb.frame=CGRectMake(titleLB.right+10,5,SCREEN_WIDTH-textSize.width,textSize.height);
         
-        areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, detaiLb.height+5);
+        areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, detaiLb.height+10);
 //        }
+        UIView *lineView=[[UIView alloc]init];
+        lineView.frame=CGRectMake(0, areaView.height-1, SCREEN_WIDTH, 1);
+        lineView.backgroundColor=[UIColor whiteColor];
+        
         topHeight=topHeight+areaView.height;
     }
     NSArray *attachs=dic[@"result"][@"attachs"];
@@ -158,7 +170,14 @@
         UIImageView *signImage=[[UIImageView alloc]initWithFrame:CGRectMake(areaView.width-73, contetnt.bottom, 53, 26)];
         signImage.contentMode=UIViewContentModeScaleAspectFit;
         [signImage setImage:[UIImage imageNamed:@"arrow_down"]];
+        NSString *path=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
+       NSString* signPath = [path stringByAppendingPathComponent:@"fileName"];
+        UIImage *imv=[UIImage imageWithContentsOfFile:signPath];
+        if (imv) {
+            signImage.image=imv;
+        }
         [areaView addSubview:signImage];
+        
       
         UILabel *timeLb=[[UILabel alloc]init];
         timeLb.text=@"2017-13-12 19:23";//审批环节的名称（
@@ -183,13 +202,17 @@
     curentstepLB.frame=CGRectMake(20,0,SCREEN_WIDTH-40,40);
     [areaView addSubview:curentstepLB];
     
+    _contetnView=[[UITextView alloc]init];
+    _contetnView.frame=CGRectMake(5, curentstepLB.bottom, SCREEN_WIDTH-100, areaView.height-10);
+    [areaView addSubview:_contetnView];
+    
     UIView *smallView=[[UIView alloc]initWithFrame:CGRectMake(areaView.width-90, areaView.height-38, 70, 28)];
     smallView.layer.cornerRadius=smallView.height/2;
     smallView.layer.borderColor=[UIColor lightGrayColor].CGColor;
     smallView.layer.borderWidth=1.0f;
     [areaView addSubview:smallView];
     
-    UIImageView *signImage=[[UIImageView alloc]initWithFrame:CGRectMake(3, (smallView.height-13)/2, 13, 13)];
+    UIImageView *signImage=[[UIImageView alloc]initWithFrame:CGRectMake(10, (smallView.height-13)/2, 13, 13)];
     signImage.contentMode=UIViewContentModeScaleAspectFit;
     [signImage setImage:[UIImage imageNamed:@"pen"]];
     [smallView addSubview:signImage];
@@ -198,8 +221,13 @@
     signLb.text=@"签名";//审批环节的名称（
     signLb.font=[UIFont systemFontOfSize:14.0F];
     signLb.textColor=[Utils colorWithHexString:@"#08ba06"];
-    signLb.frame=CGRectMake(signImage.right,0,smallView.width-signImage.right,smallView.height);
+    signLb.frame=CGRectMake(signImage.right+5,0,smallView.width-signImage.right,smallView.height);
     [smallView addSubview:signLb];
+    
+    UIButton *signBt=[[UIButton alloc]initWithFrame:areaView.bounds];
+    signBt.backgroundColor=[UIColor clearColor];
+    [signBt addTarget:self action:@selector(signBttaped:) forControlEvents:UIControlEventTouchUpInside];
+    [areaView addSubview:signBt];
     
     
     
@@ -238,17 +266,91 @@
     
     _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, sendbt.bottom+30);
     
-    
-    
     // Do any additional setup after loading the view from its nib.
 }
 -(void)accessBtTaped:(UIButton*)BT{
     
+    
 }
 -(void)sendbttaped:(UIButton*)BT{
     
+    
 }
-
+-(void)signBttaped:(UIButton*)bt{
+    
+    [self showReBacInfoView];
+}
+- (void)showReBacInfoView{
+    if (!ReBacInfoView) {
+        UIView *aView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 240)];
+        aView.backgroundColor=[UIColor whiteColor];
+        
+        UILabel *titleLb=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, aView.width-80, 40)];
+        titleLb.text=@"评论详细";
+        titleLb.textColor=[UIColor lightGrayColor];
+        [aView addSubview:titleLb];
+        
+        UIImageView *imv=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"x"]];
+        
+        imv.frame=CGRectMake(aView.width-16-titleLb.left,titleLb.top+(titleLb.height-16)/2 , 16, 16);
+        [aView addSubview:imv];
+        
+        UIButton *bt=[[UIButton alloc]init];
+        //        [bt setImage:[UIImage imageNamed:@"x"]  forState: UIControlStateNormal];
+        //        [bt setTitleColor:[Utils colorWithHexString:@"#008fef"] forState:UIControlStateNormal];
+        //        [bt setImage:[UIImage imageNamed:@"x"]  forState: UIControlStateHighlighted];
+        //        bt.titleLabel.font=[UIFont boldSystemFontOfSize:24];
+        //        [bt setTitleColor:[Utils colorWithHexString:@"#008fef"] forState:UIControlStateHighlighted];
+        [bt addTarget:self action:@selector(cancelBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+        bt.frame=CGRectMake(titleLb.right, titleLb.top, aView.width-titleLb.right, titleLb.height);
+        [aView addSubview:bt];
+        
+        tf=[[UITextView alloc]init];
+        tf.font=[UIFont systemFontOfSize:14.0f];
+        tf.textColor=[UIColor blackColor];
+        tf.layer.cornerRadius=5.0f;
+        tf.layer.borderWidth=0.5;
+        tf.layer.borderColor=[Utils colorWithHexString:@"#b7b7b7"].CGColor;
+        tf.frame=CGRectMake(titleLb.left, titleLb.bottom, aView.width-2*(titleLb.left), 100);
+        [aView addSubview:tf];
+        
+        UIButton *confirmBt=[[UIButton alloc]init];
+        [confirmBt setTitle:@"确  认" forState: UIControlStateNormal];
+        [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [confirmBt setTitle:@"确  认" forState: UIControlStateHighlighted];
+        confirmBt.titleLabel.font=[UIFont boldSystemFontOfSize:16];
+        [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
+        [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
+        [confirmBt addTarget:self action:@selector(confirmedTapped:) forControlEvents:UIControlEventTouchUpInside];
+        confirmBt.layer.cornerRadius=titleLb.height/2;
+        confirmBt.clipsToBounds=true;
+        confirmBt.frame=CGRectMake(tf.left+20, tf.bottom+20, aView.width-2*(tf.left+20), titleLb.height);
+        [aView addSubview:confirmBt];
+        ReBacInfoView = [[NHPopoverViewController alloc] initWithView:aView contentSize:aView.frame.size autoClose:FALSE];
+    }
+    if (_contetnView.text) {
+        tf.text=_contetnView.text;
+    }
+    
+    [ReBacInfoView show];
+    
+}
+-(void)cancelBtTapped:(UIButton*)bt{
+    [self dissMissReBacInfoViewWithConfirm:false];
+}
+-(void)confirmedTapped:(UIButton*)bt{
+    [self dissMissReBacInfoViewWithConfirm:true];
+}
+-(void)dissMissReBacInfoViewWithConfirm:(BOOL)confirmed{
+    if (confirmed) {
+        _contetnView.text=tf.text;
+    }else{
+        tf.text=@"";
+    }
+    [ReBacInfoView dismiss];
+    ReBacInfoView=nil;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

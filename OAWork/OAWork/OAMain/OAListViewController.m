@@ -48,8 +48,12 @@
     _searchBar.clipsToBounds=true;
     [_headBackView addSubview:_searchBar];
     
+    
     _arr=@[(@"中心合同审批处理表"),@"中心请款处理表",@"中心合同审批处理表",@"内部事务",@"行政办公会议材料上报处理表",@"个人请假表"];
     _hiddenTopBt=true;
+    if (_type==1) {
+        _arr=@[];
+    }
     for (int d=0; d<_arr.count; d++) {
         UIButton* _returnButton=[[UIButton alloc]init];
         _returnButton.tag=1000+d;
@@ -154,12 +158,12 @@
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *avc;
-    
-        avc=[[NeedDoViewController alloc]initWithNibName:@"NeedDoViewController" bundle:nil];
-   
-    if (avc) {
-        [self.navigationController pushViewController:avc animated:YES];
-    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//        avc=[[NeedDoViewController alloc]initWithNibName:@"NeedDoViewController" bundle:nil];
+//
+//    if (avc) {
+//        [self.navigationController pushViewController:avc animated:YES];
+//    }
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -211,16 +215,12 @@
     
 }
 -(void)seeDetailBtTappedOnCell:(OaMainCellTableViewCell*)cell{
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.labelText = @"提交中";
-    __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
-        [weakSelf.hud hide:YES];
-        
-    } fail:^(NSError *error) {
-        [weakSelf.hud hide:YES];
-        
-    }];
+    UIViewController *avc;
+            avc=[[NeedDoViewController alloc]initWithNibName:@"NeedDoViewController" bundle:nil];
+    
+        if (avc) {
+            [self.navigationController pushViewController:avc animated:YES];
+        }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

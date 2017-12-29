@@ -14,14 +14,14 @@
 #import "HWDownSelectedView.h"
 #import "OAprogressMonitorViewController.h"
 
-@interface OAJobDetailViewController ()<ITTPickViewDelegate,HWDownSelectedViewDelegate,UITableViewDelegate,UITableViewDataSource,YZNavigationMenuViewDelegate>
+@interface OAJobDetailViewController ()<ITTPickViewDelegate,HWDownSelectedViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     ITTPickView *_datePicker;
 //    ListSelectView *_listView;
     UITableView *_aaaatableView;
     UIButton *_bar;
     YZNavigationMenuView *_menuView;
-    NHPopoverViewController *ReBacInfoView;
+
     UIScrollView *_scrollView;
     UIButton *_confirmBt;
 }
@@ -279,67 +279,8 @@
     
     
 }
-- (void)showReBacInfoView{
-    if (!ReBacInfoView) {
-        UIView *aView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 240)];
-        aView.backgroundColor=[UIColor whiteColor];
-        
-        UILabel *titleLb=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, aView.width-80, 40)];
-        titleLb.text=@"退回理由";
-        titleLb.textColor=[UIColor lightGrayColor];
-        [aView addSubview:titleLb];
-        
-        UIImageView *imv=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"x"]];
-  
-        imv.frame=CGRectMake(aView.width-16-titleLb.left,titleLb.top+(titleLb.height-16)/2 , 16, 16);
-        [aView addSubview:imv];
-        
-        UIButton *bt=[[UIButton alloc]init];
-//        [bt setImage:[UIImage imageNamed:@"x"]  forState: UIControlStateNormal];
-//        [bt setTitleColor:[Utils colorWithHexString:@"#008fef"] forState:UIControlStateNormal];
-//        [bt setImage:[UIImage imageNamed:@"x"]  forState: UIControlStateHighlighted];
-//        bt.titleLabel.font=[UIFont boldSystemFontOfSize:24];
-//        [bt setTitleColor:[Utils colorWithHexString:@"#008fef"] forState:UIControlStateHighlighted];
-        [bt addTarget:self action:@selector(dissMissReBacInfoView) forControlEvents:UIControlEventTouchUpInside];
-        bt.frame=CGRectMake(titleLb.right, titleLb.top, aView.width-titleLb.right, titleLb.height);
-        [aView addSubview:bt];
-        
-        UITextView *tf=[[UITextView alloc]init];
-        tf.font=[UIFont systemFontOfSize:14.0f];
-        tf.textColor=[UIColor blackColor];
-        tf.layer.cornerRadius=5.0f;
-        tf.layer.borderWidth=0.5;
-        tf.layer.borderColor=[Utils colorWithHexString:@"#b7b7b7"].CGColor;
-        tf.frame=CGRectMake(titleLb.left, titleLb.bottom, aView.width-2*(titleLb.left), 100);
-        [aView addSubview:tf];
-        
-        UIButton *confirmBt=[[UIButton alloc]init];
-        [confirmBt setTitle:@"确认退回" forState: UIControlStateNormal];
-        [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [confirmBt setTitle:@"确认退回" forState: UIControlStateHighlighted];
-        confirmBt.titleLabel.font=[UIFont boldSystemFontOfSize:16];
-        [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
-        [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
-        [confirmBt addTarget:self action:@selector(dissMissReBacInfoView) forControlEvents:UIControlEventTouchUpInside];
-        confirmBt.layer.cornerRadius=titleLb.height/2;
-        confirmBt.clipsToBounds=true;
-        confirmBt.frame=CGRectMake(tf.left+20, tf.bottom+20, aView.width-2*(tf.left+20), titleLb.height);
-        [aView addSubview:confirmBt];
-        ReBacInfoView = [[NHPopoverViewController alloc] initWithView:aView contentSize:aView.frame.size autoClose:FALSE];
-    }
-    
-    [ReBacInfoView show];
-    
-}
--(void)showReBacInfeoViewDissMiss:(UIButton*)BT{
-     [self showReBacInfoView];
-    
-}
--(void)dissMissReBacInfoView{
-    [ReBacInfoView dismiss];
-    ReBacInfoView=nil;
-}
+
+
 - (void)editTapped:(UIButton*)bt{
     
     if (!_menuView) {
@@ -354,9 +295,7 @@
       _menuView.hidden=!_menuView.isHidden;
     }
     [self.view addSubview:_menuView];
-    
-    [ReBacInfoView dismiss];
-   
+       
     
 }
 -(void) dateBtTapped:(UIButton*)bt{

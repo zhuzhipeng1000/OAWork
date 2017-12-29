@@ -163,8 +163,9 @@
              break;
         case 101:
         {
-            UIViewController *avcc=[[NewIndexOaViewController alloc]initWithNibName:@"NewIndexOaViewController" bundle:nil];
-            [self.navigationController pushViewController:avcc animated:YES];
+            OAListViewController *CTL=[[OAListViewController alloc]init];
+            CTL.type=1;
+            [self.navigationController pushViewController:CTL animated:YES];
         }
             break;
         case 102:
@@ -188,7 +189,11 @@
         }
             break;
             
-        default:
+        default:{
+            OAListViewController *CTL=[[OAListViewController alloc]init];
+            [self.navigationController pushViewController:CTL animated:YES];
+            
+        }
             break;
    
     }

@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface OAListViewController : BaseViewController
-
+@property (nonatomic,assign) int type;//type 1为搜索
 @end
