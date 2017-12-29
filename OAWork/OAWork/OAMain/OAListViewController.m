@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"公文列表";
+//    self.title=@"公文列表";
     _headBackView=[[UIView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, 100)];
     _headBackView.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
     [self.view addSubview: _headBackView];
@@ -93,7 +93,7 @@
         [_moreView addSubview:_moreBt];
         
     }else{
-        _headBackView.frame=CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, _searchBar.bottom+5+(_arr.count%2)?40*(_arr.count/2+1):40*(_arr.count/2));
+        _headBackView.frame=CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, 55+(_arr.count%2)?40*(_arr.count/2+1):40*(_arr.count/2));
     }
     
     

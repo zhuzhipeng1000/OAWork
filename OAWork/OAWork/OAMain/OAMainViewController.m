@@ -62,6 +62,8 @@
         
         UIButton *bt=[[UIButton alloc]initWithFrame:smallBack.bounds];
         bt.backgroundColor=[UIColor clearColor];
+        [bt setTitle:detailDic[@"title"] forState:UIControlStateNormal];
+        [bt setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
         [bt addTarget:self action:@selector(bttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         bt.tag=100+d;
         [smallBack addSubview:bt];
@@ -126,8 +128,10 @@
             [smallBack addSubview:lineRight];
         }
         UIButton *bt=[[UIButton alloc]initWithFrame:smallBack.bounds];
+        [bt setTitle:detailDic[@"title"] forState:UIControlStateNormal];
         bt.backgroundColor=[UIColor clearColor];
         [bt addTarget:self action:@selector(bttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [bt setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
         bt.tag=200+d;
         [smallBack addSubview:bt];
         
@@ -154,48 +158,56 @@
 
 
 - (void)bttonTapped:(UIButton*)bt{
+    NSString *ttle=[bt titleForState:UIControlStateNormal];
+    OAListViewController *avcc;
     switch (bt.tag) {
         case 100:
         {
-            UIViewController *avcc=[[NewIndexOaViewController alloc]initWithNibName:@"NewIndexOaViewController" bundle:nil];
+            avcc=(OAListViewController*)[[NewIndexOaViewController alloc]initWithNibName:@"NewIndexOaViewController" bundle:nil];
+            avcc.title=ttle;
             [self.navigationController pushViewController:avcc animated:YES];
         }
              break;
         case 101:
         {
-            OAListViewController *CTL=[[OAListViewController alloc]init];
-            CTL.type=1;
-            [self.navigationController pushViewController:CTL animated:YES];
+            avcc=[[OAListViewController alloc]init];
+            avcc.type=1;
+            avcc.title=ttle;
+            [self.navigationController pushViewController:avcc animated:YES];
         }
             break;
         case 102:
         {
-            CIAllContactViewController *DCSctrl=[[CIAllContactViewController alloc]init];
-            [self.navigationController pushViewController:DCSctrl animated:YES];
+            avcc=(OAListViewController*)[[CIAllContactViewController alloc]init];
+            avcc.title=ttle;
+            [self.navigationController pushViewController:avcc animated:YES];
             
         }
             break;
         case 200:
         {
-            OAListViewController *CTL=[[OAListViewController alloc]init];
-            [self.navigationController pushViewController:CTL animated:YES];
+           avcc=[[OAListViewController alloc]init];
+            avcc.title=ttle;
+            [self.navigationController pushViewController:avcc animated:YES];
             
         }
             break;
         case 208:
         {
-            WScViewController *CTL=[[WScViewController alloc]init];
-            [self.navigationController pushViewController:CTL animated:YES];
+            avcc=(OAListViewController*)[[WScViewController alloc]init];
+            avcc.title=ttle;
+            [self.navigationController pushViewController:avcc animated:YES];
         }
             break;
             
         default:{
-            OAListViewController *CTL=[[OAListViewController alloc]init];
-            [self.navigationController pushViewController:CTL animated:YES];
+            avcc=[[OAListViewController alloc]init];
+            avcc.title=ttle;
+            [self.navigationController pushViewController:avcc animated:YES];
             
         }
             break;
-   
+            
     }
 }
 #pragma mark UITableViewDelegate
