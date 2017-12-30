@@ -87,6 +87,7 @@
     _timeLB=[[UILabel alloc]init];
     _timeLB.font=[UIFont boldSystemFontOfSize:14.0f];
     _timeLB.textColor=[UIColor lightGrayColor];
+    _timeLB.textAlignment=NSTextAlignmentRight;
     _timeLB.text=@"2017-12-11";
     
     [self.contentView addSubview:_timeLB];

@@ -48,7 +48,7 @@
         
         [_accessImage setImage:[UIImage imageNamed:@"arrow_down"]];
         [_rightView addSubview:_accessImage];
-        _accessImage.transform=CGAffineTransformMakeRotation((M_PI_2*3));// 像右往左转
+        _accessImage.transform=CGAffineTransformMakeRotation((M_PI_2));// 像右往左转
         _accessImage.transform=CGAffineTransformScale(_accessImage.transform, 0.5, 0.5);
         
         _accessButton=[[UIButton alloc]initWithFrame:CGRectMake(self.titleLB.right-10,0, _rightView.height, 50)];

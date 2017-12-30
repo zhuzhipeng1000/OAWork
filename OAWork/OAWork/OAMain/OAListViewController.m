@@ -49,7 +49,7 @@
     [_headBackView addSubview:_searchBar];
     
     
-    _arr=@[(@"中心合同审批处理表"),@"中心请款处理表",@"中心合同审批处理表",@"内部事务",@"行政办公会议材料上报处理表",@"个人请假表"];
+    _arr=@[(@"中心合同审批处理表"),@"中心请款处理表",@"中心合同审批处理表",@"内部事务",@"行政办公会议材料上报处理表"];//,@"个人请假表"
     _hiddenTopBt=true;
     if (_type==1) {
         _arr=@[];
@@ -81,10 +81,12 @@
         [_headBackView addSubview:_moreView];
         UIImageView *imv=[[UIImageView alloc]initWithFrame:CGRectMake(_moreView.width/2-40,(_moreView.height-13)/2, 13, 13)];
         imv.tag=20011;
-        [imv setImage:[UIImage imageNamed:@"arrow_up"]];
+        imv.contentMode=UIViewContentModeScaleAspectFit;
+        [imv setImage:[UIImage imageNamed:@"arrow_down"]];
         [_moreView addSubview:imv];
         UILabel *lb=[[UILabel alloc]initWithFrame:CGRectMake(imv.right+20, 0, 45, _moreView.height)];
         lb.text=@"展开";
+        lb.font=[UIFont systemFontOfSize:14.0f];
         lb.tag=20010;
         lb.textColor=[Utils colorWithHexString:@"#008fef"];
         [_moreView addSubview:lb];
@@ -93,7 +95,7 @@
         [_moreView addSubview:_moreBt];
         
     }else{
-        _headBackView.frame=CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, 55+(_arr.count%2)?40*(_arr.count/2+1):40*(_arr.count/2));
+        _headBackView.frame=CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, 55+((_arr.count%2)?40*(_arr.count/2+1):40*(_arr.count/2)));
     }
     
     
@@ -137,7 +139,7 @@
         UILabel* alb= [_moreView viewWithTag:20010] ;
         [alb setText:@"缩起"];
         UIImageView* imv= [_moreView viewWithTag:20011] ;
-        imv.transform =CGAffineTransformMakeRotation (0);
+        imv.transform =CGAffineTransformMakeRotation (M_PI_2*2);
         
     }else{
         for (UIView *aView in _headBackView.subviews) {
@@ -150,7 +152,7 @@
         UILabel* alb= [_moreView viewWithTag:20010] ;
         [alb setText:@"展开"];
         UIImageView* imv= [_moreView viewWithTag:20011] ;
-        imv.transform =CGAffineTransformMakeRotation((M_PI_2*2));
+        imv.transform =CGAffineTransformMakeRotation(0);
     }
     _demoTableView.frame=CGRectMake(0, _headBackView.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-_headBackView.bottom);
     
