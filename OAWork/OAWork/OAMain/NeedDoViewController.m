@@ -16,6 +16,7 @@
         NHPopoverViewController *ReBacInfoView;
     UITextView *_contetnView;
     UITextView *tf;
+    UIView *smallView;
 }
 @property (nonatomic ,strong) NSMutableArray *exampleArr; //用于普通显示的数据
 @property (nonatomic ,strong)NSMutableArray *searchArr; //用于搜索后显示的数据
@@ -83,8 +84,8 @@
 //        }
         UIView *lineView=[[UIView alloc]init];
         lineView.frame=CGRectMake(0, areaView.height-1, SCREEN_WIDTH, 1);
-        lineView.backgroundColor=[UIColor whiteColor];
-        
+        lineView.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        [areaView addSubview:lineView];
         topHeight=topHeight+areaView.height;
     }
     NSArray *attachs=dic[@"result"][@"attachs"];
@@ -128,10 +129,15 @@
         UIButton *bt=[[UIButton alloc]initWithFrame:areaView.bounds];
         [bt addTarget:self action:@selector(accessBtTaped:) forControlEvents:UIControlEventTouchUpInside];
         [areaView addSubview:bt];
+        
+        UILabel *lineLb=[[UILabel alloc]init];
+        lineLb.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        [areaView addSubview:lineLb];
+         lineLb.frame=CGRectMake(0,areaView.height-1, SCREEN_WIDTH, 1);
         topHeight=topHeight+areaView.height;
     }
     NSArray *signs=dic[@"result"][@"signs"];
-    attachs=@[@{@"Step":@"经理审批",@"content":@"统一大伟大"},@{@"Step":@"部门审批",@"content":@"不错，可以，同意"},@{@"Step":@"CEO",@"content":@"同意"}];
+    attachs=@[@{@"Step":@"经理审批意见",@"content":@"统一大伟大"},@{@"Step":@"部门审批意见",@"content":@"不错，可以，同意"},@{@"Step":@"CEO意见",@"content":@"同意"}];
     
     for (int d=0; d<attachs.count; d++) {
         
@@ -152,7 +158,7 @@
         contetnt.text=detaiDic[@"content"];//（
         contetnt.font=[UIFont systemFontOfSize:14.0F];
         contetnt.textAlignment=NSTextAlignmentLeft;
-        contetnt.textColor=[UIColor blackColor];
+        contetnt.textColor=[Utils colorWithHexString:@"#f26c4f"];
         contetnt.frame=CGRectMake(20,titleLB.bottom,SCREEN_WIDTH-40,40);
         [areaView addSubview:contetnt];
     
@@ -186,13 +192,19 @@
         timeLb.frame=CGRectMake(SCREEN_WIDTH-120,signImage.bottom+10,100,25);
         [areaView addSubview:timeLb];
         
+        UILabel *lineLb=[[UILabel alloc]init];
+        lineLb.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+        [areaView addSubview:lineLb];
+        
          areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, timeLb.bottom+10);
+        lineLb.frame=CGRectMake(0,areaView.height-1, SCREEN_WIDTH, 1);
         topHeight=topHeight+areaView.height;
+        
     }
     
     UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 100)];
     
-    areaView.backgroundColor=[UIColor clearColor];
+    areaView.backgroundColor=[UIColor whiteColor];
     [_scrollView addSubview:areaView];
     
     UILabel *curentstepLB=[[UILabel alloc]init];
@@ -203,10 +215,11 @@
     [areaView addSubview:curentstepLB];
     
     _contetnView=[[UITextView alloc]init];
-    _contetnView.frame=CGRectMake(5, curentstepLB.bottom, SCREEN_WIDTH-100, areaView.height-10);
+    _contetnView.frame=CGRectMake(5, curentstepLB.bottom, SCREEN_WIDTH-100, areaView.height-curentstepLB.bottom);
+    _contetnView.backgroundColor=[Utils colorWithHexString:@"#f26c4f"];
     [areaView addSubview:_contetnView];
     
-    UIView *smallView=[[UIView alloc]initWithFrame:CGRectMake(areaView.width-90, areaView.height-38, 70, 28)];
+    smallView=[[UIView alloc]initWithFrame:CGRectMake(areaView.width-90, areaView.height-38, 70, 28)];
     smallView.layer.cornerRadius=smallView.height/2;
     smallView.layer.borderColor=[UIColor lightGrayColor].CGColor;
     smallView.layer.borderWidth=1.0f;

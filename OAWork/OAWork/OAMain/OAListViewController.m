@@ -137,7 +137,7 @@
         UILabel* alb= [_moreView viewWithTag:20010] ;
         [alb setText:@"缩起"];
         UIImageView* imv= [_moreView viewWithTag:20011] ;
-        imv.transform =CGAffineTransformRotate(imv.transform, 0);
+        imv.transform =CGAffineTransformMakeRotation (0);
         
     }else{
         for (UIView *aView in _headBackView.subviews) {
@@ -150,7 +150,7 @@
         UILabel* alb= [_moreView viewWithTag:20010] ;
         [alb setText:@"展开"];
         UIImageView* imv= [_moreView viewWithTag:20011] ;
-        imv.transform =CGAffineTransformRotate(imv.transform, 180);
+        imv.transform =CGAffineTransformMakeRotation((M_PI_2*2));
     }
     _demoTableView.frame=CGRectMake(0, _headBackView.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-_headBackView.bottom);
     
