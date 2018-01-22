@@ -9,39 +9,49 @@
 #import "HostMangager.h"
 
 @implementation HostMangager
-//#### 1、登录
-+(NSString*)loginUrl{
-   return @"/mobile/login/submit.jhtml";
+//1、审核公文
+
++(NSString*)auditOAUrl{
+    return @"/flow/audit";
 }
-//2、重置密码
+//2、新建公文
+
++(NSString*)newOaUrl{
+    return @"/flow/call";
+}
+//3、公文类型列表
+
++(NSString*)oaTypeListUrl{
+    return @"/flow/category/list";
+}
+//4、公文列表
+
++(NSString*)oaListUrl{
+    return @"/flow/getMyWorkItem";
+}
+//5、公文详细
+
++(NSString*)oaDetailUrl{
+    return @"/flow/getMyWorkItemDetail";
+}
+//6、提交公文列表
++(NSString*)submitOptionUrl{
+    return @"/flow/submit";
+}
+//#### 7、登录
++(NSString*)loginUrl{
+   return @"/oa/user/login";
+}
+//8、重置密码
 
 +(NSString*)resetPasswdUrl{
-    return @"/mobile/user/resetPasswd.jhtml";
+    return @"/oa/user/updatePwd";
 }
-//3、获取验证码
 
-+(NSString*)getValidateCodenUrl{
-    return @"/mobile/login/getValidateCode.jhtml";
-}
-//4、项目列表
 
-+(NSString*)projectListUrl{
-    return @"/mobile/project/list.jhtml";
-}
-//5、项目详情
 
-+(NSString*)projectDetailsUrl{
-    return @"/mobile/project/details.jhtml";
-}
-//6、互动列表
 
-+(NSString*)interactionUrl{
-    return @"/mobile/interaction/list.jhtml";
-}
-//7、新建通知
-+(NSString*)messgaeNewUrl{
-    return @"/mobile/message/submit.jhtml";
-}
+
 // 8、新建子项目
 +(NSString*)projectNewUrl{
     return @"/mobile/project/submit.jhtml";

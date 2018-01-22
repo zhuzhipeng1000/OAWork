@@ -38,11 +38,12 @@
     
   
     NSMutableDictionary *Dic=[NSMutableDictionary dictionary];
-   
+  
     if (dic&&[dic isKindOfClass:[NSDictionary class]]) {
-   
+
         Dic=[[NSMutableDictionary alloc]initWithDictionary:dic];
     }
+     return Dic;
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
       // app版本
     NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
@@ -51,14 +52,14 @@
     [Dic setObject:[Utils UUID] forKey:@"DeviceId"];
     [Dic setObject:@"ios" forKey:@"platform"];
 //    [Dic setObject:@"" forKey:@"paramStr"];
-    
+
 //    NSString *userId=[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
 //    if ([userId isKindOfClass:[NSString class]]&&userId.length>0) {
 //        [Dic setObject:userId forKey:@"userId"];
 //    }else{
 //        [Dic setObject:@"" forKey:@"userId"];
 //    }
- 
+
     NSString *token=[[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     if ([token isKindOfClass:[NSString class]]&&token.length>0) {
        [Dic setObject:token forKey:@"token"];
@@ -98,7 +99,7 @@
     [self addHttpRequestHeader:manager.requestSerializer];
     // 声明获取到的数据格式
     manager.responseSerializer = [AFHTTPResponseSerializer serializer]; // AFN不会解析,数据是data，需要自己解析
-    //    manager.responseSerializer = [AFJSONResponseSerializer serializer]; // AFN会JSON解析返回的数据
+//        manager.responseSerializer = [AFJSONResponseSerializer serializer]; // AFN会JSON解析返回的数据
     // 个人建议还是自己解析的比较好，有时接口返回的数据不合格会报3840错误，大致是AFN无法解析返回来的数据
     return manager;
 }
@@ -120,71 +121,101 @@
       
     }
     
-    url=[self getURLOfOriginalUrl:url andPara:para shouldEncrypt:YES];
-    
-    [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        // 这里可以获取到目前数据请求的进度
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        // 请求成功
-//        dispatch_async(dispatch_get_main_queue(), ^{
-
+    url=[self getURLOfOriginalUrl:url andPara:para shouldEncrypt:NO];
+    [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if(responseObject){
-           
+            
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
             if ([dict[@"errrorCode"] intValue]==204) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:KClickOut object:nil];
                 
             }
             success(dict,YES);
-                NSLog(@"url:%@ /n success:%@",dict,url );
+            NSLog(@"url:%@ /n success:%@",dict,url );
             
         } else {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                  success(@{@"msg":@"暂无数据"}, NO);
+                success(@{@"msg":@"暂无数据"}, NO);
             });
         }
-//        });
+        
+       
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         NSLog(@"error");
         // 请求失败
         dispatch_async(dispatch_get_main_queue(), ^{
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSLog(@"请求失败url:%@ /n success:%@",error,url );
-                fail(error);
-//            });
-        
+            //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSLog(@"请求失败url:%@ /n success:%@",error,url );
+            fail(error);
+            //            });
+            
         });
     }];
-}
-+ (void)postRequestWithUrl:(NSString *)url andPara:(NSDictionary*)para Success:(SuccessBlock)success fail:(AFNErrorBlock)fail
-{
-    // 将请求参数放在请求的字典里
-//    NSDictionary *param = @{@"phoneNumber":account, @"password":@"f379eaf3c831b04de153469d1bec345e"};
-    // 创建请求类
-    AFHTTPSessionManager *manager = [self manager];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
-            // 这里可以获取到目前数据请求的进度
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 请求成功
-                if(responseObject){
-                    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-                
-                    success(dict,YES);
-                } else {
-                    success(@{@"msg":@"暂无数据"}, NO);
-                }
-            });
-           
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            // 请求失败
-              dispatch_async(dispatch_get_main_queue(), ^{
-                  fail(error);
-              });
-        }];
-  
-    });
+    
+//    [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+//        // 这里可以获取到目前数据请求的进度
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        // 请求成功
+////        dispatch_async(dispatch_get_main_queue(), ^{
+//
+//        if(responseObject){
+//
+//            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//            if ([dict[@"errrorCode"] intValue]==204) {
+//                [[NSNotificationCenter defaultCenter] postNotificationName:KClickOut object:nil];
+//
+//            }
+//            success(dict,YES);
+//                NSLog(@"url:%@ /n success:%@",dict,url );
+//
+//        } else {
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                  success(@{@"msg":@"暂无数据"}, NO);
+//            });
+//        }
+////        });
+//
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        // 请求失败
+//        dispatch_async(dispatch_get_main_queue(), ^{
+////            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                NSLog(@"请求失败url:%@ /n success:%@",error,url );
+//                fail(error);
+////            });
+//
+//        });
+//    }];
+//}
+//+ (void)postRequestWithUrl:(NSString *)url andPara:(NSDictionary*)para Success:(SuccessBlock)success fail:(AFNErrorBlock)fail
+//{
+//    // 将请求参数放在请求的字典里
+////    NSDictionary *param = @{@"phoneNumber":account, @"password":@"f379eaf3c831b04de153469d1bec345e"};
+//    // 创建请求类
+//    AFHTTPSessionManager *manager = [self manager];
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
+//            // 这里可以获取到目前数据请求的进度
+//        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                // 请求成功
+//                if(responseObject){
+//                    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//
+//                    success(dict,YES);
+//                } else {
+//                    success(@{@"msg":@"暂无数据"}, NO);
+//                }
+//            });
+//
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            // 请求失败
+//              dispatch_async(dispatch_get_main_queue(), ^{
+//                  fail(error);
+//              });
+//        }];
+//
+//    });
     
 }
 + (NSString*)getURLOfOriginalUrl:(NSString*)url andPara:(NSDictionary*)para shouldEncrypt:(BOOL)shouldEncrypt{
@@ -196,12 +227,14 @@
         bb=[Desthird TripleDES:ST encryptOrDecrypt:0];
     }
    
-    NSString *encodedValue = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(nil,
-                                                                                                  (CFStringRef)bb, nil,
-                                                                                                  (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8));
+//    NSString *encodedValue = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(nil,
+//                                                                                                  (CFStringRef)bb, nil,
+//                                                                                                  (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8));
+    NSString *encodedValue=bb;
     DLog(@"加密后参数%@",encodedValue);
     
-    url=[NSString stringWithFormat:@"http://14.26.164:8810%@?paramStr=%@",url,encodedValue];
+//    url=[NSString stringWithFormat:@"http://120.78.204.130%@?%@",url,encodedValue];
+     url=[NSString stringWithFormat:@"http://120.78.204.130%@",url];
     return url;
   
 }

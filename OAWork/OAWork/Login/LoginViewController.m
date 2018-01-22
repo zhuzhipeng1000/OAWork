@@ -159,8 +159,9 @@
         return;
     }
     bt.userInteractionEnabled=NO;
-    NSString *paa=[Utils md5:passwordTF.text];
-    NSDictionary *parameters =@{@"phone":accountTF.text,@"password":[paa uppercaseString]};
+//    NSString *paa=[Utils md5:passwordTF.text];
+    NSString *paa = passwordTF.text;
+    NSDictionary *parameters =@{@"account":accountTF.text,@"pwd":paa }; //[paa uppercaseString]};
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"登录中";
@@ -204,7 +205,7 @@
     
 }
 -(void)goToMain{
-    
+    return;
     ViewController* main = [[ViewController alloc] init];
     self.navigationController.viewControllers=@[main];
     [self.navigationController popToRootViewControllerAnimated:YES];
