@@ -175,8 +175,8 @@
             //            [tf addSubview:bt];
             //            bt.backgroundColor=[UIColor clearColor];
             //            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
-            
-        }else if ([detaiDic[@"TYPE"] intValue]==1) {
+                                                  //地点类型                         ／／是否类型
+        }else if ([detaiDic[@"TYPE"] intValue]==1||[detaiDic[@"TYPE"] intValue]==2||[detaiDic[@"TYPE"] intValue]==4) {
             
             UITextField *tf=[[UITextField alloc]init];
             tf.accessibilityHint=detaiDic[@"default"];
