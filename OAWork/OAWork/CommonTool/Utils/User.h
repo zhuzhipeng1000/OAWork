@@ -10,16 +10,19 @@
 
 @interface User : NSObject
 +(User*)shareUser;
-@property (nonatomic,strong) NSString *userID;
-@property (nonatomic,strong) NSString *userName;
-@property (nonatomic,strong) NSString *userType;
-@property (nonatomic,strong) NSString *userSex;
-@property (nonatomic,strong) NSString *userEmail;
-@property (nonatomic,strong) NSString *userWechat;
-@property (nonatomic,strong) NSString *responseProjectCount;
-@property (nonatomic,strong) NSString *execuProjectCount;
-@property (nonatomic,strong) NSString *handleProjectCount;
-@property (nonatomic,strong) NSString *attenProectCount;
+@property (nonatomic,strong) NSString *ACCOUNT;
+@property (nonatomic,strong) NSString *ACCOUNT_LMT_DATE;
+@property (nonatomic,strong) NSString *DEGREE_LEVEL;
+@property (nonatomic,strong) NSString *GENDER;
+@property (nonatomic,strong) NSString *ID;
+@property (nonatomic,strong) NSString *NAME;
+@property (nonatomic,strong) NSString *ORG_ID;
+@property (nonatomic,strong) NSString *ORG_NAME;
+@property (nonatomic,strong) NSString *PASSWORD;
+@property (nonatomic,strong) NSString *PWD_ERR_LOCK;
+@property (nonatomic,strong) NSString *PWD_ERR_NUM;
+@property (nonatomic,strong) NSString *PWD_LIMIT_DATE;
+@property (nonatomic,strong) NSString *STATUS;
 @property (nonatomic,strong) NSString *icon;
 -(void)setInfoOfDic:(NSDictionary*)dic;
 @end

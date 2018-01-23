@@ -115,8 +115,8 @@
         }else{
             para=[NSMutableDictionary dictionary];
         }
-        if ([User shareUser].userID) {
-          [para setValue:[NSString stringWithFormat:@"%@",[User shareUser].userID] forKey:@"userId"];
+        if ([User shareUser].ID) {
+          [para setValue:[NSString stringWithFormat:@"%@",[User shareUser].ID] forKey:@"userId"];
         }
       
     }

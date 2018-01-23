@@ -52,13 +52,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OAWork/OAMain/OAJobDetailViewController.m"
-            timestampString = "534246122.340541"
+            timestampString = "538370066.63705"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "210"
             endingLineNumber = "210"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[OAJobDetailViewController viewDidLoad]"
+                  moduleName = "OAWork"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/james/Desktop/OATest/OAWork/OAWork/OAMain/OAJobDetailViewController.m"
+                  timestampString = "538370066.8090349"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "211"
+                  endingLineNumber = "211"
+                  offsetFromSymbolStart = "7860">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[OAJobDetailViewController viewDidLoad]"
+                  moduleName = "OAWork"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/james/Desktop/OATest/OAWork/OAWork/OAMain/OAJobDetailViewController.m"
+                  timestampString = "538370066.812719"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "211"
+                  endingLineNumber = "211"
+                  offsetFromSymbolStart = "7948">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -75,6 +107,85 @@
             endingLineNumber = "94"
             landmarkName = "-showSize:OfViewPoint:onView:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OAWork/OAMain/NewIndexOaViewController.m"
+            timestampString = "538370066.637185"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "-getData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OAWork/OAMain/NewIndexOaViewController.m"
+            timestampString = "538370066.637261"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-getData"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[NewIndexOaViewController getData]_block_invoke.95"
+                  moduleName = "OAWork"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/james/Desktop/OATest/OAWork/OAWork/OAMain/NewIndexOaViewController.m"
+                  timestampString = "538370066.837413"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "264">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.96"
+                  moduleName = "OAWork"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/james/Desktop/OATest/OAWork/OAWork/OAMain/NewIndexOaViewController.m"
+                  timestampString = "538370066.841265"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.97"
+                  moduleName = "OAWork"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/james/Desktop/OATest/OAWork/OAWork/OAMain/NewIndexOaViewController.m"
+                  timestampString = "538370066.845502"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

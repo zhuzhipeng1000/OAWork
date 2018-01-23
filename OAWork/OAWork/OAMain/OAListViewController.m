@@ -49,7 +49,7 @@
     [_headBackView addSubview:_searchBar];
     
     
-    _arr=@[(@"中心合同审批处理表"),@"中心请款处理表",@"中心合同审批处理表",@"内部事务",@"行政办公会议材料上报处理表"];//,@"个人请假表"
+//    _arr=@[(@"中心合同审批处理表"),@"中心请款处理表",@"中心合同审批处理表",@"内部事务",@"行政办公会议材料上报处理表"];//,@"个人请假表"
     _hiddenTopBt=true;
     if (_type==1) {
         _arr=@[];
@@ -99,7 +99,7 @@
     }
     
     
-    _allArray=[@[@"公文标题工会内部事务审批单",@"公文标题工会内部事务审批单-标题过长换行文本文本",@"公文列表",@"公文列表",@"公文列表"] mutableCopy];
+//    _allArray=[@[@"公文标题工会内部事务审批单",@"公文标题工会内部事务审批单-标题过长换行文本文本",@"公文列表",@"公文列表",@"公文列表"] mutableCopy];
     _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, _headBackView.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-_headBackView.bottom)];
     [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
     _demoTableView.delegate=self;
@@ -111,22 +111,40 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.labelText = @"数据获取中";
-    __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
-        [weakSelf.hud hide:YES];
-        
-    } fail:^(NSError *error) {
-        [weakSelf.hud hide:YES];
-        
-    }];
+    [self getData];
+    
 }
 -(void)returnButtonTapped:(UIButton*)bt{
     
     
 }
-
+-(void)getData{
+    
+    
+    NSDictionary *parameters =@{@"type":@(_type-1)};
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager oaListUrl] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSArray class]]&& [dict[@"result"] count]>0) {
+            weakSelf.allArray=dict[@"result"];
+            [weakSelf.demoTableView reloadData];
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+    }];
+    
+}
 -(void)moreBtTapped:(UIButton*)bt{
     _hiddenTopBt=!_hiddenTopBt;
     if (!_hiddenTopBt) {
@@ -176,11 +194,12 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     };
+    NSDictionary *detailDic=_allArray[indexPath.row];
     cell.delagate=self;
-    cell.titleLB.text=_allArray[indexPath.row];
+    cell.titleLB.text=detailDic[@"TITLE"];
     cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"p_%ld",(indexPath.row%3+1)]];
-    cell.senderLB.text=@"王小动";
-    cell.curentLB.text=@"部门审批";
+    cell.senderLB.text=detailDic[@"SENDER"];
+    cell.curentLB.text=detailDic[@"CURRENTSTEP"];
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

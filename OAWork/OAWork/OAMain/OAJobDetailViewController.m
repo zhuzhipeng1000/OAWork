@@ -263,6 +263,32 @@
     
     // Do any additional setup after loading the view from its nib.
 }
+-(void)getData{
+    
+    
+    NSDictionary *parameters =@{};
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager oaListUrl] andPara:nil isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSArray class]]&& [dict[@"result"] count]>0) {
+          
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+    }];
+    
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (!_bar) {

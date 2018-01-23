@@ -165,6 +165,7 @@
         {
             avcc=(OAListViewController*)[[NewIndexOaViewController alloc]initWithNibName:@"NewIndexOaViewController" bundle:nil];
             avcc.title=ttle;
+           
             [self.navigationController pushViewController:avcc animated:YES];
         }
              break;
@@ -188,10 +189,30 @@
         {
            avcc=[[OAListViewController alloc]init];
             avcc.title=ttle;
+             avcc.type=2;
             [self.navigationController pushViewController:avcc animated:YES];
             
         }
             break;
+        case 201:
+        {
+            avcc=[[OAListViewController alloc]init];
+            avcc.title=ttle;
+            avcc.type=3;
+            [self.navigationController pushViewController:avcc animated:YES];
+            
+        }
+            break;
+        case 202:
+        {
+            avcc=[[OAListViewController alloc]init];
+            avcc.title=ttle;
+            avcc.type=4;
+            [self.navigationController pushViewController:avcc animated:YES];
+            
+        }
+            break;
+       
         case 208:
         {
             avcc=(OAListViewController*)[[WScViewController alloc]init];
@@ -203,6 +224,7 @@
         default:{
             avcc=[[OAListViewController alloc]init];
             avcc.title=ttle;
+            avcc.type=(int)bt.tag-200+2;
             [self.navigationController pushViewController:avcc animated:YES];
             
         }
@@ -237,6 +259,33 @@
     
 }
 
+-(void)getData{
+    
+    
+//    NSDictionary *parameters =@{}; //[paa uppercaseString]};
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager oaListUrl] andPara:nil isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+         [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSArray class]]&& [dict[@"result"] count]>0) {
+            weakSelf.allArray=dict[@"result"];
+            [weakSelf.demoTableView reloadData];
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+         [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+    }];
+    
+}
 #pragma mark UITableViewDataSource
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

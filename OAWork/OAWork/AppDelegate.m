@@ -25,7 +25,7 @@
 //    OAJobDetailViewController *login=[[OAJobDetailViewController alloc]init];
     LoginViewController *login=[[LoginViewController alloc]init];
 //    login=[[TestViewController alloc]init];
-//     login=[[ViewController alloc]init];
+     login=[[ViewController alloc]init];
      self.navi=[[UINavigationController alloc]initWithRootViewController:login];
  
     self.window.rootViewController=self.navi;

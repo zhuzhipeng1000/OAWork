@@ -168,18 +168,18 @@
     __weak __typeof(self) weakSelf = self;
     [MyRequest getRequestWithUrl:[HostMangager loginUrl] andPara:parameters isAddUserId:NO Success:^(NSDictionary *dict, BOOL success) {
         bt.userInteractionEnabled=YES;
-        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"errrorCode"] intValue]==200) {
+        if ([dict isKindOfClass:[NSDictionary class]]&&dict.allKeys.count>5) {
             [weakSelf.hud hide:YES];
-            NSDictionary *dic=dict[@"data"];
-            if ([dic isKindOfClass:[NSDictionary class]]) {
-                [[NSUserDefaults standardUserDefaults] setNotNull:dic[@"token"] forKey:@"token"];
+//            NSDictionary *dic=dict[@"data"];
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+//                [[NSUserDefaults standardUserDefaults] setNotNull:dic[@"token"] forKey:@"token"];
                 [UD setObject:accountTF.text forKey:KuserName];
                 [UD setObject:passwordTF.text forKey:KuserPassWord];
-                NSString *LoginDic=[dic JSONStringFromCT];
+                NSString *LoginDic=[dict JSONStringFromCT];
                 [UD setValue:LoginDic forKey:KloginInfo];
                 [UD synchronize];
                 User *aUser=[User shareUser];
-                [aUser setInfoOfDic:dic];
+                [aUser setInfoOfDic:dict];
             }
             if (self.navigationController.viewControllers.count>2) {
                 
@@ -191,15 +191,15 @@
             }
         }else{
             [weakSelf.hud hide:YES];
-//            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-//            [al show];
-            [self goToMain];
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+//            [self goToMain];
         }
        
     } fail:^(NSError *error) {
         bt.userInteractionEnabled=YES;
-          [self goToMain];
-//        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//          [self goToMain];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
 //        [al show];
     }];
     

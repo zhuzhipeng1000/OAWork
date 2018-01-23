@@ -22,41 +22,39 @@ static User* shareUser = nil;
     if (![dic isKindOfClass:[NSDictionary class]]) {
         return;
     }
-    if ([[dic allKeys] indexOfObject:@"id"] != NSNotFound) {
+    if ([[dic allKeys] indexOfObject:@"ACCOUNT"] != NSNotFound) {
         
-        shareUser.userID =[NSString stringWithFormat:@"%@",dic[@"id"]];
+        shareUser.ACCOUNT =[NSString stringWithFormat:@"%@",dic[@"ACCOUNT"]];
     }
-    if ([[dic allKeys] indexOfObject:@"name"] != NSNotFound) {
-        shareUser.userName = dic[@"name"];
+    if ([[dic allKeys] indexOfObject:@"DEGREE_LEVEL"] != NSNotFound) {
+        shareUser.DEGREE_LEVEL = [NSString stringWithFormat:@"%@",dic[@"DEGREE_LEVEL"]];
     }
-    if ([[dic allKeys] indexOfObject:@"userType"] != NSNotFound) {
-        shareUser.userType = dic[@"userType"];
+    if ([[dic allKeys] indexOfObject:@"GENDER"] != NSNotFound) {
+        shareUser.GENDER =[NSString stringWithFormat:@"%@", dic[@"GENDER"]];
     }
-    if ([[dic allKeys] indexOfObject:@"sex"] != NSNotFound) {
-        shareUser.userSex = dic[@"sex"];
+    if ([[dic allKeys] indexOfObject:@"ID"] != NSNotFound) {
+        shareUser.ID = [NSString stringWithFormat:@"%@",dic[@"ID"]];
     }
-    if ([[dic allKeys] indexOfObject:@"email"] != NSNotFound) {
-        shareUser.userEmail = dic[@"email"];
+    if ([[dic allKeys] indexOfObject:@"NAME"] != NSNotFound) {
+        shareUser.NAME = dic[@"NAME"];
     }
-    if ([[dic allKeys] indexOfObject:@"wechat"] != NSNotFound) {
-        shareUser.userWechat = dic[@"wechat"];
+    if ([[dic allKeys] indexOfObject:@"ORG_ID"] != NSNotFound) {
+        shareUser.ORG_ID = [NSString stringWithFormat:@"%@",dic[@"ORG_ID"]];
     }
-    if ([[dic allKeys] indexOfObject:@"responseProjectCount"] != NSNotFound) {
-        shareUser.responseProjectCount = dic[@"responseProjectCount"];
+    if ([[dic allKeys] indexOfObject:@"ORG_NAME"] != NSNotFound) {
+        shareUser.ORG_NAME = dic[@"ORG_NAME"];
     }
-    if ([[dic allKeys] indexOfObject:@"execuProjectCount"] != NSNotFound) {
-        shareUser.execuProjectCount = dic[@"execuProjectCount"];
+    if ([[dic allKeys] indexOfObject:@"PWD_ERR_LOCK"] != NSNotFound) {
+        shareUser.PWD_ERR_LOCK =[NSString stringWithFormat:@"%@", dic[@"PWD_ERR_LOCK"]];
     }
-    if ([[dic allKeys] indexOfObject:@"handleProjectCount"] != NSNotFound) {
-        shareUser.handleProjectCount = dic[@"handleProjectCount"];
+    if ([[dic allKeys] indexOfObject:@"PWD_ERR_NUM"] != NSNotFound) {
+        shareUser.PWD_ERR_NUM =[NSString stringWithFormat:@"%@", dic[@"PWD_ERR_NUM"]];
     }
-    if ([[dic allKeys] indexOfObject:@"attenProectCount"] != NSNotFound) {
-        shareUser.attenProectCount = dic[@"attenProectCount"];
+    if ([[dic allKeys] indexOfObject:@"PWD_LIMIT_DATE"] != NSNotFound) {
+        shareUser.PWD_LIMIT_DATE =[NSString stringWithFormat:@"%@", dic[@"PWD_LIMIT_DATE"]];
     }
-    if ([[dic allKeys] indexOfObject:@"icon"] != NSNotFound) {
-        shareUser.icon = dic[@"icon"];
-    }else{
-        shareUser.icon = @"";
+    if ([[dic allKeys] indexOfObject:@"STATUS"] != NSNotFound) {
+        shareUser.STATUS =[NSString stringWithFormat:@"%@", dic[@"STATUS"]];
     }
 
 }

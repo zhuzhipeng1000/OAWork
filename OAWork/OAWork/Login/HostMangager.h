@@ -9,20 +9,29 @@
 #import <Foundation/Foundation.h>
 
 @interface HostMangager : NSObject
-//#### 1、登录
+//1、审核公文
+
++(NSString*)auditOAUrl;
+//2、新建公文
+
++(NSString*)newOaUrl;
+//3、公文类型列表
+
++(NSString*)oaTypeListUrl;
+//4、公文列表
+
++(NSString*)oaListUrl;
+//5、公文详细
+
++(NSString*)oaDetailUrl;
+//6、提交公文列表
++(NSString*)submitOptionUrl;
+//#### 7、登录
 +(NSString*)loginUrl;
-//2、重置密码
+//8、重置密码
+
 +(NSString*)resetPasswdUrl;
-//3、获取验证码
-+(NSString*)getValidateCodenUrl;
-//4、项目列表
-+(NSString*)projectListUrl;
-//5、项目详情
-+(NSString*)projectDetailsUrl;
-//6、互动列表
-+(NSString*)interactionUrl;
-//7、新建通知
-+(NSString*)messgaeNewUrl;
+
 // 8、新建子项目
 +(NSString*)projectNewUrl;
 // 9、新建阶段

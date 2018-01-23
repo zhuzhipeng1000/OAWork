@@ -20,6 +20,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AFNetworking/AFNetworking.h>
 #import "SignViewController.h"
+#import "LoginViewController.h"
+#import "AppDelegate.h"
 
 
 @interface PersonalViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>{
@@ -208,6 +210,34 @@
     
     imav.frame=CGRectMake((SCREEN_WIDTH-size.width-30)/2, (44-14)/2, 14, 14);
     lb.frame=CGRectMake(imav.right+8, 0, size.width+10, 44);
+    
+    
+    UIButton *loginOut=[[UIButton alloc]initWithFrame:CGRectMake(0, revisePass.bottom+10, SCREEN_WIDTH, 44)];
+    loginOut.backgroundColor=[UIColor whiteColor];
+    //    [revisePass setImage:[UIImage imageNamed:@"xiugaimima"] forState:UIControlStateNormal];
+    //    [revisePass setImage:[UIImage imageNamed:@"xiugaimima"]  forState:UIControlStateHighlighted];
+    //    [revisePass setTitle:@"修改密码" forState:UIControlStateNormal];
+    //    [revisePass setTitle:@"修改密码" forState:UIControlStateHighlighted];
+    //    [revisePass setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    //     [revisePass setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [loginOut addTarget:self action:@selector(loginOut:) forControlEvents:UIControlEventTouchUpInside];
+    [backScroll addSubview:loginOut];
+    
+    imav=[[UIImageView alloc]init];
+    
+    imav.image=[UIImage imageNamed:@"xiugaimima"];
+    [loginOut addSubview:imav];
+    
+    lb=[[UILabel alloc]init];
+    
+    lb.font=[UIFont systemFontOfSize:14.0];
+    lb.textColor=[UIColor blackColor];
+    lb.text=@"退出登录";
+    [loginOut addSubview:lb];
+     size=[Utils sizeWithText:lb.text font:lb.font maxSize:CGSizeMake(SCREEN_WIDTH, 100)];
+    
+    imav.frame=CGRectMake((SCREEN_WIDTH-size.width-30)/2, (44-14)/2, 14, 14);
+    lb.frame=CGRectMake(imav.right+8, 0, size.width+10, 44);
    
    
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -381,6 +411,15 @@
     UIViewController *avc=[[ForgetPassWordViewController alloc]initWithNibName:@"ForgetPassWordViewController" bundle:nil];
  
     [self.navigationController pushViewController:avc animated:YES];
+}
+-(void)loginOut:(UIButton*)bt{
+    LoginViewController *login=[[LoginViewController alloc]init];
+    
+     UINavigationController* navi=[AppDelegate shareAppDeleage].navi ;
+    
+    navi.viewControllers=@[login];
+    [navi popToViewController:login animated:YES];
+    
 }
 -(void)signVieTapped:(UIButton*)bt{
     SignViewController *svct=[[SignViewController alloc]init];
