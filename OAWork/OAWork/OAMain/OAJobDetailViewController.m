@@ -345,7 +345,7 @@
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"提交数据中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager submitOptionUrl] andPara:@{@"flowRequestInfo":[para JSONStringFromCT]} isAddUserId:false Success:^(NSDictionary *dict, BOOL success) {
+    [MyRequest postRequestWithUrl:[HostMangager submitOptionUrl] andPara:@{@"flowRequestInfo":[para JSONStringFromCT]} isAddUserId:false Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
         if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
             UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"提交成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];

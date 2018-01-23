@@ -13,6 +13,7 @@
 typedef void (^SuccessBlock)(NSDictionary *dict, BOOL success); // 访问成功block
 typedef void (^AFNErrorBlock)(NSError *error); // 访问失败block
 + (void)getRequestWithUrl:(NSString *)url andPara:(NSDictionary*)para isAddUserId:(BOOL)isAddUserID Success:(SuccessBlock)success fail:(AFNErrorBlock)fail;
++ (void)postRequestWithUrl:(NSString *)url andPara:(NSDictionary*)para isAddUserId:(BOOL)isAddUserID Success:(SuccessBlock)success fail:(AFNErrorBlock)fail;
 + (NSString*)getURLOfOriginalUrl:(NSString*)url andPara:(NSDictionary*)para shouldEncrypt:(BOOL)shouldEncrypt;
 +(NSString*)pinUlrOfDic:(NSDictionary*)para;
 @end

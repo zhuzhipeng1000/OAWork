@@ -95,7 +95,7 @@
     
     // 声明上传的是json格式的参数，需要你和后台约定好，不然会出现后台无法获取到你上传的参数问题
     manager.requestSerializer = [AFHTTPRequestSerializer serializer]; // 上传普通格式
-//        manager.requestSerializer = [AFJSONRequestSerializer serializer]; // 上传JSON格式
+    
     [self addHttpRequestHeader:manager.requestSerializer];
     // 声明获取到的数据格式
     manager.responseSerializer = [AFHTTPResponseSerializer serializer]; // AFN不会解析,数据是data，需要自己解析
@@ -219,6 +219,58 @@
 //
 //    });
     
+}
++ (void)postRequestWithUrl:(NSString *)url andPara:(NSDictionary*)para isAddUserId:(BOOL)isAddUserID Success:(SuccessBlock)success fail:(AFNErrorBlock)fail{
+  
+    AFHTTPSessionManager *manager = [self manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer]; //
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    [self addHttpRequestHeader:manager.requestSerializer];
+    if (isAddUserID) {
+        if ([para isKindOfClass:[NSDictionary class]]&&para.count>0) {
+            para=[[NSMutableDictionary alloc]initWithDictionary:para];
+        }else{
+            para=[NSMutableDictionary dictionary];
+        }
+        if ([User shareUser].ID) {
+            [para setValue:[NSString stringWithFormat:@"%@",[User shareUser].ID] forKey:@"userId"];
+        }
+        
+    }
+    
+    url=[self getURLOfOriginalUrl:url andPara:para shouldEncrypt:NO];
+    [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(responseObject){
+                
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                if ([dict[@"errrorCode"] intValue]==204) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KClickOut object:nil];
+                    
+                }
+                success(dict,YES);
+                NSLog(@"url:%@ /n success:%@",dict,url );
+                
+            } else {
+                
+                success(@{@"msg":@"暂无数据"}, NO);
+                
+            }
+            
+        });
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error");
+        // 请求失败
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSLog(@"请求失败url:%@ /n success:%@",error,url );
+            fail(error);
+            //            });
+            
+        });
+    }];
 }
 + (NSString*)getURLOfOriginalUrl:(NSString*)url andPara:(NSDictionary*)para shouldEncrypt:(BOOL)shouldEncrypt{
     
