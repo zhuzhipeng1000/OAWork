@@ -35,6 +35,8 @@
 		1A434B641FD527F3006F6A92 /* YZNavigationMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A434B621FD527F3006F6A92 /* YZNavigationMenuView.m */; };
 		1A5A32211FCD33EE002B1177 /* NewIndexOaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */; };
 		1A5A32221FCD33EE002B1177 /* NewIndexOaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */; };
+		1A5FEEE520170C34007A465E /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5FEEE320170C34007A465E /* LaunchViewController.m */; };
+		1A5FEEE620170C34007A465E /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A5FEEE420170C34007A465E /* LaunchViewController.xib */; };
 		1A636A231FD0EF950016A58C /* CTTabBarEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A636A1E1FD0EF950016A58C /* CTTabBarEntity.m */; };
 		1A636A241FD0EF950016A58C /* CTTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A636A201FD0EF950016A58C /* CTTabBarItem.m */; };
 		1A636A251FD0EF950016A58C /* CTTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A636A221FD0EF950016A58C /* CTTabBarView.m */; };
@@ -181,6 +183,9 @@
 		1A5A321E1FCD33EE002B1177 /* NewIndexOaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewIndexOaViewController.h; sourceTree = "<group>"; };
 		1A5A321F1FCD33EE002B1177 /* NewIndexOaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewIndexOaViewController.m; sourceTree = "<group>"; };
 		1A5A32201FCD33EE002B1177 /* NewIndexOaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewIndexOaViewController.xib; sourceTree = "<group>"; };
+		1A5FEEE220170C34007A465E /* LaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
+		1A5FEEE320170C34007A465E /* LaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
+		1A5FEEE420170C34007A465E /* LaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		1A636A1D1FD0EF950016A58C /* CTTabBarEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTTabBarEntity.h; sourceTree = "<group>"; };
 		1A636A1E1FD0EF950016A58C /* CTTabBarEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTTabBarEntity.m; sourceTree = "<group>"; };
 		1A636A1F1FD0EF950016A58C /* CTTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTTabBarItem.h; sourceTree = "<group>"; };
@@ -632,6 +637,9 @@
 				1A90B5AD1FC65B4C008EDDB1 /* AppDelegate.h */,
 				1A90B5AE1FC65B4C008EDDB1 /* AppDelegate.m */,
 				1A90B5B01FC65B4C008EDDB1 /* ViewController.h */,
+				1A5FEEE220170C34007A465E /* LaunchViewController.h */,
+				1A5FEEE320170C34007A465E /* LaunchViewController.m */,
+				1A5FEEE420170C34007A465E /* LaunchViewController.xib */,
 				1A90B5B11FC65B4C008EDDB1 /* ViewController.m */,
 				1A8FC1FF1FD7CB0100F45656 /* TestViewController.h */,
 				1A8FC2001FD7CB0100F45656 /* TestViewController.m */,
@@ -848,6 +856,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A71C04D1FD62DB100FBE94B /* aa.txt in Resources */,
+				1A5FEEE620170C34007A465E /* LaunchViewController.xib in Resources */,
 				1A7074C21FDFB67D00213992 /* arrow_up@2x.png in Resources */,
 				1A6C2C0E1FC7B396002228C7 /* CommonInfoViewController.xib in Resources */,
 				1A2BD0F11FCFA1190014837E /* arrow_down@3x.png in Resources */,
@@ -988,6 +997,7 @@
 				1A434B4D1FD4F463006F6A92 /* ThemeManager.m in Sources */,
 				1A9F00851FCBAEB7005897B2 /* LoginViewController.m in Sources */,
 				1A9F009D1FCBB139005897B2 /* HostMangager.m in Sources */,
+				1A5FEEE520170C34007A465E /* LaunchViewController.m in Sources */,
 				1A434B3E1FD4DEF3006F6A92 /* NHPopoverViewController.m in Sources */,
 				1A70744B1FDE1E6100213992 /* CIMessageDetailViewController.m in Sources */,
 				1A70745E1FDE827000213992 /* InterceptionView.m in Sources */,
@@ -1189,6 +1199,7 @@
 			baseConfigurationReference = 39B254463B632888503F40E0 /* Pods-OAWork.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: GuangYuan Su (397W7K422X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: GuangYuan Su (397W7K422X)";
 				CODE_SIGN_STYLE = Manual;
@@ -1196,7 +1207,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = OAWork/OAWork.pch;
 				INFOPLIST_FILE = OAWork/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinitus.idep.bupm.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1211,6 +1222,7 @@
 			baseConfigurationReference = 8C4E396E92F8101F3409C4C2 /* Pods-OAWork.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: GuangYuan Su (397W7K422X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: GuangYuan Su (397W7K422X)";
 				CODE_SIGN_STYLE = Manual;
@@ -1218,7 +1230,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = OAWork/OAWork.pch;
 				INFOPLIST_FILE = OAWork/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinitus.idep.bupm.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -123,6 +123,8 @@
     
     url=[self getURLOfOriginalUrl:url andPara:para shouldEncrypt:NO];
     [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
         if(responseObject){
             
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -134,12 +136,12 @@
             NSLog(@"url:%@ /n success:%@",dict,url );
             
         } else {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           
                 success(@{@"msg":@"暂无数据"}, NO);
-            });
+           
         }
         
-       
+       });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
          NSLog(@"error");

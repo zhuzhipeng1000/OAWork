@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LaunchViewController">
             <connections>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -18,7 +18,21 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_welcome" translatesAutoresizingMaskIntoConstraints="NO" id="VCX-ys-QTj">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="VCX-ys-QTj" secondAttribute="trailing" id="Jy7-SL-kSW"/>
+                <constraint firstItem="VCX-ys-QTj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="V6t-D4-kdW"/>
+                <constraint firstItem="VCX-ys-QTj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ayh-VR-oqt"/>
+                <constraint firstAttribute="bottom" secondItem="VCX-ys-QTj" secondAttribute="bottom" id="jnx-Dm-Gsb"/>
+            </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="ic_welcome" width="750" height="1334"/>
+    </resources>
 </document>

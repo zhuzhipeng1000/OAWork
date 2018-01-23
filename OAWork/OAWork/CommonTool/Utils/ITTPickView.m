@@ -11,7 +11,7 @@
 #define ITTToobarHeight 40
 @interface ITTPickView ()
 
-@property (nonatomic,strong) UIDatePicker *datePicker;//datePicker控件
+
 @property (nonatomic,assign) NSInteger pickeviewHeight;//pickerView的高度
 @property (nonatomic,strong) UIToolbar *toolbar;//toolBar控件
 @property (nonatomic,copy) NSString *resultString;//返回的时间字符串

@@ -128,7 +128,7 @@
     __weak __typeof(self) weakSelf = self;
     [MyRequest getRequestWithUrl:[HostMangager oaListUrl] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
-        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSArray class]]&& [dict[@"result"] count]>0) {
+        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"code"] intValue]==0) {
             weakSelf.allArray=dict[@"result"];
             [weakSelf.demoTableView reloadData];
         }else{

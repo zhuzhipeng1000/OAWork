@@ -12,6 +12,8 @@
 #import "OAJobDetailViewController.h"
 #import "TestViewController.h"
 #import "UIViewController+UpResponder.h"
+#import "User.h"
+#import "LaunchViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,13 +23,23 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    UIViewController *login;
-//    OAJobDetailViewController *login=[[OAJobDetailViewController alloc]init];
-    LoginViewController *login=[[LoginViewController alloc]init];
-//    login=[[TestViewController alloc]init];
-     login=[[ViewController alloc]init];
-     self.navi=[[UINavigationController alloc]initWithRootViewController:login];
- 
+  
+   
+    self.navi=[[UINavigationController alloc]init];
+    self.window.rootViewController=self.navi;
+    [self.navi setNavigationBarHidden:true];
+    if ([UD objectForKey:@"isSelectAutoLogin"]) {
+        LaunchViewController *a=[[LaunchViewController alloc]init];
+        self.navi.viewControllers=@[a];
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+              [self login];
+        });
+    }else{
+        [self goToLogin];
+    }
+    
+    
     self.window.rootViewController=self.navi;
     [self.navi setNavigationBarHidden:true];
     // Override point for customization after application launch.
@@ -56,8 +68,50 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 }
+-(void)login{
+//    __weak __typeof(self) weakSelf = self;
+  NSString *userName=  [UD objectForKey:KuserName];
+   NSString *userPassWord= [UD objectForKey:KuserPassWord];
+    NSDictionary *parameters =@{@"account":userName,@"pwd":userPassWord };
+    [MyRequest getRequestWithUrl:[HostMangager loginUrl] andPara:parameters isAddUserId:NO Success:^(NSDictionary *dict, BOOL success) {
 
-
+        if ([dict isKindOfClass:[NSDictionary class]]&&dict.allKeys.count>5) {
+   
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+ 
+              
+                NSString *LoginDic=[dict JSONStringFromCT];
+                [UD setValue:LoginDic forKey:KloginInfo];
+                [UD synchronize];
+                User *aUser=[User shareUser];
+                [aUser setInfoOfDic:dict];
+            }
+            [self goToMain];
+        }else{
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                    [al show];
+             [self goToLogin];
+        }
+        
+    } fail:^(NSError *error) {
+        
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"帐号或密码错误，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+        [self goToLogin];
+    }];
+    
+}
+-(void)goToLogin{
+    
+    LoginViewController *login=[[LoginViewController alloc]init];
+    self.navi.viewControllers=@[login];
+    
+}
+-(void)goToMain{
+    ViewController *mainvc=[[ViewController alloc]init];
+    self.navi.viewControllers=@[mainvc];
+    
+}
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.

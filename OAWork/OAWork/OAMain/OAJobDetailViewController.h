@@ -10,4 +10,5 @@
 
 @interface OAJobDetailViewController : BaseViewController
 @property (nonatomic,strong) NSDictionary *categoryDic;
+
 @end

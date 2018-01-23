@@ -11,6 +11,7 @@
 #import "HostMangager.h"
 #import "MyRequest.h"
 #import "Utils.h"
+#import "User.h"
 #import <RAlertView/RAlertView.h>
 
 @interface BaseViewController : UIViewController

@@ -40,6 +40,8 @@
     
     OAJobDetailViewController *AA=[[OAJobDetailViewController alloc]init];
     AA.title=title;
+    
+    
     AA.categoryDic=[bt.accessibilityHint objectFromCTJSONString];
     [self.navigationController pushViewController:AA animated:YES];
 //    ISAlertView *al=[[ISAlertView alloc]initWithTitle:nil message:@"确定删除该公文吗？" delegate:self cancelButtonTitle:nil otherButtonTitles:[@"确定"]];
@@ -96,7 +98,7 @@
         
         UILabel *titleLabe=[[UILabel alloc]initWithFrame:CGRectMake(40, 0, SCREEN_WIDTH, 30)];
         titleLabe.textColor=[UIColor blackColor];
-        titleLabe.text=@"公文类";
+        titleLabe.text=dic[@"CATEGORYNAME"];
         titleLabe.font=[UIFont systemFontOfSize:16.0f];
         [BigView addSubview:titleLabe];
         int   smallStartY=40;

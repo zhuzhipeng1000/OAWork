@@ -14,7 +14,7 @@
 #import "HWDownSelectedView.h"
 #import "OAprogressMonitorViewController.h"
 
-@interface OAJobDetailViewController ()<ITTPickViewDelegate,HWDownSelectedViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface OAJobDetailViewController ()<ITTPickViewDelegate,HWDownSelectedViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 {
     ITTPickView *_datePicker;
 //    ListSelectView *_listView;
@@ -24,6 +24,8 @@
 
     UIScrollView *_scrollView;
     UIButton *_confirmBt;
+    int type;
+    NSMutableArray *viewInfoArray;
 }
 @end
 
@@ -32,7 +34,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-      self.title=@"新建公文";
+      self.title=_categoryDic[@"DOCTYPENAME"];
+    if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"通知"]) {
+        type=2;
+    }else if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"互相交流"]) {
+        type=1;
+    }else if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"会议室预约登记表"]) {
+        type=3;
+    }
+    [self getData];
+    
     self.view.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
     NSURL *dect=[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL * documentProtocolUrl =  [dect URLByAppendingPathComponent:@"www/aa.tt"];
@@ -41,36 +52,49 @@
     NSLog(@"jsonS%@",jsonS);
     NSDictionary *dic=[jsonS objectFromCTJSONString];
 //    self.title=dic[@"result"][@"docName"];
-    NSArray *viewInfoArray=dic[@"result"][@"formData"];
+   
+
+    
+    // Do any additional setup after loading the view from its nib.
+}
+-(void)initView{
+//    NSArray *viewInfoArray=dic[@"result"][@"formData"];
     int topHeight=0;
     _scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-TOPBARCONTENTHEIGHT)];
     _scrollView.showsVerticalScrollIndicator=false;
     [self.view addSubview:_scrollView];
+    NSString *headText=[NSString stringWithFormat:@"广州市教育评估和教师继续教育指导中心%@",self.title];
+    NSDictionary *dic=@{@"TYPE":@"150",@"name":headText,@"BINDING_DATA_NAME":headText};
+    [viewInfoArray insertObject:dic atIndex:0];
     
     for (int d=0; d<viewInfoArray.count; d++) {
         NSDictionary *detaiDic=viewInfoArray[d];
-//        input 普通输入框
-//        date 时间控件(提交的时候提交 毫秒数)
-//        spin 下拉选择控件（下拉选项在options参数中测试）
-//        spinInput 下拉选择类型再加text 输入框（例如：选择身份证、户照之后再输证件号码）
-//        dateInput 时间+输入框的组合控件，请假单中有（时间/地点），复核控件在接口中用逗号隔开，具体在新建公文接口示例。
-//        attach 附件
-//        radioButton 单项列表
-//        "name": "姓名",
-//        "type": "input",
-//        "inputType": "text",
-//        "requestKey": "userName",
-//        "default": {
-//            "k": "1234（userid）",
-//            "v": "王小二"
-//        }
+        if ([detaiDic[@"TYPE"] intValue]==6) {
+            continue;
+        }
+        //        input 普通输入框
+        //        date 时间控件(提交的时候提交 毫秒数)
+        //        spin 下拉选择控件（下拉选项在options参数中测试）
+        //        spinInput 下拉选择类型再加text 输入框（例如：选择身份证、户照之后再输证件号码）
+        //        dateInput 时间+输入框的组合控件，请假单中有（时间/地点），复核控件在接口中用逗号隔开，具体在新建公文接口示例。
+        //        attach 附件
+        //        radioButton 单项列表
+        //        "name": "姓名",
+        //        "type": "input",
+        //        "inputType": "text",
+        //        "requestKey": "userName",
+        //        "default": {
+        //            "k": "1234（userid）",
+        //            "v": "王小二"
+        //        }
         UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 30)];
-
+        areaView.tag=1000+d;
+        areaView.accessibilityHint=[detaiDic JSONStringFromCT];
         areaView.backgroundColor=[UIColor whiteColor];
         [_scrollView addSubview:areaView];
         
         UILabel *titleLB=[[UILabel alloc]init];
-        titleLB.text=detaiDic[@"name"];
+        titleLB.text=detaiDic[@"BINDING_DATA_NAME"];
         titleLB.font=[UIFont systemFontOfSize:14.0F];
         titleLB.textColor=[UIColor blackColor];
         [areaView addSubview:titleLB];
@@ -79,7 +103,7 @@
         titleLB.frame=CGRectMake(20,0, textSize.width+10, 30);
         CGRect nextFrame=CGRectMake(titleLB.right, titleLB.top, areaView.width-titleLB.right-20, titleLB.height);
         
-        if ([detaiDic[@"type"] isEqualToString:@"area"]) {
+        if ([detaiDic[@"TYPE"] intValue]==150) {
             titleLB.backgroundColor=[UIColor clearColor];
             titleLB.numberOfLines=0;
             titleLB.font=[UIFont systemFontOfSize:18.0f];
@@ -94,37 +118,37 @@
                 titleLB.frame=CGRectMake(20,0,SCREEN_WIDTH-40,textSize.height);
             }
             areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, textSize.height);
-           
+            
         }else if ([detaiDic[@"type"] isEqualToString:@"spin"]) {
             HWDownSelectedView *aVie=[[HWDownSelectedView alloc]initWithFrame:nextFrame];
             aVie.placeholder = @"spin";
             aVie.listArray = @[@"22", @"23", @"24", @"25", @"26"];
             aVie.delegate=self;
             [areaView addSubview:aVie];
-
-//            UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
-//            lb.text=@"spin";
-//            lb.textColor=[UIColor blackColor];
-//            lb.tag=102;
-//            lb.font=[UIFont systemFontOfSize:14.0f];
-//            lb.userInteractionEnabled=true;
-//            [areaView addSubview:lb];
-//
-//            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
-//            im.frame=CGRectMake(lb.width-10, (lb.height-5)/2, 8, 5);
-//            [lb addSubview:im];
-//
-//
-//            UIButton *bt=[[UIButton alloc]initWithFrame:lb.bounds];
-//            [lb addSubview:bt];
-//            bt.backgroundColor=[UIColor clearColor];
-//            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
-//            ListSelectView *aList=[[ListSelectView alloc]];
-//            if ([detaiDic[@"type"] isEqualToString:@"spinInput"]) {
-//                aList.listViewType=ListViewTextField;
-//            }
-//            [areaView addSubview:aList];
-//            aList.titleArray=@[@"全部",@"工程审计",@"跟踪审计",@"专项审计"];
+            
+            //            UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
+            //            lb.text=@"spin";
+            //            lb.textColor=[UIColor blackColor];
+            //            lb.tag=102;
+            //            lb.font=[UIFont systemFontOfSize:14.0f];
+            //            lb.userInteractionEnabled=true;
+            //            [areaView addSubview:lb];
+            //
+            //            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
+            //            im.frame=CGRectMake(lb.width-10, (lb.height-5)/2, 8, 5);
+            //            [lb addSubview:im];
+            //
+            //
+            //            UIButton *bt=[[UIButton alloc]initWithFrame:lb.bounds];
+            //            [lb addSubview:bt];
+            //            bt.backgroundColor=[UIColor clearColor];
+            //            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+            //            ListSelectView *aList=[[ListSelectView alloc]];
+            //            if ([detaiDic[@"type"] isEqualToString:@"spinInput"]) {
+            //                aList.listViewType=ListViewTextField;
+            //            }
+            //            [areaView addSubview:aList];
+            //            aList.titleArray=@[@"全部",@"工程审计",@"跟踪审计",@"专项审计"];
         }else if ([detaiDic[@"type"] isEqualToString:@"spinInput"]) {
             
             HWDownSelectedView *aVie=[[HWDownSelectedView alloc]initWithFrame:nextFrame];
@@ -133,61 +157,70 @@
             aVie.type=HWDownTypeCanEdit;
             aVie.delegate=self;
             [areaView addSubview:aVie];
-
-//            UITextField *tf=[[UITextField alloc]initWithFrame:nextFrame];
-//            tf.font=[UIFont systemFontOfSize:15.0f];
-//            tf.text=@"spinInput";
-//            tf.tag=102;
-//            tf.font=[UIFont systemFontOfSize:14.0f];
-//            tf.userInteractionEnabled=true;
-//            [areaView addSubview:tf];
-//
-//            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
-//            im.frame=CGRectMake(tf.width-10, (tf.height-5)/2, 8, 5);
-//            [tf addSubview:im];
-//
-//
-//            UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(tf.width-tf.height,0, tf.height, tf.height)];
-//            [tf addSubview:bt];
-//            bt.backgroundColor=[UIColor clearColor];
-//            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
             
-        }else if ([detaiDic[@"type"] isEqualToString:@"input"]) {
+            //            UITextField *tf=[[UITextField alloc]initWithFrame:nextFrame];
+            //            tf.font=[UIFont systemFontOfSize:15.0f];
+            //            tf.text=@"spinInput";
+            //            tf.tag=102;
+            //            tf.font=[UIFont systemFontOfSize:14.0f];
+            //            tf.userInteractionEnabled=true;
+            //            [areaView addSubview:tf];
+            //
+            //            UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
+            //            im.frame=CGRectMake(tf.width-10, (tf.height-5)/2, 8, 5);
+            //            [tf addSubview:im];
+            //
+            //
+            //            UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(tf.width-tf.height,0, tf.height, tf.height)];
+            //            [tf addSubview:bt];
+            //            bt.backgroundColor=[UIColor clearColor];
+            //            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+            
+        }else if ([detaiDic[@"TYPE"] intValue]==1) {
+            
             UITextField *tf=[[UITextField alloc]init];
             tf.accessibilityHint=detaiDic[@"default"];
             tf.textColor=[UIColor blackColor];
             tf.font=[UIFont systemFontOfSize:14.0f];
             tf.frame=nextFrame;
+            tf.tag=2000+d;
             [areaView addSubview:tf];
+            if ([titleLB.text isEqualToString:@"拟稿部门"]) {
+                tf.text=[User shareUser].ORG_NAME;
+            }
             
-        }else if ([detaiDic[@"type"] isEqualToString:@"text"]) {
+        }else if ([detaiDic[@"TYPE"] intValue]==6) {//text
             UITextView *tf=[[UITextView alloc]init];
             int line=1;
             if ([[detaiDic allKeys] containsObject:@"lines"]) {
                 line=[detaiDic[@"lines"] intValue];
             }
             tf.font=[UIFont systemFontOfSize:14.0f];
-            tf.accessibilityHint=detaiDic[@"default"][@"v"];
+            tf.accessibilityHint=detaiDic[@"default"];
             tf.textColor=[UIColor blackColor];
+            tf.tag=2000+d;
             tf.frame=CGRectMake(nextFrame.origin.x, nextFrame.origin.y, nextFrame.size.width, nextFrame.size.height+25*(line-1));
             areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, tf.bottom);
             [areaView addSubview:tf];
             
-        }else if ([detaiDic[@"type"] isEqualToString:@"date"]) {
+        }else if ([detaiDic[@"TYPE"] intValue]==16) {//日期类
             UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             NSDate *date = [NSDate date];
             lb.font=[UIFont systemFontOfSize:14.0f];
             lb.userInteractionEnabled=true;
+           
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             NSString *dateString=[dateFormatter stringFromDate:date];
             lb.text=dateString;
+           lb.text=@"请选择日期";
+            lb.tag=2000+d;
             UIButton *bt=[[UIButton alloc]initWithFrame:lb.bounds];
             [lb addSubview:bt];
             bt.backgroundColor=[UIColor clearColor];
             [bt addTarget:self action:@selector(dateBtTapped:) forControlEvents:UIControlEventTouchUpInside];
-             [areaView addSubview:lb];
-        }else if ([detaiDic[@"type"] isEqualToString:@"dateInput"]) {
+            [areaView addSubview:lb];
+        }else if ([detaiDic[@"TYPE"] intValue]==160) { //日期输入框
             UITextField *lb=[[UITextField alloc]initWithFrame:nextFrame];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             NSDate *date = [NSDate date];
@@ -196,6 +229,8 @@
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             NSString *dateString=[dateFormatter stringFromDate:date];
             lb.text=dateString;
+             lb.tag=2000+d;
+            lb.text=@"请选择日期";
             [areaView addSubview:lb];
             
             UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
@@ -219,6 +254,7 @@
                     btnRect.origin.x=titleLB.right+10;
                     btnRect.origin.y += 40;
                 }
+                
                 [btn setTitle:optionTitle forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
                 btn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -227,9 +263,9 @@
                 btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
                 btn.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0);
                 [areaView addSubview:btn];
-                 areaView.frame=CGRectMake(20,topHeight, SCREEN_WIDTH-20, btn.bottom);
+                areaView.frame=CGRectMake(20,topHeight, SCREEN_WIDTH-20, btn.bottom);
                 [buttons addObject:btn];
-              
+                
             }
             
             [buttons[0] setGroupButtons:buttons]; // Setting buttons into the group
@@ -237,13 +273,13 @@
             [buttons[0] setSelected:YES];
         }else if ([detaiDic[@"type"] isEqualToString:@"attach"]){
             
-
+            
         }
         UIView *bottomLineView=[[UIView alloc]init];
         bottomLineView.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
         [areaView addSubview:bottomLineView];
         topHeight=areaView.bottom+1;
-       
+        
     }
     _confirmBt=[[UIButton alloc]init];
     [_confirmBt setTitle:@"发送" forState: UIControlStateNormal];
@@ -253,28 +289,94 @@
     [_confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [_confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
     [_confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
-    [_confirmBt addTarget:self action:@selector(showReBacInfeoViewDissMiss:) forControlEvents:UIControlEventTouchUpInside];
+    [_confirmBt addTarget:self action:@selector(confirmBtTapped:) forControlEvents:UIControlEventTouchUpInside];
     _confirmBt.layer.cornerRadius=40/2;
     _confirmBt.clipsToBounds=true;
     _confirmBt.frame=CGRectMake(20, topHeight+20,SCREEN_WIDTH-40, 40);
     [_scrollView addSubview:_confirmBt];
     _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, _confirmBt.bottom+20);
-
+}
+-(void)confirmBtTapped:(UIButton*)bt{
     
-    // Do any additional setup after loading the view from its nib.
+    NSMutableArray *arr=[NSMutableArray array];
+   
+    for (UIView *areaView in _scrollView.subviews) {
+    
+        if (areaView.tag>1000&& areaView.subviews.count>1) {
+             NSMutableDictionary *mudic=[NSMutableDictionary dictionary];
+            NSDictionary *detaiDic =[areaView.accessibilityHint objectFromCTJSONString];
+            [mudic setObject:detaiDic[@"BINDING_DATA_NAME"] forKey:@"BINDING_DATA_NAME"];
+             [arr addObject:mudic];
+            UILabel *valueView=[areaView viewWithTag:(1000+areaView.tag)];
+                BOOL shouldAlert=false;
+                if ([detaiDic[@"TYPE"]  intValue]==16&&([valueView isKindOfClass:[UILabel class]]||[valueView isKindOfClass:[UITextField class]])) {
+                    UITextField *textView=(UITextField*)valueView;
+                    if (textView.accessibilityHint.length<1) {
+                        shouldAlert=true;
+                    }else{
+                    NSString *timeInterval=textView.accessibilityHint;;
+                    [mudic setObject:timeInterval forKey:@"value"];
+                    
+                   }
+                }else if ([valueView isKindOfClass:[UITextField class]]||[valueView isKindOfClass:[UITextView class]]) {
+                    UITextField *textView=(UITextField*)valueView;
+                    if (!textView.text||textView.text.length<1) {
+                        shouldAlert=true;
+                    }else{
+                        [mudic setObject:textView.text forKey:@"value"];
+                        
+                    }
+                }else if ([valueView isKindOfClass:[RadioButton class]]){
+                    
+                }else if ([valueView isKindOfClass:[HWDownSelectedView class]]){
+                    
+                }
+                if (shouldAlert) {
+                    UIAlertController *al=[UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"请输入%@",detaiDic[@"BINDING_DATA_NAME"]] preferredStyle:UIAlertControllerStyleAlert];
+                    [self presentViewController:al animated:YES completion:nil];
+                    return;
+                }
+            
+        }
+    }
+    
+    NSDictionary *para=@{@"docId":_categoryDic[@"DOCID"],@"formDatas":arr,@"sendFlag":@true,@"userId":[User shareUser].ID};
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"提交数据中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager submitOptionUrl] andPara:@{@"flowRequestInfo":[para JSONStringFromCT]} isAddUserId:false Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"提交成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+    }];
+    
 }
 -(void)getData{
     
-    
-    NSDictionary *parameters =@{};
+    NSDictionary *parameters =@{@"docType":[NSNumber numberWithInt:type]};
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"数据获取中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager oaListUrl] andPara:nil isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+    [MyRequest getRequestWithUrl:[HostMangager newOaUrl] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
-        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSArray class]]&& [dict[@"result"] count]>0) {
-          
+        if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
+            viewInfoArray=[dict[@"result"] mutableCopy];
+            [self initView];
         }else{
             
             UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
@@ -366,9 +468,10 @@
 }
 #pragma  mark DataPickDelgate
 -(void)toobarDonBtnHaveClick:(ITTPickView *)pickView resultString:(NSString *)resultString{
-    //    dateInterval=datePicker.date.timeIntervalSinceReferenceDate;
+  
     if (resultString.length) {
         pickView.textView.text=resultString;
+        pickView.textView.accessibilityHint=[NSString stringWithFormat:@"%.0lf000", pickView.datePicker.date.timeIntervalSince1970];
     }
     [self textFieldUserEnable:true OfView:self.view];
     
@@ -456,8 +559,13 @@
     }
     _menuView.hidden=YES;
     
-    
+   
 }
+#pragma mark - alertdelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+   [self.navigationController popViewControllerAnimated:YES];
+}
+
 /*
 #pragma mark - Navigation
 
