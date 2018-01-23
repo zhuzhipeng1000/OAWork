@@ -32,7 +32,7 @@
 //5、公文详细
 
 +(NSString*)oaDetailUrl{
-    return @"/flow/getMyWorkItemDetail";
+    return @"/flow/getWorkItemDetail";
 }
 //6、提交公文列表
 +(NSString*)submitOptionUrl{

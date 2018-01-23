@@ -138,7 +138,7 @@
     NSDate *date=[NSDate dateWithTimeIntervalSince1970:([[Utils convertNull:timeSpace] longLongValue]/1000)];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setLocale:[NSLocale currentLocale]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setDateFormat:@"yyyy/MM/dd hh:mm"];
     NSString *dateStr = [dateFormatter stringFromDate:date];
     return dateStr;
 }
