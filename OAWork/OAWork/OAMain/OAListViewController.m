@@ -205,6 +205,7 @@
     cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"p_%ld",(indexPath.row%3+1)]];
     cell.senderLB.text=detailDic[@"SENDER"];
     cell.curentLB.text=detailDic[@"CURRENTSTEP"];
+    cell.timeLB.text=[Utils compareNowWithChineseString:[detailDic[@"RECEIVETIME"] floatValue]/1000];
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -241,9 +242,11 @@
     
 }
 -(void)seeDetailBtTappedOnCell:(OaMainCellTableViewCell*)cell{
-    UIViewController *avc;
+    NeedDoViewController *avc;
             avc=[[NeedDoViewController alloc]initWithNibName:@"NeedDoViewController" bundle:nil];
-    
+    NSIndexPath *indexPath=[_demoTableView indexPathForCell:cell];
+    NSDictionary *detailDic=_allArray[indexPath.row];
+    avc.needDoDic=detailDic;
         if (avc) {
             [self.navigationController pushViewController:avc animated:YES];
         }

@@ -175,8 +175,8 @@
             //            [tf addSubview:bt];
             //            bt.backgroundColor=[UIColor clearColor];
             //            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
-            
-        }else if ([detaiDic[@"TYPE"] intValue]==1) {
+                                                  //地点类型                         ／／是否类型
+        }else if ([detaiDic[@"TYPE"] intValue]==1||[detaiDic[@"TYPE"] intValue]==2||[detaiDic[@"TYPE"] intValue]==4) {
             
             UITextField *tf=[[UITextField alloc]init];
             tf.accessibilityHint=detaiDic[@"default"];
@@ -345,7 +345,8 @@
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"提交数据中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest postRequestWithUrl:[HostMangager submitOptionUrl] andPara:@{@"flowRequestInfo":[para JSONStringFromCT]} isAddUserId:false Success:^(NSDictionary *dict, BOOL success) {
+    NSDictionary *dict= @{@"flowRequestInfo":[para JSONStringFromCT]};
+    [MyRequest postRequestWithUrl:[HostMangager submitOptionUrl] andPara:para isAddUserId:false Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
         if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
             UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"提交成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];

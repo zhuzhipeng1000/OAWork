@@ -10,4 +10,5 @@
 
 @interface NeedDoViewController : BaseViewController
 @property (nonatomic,strong) UITableView *demoTableView;
+@property (nonatomic,strong) NSDictionary *needDoDic;
 @end
