@@ -31,7 +31,7 @@
     if ([UD objectForKey:@"isSelectAutoLogin"]) {
         LaunchViewController *a=[[LaunchViewController alloc]init];
         self.navi.viewControllers=@[a];
-        
+//
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
               [self login];
         });

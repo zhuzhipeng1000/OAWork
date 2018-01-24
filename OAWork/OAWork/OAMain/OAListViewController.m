@@ -129,7 +129,12 @@
     [MyRequest getRequestWithUrl:[HostMangager oaListUrl] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
         if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"code"] intValue]==0) {
-            weakSelf.allArray=dict[@"result"];
+            weakSelf.allArray=[NSMutableArray array];
+            for (NSDictionary *dic in dict[@"result"]) {
+                if ([[Utils getNotNullNotNill: dic[@"TITLE"]] length]>0 ) {
+                    [weakSelf.allArray addObject:dic];
+                }
+            }
             [weakSelf.demoTableView reloadData];
         }else{
             

@@ -95,10 +95,11 @@
         centralView.frame=CGRectMake(label.left, im.top, label.width, label.bottom);
         
         centralView.center=CGPointMake(smallBack.width/2, smallBack.height/2);
-        
+        label.tag=4000+d;
         NSDictionary * firstAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor blackColor],};
         [firstPart setAttributes:firstAttributes range:NSMakeRange(0,firstPart.length)];
-        NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:@"  2"];
+//        NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:@"  2"];
+         NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:@""];
         NSDictionary * secondAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor greenColor],};
         [secondPart setAttributes:secondAttributes range:NSMakeRange(0,secondPart.length)];
         [firstPart appendAttributedString:secondPart];
@@ -153,7 +154,9 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=true;
-    
+    [self  getData:1];
+     [self  getData:2];
+     [self  getData:3];
 }
 
 
@@ -259,31 +262,49 @@
     
 }
 
--(void)getData{
+-(void)getData:(int)type{
     
-    
-//    NSDictionary *parameters =@{}; //[paa uppercaseString]};
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSDictionary *parameters =@{@"type":@(type)};
+//    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
-    self.hud.labelText = @"数据获取中";
+//    self.hud.labelText = @"数据获取中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager oaListUrl] andPara:nil isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
-         [weakSelf.hud hide:YES];
-        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSArray class]]&& [dict[@"result"] count]>0) {
-            weakSelf.allArray=dict[@"result"];
-            [weakSelf.demoTableView reloadData];
+    [MyRequest getRequestWithUrl:[HostMangager oaListUrl] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"code"] intValue]==0) {
+            NSMutableArray *anArray=[NSMutableArray array];
+            for (NSDictionary *dic in dict[@"result"]) {
+                if ([[Utils getNotNullNotNill: dic[@"TITLE"]] length]>0 ) {
+                    [anArray addObject:dic];
+                }
+            }
+            if (anArray.count>0) {
+                NSDictionary *detailDic=weakSelf.allArray[type-1];
+                UILabel *label=[self.view viewWithTag:(3999+type)];
+                NSMutableAttributedString * firstPart = [[NSMutableAttributedString alloc] initWithString:[NSString    stringWithFormat:@"%@",detailDic[@"title"]]];
+                NSDictionary * firstAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor blackColor],};
+                [firstPart setAttributes:firstAttributes range:NSMakeRange(0,firstPart.length)];
+                NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",anArray.count]];
+                NSDictionary * secondAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor greenColor],};
+                [secondPart setAttributes:secondAttributes range:NSMakeRange(0,secondPart.length)];
+                [firstPart appendAttributedString:secondPart];
+                label.attributedText=firstPart;
+            }
+            
+           
         }else{
             
-            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [al show];
+//            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//            [al show];
             
         }
         
     } fail:^(NSError *error) {
-         [weakSelf.hud hide:YES];
-        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [al show];
+        [weakSelf.hud hide:YES];
+//        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//        [al show];
     }];
+
     
 }
 #pragma mark UITableViewDataSource

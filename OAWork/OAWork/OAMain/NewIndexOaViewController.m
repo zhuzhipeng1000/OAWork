@@ -63,6 +63,23 @@
       [weakSelf.hud hide:YES];
         if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSArray class]]&& [dict[@"result"] count]>0) {
             weakSelf.allcateLogs=dict[@"result"];
+            [weakSelf.allcateLogs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                NSDictionary *a = (NSDictionary *)obj1;
+                NSDictionary *b = (NSDictionary *)obj2;
+                
+                int aNum = [a[@"CATEGORYID"] intValue];
+                int bNum = [b[@"CATEGORYID"] intValue];
+                
+                if (aNum > bNum) {
+                    return NSOrderedDescending;
+                }
+                else if (aNum < bNum){
+                    return NSOrderedAscending;
+                }
+                else {
+                    return NSOrderedSame;
+                }
+            }];
             [self addView];
         }else{
            

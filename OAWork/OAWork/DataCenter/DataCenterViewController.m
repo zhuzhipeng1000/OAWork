@@ -93,7 +93,7 @@
         
         NSDictionary * firstAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor blackColor],};
         [firstPart setAttributes:firstAttributes range:NSMakeRange(0,firstPart.length)];
-        NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:@"  2"];
+        NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:@""];
         NSDictionary * secondAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor greenColor],};
         [secondPart setAttributes:secondAttributes range:NSMakeRange(0,secondPart.length)];
         [firstPart appendAttributedString:secondPart];
