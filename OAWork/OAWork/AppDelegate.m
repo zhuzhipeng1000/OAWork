@@ -75,16 +75,16 @@
     NSDictionary *parameters =@{@"account":userName,@"pwd":userPassWord };
     [MyRequest getRequestWithUrl:[HostMangager loginUrl] andPara:parameters isAddUserId:NO Success:^(NSDictionary *dict, BOOL success) {
 
-        if ([dict isKindOfClass:[NSDictionary class]]&&dict.allKeys.count>5) {
-   
-            if ([dict isKindOfClass:[NSDictionary class]]) {
+        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSDictionary class]]&&[dict[@"code"] intValue]==0) {
+    NSDictionary *dic=dict[@"result"];
+            if ([dic isKindOfClass:[NSDictionary class]]) {
  
               
-                NSString *LoginDic=[dict JSONStringFromCT];
+                NSString *LoginDic=[dic JSONStringFromCT];
                 [UD setValue:LoginDic forKey:KloginInfo];
                 [UD synchronize];
                 User *aUser=[User shareUser];
-                [aUser setInfoOfDic:dict];
+                [aUser setInfoOfDic:dic];
             }
             [self goToMain];
         }else{

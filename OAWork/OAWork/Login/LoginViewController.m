@@ -168,18 +168,18 @@
     __weak __typeof(self) weakSelf = self;
     [MyRequest getRequestWithUrl:[HostMangager loginUrl] andPara:parameters isAddUserId:NO Success:^(NSDictionary *dict, BOOL success) {
         bt.userInteractionEnabled=YES;
-        if ([dict isKindOfClass:[NSDictionary class]]&&dict.allKeys.count>5) {
+        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSDictionary class]]&&[dict[@"code"] intValue]==0) {
             [weakSelf.hud hide:YES];
-//            NSDictionary *dic=dict[@"data"];
-            if ([dict isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic=dict[@"result"];
+            if ([dic isKindOfClass:[NSDictionary class]]) {
 //                [[NSUserDefaults standardUserDefaults] setNotNull:dic[@"token"] forKey:@"token"];
                 [UD setObject:accountTF.text forKey:KuserName];
                 [UD setObject:passwordTF.text forKey:KuserPassWord];
-                NSString *LoginDic=[dict JSONStringFromCT];
+                NSString *LoginDic=[dic JSONStringFromCT];
                 [UD setValue:LoginDic forKey:KloginInfo];
                 [UD synchronize];
                 User *aUser=[User shareUser];
-                [aUser setInfoOfDic:dict];
+                [aUser setInfoOfDic:dic];
             }
             if (self.navigationController.viewControllers.count>2) {
                 

@@ -26,6 +26,9 @@
     UIButton *_confirmBt;
     int type;
     NSMutableArray *viewInfoArray;
+    NSArray *nextActList;
+    NHPopoverViewController *ReBacInfoView;
+    NSDictionary *nextStepDic;
 }
 @end
 
@@ -35,13 +38,18 @@
     [super viewDidLoad];
     
       self.title=_categoryDic[@"DOCTYPENAME"];
-    if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"通知"]) {
-        type=2;
-    }else if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"互相交流"]) {
-        type=1;
-    }else if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"会议室预约登记表"]) {
-        type=3;
-    }
+    type=[_categoryDic[@"DOCID"] intValue];
+//    if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"通知"]) {
+//        type=2;
+//    }else if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"互相交流"]) {
+//        type=1;
+//    }else if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"会议室预约登记表"]) {
+//        type=3;
+//    }else if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"工会请款"]) {
+//        type=4;
+//    }else if ([_categoryDic[@"DOCTYPENAME"] isEqualToString:@"工会发文"]) {
+//        type=3;
+//    }
     [self getData];
     
     self.view.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
@@ -289,14 +297,71 @@
     [_confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [_confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
     [_confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
-    [_confirmBt addTarget:self action:@selector(confirmBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [_confirmBt addTarget:self action:@selector(nextTapped:) forControlEvents:UIControlEventTouchUpInside];
     _confirmBt.layer.cornerRadius=40/2;
     _confirmBt.clipsToBounds=true;
     _confirmBt.frame=CGRectMake(20, topHeight+20,SCREEN_WIDTH-40, 40);
+     [_scrollView addSubview:_confirmBt];
+    if (nextActList.count>0) {
+       [_confirmBt setTitle:@"多个" forState: UIControlStateNormal];
+    }
+    
     [_scrollView addSubview:_confirmBt];
     _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, _confirmBt.bottom+20);
 }
--(void)confirmBtTapped:(UIButton*)bt{
+-(void)nextTapped:(UIButton*)bt{
+    if (nextActList.count>0) {
+        if (!ReBacInfoView) {
+            UIView *aView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 240)];
+            aView.backgroundColor=[UIColor whiteColor];
+            NSMutableArray* buttons=[NSMutableArray array];
+            for (int d=0;d<nextActList.count;d++) {
+                NSDictionary *dic=nextActList[d];
+                RadioButton* btn = [[RadioButton alloc] initWithFrame:CGRectMake(10,30*d, aView.width-20, 30)];
+                [btn addTarget:self action:@selector(nextTapChanged:) forControlEvents:UIControlEventValueChanged];
+                [btn setTitle:dic[@"nextActName"] forState:UIControlStateNormal];
+                [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+                btn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+                [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateSelected];
+                btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+                btn.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0);
+                [aView addSubview:btn];
+                [buttons addObject:btn];
+                btn.accessibilityHint=[dic JSONStringFromCT];
+                
+            }
+            
+            [buttons[0] setGroupButtons:buttons]; // Setting buttons into the group
+            
+            [buttons[0] setSelected:YES];
+            
+            
+            UIButton *confirmBt=[[UIButton alloc]init];
+            [confirmBt setTitle:@"确  认" forState: UIControlStateNormal];
+            [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [confirmBt setTitle:@"确  认" forState: UIControlStateHighlighted];
+            confirmBt.titleLabel.font=[UIFont boldSystemFontOfSize:16];
+            [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+            [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
+            [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
+            [confirmBt addTarget:self action:@selector(confirmedTapped:) forControlEvents:UIControlEventTouchUpInside];
+            confirmBt.layer.cornerRadius=35/2;
+            confirmBt.clipsToBounds=true;
+            confirmBt.frame=CGRectMake(aView.left+20, buttons.count*30+5, aView.width-40, 35);
+            aView.frame=CGRectMake(0, 0, SCREEN_WIDTH-40, confirmBt.bottom+10);
+            [aView addSubview:confirmBt];
+            ReBacInfoView = [[NHPopoverViewController alloc] initWithView:aView contentSize:aView.frame.size autoClose:true];
+        }
+        
+        
+        [ReBacInfoView show];
+        
+    }
+}
+-(void)confirmedTapped:(UIButton*)bt{
+   
+    
     
     NSMutableArray *arr=[NSMutableArray array];
    
@@ -339,8 +404,8 @@
             
         }
     }
-    
-    NSDictionary *para=@{@"docId":_categoryDic[@"DOCID"],@"formDatas":arr,@"sendFlag":@true,@"userId":[User shareUser].ID};
+   
+    NSDictionary *para=@{@"docId":_categoryDic[@"DOCID"],@"formDatas":arr,@"sendFlag":@true,@"userId":[User shareUser].ID,@"nextId":nextStepDic[@"nextActId"]};
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"提交数据中";
@@ -368,15 +433,16 @@
 }
 -(void)getData{
     
-    NSDictionary *parameters =@{@"docType":[NSNumber numberWithInt:type]};
+    NSDictionary *parameters =@{@"docId":[NSNumber numberWithInt:type]};
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"数据获取中";
     __weak __typeof(self) weakSelf = self;
     [MyRequest getRequestWithUrl:[HostMangager newOaUrl] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
-        if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
-            viewInfoArray=[dict[@"result"] mutableCopy];
+        if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0&&[dict[@"result"][@"formData"] isKindOfClass:[NSArray class]]) {
+            viewInfoArray=[dict[@"result"][@"formData"] mutableCopy];
+            nextActList=dict[@"result"][@"nextActList"];
             [self initView];
         }else{
             
@@ -466,6 +532,9 @@
 -(void)onRadioButtonValueChanged:(UIButton*)BT{
     
     
+}
+-(void)nextTapChanged:(UIButton *)bt{
+    nextStepDic=[bt.accessibilityHint objectFromCTJSONString];
 }
 #pragma  mark DataPickDelgate
 -(void)toobarDonBtnHaveClick:(ITTPickView *)pickView resultString:(NSString *)resultString{
