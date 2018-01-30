@@ -62,13 +62,12 @@
     [MyRequest getRequestWithUrl:[HostMangager oaTypeListUrl] andPara:parameters isAddUserId:NO Success:^(NSDictionary *dict, BOOL success) {
       [weakSelf.hud hide:YES];
         if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"result"] isKindOfClass:[NSArray class]]&& [dict[@"result"] count]>0) {
-            weakSelf.allcateLogs=dict[@"result"];
-            [weakSelf.allcateLogs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                NSDictionary *a = (NSDictionary *)obj1;
-                NSDictionary *b = (NSDictionary *)obj2;
+            weakSelf.allcateLogs=[dict[@"result"] mutableCopy];
+        
+            [self.allcateLogs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                 
-                int aNum = [a[@"CATEGORYID"] intValue];
-                int bNum = [b[@"CATEGORYID"] intValue];
+                int aNum = [obj1[@"CATEGORYID"] intValue];
+                int bNum = [obj2[@"CATEGORYID"] intValue];
                 
                 if (aNum > bNum) {
                     return NSOrderedDescending;
@@ -80,7 +79,7 @@
                     return NSOrderedSame;
                 }
             }];
-            [self addView];
+            [weakSelf addView];
         }else{
            
                         UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
@@ -123,6 +122,8 @@
         if (details.count==0) {
             startY=startY+20;
         }
+        BigView.frame=CGRectMake(0,startY-10, SCREEN_WIDTH,titleLabe.bottom);
+        weakSelf.sc.contentSize=CGSizeMake(SCREEN_WIDTH, BigView.bottom);
         for (int m=0;m<details.count;m++) {
             NSDictionary *detaiDic=details[m];
             NSString *detail =detaiDic[@"DOCTYPENAME"] ;
