@@ -28,7 +28,7 @@
     NSMutableArray *viewInfoArray;
     NSArray *nextActList;
     NHPopoverViewController *ReBacInfoView;
-    NSDictionary *nextStepDic;
+     NSString *nextStepId;
 }
 @end
 
@@ -127,10 +127,10 @@
             }
             areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, textSize.height);
             
-        }else if ([detaiDic[@"type"] isEqualToString:@"spin"]) {
+        }else if ([detaiDic[@"TYPE"] intValue]==4) {
             HWDownSelectedView *aVie=[[HWDownSelectedView alloc]initWithFrame:nextFrame];
             aVie.placeholder = @"spin";
-            aVie.listArray = @[@"22", @"23", @"24", @"25", @"26"];
+            aVie.listArray = [detaiDic[@"ATT1"] componentsSeparatedByString:@";"];
             aVie.delegate=self;
             [areaView addSubview:aVie];
             
@@ -166,7 +166,7 @@
             aVie.delegate=self;
             [areaView addSubview:aVie];
             
-            //            UITextField *tf=[[UITextField alloc]initWithFrame:nextFrame];
+            //             \ *tf=[[UITextField alloc]initWithFrame:nextFrame];
             //            tf.font=[UIFont systemFontOfSize:15.0f];
             //            tf.text=@"spinInput";
             //            tf.tag=102;
@@ -311,7 +311,7 @@
 }
 -(void)nextTapped:(UIButton*)bt{
     if (nextActList.count>0) {
-        if (!ReBacInfoView) {
+//        if (!ReBacInfoView) {
             UIView *aView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 240)];
             aView.backgroundColor=[UIColor whiteColor];
             NSMutableArray* buttons=[NSMutableArray array];
@@ -352,7 +352,7 @@
             aView.frame=CGRectMake(0, 0, SCREEN_WIDTH-40, confirmBt.bottom+10);
             [aView addSubview:confirmBt];
             ReBacInfoView = [[NHPopoverViewController alloc] initWithView:aView contentSize:aView.frame.size autoClose:true];
-        }
+//        }
         
         
         [ReBacInfoView show];
@@ -361,10 +361,10 @@
 }
 -(void)confirmedTapped:(UIButton*)bt{
    
-    
-    
+    [ReBacInfoView dismiss];
+    ReBacInfoView=nil;
     NSMutableArray *arr=[NSMutableArray array];
-   
+    NSString *title=@"";
     for (UIView *areaView in _scrollView.subviews) {
     
         if (areaView.tag>1000&& areaView.subviews.count>1) {
@@ -389,7 +389,7 @@
                         shouldAlert=true;
                     }else{
                         [mudic setObject:textView.text forKey:@"value"];
-                        
+                        title=textView.text;
                     }
                 }else if ([valueView isKindOfClass:[RadioButton class]]){
                     
@@ -404,13 +404,18 @@
             
         }
     }
-   
-    NSDictionary *para=@{@"docId":_categoryDic[@"DOCID"],@"formDatas":arr,@"sendFlag":@true,@"userId":[User shareUser].ID,@"nextId":nextStepDic[@"nextActId"]};
+    if (!nextStepId) {
+        nextStepId=nextActList[0][@"nextActId"];
+    }
+    
+  
+    NSDictionary *para=@{@"docId":_categoryDic[@"DOCID"],@"formDatas":arr,@"sendFlag":@true,@"userId":[User shareUser].ID,@"nextActId":nextStepId,@"title":title};
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"提交数据中";
     __weak __typeof(self) weakSelf = self;
-    NSDictionary *dict= @{@"flowRequestInfo":[para JSONStringFromCT]};
+  
+   
     [MyRequest postRequestWithUrl:[HostMangager submitOptionUrl] andPara:para isAddUserId:false Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
         if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
@@ -534,7 +539,7 @@
     
 }
 -(void)nextTapChanged:(UIButton *)bt{
-    nextStepDic=[bt.accessibilityHint objectFromCTJSONString];
+    nextStepId=[bt.accessibilityHint objectFromCTJSONString][@"nextActId"];
 }
 #pragma  mark DataPickDelgate
 -(void)toobarDonBtnHaveClick:(ITTPickView *)pickView resultString:(NSString *)resultString{
