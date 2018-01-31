@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger,HWDownType) {
 
 @property (nonatomic, copy, readonly) NSString *text;
 @property (nonatomic,assign) HWDownType type;
-
+@property (nonatomic,assign) NSInteger currentIndex;
 
 - (void)show;
 - (void)close;

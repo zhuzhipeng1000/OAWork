@@ -132,6 +132,7 @@
             aVie.placeholder = @"spin";
             aVie.listArray = [detaiDic[@"ATT1"] componentsSeparatedByString:@";"];
             aVie.delegate=self;
+            aVie.accessibilityHint=[detaiDic JSONStringFromCT];
             [areaView addSubview:aVie];
             
             //            UILabel *lb=[[UILabel alloc]initWithFrame:nextFrame];
@@ -394,6 +395,7 @@
                 }else if ([valueView isKindOfClass:[RadioButton class]]){
                     
                 }else if ([valueView isKindOfClass:[HWDownSelectedView class]]){
+                    
                     
                 }
                 if (shouldAlert) {

@@ -267,6 +267,7 @@ CGFloat angleValue(CGFloat angle) {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.contentLabel.text = [_listArray objectAtIndex:indexPath.row];
+    _currentIndex=indexPath.row;
     [self close];
     if ([self.delegate respondsToSelector:@selector(downSelectedView:didSelectedAtIndex:)]) {
         [self.delegate downSelectedView:self didSelectedAtIndex:indexPath];
