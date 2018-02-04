@@ -31,6 +31,10 @@
 //8、重置密码
 
 +(NSString*)resetPasswdUrl;
+//9.首页统计接口
++(NSString*)mainIndexUrl;
+//10.我的公文数量统计接口
++(NSString*)countMyWorkItems;
 
 // 8、新建子项目
 +(NSString*)projectNewUrl;

@@ -11,13 +11,16 @@
 #import "OAJobDetailViewController.h"
 #import "YZNavigationMenuView.h"
 #import "NHPopoverViewController.h"
+#import "User.h"
 
 @interface NeedDoViewController ()<YZNavigationMenuViewDelegate>{
         NHPopoverViewController *ReBacInfoView;
     UITextView *_contetnView;
     UITextView *tf;
     UIView *smallView;
-    NSArray *viewInfoArray;
+    NSDictionary *viewInfoDic;
+    NSDictionary *currentDic;
+    NSDictionary *nextAcid;
 }
 @property (nonatomic ,strong) NSMutableArray *exampleArr; //用于普通显示的数据
 @property (nonatomic ,strong)NSMutableArray *searchArr; //用于搜索后显示的数据
@@ -54,22 +57,22 @@
         _scrollView.showsVerticalScrollIndicator=false;
         [self.view addSubview:_scrollView];
 //        viewInfoArray=@[@{@"name":@"姓名",@"value":@"张三"},@{@"name":@"部门",@"value":@"测试部"},@{@"name":@"请假类型",@"value":@"事假"},@{@"name":@"请假天数",@"value":@"1天"},@{@"name":@"开始时间",@"value":@"2017-12-30 12:30"},@{@"name":@"结束时间",@"value":@"2017-12-32 22:00"},@{@"name":@"请假事由",@"value":@"因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故"},@{@"name":@"外出时间",@"value":@"2017-12-01"},@{@"name":@"外出地点",@"value":@"广州市教育局"},@{@"name":@"外借出证件类型",@"value":@"营业执照"},@{@"name":@"经费来源",@"value":@"广州市教育局"},@{@"name":@"外出地点",@"value":@"广州市教育局"},@{@"name":@"附件",@"value":@""}];
-        NSMutableArray *signs=[NSMutableArray array];
-        for (int d=0; d<viewInfoArray.count; d++) {
-            NSDictionary *detaiDic=viewInfoArray[d];
+        NSMutableArray *signs=viewInfoDic[@"signs"];
+        for (int d=0; d<[viewInfoDic[@"lines"] count]; d++) {
+            NSDictionary *detaiDic=viewInfoDic[@"lines"][d];
             
 //            if ([detaiDic[@"TYPE"] intValue]==6&&[detaiDic.allKeys containsObject:@"value"]) {
-                 if ([detaiDic[@"TYPE"] intValue]==6) {
-                [signs addObject:detaiDic];
-                continue;
-            }
+//                 if ([detaiDic[@"TYPE"] intValue]==6) {
+//                [signs addObject:detaiDic];
+//                continue;
+//            }
             UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 30)];
             
             areaView.backgroundColor=[UIColor whiteColor];
             [_scrollView addSubview:areaView];
             
             UILabel *titleLB=[[UILabel alloc]init];
-            titleLB.text=detaiDic[@"BINDING_DATA_NAME"];
+            titleLB.text=detaiDic[@"name"];
             titleLB.font=[UIFont systemFontOfSize:14.0F];
             titleLB.textColor=[UIColor blackColor];
             [areaView addSubview:titleLB];
@@ -86,9 +89,11 @@
             detaiLb.lineBreakMode=NSLineBreakByWordWrapping;
             detaiLb.textAlignment=NSTextAlignmentLeft;
             
-            detaiLb.text=[Utils getNotNullNotNill:detaiDic[@"value"]];
-            if ([detaiDic[@"TYPE"] intValue]==16) {
+            
+            if ([detaiDic[@"name"]  isEqualToString:@"开始时间"]||[detaiDic[@"name"]  isEqualToString:@"结束时间"]) {
                 detaiLb.text=[Utils compareNowWithChineseString:[[Utils getNotNullNotNill:detaiDic[@"value"]] floatValue]/1000];
+            }else{
+              detaiLb.text=[NSString stringWithFormat:@"%@",[Utils getNotNullNotNill:detaiDic[@"value"]]];
             }
             
             areaView.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
@@ -160,153 +165,174 @@
 //        }
 //        NSArray *signs=dic[@"result"][@"signs"];
 //        attachs=@[@{@"Step":@"经理审批意见",@"content":@"统一大伟大"},@{@"Step":@"部门审批意见",@"content":@"不错，可以，同意"},@{@"Step":@"CEO意见",@"content":@"同意"}];
-        
-        for (int d=0; d<signs.count-1; d++) {
-            
-            NSDictionary *detaiDic=signs[d];
-            UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 100)];
-            
-            areaView.backgroundColor=[UIColor whiteColor];
-            [_scrollView addSubview:areaView];
-            
-            UILabel *titleLB=[[UILabel alloc]init];
-            titleLB.text=detaiDic[@"BINDING_DATA_NAME"];//审批环节的名称（
-            titleLB.font=[UIFont systemFontOfSize:14.0F];
-            titleLB.textColor=[UIColor blackColor];
-            titleLB.frame=CGRectMake(20,0,SCREEN_WIDTH-40,40);
-            [areaView addSubview:titleLB];
-            
-            UILabel *contetnt=[[UILabel alloc]init];
-            contetnt.text = [Utils getNotNullNotNill :detaiDic[@"value"]];//（
-            contetnt.font=[UIFont systemFontOfSize:14.0F];
-            contetnt.textAlignment=NSTextAlignmentLeft;
-            contetnt.textColor=[Utils colorWithHexString:@"#f26c4f"];
-            contetnt.frame=CGRectMake(20,titleLB.bottom,SCREEN_WIDTH-40,40);
-            [areaView addSubview:contetnt];
-            
-            CGSize textSize=  [Utils sizeWithText:contetnt.text font:contetnt.font maxSize:CGSizeMake(areaView.width-40, 100)];
-            if (textSize.height<30) {
-                textSize.height=30;
-            }else{
-                textSize.height=textSize.height+5;
+        if (signs.count>0) {
+            for (int d=0; d<signs.count; d++) {
+                
+                NSDictionary *detaiDic=signs[d];
+                UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 100)];
+                
+                areaView.backgroundColor=[UIColor whiteColor];
+                [_scrollView addSubview:areaView];
+                
+                UILabel *titleLB=[[UILabel alloc]init];
+                titleLB.text=detaiDic[@"STEP"];//审批环节的名称（
+                titleLB.font=[UIFont systemFontOfSize:14.0F];
+                titleLB.textColor=[UIColor blackColor];
+                titleLB.frame=CGRectMake(20,0,SCREEN_WIDTH-40,40);
+                [areaView addSubview:titleLB];
+                
+                UILabel *contetnt=[[UILabel alloc]init];
+                contetnt.text = [Utils getNotNullNotNill :detaiDic[@"CONTENT"]];//（
+                contetnt.font=[UIFont systemFontOfSize:14.0F];
+                contetnt.textAlignment=NSTextAlignmentLeft;
+                contetnt.textColor=[Utils colorWithHexString:@"#f26c4f"];
+                contetnt.frame=CGRectMake(20,titleLB.bottom,SCREEN_WIDTH-40,40);
+                [areaView addSubview:contetnt];
+                
+                CGSize textSize=  [Utils sizeWithText:contetnt.text font:contetnt.font maxSize:CGSizeMake(areaView.width-40, 100)];
+                if (textSize.height<30) {
+                    textSize.height=30;
+                }else{
+                    textSize.height=textSize.height+5;
+                }
+                contetnt.frame=CGRectMake(20,titleLB.bottom, textSize.width, textSize.height);
+                
+                
+                
+                
+                UIImageView *signImage=[[UIImageView alloc]initWithFrame:CGRectMake(areaView.width-73, contetnt.bottom, 53, 26)];
+                signImage.contentMode=UIViewContentModeScaleAspectFit;
+                [signImage setImage:[UIImage imageNamed:@"arrow_down"]];
+                NSString *path=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
+                NSString* signPath = [path stringByAppendingPathComponent:@"fileName"];
+                UIImage *imv=[UIImage imageWithContentsOfFile:signPath];
+                if (imv) {
+                    signImage.image=imv;
+                }
+                [areaView addSubview:signImage];
+                
+                
+                UILabel *timeLb=[[UILabel alloc]init];
+                
+//                timeLb.text=[Utils dateStringFromTimeSt:detaiDic[@"DATE"]];//审批环节的名称（
+                timeLb.text=[NSString stringWithFormat:@"%@",detaiDic[@"DATE"]];
+//                timeLb.text=@"2017/12/13 18:20";
+                timeLb.font=[UIFont systemFontOfSize:14.0F];
+                timeLb.textColor=[UIColor blackColor];
+                timeLb.frame=CGRectMake(SCREEN_WIDTH-130,signImage.bottom+10,120,25);
+                [areaView addSubview:timeLb];
+                
+                UILabel *lineLb=[[UILabel alloc]init];
+                lineLb.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+                [areaView addSubview:lineLb];
+                
+                areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, timeLb.bottom+10);
+                lineLb.frame=CGRectMake(0,areaView.height-1, SCREEN_WIDTH, 1);
+                topHeight=topHeight+areaView.height;
+                _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, areaView.bottom+30);
+                
             }
-            contetnt.frame=CGRectMake(20,titleLB.bottom, textSize.width, textSize.height);
-            
-            
-            
-            
-            UIImageView *signImage=[[UIImageView alloc]initWithFrame:CGRectMake(areaView.width-73, contetnt.bottom, 53, 26)];
-            signImage.contentMode=UIViewContentModeScaleAspectFit;
-            [signImage setImage:[UIImage imageNamed:@"arrow_down"]];
-            NSString *path=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
-            NSString* signPath = [path stringByAppendingPathComponent:@"fileName"];
-            UIImage *imv=[UIImage imageWithContentsOfFile:signPath];
-            if (imv) {
-                signImage.image=imv;
-            }
-            [areaView addSubview:signImage];
-            
-            
-            UILabel *timeLb=[[UILabel alloc]init];
-            
-            timeLb.text=[Utils dateStringFromTimeSt:detaiDic[@"DEFAULT_VALUE"]];//审批环节的名称（
-            timeLb.text=@"2017/12/13 18:20";
-            timeLb.font=[UIFont systemFontOfSize:14.0F];
-            timeLb.textColor=[UIColor blackColor];
-            timeLb.frame=CGRectMake(SCREEN_WIDTH-130,signImage.bottom+10,120,25);
-            [areaView addSubview:timeLb];
-            
-            UILabel *lineLb=[[UILabel alloc]init];
-            lineLb.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
-            [areaView addSubview:lineLb];
-            
-            areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, timeLb.bottom+10);
-            lineLb.frame=CGRectMake(0,areaView.height-1, SCREEN_WIDTH, 1);
-            topHeight=topHeight+areaView.height;
-            
         }
-        NSDictionary *detaiDic=[signs lastObject];
-        UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 100)];
-        
-        areaView.backgroundColor=[UIColor whiteColor];
-        [_scrollView addSubview:areaView];
-        
-        UILabel *curentstepLB=[[UILabel alloc]init];
-        curentstepLB.text=detaiDic[@"BINDING_DATA_NAME"];//审批环节的名称（
-        curentstepLB.font=[UIFont systemFontOfSize:14.0F];
-        curentstepLB.textColor=[UIColor blackColor];
-        curentstepLB.frame=CGRectMake(20,0,SCREEN_WIDTH-40,40);
-        [areaView addSubview:curentstepLB];
-        
-        _contetnView=[[UITextView alloc]init];
-        _contetnView.frame=CGRectMake(5, curentstepLB.bottom, SCREEN_WIDTH-100, areaView.height-curentstepLB.bottom);
-        _contetnView.textColor=[Utils colorWithHexString:@"#f26c4f"];
-        [areaView addSubview:_contetnView];
-        
-        smallView=[[UIView alloc]initWithFrame:CGRectMake(areaView.width-90, areaView.height-38, 70, 28)];
-        smallView.layer.cornerRadius=smallView.height/2;
-        smallView.layer.borderColor=[UIColor lightGrayColor].CGColor;
-        smallView.layer.borderWidth=1.0f;
-        [areaView addSubview:smallView];
-        
-        UIImageView *signImage=[[UIImageView alloc]initWithFrame:CGRectMake(10, (smallView.height-13)/2, 13, 13)];
-        signImage.contentMode=UIViewContentModeScaleAspectFit;
-        [signImage setImage:[UIImage imageNamed:@"pen"]];
-        [smallView addSubview:signImage];
-        
-        UILabel *signLb=[[UILabel alloc]init];
-        signLb.text=@"签名";//审批环节的名称（
-        signLb.font=[UIFont systemFontOfSize:14.0F];
-        signLb.textColor=[Utils colorWithHexString:@"#08ba06"];
-        signLb.frame=CGRectMake(signImage.right+5,0,smallView.width-signImage.right,smallView.height);
-        [smallView addSubview:signLb];
-        
-        UIButton *signBt=[[UIButton alloc]initWithFrame:areaView.bounds];
-        signBt.backgroundColor=[UIColor clearColor];
-        [signBt addTarget:self action:@selector(signBttaped:) forControlEvents:UIControlEventTouchUpInside];
-        [areaView addSubview:signBt];
         
         
+        NSMutableArray *nextSteps=viewInfoDic[@"nextSteps"];
+        if (nextSteps.count&&[[Utils getNotNullNotNill:viewInfoDic[@"bindingDataName"]] length] ) {
+            for (int d=0; d<nextSteps.count; d++) {
+                NSDictionary *detailDic=nextSteps[d];
+                
+                if ([detailDic[@"name"] isEqualToString:viewInfoDic[@"bindingDataName"]]) {
+                    currentDic=detailDic;
+                    UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 100)];
+                    
+                    areaView.backgroundColor=[UIColor whiteColor];
+                    [_scrollView addSubview:areaView];
+                    
+                    UILabel *curentstepLB=[[UILabel alloc]init];
+                    curentstepLB.text=detailDic[@"name"];//审批环节的名称（
+                    curentstepLB.font=[UIFont systemFontOfSize:14.0F];
+                    curentstepLB.textColor=[UIColor blackColor];
+                    curentstepLB.frame=CGRectMake(20,0,SCREEN_WIDTH-40,40);
+                    [areaView addSubview:curentstepLB];
+                    
+                    _contetnView=[[UITextView alloc]init];
+                    _contetnView.frame=CGRectMake(5, curentstepLB.bottom, SCREEN_WIDTH-100, areaView.height-curentstepLB.bottom);
+                    _contetnView.textColor=[Utils colorWithHexString:@"#f26c4f"];
+                    [areaView addSubview:_contetnView];
+                    
+                    smallView=[[UIView alloc]initWithFrame:CGRectMake(areaView.width-90, areaView.height-38, 70, 28)];
+                    smallView.layer.cornerRadius=smallView.height/2;
+                    smallView.layer.borderColor=[UIColor lightGrayColor].CGColor;
+                    smallView.layer.borderWidth=1.0f;
+                    [areaView addSubview:smallView];
+                    
+                    UIImageView *signImage=[[UIImageView alloc]initWithFrame:CGRectMake(10, (smallView.height-13)/2, 13, 13)];
+                    signImage.contentMode=UIViewContentModeScaleAspectFit;
+                    [signImage setImage:[UIImage imageNamed:@"pen"]];
+                    [smallView addSubview:signImage];
+                    
+                    UILabel *signLb=[[UILabel alloc]init];
+                    signLb.text=@"签名";//审批环节的名称（
+                    signLb.font=[UIFont systemFontOfSize:14.0F];
+                    signLb.textColor=[Utils colorWithHexString:@"#08ba06"];
+                    signLb.frame=CGRectMake(signImage.right+5,0,smallView.width-signImage.right,smallView.height);
+                    [smallView addSubview:signLb];
+                    
+                    UIButton *signBt=[[UIButton alloc]initWithFrame:areaView.bounds];
+                    signBt.backgroundColor=[UIColor clearColor];
+                    [signBt addTarget:self action:@selector(signBttaped:) forControlEvents:UIControlEventTouchUpInside];
+                    [areaView addSubview:signBt];
+                    
+                    
+                    
+                    UILabel *titleLB=[[UILabel alloc]init];
+                    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:@"当前环节：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#363636"]}];
+                    NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",detailDic[@"name"] ] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#08ba06"]}];
+                    [nameString appendAttributedString:countString];
+                    
+                    titleLB.attributedText=nameString;
+                    titleLB.frame=CGRectMake(20,areaView.bottom+20,(SCREEN_WIDTH)/2-20,40);
+                    [_scrollView addSubview:titleLB];
+                    
+                    if (d<nextSteps.count-1) {
+                        NSDictionary *nextDic=nextSteps[d+1];
+                        nextAcid=nextDic;
+                        UILabel *nextLb=[[UILabel alloc]init];
+                        NSMutableAttributedString *nextString = [[NSMutableAttributedString alloc] initWithString:@"下一环节：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#363636"]}];
+                        NSAttributedString *detailString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",nextDic[@"name"]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#08ba06"]}];
+                        [nextString appendAttributedString:detailString];
+                        
+                        nextLb.attributedText=nextString;
+                        nextLb.textAlignment=NSTextAlignmentRight;
+                        nextLb.frame=CGRectMake((SCREEN_WIDTH)/2,titleLB.top,(SCREEN_WIDTH)/2-20,40);
+                        [_scrollView addSubview:nextLb];
+                    }
+                   
+                    
+                    UIButton *sendbt=[[UIButton alloc]initWithFrame:CGRectMake(40,titleLB.bottom+30, SCREEN_WIDTH-80, 44)];
+                    sendbt.backgroundColor=[Utils colorWithHexString:@"#008fef"];
+                    //    [revisePass setImage:[UIImage imageNamed:@"xiugaimima"] forState:UIControlStateNormal];
+                    //    [revisePass setImage:[UIImage imageNamed:@"xiugaimima"]  forState:UIControlStateHighlighted];
+                    [sendbt setTitle:@"发送" forState:UIControlStateNormal];
+                    [sendbt setTitle:@"发送" forState:UIControlStateHighlighted];
+                    [sendbt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    [sendbt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+                    [sendbt addTarget:self action:@selector(sendbttaped:) forControlEvents:UIControlEventTouchUpInside];
+                    sendbt.layer.cornerRadius=sendbt.height/2;
+                    sendbt.clipsToBounds=true;
+                    [_scrollView addSubview:sendbt];
+                    
+                    
+                    _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, sendbt.bottom+30);
+                }
+            }
+        }
         
-        UILabel *titleLB=[[UILabel alloc]init];
-        NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:@"当前环节：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#363636"]}];
-        NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@审批",detaiDic[@"BINDING_DATA_NAME"]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#08ba06"]}];
-        [nameString appendAttributedString:countString];
-        
-        titleLB.attributedText=nameString;
-        titleLB.frame=CGRectMake(20,areaView.bottom+20,(SCREEN_WIDTH)/2-20,40);
-        [_scrollView addSubview:titleLB];
-        
-        UILabel *nextLb=[[UILabel alloc]init];
-        NSMutableAttributedString *nextString = [[NSMutableAttributedString alloc] initWithString:@"下一环节：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#363636"]}];
-        NSAttributedString *detailString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@审批",detaiDic[@"BINDING_DATA_NAME"]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#08ba06"]}];
-        [nextString appendAttributedString:detailString];
-        
-        nextLb.attributedText=nextString;
-        nextLb.textAlignment=NSTextAlignmentRight;
-        nextLb.frame=CGRectMake((SCREEN_WIDTH)/2,titleLB.top,(SCREEN_WIDTH)/2-20,40);
-        [_scrollView addSubview:nextLb];
-        
-        UIButton *sendbt=[[UIButton alloc]initWithFrame:CGRectMake(40,nextLb.bottom+30, SCREEN_WIDTH-80, 44)];
-        sendbt.backgroundColor=[Utils colorWithHexString:@"#008fef"];
-        //    [revisePass setImage:[UIImage imageNamed:@"xiugaimima"] forState:UIControlStateNormal];
-        //    [revisePass setImage:[UIImage imageNamed:@"xiugaimima"]  forState:UIControlStateHighlighted];
-        [sendbt setTitle:@"发送" forState:UIControlStateNormal];
-        [sendbt setTitle:@"发送" forState:UIControlStateHighlighted];
-        [sendbt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [sendbt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [sendbt addTarget:self action:@selector(sendbttaped:) forControlEvents:UIControlEventTouchUpInside];
-        sendbt.layer.cornerRadius=sendbt.height/2;
-        sendbt.clipsToBounds=true;
-        [_scrollView addSubview:sendbt];
-        
-        
-        _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, sendbt.bottom+30);
+       
     }
 }
 -(void)getData{
     
-    NSDictionary *parameters =@{@"workitemId":_needDoDic[@"DOCID"]};
+    NSDictionary *parameters =@{@"formsetInstId":_needDoDic[@"FORMSET_INST_ID"]};
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"数据获取中";
@@ -314,7 +340,7 @@
     [MyRequest getRequestWithUrl:[HostMangager oaDetailUrl] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
         if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
-            viewInfoArray=[dict[@"result"] mutableCopy];
+            viewInfoDic=[dict[@"result"] mutableCopy];
             [self initView];
         }else{
             
@@ -411,7 +437,42 @@
     [self dissMissReBacInfoViewWithConfirm:false];
 }
 -(void)confirmedTapped:(UIButton*)bt{
+    
     [self dissMissReBacInfoViewWithConfirm:true];
+}
+-(void)sendSign{
+    
+    NSDictionary *parameters =@{
+        @"bindingDataName":viewInfoDic[@"bindingDataName"],
+        @"content": _contetnView.text,
+        @"formObjectId": currentDic[@"ACT_ID"],
+        @"nextActId":nextAcid[@"ACT_ID"],
+        @"userId": [User shareUser].ID,
+        @"workitemId":_needDoDic[@"workitemId"]
+    };
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    
+    [MyRequest postRequestWithUrl:[HostMangager submitOptionUrl] andPara:parameters isAddUserId:false Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
+            viewInfoDic=[dict[@"result"] mutableCopy];
+            [self initView];
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+    }];
+    
 }
 -(void)dissMissReBacInfoViewWithConfirm:(BOOL)confirmed{
     if (confirmed) {

@@ -69,7 +69,7 @@
         [smallBack addSubview:bt];
     }
     
-    _allArray = [@[@{@"title":@"代办公文",@"normalImage":@"home_waitingOA",@"highLightedImage":@"home_waitingOA"},@{@"title":@"待阅公文",@"normalImage":@"home_waitingRead",@"highLightedImage":@"home_waitingRead"},@{@"title":@"流转公文",@"normalImage":@"home_liuzhuan",@"highLightedImage":@"home_liuzhuan"},@{@"title":@"收件箱",@"normalImage":@"shoujianxiang",@"highLightedImage":@"shoujianxiang"},@{@"title":@"我的收藏",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"},@{@"title":@"我的订阅",@"normalImage":@"dingyue",@"highLightedImage":@"dingyue"},@{@"title":@"已办公文",@"normalImage":@"yibangongwen",@"highLightedImage":@"yibangongwen"},@{@"title":@"已阅公文",@"normalImage":@"yiyuegongwen",@"highLightedImage":@"yiyuegongwen"},@{@"title":@"个人日程",@"normalImage":@"geRenRiCheng",@"highLightedImage":@"geRenRiCheng"}] mutableCopy];
+    _allArray = [@[@{@"type":@"1",@"title":@"代办公文",@"normalImage":@"home_waitingOA",@"highLightedImage":@"home_waitingOA"},@{@"type":@"2",@"title":@"待阅公文",@"normalImage":@"home_waitingRead",@"highLightedImage":@"home_waitingRead"},@{@"type":@"3",@"title":@"流转公文",@"normalImage":@"home_liuzhuan",@"highLightedImage":@"home_liuzhuan"},@{@"title":@"收件箱",@"normalImage":@"shoujianxiang",@"highLightedImage":@"shoujianxiang"},@{@"title":@"我的收藏",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"},@{@"title":@"我的订阅",@"normalImage":@"dingyue",@"highLightedImage":@"dingyue"},@{@"type":@"4",@"title":@"已办公文",@"normalImage":@"yibangongwen",@"highLightedImage":@"yibangongwen"},@{@"type":@"5",@"title":@"已阅公文",@"normalImage":@"yiyuegongwen",@"highLightedImage":@"yiyuegongwen"},@{@"title":@"个人日程",@"normalImage":@"geRenRiCheng",@"highLightedImage":@"geRenRiCheng"}] mutableCopy];
     
     UIView *aView=[[UIView alloc]initWithFrame:CGRectMake(0,topView.bottom+10 , SCREEN_WIDTH, SCREEN_WIDTH)];
      aView.backgroundColor=[Utils colorWithHexString:@"#ffffff"];
@@ -154,9 +154,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=true;
-    [self  getData:1];
-     [self  getData:2];
-     [self  getData:3];
+    [self  getData];
 }
 
 
@@ -262,36 +260,40 @@
     
 }
 
--(void)getData:(int)type{
+-(void)getData{
     
-    NSDictionary *parameters =@{@"type":@(type)};
+    NSDictionary *parameters =@{};
 //    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
 //    self.hud.labelText = @"数据获取中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager oaListUrl] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+    [MyRequest getRequestWithUrl:[HostMangager mainIndexUrl] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
-        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"code"] intValue]==0) {
-            NSMutableArray *anArray=[NSMutableArray array];
-            for (NSDictionary *dic in dict[@"result"]) {
-                if ([[Utils getNotNullNotNill: dic[@"TITLE"]] length]>0 ) {
-                    [anArray addObject:dic];
+            if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"code"] intValue]==0) {
+            for (int d=0; d<[_allArray count]; d++) {
+                NSDictionary*dic=_allArray[d];
+                
+                UILabel *label=[self.view viewWithTag:(4000+d)];
+                if ( [dic.allKeys containsObject:@"type"]){
+                for ( NSDictionary *detailDic in dict[@"result"] ) {
+                    if ([dic[@"type"] intValue]==[detailDic[@"type"] intValue]) {
+                        
+                        NSMutableAttributedString * firstPart = [[NSMutableAttributedString alloc] initWithString:[NSString    stringWithFormat:@"%@",dic[@"title"]]];
+                        NSDictionary * firstAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor blackColor],};
+                        [firstPart setAttributes:firstAttributes range:NSMakeRange(0,firstPart.length)];
+                        if ([detailDic[@"count"] intValue]>0) {
+                            NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",detailDic[@"count"]]];
+                            NSDictionary * secondAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor greenColor],};
+                            [secondPart setAttributes:secondAttributes range:NSMakeRange(0,secondPart.length)];
+                            [firstPart appendAttributedString:secondPart];
+                        }
+                        
+                        
+                        label.attributedText=firstPart;
+                    }
+                }
                 }
             }
-            if (anArray.count>0) {
-                NSDictionary *detailDic=weakSelf.allArray[type-1];
-                UILabel *label=[self.view viewWithTag:(3999+type)];
-                NSMutableAttributedString * firstPart = [[NSMutableAttributedString alloc] initWithString:[NSString    stringWithFormat:@"%@",detailDic[@"title"]]];
-                NSDictionary * firstAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor blackColor],};
-                [firstPart setAttributes:firstAttributes range:NSMakeRange(0,firstPart.length)];
-                NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",anArray.count]];
-                NSDictionary * secondAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor greenColor],};
-                [secondPart setAttributes:secondAttributes range:NSMakeRange(0,secondPart.length)];
-                [firstPart appendAttributedString:secondPart];
-                label.attributedText=firstPart;
-            }
-            
-           
         }else{
             
 //            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];

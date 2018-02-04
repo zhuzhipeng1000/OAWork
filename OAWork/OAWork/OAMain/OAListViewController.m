@@ -49,26 +49,47 @@
     [_headBackView addSubview:_searchBar];
     
     
-//    _arr=@[(@"中心合同审批处理表"),@"中心请款处理表",@"中心合同审批处理表",@"内部事务",@"行政办公会议材料上报处理表"];//,@"个人请假表"
-    _hiddenTopBt=true;
-    if (_type==1) {
-        _arr=@[];
+
+    
+    
+//    _allArray=[@[@"公文标题工会内部事务审批单",@"公文标题工会内部事务审批单-标题过长换行文本文本",@"公文列表",@"公文列表",@"公文列表"] mutableCopy];
+    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, _headBackView.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-_headBackView.bottom)];
+    [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
+    _demoTableView.delegate=self;
+    _demoTableView.dataSource=self;
+    _demoTableView.backgroundColor= [Utils colorWithHexString:@"#f7f7f7"];
+    _demoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+        [self.view addSubview:_demoTableView];
+    // Do any additional setup after loading the view.
+}
+-(void)addheadButtons{
+    for (UIView *aView in _headBackView.subviews) {
+        if ([aView isKindOfClass:[UIButton class]]) {
+            [aView removeFromSuperview];
+        }
     }
+    //    _arr=@[(@"中心合同审批处理表"),@"中心请款处理表",@"中心合同审批处理表",@"内部事务",@"行政办公会议材料上报处理表"];//,@"个人请假表"
+    _hiddenTopBt=true;
+//    if (_type==1) {
+//        _arr=@[];
+//    }
     for (int d=0; d<_arr.count; d++) {
+        NSDictionary *detailDic=_arr[d];
         UIButton* _returnButton=[[UIButton alloc]init];
         _returnButton.tag=1000+d;
         [_returnButton addTarget:self action:@selector(returnButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
-        NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:_arr[d] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#008fef"]}];
-        NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  %d",d+1] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#09bb07"]}];
+        NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:detailDic[@"categoryName"] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#008fef"]}];
+        NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  %@",detailDic[@"count"]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#09bb07"]}];
         [nameString appendAttributedString:countString];
         [_returnButton setAttributedTitle:nameString forState:UIControlStateNormal];
-//        _returnButton.titleLabel.adjustsFontSizeToFitWidth=YES;
-//        _returnButton.titleLabel.font=[UIFont systemFontOfSize:13.0];
+        //        _returnButton.titleLabel.adjustsFontSizeToFitWidth=YES;
+        //        _returnButton.titleLabel.font=[UIFont systemFontOfSize:13.0];
         _returnButton.layer.cornerRadius=10;
         _returnButton.backgroundColor=[UIColor whiteColor];
-//        _returnButton.layer.borderColor=[UIColor lightGrayColor].CGColor;
+        //        _returnButton.layer.borderColor=[UIColor lightGrayColor].CGColor;
         _returnButton.layer.borderWidth=1.0f;
+        _returnButton.accessibilityHint=[detailDic JSONStringFromCT];
         _returnButton.frame=CGRectMake((d%2)?(SCREEN_WIDTH/2)+5:20,_searchBar.bottom+10+40*(d/2), SCREEN_WIDTH/2-25, 35);
         [_headBackView addSubview:_returnButton];
         if (d>=4) {
@@ -97,31 +118,21 @@
     }else{
         _headBackView.frame=CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, 55+((_arr.count%2)?40*(_arr.count/2+1):40*(_arr.count/2)));
     }
-    
-    
-//    _allArray=[@[@"公文标题工会内部事务审批单",@"公文标题工会内部事务审批单-标题过长换行文本文本",@"公文列表",@"公文列表",@"公文列表"] mutableCopy];
-    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, _headBackView.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-_headBackView.bottom)];
-    [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
-    _demoTableView.delegate=self;
-    _demoTableView.dataSource=self;
-    _demoTableView.backgroundColor= [Utils colorWithHexString:@"#f7f7f7"];
-    _demoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-        [self.view addSubview:_demoTableView];
-    // Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self getData];
+    [self countMyWorkItems];
+//    [self getData];
     
 }
 -(void)returnButtonTapped:(UIButton*)bt{
-    
-    
+    NSDictionary *dic=[bt.accessibilityHint objectFromCTJSONString];
+    [self getData:dic];
 }
--(void)getData{
+-(void)getData:(NSDictionary*)categoryDic{
     
     
-    NSDictionary *parameters =@{@"type":@(_type-1)};
+    NSDictionary *parameters =@{@"status":@(_type-1),@"categoryId":categoryDic[@"categoryId"],@"pageNum":@"1",@"pageSize":@"20"};
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"数据获取中";
@@ -150,6 +161,38 @@
     }];
     
 }
+-(void)countMyWorkItems{
+    
+    
+    NSDictionary *parameters =@{@"status":@(_type-1)};
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager countMyWorkItems] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&&[dict[@"code"] intValue]==0&&[dict[@"result"] isKindOfClass:[NSArray class]]) {
+            if ([dict[@"result"]  count]>0) {
+                _arr=dict[@"result"];
+                [self addheadButtons];
+                [self getData:_arr[0]];
+            }
+           
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+    }];
+    
+}
+
 -(void)moreBtTapped:(UIButton*)bt{
     _hiddenTopBt=!_hiddenTopBt;
     if (!_hiddenTopBt) {
@@ -203,9 +246,9 @@
     cell.delagate=self;
     cell.titleLB.text=detailDic[@"TITLE"];
     cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"p_%ld",(indexPath.row%3+1)]];
-    cell.senderLB.text=detailDic[@"SENDER"];
+    cell.senderLB.text=detailDic[@"SENDNAME"];
     cell.curentLB.text=detailDic[@"CURRENTSTEP"];
-    cell.timeLB.text=[Utils compareNowWithChineseString:[detailDic[@"RECEIVETIME"] floatValue]/1000];
+    cell.timeLB.text=[Utils compareNowWithChineseString:[detailDic[@"RECEIVE_TIME"] floatValue]/1000];
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

@@ -32,7 +32,7 @@
 //5、公文详细
 
 +(NSString*)oaDetailUrl{
-    return @"/flow/getWorkItemDetail";
+    return @"/flow/getDocDetail";
 }
 //6、提交公文列表
 +(NSString*)submitOptionUrl{
@@ -47,6 +47,15 @@
 +(NSString*)resetPasswdUrl{
     return @"/oa/user/updatePwd";
 }
+//9.首页统计接口
++(NSString*)mainIndexUrl{
+    return @"/flow/indexCount";
+}
+//10.我的公文数量统计接口
++(NSString*)countMyWorkItems{
+    return @"/flow/countMyWorkItems";
+}
+
 
 
 

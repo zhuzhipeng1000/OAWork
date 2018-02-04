@@ -127,11 +127,12 @@
             }
             areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, textSize.height);
             
-        }else if ([detaiDic[@"TYPE"] intValue]==4) {
+        }else if ([detaiDic[@"TYPE"] intValue]==4||[detaiDic[@"TYPE"] intValue]==2) {
             HWDownSelectedView *aVie=[[HWDownSelectedView alloc]initWithFrame:nextFrame];
             aVie.placeholder = @"spin";
             aVie.listArray = [detaiDic[@"ATT1"] componentsSeparatedByString:@";"];
             aVie.delegate=self;
+            aVie.tag=2000+d;
             aVie.accessibilityHint=[detaiDic JSONStringFromCT];
             [areaView addSubview:aVie];
             
@@ -165,6 +166,7 @@
             aVie.listArray = @[@"22", @"23", @"24", @"25", @"26"];
             aVie.type=HWDownTypeCanEdit;
             aVie.delegate=self;
+            aVie.tag=2000+d;
             [areaView addSubview:aVie];
             
             //             \ *tf=[[UITextField alloc]initWithFrame:nextFrame];
@@ -304,7 +306,8 @@
     _confirmBt.frame=CGRectMake(20, topHeight+20,SCREEN_WIDTH-40, 40);
      [_scrollView addSubview:_confirmBt];
     if (nextActList.count>0) {
-       [_confirmBt setTitle:@"多个" forState: UIControlStateNormal];
+       [_confirmBt setTitle:@"下一步" forState: UIControlStateNormal];
+       [_confirmBt setTitle:@"下一步" forState: UIControlStateHighlighted];
     }
     
     [_scrollView addSubview:_confirmBt];
@@ -371,7 +374,7 @@
         if (areaView.tag>1000&& areaView.subviews.count>1) {
              NSMutableDictionary *mudic=[NSMutableDictionary dictionary];
             NSDictionary *detaiDic =[areaView.accessibilityHint objectFromCTJSONString];
-            [mudic setObject:detaiDic[@"BINDING_DATA_NAME"] forKey:@"BINDING_DATA_NAME"];
+            [mudic setObject:detaiDic[@"BINDING_DATA_NAME"] forKey:@"bindingDataName"];
              [arr addObject:mudic];
             UILabel *valueView=[areaView viewWithTag:(1000+areaView.tag)];
                 BOOL shouldAlert=false;
@@ -390,16 +393,24 @@
                         shouldAlert=true;
                     }else{
                         [mudic setObject:textView.text forKey:@"value"];
-                        title=textView.text;
+                        if ([detaiDic[@"BINDING_DATA_NAME"] isEqualToString:@"标题"]) {
+                            title=textView.text;
+                        }
+                        
                     }
                 }else if ([valueView isKindOfClass:[RadioButton class]]){
                     
                 }else if ([valueView isKindOfClass:[HWDownSelectedView class]]){
-                    
-                    
+                    HWDownSelectedView* DownSelectedView=(HWDownSelectedView*)valueView;
+//                     *dic=[DownSelectedView.accessibilityHint objectFromCTJSONString];
+                    [mudic setObject:DownSelectedView.text forKey:@"value"];
                 }
                 if (shouldAlert) {
                     UIAlertController *al=[UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"请输入%@",detaiDic[@"BINDING_DATA_NAME"]] preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        NSLog(@"OK Action");
+                    }];
+                    [al addAction:okAction];
                     [self presentViewController:al animated:YES completion:nil];
                     return;
                 }
