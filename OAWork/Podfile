@@ -26,5 +26,6 @@ pod 'IQKeyboardManager'
 pod 'RadioButton'
 pod 'RGB'
 pod 'RAlertView'
+pod 'Toast'
 pod 'JCAlertController'
 end

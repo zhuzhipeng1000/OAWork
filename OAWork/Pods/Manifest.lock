@@ -40,6 +40,7 @@ PODS:
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - SVProgressHUD (2.2.2)
+  - Toast (4.0.0)
   - VIPhotoView (0.1)
 
 DEPENDENCIES:
@@ -60,6 +61,7 @@ DEPENDENCIES:
   - RGB
   - SDWebImage
   - SVProgressHUD
+  - Toast
   - VIPhotoView (~> 0.1)
 
 SPEC CHECKSUMS:
@@ -81,8 +83,9 @@ SPEC CHECKSUMS:
   RGB: 21cf4b60ef3501c6b7cbb268a30045905dd90995
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   VIPhotoView: bdc0cf8ddadda754b451869bd3a919e8eb5c11ab
 
-PODFILE CHECKSUM: 74e07467e6b0269339a6f873d7f7caaba8f1dd9a
+PODFILE CHECKSUM: ef0a72bfb02143980fd8c6e4698ee0f754d8700d
 
 COCOAPODS: 1.2.0

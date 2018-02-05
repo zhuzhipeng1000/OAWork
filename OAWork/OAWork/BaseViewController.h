@@ -13,6 +13,7 @@
 #import "Utils.h"
 #import "User.h"
 #import <RAlertView/RAlertView.h>
+#import <Toast/Toast.h>
 
 @interface BaseViewController : UIViewController
 @property (nonatomic,strong) MBProgressHUD *hud;

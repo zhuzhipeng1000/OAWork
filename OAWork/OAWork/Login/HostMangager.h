@@ -35,7 +35,8 @@
 +(NSString*)mainIndexUrl;
 //10.我的公文数量统计接口
 +(NSString*)countMyWorkItems;
-
+//11.搜索公文接口
++(NSString*)searchWorkItems;
 // 8、新建子项目
 +(NSString*)projectNewUrl;
 // 9、新建阶段

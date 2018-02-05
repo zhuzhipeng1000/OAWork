@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "ViewController.h"
 #import "OAJobDetailViewController.h"
+#import "OAMainViewController.h"
 #import "TestViewController.h"
 #import "UIViewController+UpResponder.h"
 #import "User.h"
@@ -28,6 +29,8 @@
     self.navi=[[UINavigationController alloc]init];
     self.window.rootViewController=self.navi;
     [self.navi setNavigationBarHidden:true];
+//     OAMainViewController*a=[[OAMainViewController alloc]init];
+//    self.navi.viewControllers=@[a];
     if ([UD objectForKey:@"isSelectAutoLogin"]) {
         LaunchViewController *a=[[LaunchViewController alloc]init];
         self.navi.viewControllers=@[a];

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '48D3C3F3C8FF91F21320B246F33AB860'
-               BlueprintName = 'RAlertView'
+               BlueprintIdentifier = 'BFAB1ECD45F5D719755F955F3B1C5024'
+               BlueprintName = 'Toast'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libRAlertView.a'>
+               BuildableName = 'libToast.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

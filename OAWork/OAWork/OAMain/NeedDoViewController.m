@@ -12,6 +12,7 @@
 #import "YZNavigationMenuView.h"
 #import "NHPopoverViewController.h"
 #import "User.h"
+#import "RadioButton.h"
 
 @interface NeedDoViewController ()<YZNavigationMenuViewDelegate>{
         NHPopoverViewController *ReBacInfoView;
@@ -20,7 +21,7 @@
     UIView *smallView;
     NSDictionary *viewInfoDic;
     NSDictionary *currentDic;
-    NSDictionary *nextAcid;
+    NSString *nextAcid;
 }
 @property (nonatomic ,strong) NSMutableArray *exampleArr; //用于普通显示的数据
 @property (nonatomic ,strong)NSMutableArray *searchArr; //用于搜索后显示的数据
@@ -57,7 +58,7 @@
         _scrollView.showsVerticalScrollIndicator=false;
         [self.view addSubview:_scrollView];
 //        viewInfoArray=@[@{@"name":@"姓名",@"value":@"张三"},@{@"name":@"部门",@"value":@"测试部"},@{@"name":@"请假类型",@"value":@"事假"},@{@"name":@"请假天数",@"value":@"1天"},@{@"name":@"开始时间",@"value":@"2017-12-30 12:30"},@{@"name":@"结束时间",@"value":@"2017-12-32 22:00"},@{@"name":@"请假事由",@"value":@"因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故请假因故因故请假因故请假因故请假因故"},@{@"name":@"外出时间",@"value":@"2017-12-01"},@{@"name":@"外出地点",@"value":@"广州市教育局"},@{@"name":@"外借出证件类型",@"value":@"营业执照"},@{@"name":@"经费来源",@"value":@"广州市教育局"},@{@"name":@"外出地点",@"value":@"广州市教育局"},@{@"name":@"附件",@"value":@""}];
-        NSMutableArray *signs=viewInfoDic[@"signs"];
+        
         for (int d=0; d<[viewInfoDic[@"lines"] count]; d++) {
             NSDictionary *detaiDic=viewInfoDic[@"lines"][d];
             
@@ -91,7 +92,8 @@
             
             
             if ([detaiDic[@"name"]  isEqualToString:@"开始时间"]||[detaiDic[@"name"]  isEqualToString:@"结束时间"]) {
-                detaiLb.text=[Utils compareNowWithChineseString:[[Utils getNotNullNotNill:detaiDic[@"value"]] floatValue]/1000];
+                detaiLb.text=detaiDic[@"value"];
+//                detaiLb.text=[Utils compareNowWithChineseString:[[Utils getNotNullNotNill:detaiDic[@"value"]] floatValue]/1000];
             }else{
               detaiLb.text=[NSString stringWithFormat:@"%@",[Utils getNotNullNotNill:detaiDic[@"value"]]];
             }
@@ -165,6 +167,13 @@
 //        }
 //        NSArray *signs=dic[@"result"][@"signs"];
 //        attachs=@[@{@"Step":@"经理审批意见",@"content":@"统一大伟大"},@{@"Step":@"部门审批意见",@"content":@"不错，可以，同意"},@{@"Step":@"CEO意见",@"content":@"同意"}];
+        
+        NSMutableArray *signs=[NSMutableArray array];
+        for (NSDictionary *dic in viewInfoDic[@"signs"]) {
+            if ([dic isKindOfClass:[NSDictionary class]]&& [[dic allKeys] containsObject:@"CONTENT"]&&[[Utils getNotNullNotNill: dic[@"CONTENT"]] length]) {
+                [signs addObject:dic];
+            }
+        }
         if (signs.count>0) {
             for (int d=0; d<signs.count; d++) {
                 
@@ -201,16 +210,21 @@
                 
                 
                 UIImageView *signImage=[[UIImageView alloc]initWithFrame:CGRectMake(areaView.width-73, contetnt.bottom, 53, 26)];
-                signImage.contentMode=UIViewContentModeScaleAspectFit;
-                [signImage setImage:[UIImage imageNamed:@"arrow_down"]];
-                NSString *path=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
-                NSString* signPath = [path stringByAppendingPathComponent:@"fileName"];
-                UIImage *imv=[UIImage imageWithContentsOfFile:signPath];
-                if (imv) {
-                    signImage.image=imv;
-                }
-                [areaView addSubview:signImage];
-                
+//                signImage.contentMode=UIViewContentModeScaleAspectFit;
+//                [signImage setImage:[UIImage imageNamed:@"arrow_down"]];
+//                NSString *path=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
+//                NSString* signPath = [path stringByAppendingPathComponent:@"fileName"];
+//                UIImage *imv=[UIImage imageWithContentsOfFile:signPath];
+//                if (imv) {
+//                    signImage.image=imv;
+//                }
+//                [areaView addSubview:signImage];
+                UILabel *signLb=[[UILabel alloc]initWithFrame:signImage.frame];
+                signLb.textColor=[UIColor blackColor];
+                signLb.font=[UIFont systemFontOfSize:19.0];
+                signLb.text=@"已签名";
+                signLb.adjustsFontSizeToFitWidth=true;
+                [areaView addSubview:signLb];
                 
                 UILabel *timeLb=[[UILabel alloc]init];
                 
@@ -234,13 +248,13 @@
             }
         }
         
-        
-        NSMutableArray *nextSteps=viewInfoDic[@"nextSteps"];
-        if (nextSteps.count&&[[Utils getNotNullNotNill:viewInfoDic[@"bindingDataName"]] length] ) {
-            for (int d=0; d<nextSteps.count; d++) {
-                NSDictionary *detailDic=nextSteps[d];
+        NSArray *signsArr =viewInfoDic[@"signs"];
+//        NSMutableArray *nextSteps=viewInfoDic[@"nextSteps"];
+        if ([signsArr isKindOfClass:[NSArray class]]&&signsArr.count&&[[Utils getNotNullNotNill:viewInfoDic[@"bindingDataName"]] length] ) {
+            for (int d=0; d<signsArr.count; d++) {
+                NSDictionary *detailDic=signsArr[d];
                 
-                if ([detailDic[@"name"] isEqualToString:viewInfoDic[@"bindingDataName"]]) {
+                if ([detailDic[@"NAME"] isEqualToString:viewInfoDic[@"bindingDataName"]]) {
                     currentDic=detailDic;
                     UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 100)];
                     
@@ -286,19 +300,19 @@
                     
                     UILabel *titleLB=[[UILabel alloc]init];
                     NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:@"当前环节：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#363636"]}];
-                    NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",detailDic[@"name"] ] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#08ba06"]}];
+                    NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",detailDic[@"NAME"] ] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#08ba06"]}];
                     [nameString appendAttributedString:countString];
                     
                     titleLB.attributedText=nameString;
                     titleLB.frame=CGRectMake(20,areaView.bottom+20,(SCREEN_WIDTH)/2-20,40);
                     [_scrollView addSubview:titleLB];
                     
-                    if (d<nextSteps.count-1) {
-                        NSDictionary *nextDic=nextSteps[d+1];
-                        nextAcid=nextDic;
+                    if (d<signsArr.count-1) {
+                        NSDictionary *nextDic=signsArr[d+1];
+                        
                         UILabel *nextLb=[[UILabel alloc]init];
                         NSMutableAttributedString *nextString = [[NSMutableAttributedString alloc] initWithString:@"下一环节：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#363636"]}];
-                        NSAttributedString *detailString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",nextDic[@"name"]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#08ba06"]}];
+                        NSAttributedString *detailString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",nextDic[@"NAME"]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[Utils colorWithHexString:@"#08ba06"]}];
                         [nextString appendAttributedString:detailString];
                         
                         nextLb.attributedText=nextString;
@@ -314,9 +328,18 @@
                     //    [revisePass setImage:[UIImage imageNamed:@"xiugaimima"]  forState:UIControlStateHighlighted];
                     [sendbt setTitle:@"发送" forState:UIControlStateNormal];
                     [sendbt setTitle:@"发送" forState:UIControlStateHighlighted];
+                    
+                    if ([viewInfoDic[@"nextSteps"] isKindOfClass:[NSArray class]]&& [viewInfoDic[@"nextSteps"] count]>0){
+                        [sendbt setTitle:@"下一步" forState:UIControlStateNormal];
+                        [sendbt setTitle:@"下一步" forState:UIControlStateHighlighted];
+                         [sendbt addTarget:self action:@selector(nextTapped:) forControlEvents:UIControlEventTouchUpInside];
+                        
+                    }else{
+                        [sendbt addTarget:self action:@selector(sendSign) forControlEvents:UIControlEventTouchUpInside];
+                    }
                     [sendbt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                     [sendbt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-                    [sendbt addTarget:self action:@selector(sendbttaped:) forControlEvents:UIControlEventTouchUpInside];
+                   
                     sendbt.layer.cornerRadius=sendbt.height/2;
                     sendbt.clipsToBounds=true;
                     [_scrollView addSubview:sendbt];
@@ -360,19 +383,7 @@
     
     
 }
--(void)sendbttaped:(UIButton*)BT{
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.labelText = @"提交中";
-    __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
-        [weakSelf.hud hide:YES];
-        
-    } fail:^(NSError *error) {
-        [weakSelf.hud hide:YES];
-        
-    }];
-    
-}
+
 -(void)signBttaped:(UIButton*)bt{
     
     [self showReBacInfoView];
@@ -419,7 +430,7 @@
         [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
         [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
-        [confirmBt addTarget:self action:@selector(confirmedTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [confirmBt addTarget:self action:@selector(showSignTapped:) forControlEvents:UIControlEventTouchUpInside];
         confirmBt.layer.cornerRadius=titleLb.height/2;
         confirmBt.clipsToBounds=true;
         confirmBt.frame=CGRectMake(tf.left+20, tf.bottom+20, aView.width-2*(tf.left+20), titleLb.height);
@@ -436,40 +447,105 @@
 -(void)cancelBtTapped:(UIButton*)bt{
     [self dissMissReBacInfoViewWithConfirm:false];
 }
--(void)confirmedTapped:(UIButton*)bt{
+-(void)showSignTapped:(UIButton*)bt{
     
     [self dissMissReBacInfoViewWithConfirm:true];
 }
+-(void)nextTapped:(UIButton*)bt{
+    if ([viewInfoDic[@"nextSteps"] isKindOfClass:[NSArray class]]&& [viewInfoDic[@"nextSteps"] count]>0) {
+        //        if (!ReBacInfoView) {
+        UIView *aView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 240)];
+        aView.backgroundColor=[UIColor whiteColor];
+        NSMutableArray* buttons=[NSMutableArray array];
+        for (int d=0;d<[viewInfoDic[@"nextSteps"] count];d++) {
+            NSDictionary *dic=viewInfoDic[@"nextSteps"][d];
+            RadioButton* btn = [[RadioButton alloc] initWithFrame:CGRectMake(10,30*d, aView.width-20, 30)];
+            [btn addTarget:self action:@selector(nextTapChanged:) forControlEvents:UIControlEventValueChanged];
+            [btn setTitle:dic[@"NAME"] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont systemFontOfSize:14];
+            [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateSelected];
+            btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            btn.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0);
+            [aView addSubview:btn];
+            [buttons addObject:btn];
+            btn.accessibilityHint=[dic JSONStringFromCT];
+            
+        }
+        
+        [buttons[0] setGroupButtons:buttons]; // Setting buttons into the group
+        
+        [buttons[0] setSelected:YES];
+        
+        
+        UIButton *confirmBt=[[UIButton alloc]init];
+        [confirmBt setTitle:@"确  认" forState: UIControlStateNormal];
+        [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [confirmBt setTitle:@"确  认" forState: UIControlStateHighlighted];
+        confirmBt.titleLabel.font=[UIFont boldSystemFontOfSize:16];
+        [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
+        [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
+        [confirmBt addTarget:self action:@selector(sendSign) forControlEvents:UIControlEventTouchUpInside];
+        confirmBt.layer.cornerRadius=35/2;
+        confirmBt.clipsToBounds=true;
+        confirmBt.frame=CGRectMake(aView.left+20, buttons.count*30+5, aView.width-40, 35);
+        aView.frame=CGRectMake(0, 0, SCREEN_WIDTH-40, confirmBt.bottom+10);
+        [aView addSubview:confirmBt];
+        ReBacInfoView = [[NHPopoverViewController alloc] initWithView:aView contentSize:aView.frame.size autoClose:true];
+        //        }
+        
+        
+        [ReBacInfoView show];
+        
+    }
+}
+-(void)nextTapChanged:(UIView*)aView{
+   nextAcid=[aView.accessibilityHint objectFromCTJSONString][@"ACT_ID"];
+}
 -(void)sendSign{
-    
+    if (!nextAcid) {
+        nextAcid=viewInfoDic[@"nextSteps"][0][@"ACT_ID"];
+    }
     NSDictionary *parameters =@{
         @"bindingDataName":viewInfoDic[@"bindingDataName"],
         @"content": _contetnView.text,
-        @"formObjectId": currentDic[@"ACT_ID"],
-        @"nextActId":nextAcid[@"ACT_ID"],
+        @"formObjectId":[NSString stringWithFormat:@"%@", currentDic[@"FORM_OBJECT_ID"]],
+        @"nextActId":[NSString stringWithFormat:@"%@",nextAcid],
         @"userId": [User shareUser].ID,
-        @"workitemId":_needDoDic[@"workitemId"]
+        @"workitemId":[NSString stringWithFormat:@"%@",viewInfoDic[@"workitemId"]]
     };
+//    parameters=@{
+//        @"bindingDataName": @"办公室意见",
+//        @"content": @"我我我",
+//        @"formObjectId": @"340795",
+//        @"nextActId": @"32351",
+//        @"userId": @"7214",
+//        @"workitemId": @"404206"
+//        };
+    NSLog(@"%@",[parameters JSONStringFromCT]);
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
-    self.hud.labelText = @"数据获取中";
+    self.hud.labelText = @"数据提交中";
     __weak __typeof(self) weakSelf = self;
     
-    [MyRequest postRequestWithUrl:[HostMangager submitOptionUrl] andPara:parameters isAddUserId:false Success:^(NSDictionary *dict, BOOL success) {
+    [MyRequest postRequestWithUrl:[HostMangager auditOAUrl] andPara:parameters isAddUserId:false Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
         if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
-            viewInfoDic=[dict[@"result"] mutableCopy];
-            [self initView];
+            [ReBacInfoView dismiss];
+           [weakSelf.view makeToast:@"提交成功" duration:1 position:CSToastPositionCenter];
+             [weakSelf.navigationController popViewControllerAnimated:YES];
         }else{
             
-            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据提交失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [al show];
             
         }
         
     } fail:^(NSError *error) {
         [weakSelf.hud hide:YES];
-        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据提交失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [al show];
     }];
     

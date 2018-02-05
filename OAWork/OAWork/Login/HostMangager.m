@@ -56,7 +56,10 @@
     return @"/flow/countMyWorkItems";
 }
 
-
+//11.搜索公文接口
++(NSString*)searchWorkItems{
+    return @"/flow/search";
+}
 
 
 
