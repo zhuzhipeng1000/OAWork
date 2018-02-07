@@ -75,6 +75,8 @@
     NSDictionary *dic=@{@"TYPE":@"150",@"name":headText,@"BINDING_DATA_NAME":headText};
     [viewInfoArray insertObject:dic atIndex:0];
     
+    NSArray *departMentArr=@[@"拟稿部门",@"使用部门",@"部门",@"上报部门",@"部门名称",@"部室名称"];
+    NSArray *personArray=@[@"拟稿人",@"上报人",@"经办人",@"申请人",@"提出人",@"姓名"];
     for (int d=0; d<viewInfoArray.count; d++) {
         NSDictionary *detaiDic=viewInfoArray[d];
         if ([detaiDic[@"TYPE"] intValue]==6) {
@@ -196,8 +198,10 @@
             tf.frame=nextFrame;
             tf.tag=2000+d;
             [areaView addSubview:tf];
-            if ([titleLB.text isEqualToString:@"拟稿部门"]) {
+            if ([departMentArr containsObject:detaiDic[@"BINDING_DATA_NAME"]]) {
                 tf.text=[User shareUser].ORG_NAME;
+            }else if ([personArray containsObject:detaiDic[@"BINDING_DATA_NAME"]]){
+                tf.text=[User shareUser].NAME;
             }
             
         }else if ([detaiDic[@"TYPE"] intValue]==6) {//text
