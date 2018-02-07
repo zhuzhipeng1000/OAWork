@@ -60,8 +60,10 @@
 +(NSString*)searchWorkItems{
     return @"/flow/search";
 }
-
-
+//查看流程接口
++ (NSString*)findFormsetInstFlow{
+    return @"/flow/findFormsetInstFlow";
+}
 
 
 // 8、新建子项目

@@ -376,7 +376,9 @@ CGFloat angleValue(CGFloat angle) {
 }
 
 #pragma mark - Layout
-
+-(void)layoutSubviews{
+    [self updateConstraints];
+}
 - (void)updateConstraints
 {
     //NSLog(@"updateConstraints");

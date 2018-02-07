@@ -37,6 +37,9 @@
 +(NSString*)countMyWorkItems;
 //11.搜索公文接口
 +(NSString*)searchWorkItems;
+//12查看流程接口
++ (NSString*)findFormsetInstFlow;
+
 // 8、新建子项目
 +(NSString*)projectNewUrl;
 // 9、新建阶段

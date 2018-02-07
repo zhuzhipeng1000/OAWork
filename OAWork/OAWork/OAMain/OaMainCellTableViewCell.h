@@ -19,12 +19,14 @@ typedef NS_ENUM(NSInteger, OAStatueType) {
 -(void)returnBtTappedOnCell:(OaMainCellTableViewCell*)cell;
 -(void)deleteBtTappedOnCell:(OaMainCellTableViewCell*)cell;
 -(void)seeDetailBtTappedOnCell:(OaMainCellTableViewCell*)cell;
+-(void)progressTappedOnCell:(OaMainCellTableViewCell*)cell;
 @end
 @interface OaMainCellTableViewCell : UITableViewCell
 @property (strong, nonatomic)  UILabel *titleLB;
 @property (strong, nonatomic)  UILabel *senderLB;
 @property (strong, nonatomic)  UILabel *senderTitleLB;
 @property (strong, nonatomic)  UILabel *curentLB;
+@property (strong, nonatomic)  UIButton *curentStepBt;
 @property (strong, nonatomic)  UILabel *currentTitleLB;
 @property (strong, nonatomic)  UILabel *timeLB;
 @property (strong, nonatomic)  UIImageView *headImage;

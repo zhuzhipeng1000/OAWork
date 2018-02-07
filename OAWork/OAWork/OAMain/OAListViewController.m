@@ -11,6 +11,7 @@
 #import "OAJobDetailViewController.h"
 #import "NeedDoViewController.h"
 #import <MJRefresh/MJRefresh.h>
+#import "OAprogressMonitorViewController.h"
 @interface OAListViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,OaMainCellTableViCellDelegate>
 @property (nonatomic,strong) NSMutableArray *allArray;
 @property (nonatomic,strong) UITableView *demoTableView;
@@ -378,6 +379,13 @@
         [weakSelf.hud hide:YES];
         
     }];
+}
+-(void)progressTappedOnCell:(OaMainCellTableViewCell *)cell{
+    OAprogressMonitorViewController *moct=[[OAprogressMonitorViewController alloc]init];
+    NSIndexPath *indexPath=[_demoTableView indexPathForCell:cell];
+    NSDictionary *detailDic=_allArray[indexPath.row];
+    moct.infost=detailDic;
+    [self.navigationController pushViewController:moct animated:YES];
 }
 -(void)deleteBtTappedOnCell:(OaMainCellTableViewCell*)cell{
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

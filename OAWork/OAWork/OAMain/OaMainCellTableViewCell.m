@@ -84,6 +84,11 @@
     _curentLB.text=@"发送人:";
     [self.contentView addSubview:_curentLB];
     
+    _curentStepBt=[[UIButton alloc]initWithFrame:CGRectZero];
+    _curentStepBt.backgroundColor=[UIColor clearColor];
+    [_curentStepBt addTarget:self action:@selector(currentBttapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:_curentStepBt];
+    
     _timeLB=[[UILabel alloc]init];
     _timeLB.font=[UIFont boldSystemFontOfSize:14.0f];
     _timeLB.textColor=[UIColor lightGrayColor];
@@ -153,7 +158,11 @@
     
     
 }
-
+-(void)currentBttapped:(UIButton*)bt{
+    if ([self.delagate respondsToSelector:@selector(progressTappedOnCell:)]) {
+        [self.delagate progressTappedOnCell:self];
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
@@ -170,6 +179,7 @@
     
     self.currentTitleLB.frame=CGRectMake(self.titleLB.left, self.senderTitleLB.bottom,65, 25);
     self.curentLB.frame=CGRectMake(self.currentTitleLB.right, self.currentTitleLB.top,self.contentView.width-self.currentTitleLB.right-170, 25);
+    _curentStepBt.frame=CGRectMake(self.currentTitleLB.left, self.currentTitleLB.top, self.currentTitleLB.width+self.curentLB.width, self.currentTitleLB.height);
     _seeDetailButton.frame=CGRectMake(self.contentView.width-55, _currentTitleLB.top,50, 25);
     _deleteButton.frame=CGRectMake(_seeDetailButton.left-55, _currentTitleLB.top, 50, 25);
     _returnButton.frame=CGRectMake(_deleteButton.left-55, _currentTitleLB.top, 50, 25);

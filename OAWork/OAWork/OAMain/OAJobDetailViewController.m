@@ -129,7 +129,7 @@
             }
             areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, textSize.height);
             
-        }else if ([detaiDic[@"TYPE"] intValue]==4||[detaiDic[@"TYPE"] intValue]==2) {
+        }else if ([detaiDic[@"TYPE"] intValue]==2) {
             HWDownSelectedView *aVie=[[HWDownSelectedView alloc]initWithFrame:nextFrame];
             aVie.placeholder = @"spin";
             aVie.listArray = [detaiDic[@"ATT1"] componentsSeparatedByString:@";"];
@@ -189,7 +189,7 @@
             //            bt.backgroundColor=[UIColor clearColor];
             //            [bt addTarget:self action:@selector(listBtTapped:) forControlEvents:UIControlEventTouchUpInside];
                                                   //地点类型                         ／／是否类型
-        }else if ([detaiDic[@"TYPE"] intValue]==1||[detaiDic[@"TYPE"] intValue]==2||[detaiDic[@"TYPE"] intValue]==4) {
+        }else if ([detaiDic[@"TYPE"] intValue]==1) {
             
             UITextField *tf=[[UITextField alloc]init];
             tf.accessibilityHint=detaiDic[@"default"];
@@ -258,18 +258,25 @@
             bt.backgroundColor=[UIColor clearColor];
             [bt addTarget:self action:@selector(dateBtTapped:) forControlEvents:UIControlEventTouchUpInside];
             
-        }else  if ([detaiDic[@"type"] isEqualToString:@"radioButton"]) {
-            NSMutableArray* buttons = [NSMutableArray arrayWithCapacity:3];
-            CGRect btnRect = CGRectMake(nextFrame.origin.x, nextFrame.origin.x, 100, nextFrame.size.height);
-            for (NSString* optionTitle in @[@"Red", @"Green", @"Blue"]) {
+        }else  if ([detaiDic[@"TYPE"] intValue]==4) {
+            NSMutableArray* buttons = [NSMutableArray array];
+             NSArray *optionTitles=[detaiDic[@"ATT1"] componentsSeparatedByString:@";"];
+            CGRect btnRect = CGRectMake(nextFrame.origin.x, nextFrame.origin.y, 100, nextFrame.size.height);
+           
+            for (int k=0;k<optionTitles.count;k++) {
+                NSString* optionTitle= optionTitles[k];
                 RadioButton* btn = [[RadioButton alloc] initWithFrame:btnRect];
                 [btn addTarget:self action:@selector(onRadioButtonValueChanged:) forControlEvents:UIControlEventValueChanged];
-                btnRect.origin.x += 20;
-                if ((btnRect.origin.x+100)>areaView.width) {
+               
+                CGSize atextSize=  [Utils sizeWithText:optionTitle font:btn.titleLabel.font maxSize:CGSizeMake(areaView.width,30)];
+                if ((btnRect.origin.x+atextSize.width+50)>areaView.width) {
                     btnRect.origin.x=titleLB.right+10;
                     btnRect.origin.y += 40;
+                }else{
+                    btnRect.origin.x += atextSize.width+50;
+                    
                 }
-                
+                btn.tag=5000+k;
                 [btn setTitle:optionTitle forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
                 btn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -278,7 +285,7 @@
                 btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
                 btn.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0);
                 [areaView addSubview:btn];
-                areaView.frame=CGRectMake(20,topHeight, SCREEN_WIDTH-20, btn.bottom);
+                areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, btn.bottom);
                 [buttons addObject:btn];
                 
             }
@@ -380,9 +387,9 @@
             NSDictionary *detaiDic =[areaView.accessibilityHint objectFromCTJSONString];
             [mudic setObject:detaiDic[@"BINDING_DATA_NAME"] forKey:@"bindingDataName"];
              [arr addObject:mudic];
+             BOOL shouldAlert=false;
             UILabel *valueView=[areaView viewWithTag:(1000+areaView.tag)];
-                BOOL shouldAlert=false;
-                if ([detaiDic[@"TYPE"]  intValue]==16&&([valueView isKindOfClass:[UILabel class]]||[valueView isKindOfClass:[UITextField class]])) {
+            if ([detaiDic[@"TYPE"]  intValue]==16&&([valueView isKindOfClass:[UILabel class]]||[valueView isKindOfClass:[UITextField class]])) {
                     UITextField *textView=(UITextField*)valueView;
                     if (textView.accessibilityHint.length<1) {
                         shouldAlert=true;
@@ -402,8 +409,14 @@
                         }
                         
                     }
-                }else if ([valueView isKindOfClass:[RadioButton class]]){
-                    
+                }else if ([detaiDic[@"TYPE"]  intValue]==4){
+                    NSArray *optionTitles=[detaiDic[@"ATT1"] componentsSeparatedByString:@";"];
+                    for (int d=0;d< optionTitles.count;d++) {
+                        RadioButton  *radioButton=[areaView viewWithTag:5000+d];
+                        if ([radioButton isKindOfClass:[radioButton class]]&&radioButton.isSelected) {
+                             [mudic setObject:[radioButton titleForState:UIControlStateNormal] forKey:@"value"];
+                        }
+                    }
                 }else if ([valueView isKindOfClass:[HWDownSelectedView class]]){
                     HWDownSelectedView* DownSelectedView=(HWDownSelectedView*)valueView;
 //                     *dic=[DownSelectedView.accessibilityHint objectFromCTJSONString];
@@ -551,9 +564,12 @@
         }
     }
 }
--(void)onRadioButtonValueChanged:(UIButton*)BT{
-    
-    
+-(void)onRadioButtonValueChanged:(RadioButton*)BT{
+//    for (UIView *Aview in BT.groupButtons) {
+//        Aview.accessibilityHint=nil;
+//    }
+//
+//    BT.accessibilityHint=[BT titleForState:UIControlStateNormal];
 }
 -(void)nextTapChanged:(UIButton *)bt{
     nextStepId=[bt.accessibilityHint objectFromCTJSONString][@"nextActId"];

@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface OAprogressMonitorViewController : BaseViewController
-@property (nonatomic,strong) NSString *infost;
+@property (nonatomic,strong) NSDictionary *infost;
 @end
