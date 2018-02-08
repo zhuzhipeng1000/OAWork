@@ -543,12 +543,12 @@
     NSMutableDictionary *dic=[NSMutableDictionary dictionary];
     
     [dic  setObject:@"image" forKey:@"fileType"];
-    @"http:///mobile/file/upload.jhtml";
-    NSURLSessionDataTask *task = [manager POST:@"" parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
-        //            NSData *data = UIImagePNGRepresentation(selectedimv);
-//        float kCompressionQuality = 0.3;
-//        NSData *data = UIImageJPEGRepresentation(selectedimv, kCompressionQuality);
-//        [formData appendPartWithFileData:data name:@"uploadFiles" fileName:[NSString stringWithFormat:@"%@.jpg",[Utils randomUUID]] mimeType:@"application/octet-stream"];
+//    @"http:///mobile/file/upload.jhtml";
+    NSURLSessionDataTask *task = [manager POST:@"http://120.78.204.130/oa/file/upload" parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+//                    NSData *data = UIImagePNGRepresentation(selectedimv);
+        float kCompressionQuality = 0.3;
+        NSData *data = UIImageJPEGRepresentation(selectedimv, kCompressionQuality);
+        [formData appendPartWithFileData:data name:@"uploadFiles" fileName:[NSString stringWithFormat:@"%@.jpg",[Utils randomUUID]] mimeType:@"application/octet-stream"];
 //
         
     } progress:^(NSProgress *_Nonnull uploadProgress) {
