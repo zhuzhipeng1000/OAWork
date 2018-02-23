@@ -13,6 +13,9 @@
 #import "NHPopoverViewController.h"
 #import "HWDownSelectedView.h"
 #import "OAprogressMonitorViewController.h"
+#import <AFNetworking/AFNetworking.h>
+#import <AVFoundation/AVFoundation.h>
+#import "WQAlert.h"
 
 @interface OAJobDetailViewController ()<ITTPickViewDelegate,HWDownSelectedViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 {
@@ -28,7 +31,9 @@
     NSMutableArray *viewInfoArray;
     NSArray *nextActList;
     NHPopoverViewController *ReBacInfoView;
+    NHPopoverViewController *DetailInfoView;
      NSString *nextStepId;
+    UIImage  selectedimv;
 }
 @end
 
@@ -573,6 +578,155 @@
 }
 -(void)nextTapChanged:(UIButton *)bt{
     nextStepId=[bt.accessibilityHint objectFromCTJSONString][@"nextActId"];
+}
+-(void)headBtTapped:(UIButton*)bt{
+    [self.view endEditing:YES];
+//    if (!DetailInfoView) {
+        UIView *headTapPopView=[[UIView alloc]initWithFrame:CGRectMake(20, 0,SCREEN_WIDTH-40, 120)];
+        NSArray *titles=@[@"从手机相册中选择",@"拍一张图片",@"从应用中选择",@"取消"];
+        for (int d=0; d<titles.count; d++) {
+            UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button2 setTitle:titles[d] forState:UIControlStateNormal];
+            [button2 setTitle:titles[d] forState:UIControlStateHighlighted];
+            button2.tag=1000+d;
+            [button2 setTitleColor:[Utils colorWithHexString:@"#363636"] forState:UIControlStateNormal];
+            [button2 addTarget:self action:@selector(chooseImage:)
+              forControlEvents:UIControlEventTouchUpInside];
+            button2.frame=CGRectMake(0,40*d, headTapPopView.width, 40);
+            [headTapPopView addSubview:button2];
+            UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,headTapPopView.bottom-1, headTapPopView.width, 1)];
+            bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+            if (d!=(titles.count-1)) {
+                [headTapPopView addSubview:bottomStrait];
+            }
+            
+//        }
+        DetailInfoView = [[NHPopoverViewController alloc] initWithView:headTapPopView contentSize:headTapPopView.frame.size autoClose:FALSE];
+        
+    }
+    [DetailInfoView show];
+}
+-(void)chooseImage:(UIButton*)bt{
+    
+    if (bt.tag==1000) {
+        
+        [self selecteFromLib];
+    }else if (bt.tag==1001) {
+        [self takePic];
+    }
+    [ReBacInfoView dismiss];
+    ReBacInfoView=nil;
+}
+-(void)takePic{
+    {
+        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            if ([self checkCameraAuthorization]) {
+                UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+                picker.delegate = self;
+                picker.sourceType = sourceType;
+                if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+                    self.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+                }
+                [self presentViewController:picker animated:YES completion:^{
+                }];
+            }
+        }
+    }
+}
+-(void)selecteFromLib{
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = sourceType;
+    if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+        self.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+    }
+    [self presentViewController:picker animated:YES completion:^{
+    }];
+    
+    
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+   
+}
+
+- (BOOL)checkCameraAuthorization
+{
+    BOOL isAvalible = YES;
+    //ios 7.0以上的系统新增加摄像头权限检测
+    if ([Utils isIOS7]) {
+        //获取对摄像头的访问权限。
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        switch (authStatus) {
+            case AVAuthorizationStatusRestricted:
+                break;
+            case AVAuthorizationStatusDenied:
+                isAvalible = NO;
+                break;
+            case AVAuthorizationStatusAuthorized:
+                break;
+            case AVAuthorizationStatusNotDetermined:
+                isAvalible =[UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+                break;
+            default:
+                break;
+        }
+    }
+    if (!isAvalible) {
+        NSDictionary* infoDict =[[NSBundle mainBundle] infoDictionary];
+        NSString *appName =[infoDict objectForKey:@"CFBundleDisplayName"];
+        [WQAlert showAlertViewControllerWithTitle:@"" message:[NSString stringWithFormat:@"您关闭了%@的相机权限，无法进行拍照。可以在手机 > 设置 > 隐私 > 相机中开启权限。", appName] buttonTitles:@[@"确定"] showViewController:self completionBlock:^(int index) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] ];
+            
+        } cancleBlock:^{
+            
+        } preferredStyle:UIAlertControllerStyleAlert];
+        
+    }
+    return isAvalible;
+}
+-(void)uploadAttach{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //接收类型不一致请替换一致text/html或别的
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+                                                         @"text/html",
+                                                         @"image/jpeg",
+                                                         @"image/png",
+                                                         @"application/octet-stream",
+                                                         @"text/json",
+                                                         nil];
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    
+    [dic  setObject:@"image" forKey:@"fileType"];
+    //    @"http:///mobile/file/upload.jhtml";
+    NSURLSessionDataTask *task = [manager POST:@"http://120.78.204.130/oa/file/upload" parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+        //                    NSData *data = UIImagePNGRepresentation(selectedimv);
+        float kCompressionQuality = 0.3;
+        NSData *data = UIImageJPEGRepresentation(selectedimv, kCompressionQuality);
+        [formData appendPartWithFileData:data name:@"uploadFiles" fileName:[NSString stringWithFormat:@"%@.jpg",[Utils randomUUID]] mimeType:@"application/octet-stream"];
+        //
+        
+    } progress:^(NSProgress *_Nonnull uploadProgress) {
+        NSLog(@"上传进度%@",uploadProgress);
+        //打印下上传进度
+    } success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+        //上传成功
+        if ([responseObject isKindOfClass:[NSDictionary class]]&&[responseObject[@"errrorCode"] intValue]==200) {
+            if ([responseObject[@"data"] isKindOfClass:[NSArray class]]&&[responseObject[@"data"] count] >0) {
+                
+            }
+            
+        }
+        
+        NSLog(@"上传成功%@",responseObject);
+    } failure:^(NSURLSessionDataTask *_Nullable task, NSError * _Nonnull error) {
+        //上传失败
+        NSLog(@"上传失败");
+    }];
+    [task  resume];
 }
 #pragma  mark DataPickDelgate
 -(void)toobarDonBtnHaveClick:(ITTPickView *)pickView resultString:(NSString *)resultString{

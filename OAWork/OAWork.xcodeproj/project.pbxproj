@@ -1212,7 +1212,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinitus.idep.bupm.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = distributionbupmideppre;
+				PROVISIONING_PROFILE_SPECIFIER = distribution.all;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1235,7 +1235,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinitus.idep.bupm.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = distributionbupmideppre;
+				PROVISIONING_PROFILE_SPECIFIER = distribution.all;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
