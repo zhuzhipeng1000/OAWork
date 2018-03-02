@@ -24,5 +24,6 @@
 @property (nonatomic,strong) NSString *PWD_LIMIT_DATE;
 @property (nonatomic,strong) NSString *STATUS;
 @property (nonatomic,strong) NSString *icon;
+@property (nonatomic,strong) NSMutableArray *selectdFiles;
 -(void)setInfoOfDic:(NSDictionary*)dic;
 @end

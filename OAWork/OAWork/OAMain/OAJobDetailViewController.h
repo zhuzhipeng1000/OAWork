@@ -10,5 +10,5 @@
 
 @interface OAJobDetailViewController : BaseViewController
 @property (nonatomic,strong) NSDictionary *categoryDic;
-
+@property (nonatomic,strong) NSArray *selectedFiles;
 @end

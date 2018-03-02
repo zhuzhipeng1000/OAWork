@@ -13,6 +13,12 @@
 #import "NHPopoverViewController.h"
 #import "User.h"
 #import "RadioButton.h"
+#import "PreviewViewController.h"
+#import "ELCImagePickerController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <AFNetworking/AFNetworking.h>
+
 
 @interface NeedDoViewController ()<YZNavigationMenuViewDelegate>{
         NHPopoverViewController *ReBacInfoView;
@@ -22,6 +28,10 @@
     NSDictionary *viewInfoDic;
     NSDictionary *currentDic;
     NSString *nextAcid;
+    NSArray  *_selectedImvs;
+    NSMutableArray *_uploadFileInfo;
+    UILabel *_selectedFileLb;
+    int _uploadFinishCount;
 }
 @property (nonatomic ,strong) NSMutableArray *exampleArr; //用于普通显示的数据
 @property (nonatomic ,strong)NSMutableArray *searchArr; //用于搜索后显示的数据
@@ -72,6 +82,8 @@
             areaView.backgroundColor=[UIColor whiteColor];
             [_scrollView addSubview:areaView];
             
+            
+            
             UILabel *titleLB=[[UILabel alloc]init];
             titleLB.text=detaiDic[@"name"];
             titleLB.font=[UIFont systemFontOfSize:14.0F];
@@ -117,54 +129,90 @@
             [areaView addSubview:lineView];
             topHeight=topHeight+areaView.height;
         }
-//        NSArray *attachs=dic[@"result"][@"attachs"];
+        NSArray *attachs=viewInfoDic[@"attachs"];
+//        if (attachs.count>0) {
+             UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 30)];
+            
+            UILabel *titleLB=[[UILabel alloc]init];
+            titleLB.text=@"附件";
+            titleLB.font=[UIFont systemFontOfSize:14.0F];
+            titleLB.textColor=[UIColor blackColor];
+            [areaView addSubview:titleLB];
+            CGSize textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(areaView.width, 30)];
+            
+            titleLB.frame=CGRectMake(20,0, textSize.width+10, 30);
+             [_scrollView addSubview:areaView];
+        
+        _selectedFileLb=[[UILabel alloc]initWithFrame:CGRectMake(titleLB.right,titleLB.top, areaView.width-90-titleLB.right, titleLB.height)];
+        _selectedFileLb.font=[UIFont systemFontOfSize:12.0f];
+        _selectedFileLb.textColor=[UIColor blackColor];
+        [areaView addSubview:_selectedFileLb];
+        
+            UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(areaView.width-90,titleLB.top, 80, titleLB.height)];
+            [bt setTitle:@"添加附件" forState:UIControlStateNormal];
+            [bt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            bt.titleLabel.font=[UIFont systemFontOfSize:13.0f];
+            bt.backgroundColor=[UIColor clearColor];
+            [bt addTarget:self action:@selector(selecteFromLib) forControlEvents:UIControlEventTouchUpInside];
+            [areaView addSubview:bt];
+             topHeight=topHeight+areaView.height;
+//        }
+       
 //        attachs=@[@{@"type":@"1",@"fileName":@"张三"},@{@"type":@"0",@"fileName":@"测试部"},@{@"type":@"2",@"fileName":@"事假"}];
 //
-//        for (int d=0; d<attachs.count; d++) {
-//            NSDictionary *detaiDic=attachs[d];
-//            UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 30)];
-//
-//            areaView.backgroundColor=[UIColor clearColor];
-//            [_scrollView addSubview:areaView];
-//
-//            UIImageView *leftImage=[[UIImageView alloc]init];
-//            leftImage.contentMode=UIViewContentModeScaleAspectFit;
-//            [leftImage setImage:[UIImage imageNamed:@"w"]];
-//            [areaView addSubview:leftImage];
-//
-//
-//            UILabel *titleLB=[[UILabel alloc]init];
-//            titleLB.text=detaiDic[@"fileName"];
-//            titleLB.font=[UIFont systemFontOfSize:14.0F];
-//            titleLB.textColor=[UIColor blackColor];
-//            [areaView addSubview:titleLB];
-//            CGSize textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(areaView.width-90, 60)];//20+20+20++10+20
-//            if (textSize.height<40) {
-//                textSize.height=40;
-//            }else{
-//                textSize.height=textSize.height+5;
-//            }
-//            leftImage.frame=CGRectMake(20,(textSize.height-20)/2, 20, 20);
-//            titleLB.frame=CGRectMake(leftImage.right+10,0, textSize.width, textSize.height);
-//            areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, titleLB.bottom);
-//
-//            UIImageView *_accessImage=[[UIImageView alloc]initWithFrame:CGRectMake(areaView.width-40, (titleLB.height-20)/2, 20, 20)];
-//            _accessImage.contentMode=UIViewContentModeScaleAspectFit;
-//            [_accessImage setImage:[UIImage imageNamed:@"arrow_down"]];
-//            [areaView addSubview:_accessImage];
-//            _accessImage.transform=CGAffineTransformMakeRotation((M_PI_2*3));// 像右往左转
-//            _accessImage.transform=CGAffineTransformScale(_accessImage.transform, 0.5, 0.5);
-//
-//            UIButton *bt=[[UIButton alloc]initWithFrame:areaView.bounds];
-//            [bt addTarget:self action:@selector(accessBtTaped:) forControlEvents:UIControlEventTouchUpInside];
-//            [areaView addSubview:bt];
-//
-//            UILabel *lineLb=[[UILabel alloc]init];
-//            lineLb.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
-//            [areaView addSubview:lineLb];
-//            lineLb.frame=CGRectMake(0,areaView.height-1, SCREEN_WIDTH, 1);
-//            topHeight=topHeight+areaView.height;
-//        }
+        for (int d=0; d<attachs.count; d++) {
+            //        {
+            //            "contentType": "string",
+            //            "fileName": "string",
+            //            "objectType": 0,
+            //            "realPath": "string",
+            //            "title": "string"
+            //        }
+            NSDictionary *detaiDic=attachs[d];
+            UIView *areaView=[[UIView alloc] initWithFrame: CGRectMake(0,topHeight, SCREEN_WIDTH, 30)];
+
+            areaView.backgroundColor=[UIColor clearColor];
+            [_scrollView addSubview:areaView];
+
+            UIImageView *leftImage=[[UIImageView alloc]init];
+            leftImage.contentMode=UIViewContentModeScaleAspectFit;
+            [leftImage setImage:[UIImage imageNamed:@"w"]];
+            [areaView addSubview:leftImage];
+
+
+            UILabel *titleLB=[[UILabel alloc]init];
+            titleLB.text=detaiDic[@"fileName"];
+            titleLB.font=[UIFont systemFontOfSize:14.0F];
+            titleLB.textColor=[UIColor blackColor];
+            [areaView addSubview:titleLB];
+            CGSize textSize=  [Utils sizeWithText:titleLB.text font:titleLB.font maxSize:CGSizeMake(areaView.width-90, 60)];//20+20+20++10+20
+            if (textSize.height<40) {
+                textSize.height=40;
+            }else{
+                textSize.height=textSize.height+5;
+            }
+            leftImage.frame=CGRectMake(20,(textSize.height-20)/2, 20, 20);
+            titleLB.frame=CGRectMake(leftImage.right+10,0, textSize.width, textSize.height);
+            areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH, titleLB.bottom);
+
+            UIImageView *_accessImage=[[UIImageView alloc]initWithFrame:CGRectMake(areaView.width-40, (titleLB.height-20)/2, 20, 20)];
+            _accessImage.contentMode=UIViewContentModeScaleAspectFit;
+            [_accessImage setImage:[UIImage imageNamed:@"arrow_down"]];
+            [areaView addSubview:_accessImage];
+            _accessImage.transform=CGAffineTransformMakeRotation((M_PI_2*3));// 像右往左转
+            _accessImage.transform=CGAffineTransformScale(_accessImage.transform, 0.5, 0.5);
+
+            UIButton *bt=[[UIButton alloc]initWithFrame:areaView.bounds];
+            [bt addTarget:self action:@selector(accessBtTaped:) forControlEvents:UIControlEventTouchUpInside];
+            bt.accessibilityHint=detaiDic[@"realPath"];
+            [areaView addSubview:bt];
+
+            UILabel *lineLb=[[UILabel alloc]init];
+            lineLb.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+            [areaView addSubview:lineLb];
+            lineLb.frame=CGRectMake(0,areaView.height-1, SCREEN_WIDTH, 1);
+            topHeight=topHeight+areaView.height;
+        }
 //        NSArray *signs=dic[@"result"][@"signs"];
 //        attachs=@[@{@"Step":@"经理审批意见",@"content":@"统一大伟大"},@{@"Step":@"部门审批意见",@"content":@"不错，可以，同意"},@{@"Step":@"CEO意见",@"content":@"同意"}];
         
@@ -380,9 +428,13 @@
     
 }
 -(void)accessBtTaped:(UIButton*)BT{
-    
+    PreviewViewController *previewVC = [[PreviewViewController alloc]init];
+    NSURL *url = [NSURL fileURLWithPath:BT.accessibilityHint];
+    previewVC.url = url;
+    [self.navigationController pushViewController:previewVC animated:YES];
     
 }
+
 
 -(void)signBttaped:(UIButton*)bt{
     
@@ -487,7 +539,7 @@
         [confirmBt setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateNormal];
         [confirmBt setBackgroundImage:[Utils createImageWithColor:[Utils colorWithHexString:@"#008fef"]] forState:UIControlStateHighlighted];
-        [confirmBt addTarget:self action:@selector(sendSign) forControlEvents:UIControlEventTouchUpInside];
+        [confirmBt addTarget:self action:@selector(uploadAllAttach) forControlEvents:UIControlEventTouchUpInside];
         confirmBt.layer.cornerRadius=35/2;
         confirmBt.clipsToBounds=true;
         confirmBt.frame=CGRectMake(aView.left+20, buttons.count*30+5, aView.width-40, 35);
@@ -514,7 +566,7 @@
         @"formObjectId":[NSString stringWithFormat:@"%@", currentDic[@"FORM_OBJECT_ID"]],
         @"nextActId":[NSString stringWithFormat:@"%@",nextAcid],
         @"userId": [User shareUser].ID,
-        @"workitemId":[NSString stringWithFormat:@"%@",viewInfoDic[@"workitemId"]]
+        @"workitemId":[NSString stringWithFormat:@"%@",viewInfoDic[@"workitemId"]],@"fileList":_uploadFileInfo
     };
 //    parameters=@{
 //        @"bindingDataName": @"办公室意见",
@@ -558,6 +610,164 @@
     }
     [ReBacInfoView dismiss];
     ReBacInfoView=nil;
+}
+-(void)selecteFromLib{
+    ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] initImagePicker];
+    //Set the maximum number of images to select to 100
+    elcPicker.maximumImagesCount =10;
+    
+    //Only return the fullScreenImage, not the fullResolutionImage
+    
+    elcPicker.returnsOriginalImage = YES;
+    
+    //Return UIimage if YES. If NO, only return asset location information
+    //是否返回只图片地址，
+    elcPicker.returnsImage = NO;
+    
+    //For multiple image selection, display and return order of selected images
+    //是否显示选中的图片序号 如果没有配置 默认为 YES
+    
+    elcPicker.onOrder = YES;
+    
+    //Supports image and
+    elcPicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
+    elcPicker.imagePickerDelegate = (id<ELCImagePickerControllerDelegate>)self;
+    elcPicker.referenceURLInfo = _selectedImvs;
+    
+    elcPicker.isThumbSmall = false;
+    elcPicker.isBase64Result = false;
+    elcPicker.thumScale = 1024;
+    elcPicker.maxSize = 1.0;
+    elcPicker.maxPixel = 5000;
+    elcPicker.isPersistence =false;
+    
+    [self.navigationController presentViewController:elcPicker animated:YES completion:^{
+        
+    }];
+    
+    
+}
+#pragma mark - ELCImagePickerDelegate
+- (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info
+{
+    //NSMutableArray *images = [NSMutableArray array];
+    NSMutableArray *result= [NSMutableArray array];
+    //保存图片占用线程时间长，改异步
+    if(picker.returnsImage){
+        for (NSDictionary *dict in info) {
+            if (([dict objectForKey:UIImagePickerControllerMediaType] == ALAssetTypePhoto)&&([dict objectForKey:UIImagePickerControllerOriginalImage])){
+                [result addObject:dict[@"imgName"]];
+            }
+        }
+    }else{
+        [result addObjectsFromArray:info];;
+    }
+    _selectedImvs=result;
+    if (_selectedImvs.count>0) {
+        _selectedFileLb.text=[NSString stringWithFormat:@"已选%ld项文件",_selectedImvs.count];
+    }
+    NSLog(@"%@",result);
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+       
+    }];
+}
+
+
+- (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+-(void)uploadAllAttach{
+    if (_selectedImvs.count) {
+        for (int d=0; d<_selectedImvs.count; d++) {
+            [self uploadAttach:_selectedImvs[d][@"pic"]];
+        }
+    }else{
+        [self sendSign];
+    }
+   
+    
+}
+-(NSString*)mineNameOfFilepath:(NSString*)filePath{
+    
+    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[filePath pathExtension], NULL);
+    
+    CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass (UTI, kUTTagClassMIMEType);
+    NSLog(@"MIMEType%@",MIMEType);
+    NSString* strNS = (__bridge NSString *)MIMEType;
+    return strNS;
+}
+-(void)uploadAttach:(NSString*)filePath{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //接收类型不一致请替换一致text/html或别的
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+                                                         @"text/html",
+                                                         @"image/jpeg",
+                                                         @"image/png",
+                                                         @"application/octet-stream",
+                                                         @"text/json",
+                                                         nil];
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    
+    [dic  setObject:@"image" forKey:@"fileType"];
+    //    @"http:///mobile/file/upload.jhtml";
+    NSURLSessionDataTask *task = [manager POST:@"http://120.78.204.130/oa/file/upload" parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+        //                    NSData *data = UIImagePNGRepresentation(selectedimv);
+        float kCompressionQuality = 0.3;
+        //        UIImage *imv=[UIImage imageWithContentsOfFile:filePath];
+        NSData *data = [NSData dataWithContentsOfFile:filePath];
+        [formData appendPartWithFileData:data name:@"uploadFiles" fileName:[NSString stringWithFormat:@"%@.jpg",[Utils randomUUID]] mimeType:@"application/octet-stream"];
+        //
+        
+    } progress:^(NSProgress *_Nonnull uploadProgress) {
+        NSLog(@"上传进度%@",uploadProgress);
+        //打印下上传进度
+    } success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+        //上传成功
+        if ([responseObject isKindOfClass:[NSDictionary class]]&&[responseObject[@"errrorCode"] intValue]==200) {
+            if ([responseObject[@"data"] isKindOfClass:[NSArray class]]&&[responseObject[@"data"] count] >0) {
+                
+            }
+            
+        }
+        if (!_uploadFileInfo) {
+            _uploadFileInfo=[NSMutableArray array];
+        }
+        NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+        //        {
+        //            "contentType": "string",
+        //            "fileName": "string",
+        //            "objectType": 0,
+        //            "realPath": "string",
+        //            "title": "string"
+        //        }
+        [dic setObject:@"image/jpeg" forKey:@"contentType"];
+        [dic setObject:[[filePath componentsSeparatedByString:@"/"] lastObject] forKey:@"fileName"];
+        [dic setObject:@0 forKey:@"objectType"];
+        [dic setObject:responseObject[@"result"][0][@"filePath"] forKey:@"realPath"];
+        [dic setObject:[[filePath componentsSeparatedByString:@"/"] lastObject] forKey:@"title"];
+        [_uploadFileInfo addObject:dic];
+        NSLog(@"上传成功%@",responseObject);
+        _uploadFinishCount++;
+        [self.view makeToast:[NSString stringWithFormat:@"%@上传成功",[[filePath componentsSeparatedByString:@"/"] lastObject]] duration:1 position:CSToastPositionCenter];
+        if (_uploadFinishCount==_selectedImvs.count) {
+            [self sendSign];
+        }
+    } failure:^(NSURLSessionDataTask *_Nullable task, NSError * _Nonnull error) {
+        //上传失败
+        NSLog(@"上传失败");
+        _uploadFinishCount++;
+        [self.view makeToast:[NSString stringWithFormat:@"%@上传失败",[[filePath componentsSeparatedByString:@"/"] lastObject]] duration:1 position:CSToastPositionCenter];
+        if (_uploadFinishCount==_selectedImvs.count) {
+            [self sendSign];
+        }
+    }];
+    [task  resume];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

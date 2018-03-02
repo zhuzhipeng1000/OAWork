@@ -16,8 +16,14 @@
 #import <AFNetworking/AFNetworking.h>
 #import <AVFoundation/AVFoundation.h>
 #import "WQAlert.h"
+#import "SelectFileViewController.h"
+#import "PreviewViewController.h"
+#import "ELCImagePickerController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface OAJobDetailViewController ()<ITTPickViewDelegate,HWDownSelectedViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
+
+@interface OAJobDetailViewController ()<ITTPickViewDelegate,HWDownSelectedViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,SelectFileViewControllerDelegate>
 {
     ITTPickView *_datePicker;
 //    ListSelectView *_listView;
@@ -33,7 +39,10 @@
     NHPopoverViewController *ReBacInfoView;
     NHPopoverViewController *DetailInfoView;
      NSString *nextStepId;
-    UIImage  selectedimv;
+    NSArray  *_selectedImvs;
+    UILabel * selectedFileLb;
+    NSMutableArray *_uploadFileInfo;
+    int _uploadFinishCount;
 }
 @end
 
@@ -78,8 +87,10 @@
     [self.view addSubview:_scrollView];
     NSString *headText=[NSString stringWithFormat:@"广州市教育评估和教师继续教育指导中心%@",self.title];
     NSDictionary *dic=@{@"TYPE":@"150",@"name":headText,@"BINDING_DATA_NAME":headText};
+    NSDictionary *attachdic=@{@"TYPE":@"250",@"name":@"附件",@"BINDING_DATA_NAME":@"附件"};
+
     [viewInfoArray insertObject:dic atIndex:0];
-    
+     [viewInfoArray addObject:attachdic];
     NSArray *departMentArr=@[@"拟稿部门",@"使用部门",@"部门",@"上报部门",@"部门名称",@"部室名称"];
     NSArray *personArray=@[@"拟稿人",@"上报人",@"经办人",@"申请人",@"提出人",@"姓名"];
     for (int d=0; d<viewInfoArray.count; d++) {
@@ -298,9 +309,37 @@
             [buttons[0] setGroupButtons:buttons]; // Setting buttons into the group
             
             [buttons[0] setSelected:YES];
-        }else if ([detaiDic[@"type"] isEqualToString:@"attach"]){
+        }else if ([detaiDic[@"TYPE"] intValue]==250){
+            areaView.userInteractionEnabled=true;
+            titleLB.userInteractionEnabled=true;
+            selectedFileLb=[[UILabel alloc]initWithFrame:CGRectMake(titleLB.right,titleLB.top, areaView.width-90-titleLB.right, titleLB.height)];
+            selectedFileLb.font=[UIFont systemFontOfSize:12.0f];
+            selectedFileLb.textColor=[UIColor blackColor];
+            [areaView addSubview:selectedFileLb];
             
-            
+            UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(areaView.width-90,titleLB.top, 80, titleLB.height)];
+            [bt setTitle:@"添加附件" forState:UIControlStateNormal];
+            [bt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            bt.titleLabel.font=[UIFont systemFontOfSize:13.0f];
+            bt.backgroundColor=[UIColor clearColor];
+            [bt addTarget:self action:@selector(headBtTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [areaView addSubview:bt];
+//            NSArray *selectedFiles=[User shareUser].selectdFiles;
+//            for (int k=0;k<selectedFiles.count;k++) {
+//                NSString* filePath= selectedFiles[k];
+//                UIButton *bt=[[UIButton alloc]initWithFrame:CGRectMake(titleLB.left,titleLB.height+30*k, 30, titleLB.width)];
+//                [bt setTitle:[[filePath componentsSeparatedByString:@"/"] lastObject] forState:UIControlStateNormal];
+//                [bt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//                bt.accessibilityHint=filePath;
+//                bt.titleLabel.textAlignment=NSTextAlignmentLeft;
+//                bt.backgroundColor=[UIColor clearColor];
+//                [bt addTarget:self action:@selector(fileTapped:) forControlEvents:UIControlEventTouchUpInside];
+//                [titleLB addSubview:bt];
+//                [areaView addSubview:bt];
+//
+//            }
+//            areaView.frame=CGRectMake(0,topHeight, SCREEN_WIDTH,titleLB.height+ selectedFiles.count*30);
+           
         }
         UIView *bottomLineView=[[UIView alloc]init];
         bottomLineView.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
@@ -328,6 +367,13 @@
     
     [_scrollView addSubview:_confirmBt];
     _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, _confirmBt.bottom+20);
+}
+-(void)fileTapped:(UIButton*)bt{
+    PreviewViewController *previewVC = [[PreviewViewController alloc]init];
+    NSURL *url = [NSURL fileURLWithPath:bt.accessibilityHint];
+    previewVC.url = url;
+    [self.navigationController  pushViewController:previewVC animated:YES];
+    
 }
 -(void)nextTapped:(UIButton*)bt{
     if (nextActList.count>0) {
@@ -444,7 +490,7 @@
     }
     
   
-    NSDictionary *para=@{@"docId":_categoryDic[@"DOCID"],@"formDatas":arr,@"sendFlag":@true,@"userId":[User shareUser].ID,@"nextActId":nextStepId,@"title":title};
+    NSDictionary *para=@{@"docId":_categoryDic[@"DOCID"],@"formDatas":arr,@"sendFlag":@true,@"userId":[User shareUser].ID,@"nextActId":nextStepId,@"title":title,@"fileList":_uploadFileInfo};
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
     self.hud.labelText = @"提交数据中";
@@ -455,18 +501,21 @@
         [weakSelf.hud hide:YES];
         if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
             UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"提交成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            al.accessibilityHint=@"提交";
             [al show];
             
         }else{
             
-            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"提交失败，请重试" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+            al.accessibilityHint=@"提交";
             [al show];
             
         }
         
     } fail:^(NSError *error) {
         [weakSelf.hud hide:YES];
-        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"提交失败，请重试" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+         al.accessibilityHint=@"提交";
         [al show];
     }];
     
@@ -581,75 +630,82 @@
 }
 -(void)headBtTapped:(UIButton*)bt{
     [self.view endEditing:YES];
-//    if (!DetailInfoView) {
-        UIView *headTapPopView=[[UIView alloc]initWithFrame:CGRectMake(20, 0,SCREEN_WIDTH-40, 120)];
-        NSArray *titles=@[@"从手机相册中选择",@"拍一张图片",@"从应用中选择",@"取消"];
-        for (int d=0; d<titles.count; d++) {
-            UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button2 setTitle:titles[d] forState:UIControlStateNormal];
-            [button2 setTitle:titles[d] forState:UIControlStateHighlighted];
-            button2.tag=1000+d;
-            [button2 setTitleColor:[Utils colorWithHexString:@"#363636"] forState:UIControlStateNormal];
-            [button2 addTarget:self action:@selector(chooseImage:)
-              forControlEvents:UIControlEventTouchUpInside];
-            button2.frame=CGRectMake(0,40*d, headTapPopView.width, 40);
-            [headTapPopView addSubview:button2];
-            UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,headTapPopView.bottom-1, headTapPopView.width, 1)];
-            bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
-            if (d!=(titles.count-1)) {
-                [headTapPopView addSubview:bottomStrait];
-            }
-            
-//        }
-        DetailInfoView = [[NHPopoverViewController alloc] initWithView:headTapPopView contentSize:headTapPopView.frame.size autoClose:FALSE];
-        
-    }
-    [DetailInfoView show];
-}
--(void)chooseImage:(UIButton*)bt{
+//    UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"相册中选择",@"应用中选择", nil];
+//    al.accessibilityHint=@"附件选择";
+//    [al show];
+    [self selecteFromLib];
     
-    if (bt.tag==1000) {
-        
-        [self selecteFromLib];
-    }else if (bt.tag==1001) {
-        [self takePic];
-    }
-    [ReBacInfoView dismiss];
-    ReBacInfoView=nil;
+//    if (!DetailInfoView) {
+//        UIView *headTapPopView=[[UIView alloc]initWithFrame:CGRectMake(20, 0,SCREEN_WIDTH-40, 120)];
+//        NSArray *titles=@[@"从手机相册中选择",@"从应用中选择",@"取消"];
+//        for (int d=0; d<titles.count; d++) {
+//            UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
+//            [button2 setTitle:titles[d] forState:UIControlStateNormal];
+//            [button2 setTitle:titles[d] forState:UIControlStateHighlighted];
+//            button2.tag=1000+d;
+//            [button2 setTitleColor:[Utils colorWithHexString:@"#363636"] forState:UIControlStateNormal];
+//            [button2 addTarget:self action:@selector(chooseImage:)
+//              forControlEvents:UIControlEventTouchUpInside];
+//            button2.frame=CGRectMake(0,40*d, headTapPopView.width, 40);
+//            [headTapPopView addSubview:button2];
+//            UIView *bottomStrait=[[UIView alloc]initWithFrame:CGRectMake(0,headTapPopView.bottom-1, headTapPopView.width, 1)];
+//            bottomStrait.backgroundColor=[Utils colorWithHexString:@"#e4e4e4"];
+//            if (d!=(titles.count-1)) {
+//                [headTapPopView addSubview:bottomStrait];
+//            }
+//
+////        }
+//        DetailInfoView = [[NHPopoverViewController alloc] initWithView:headTapPopView contentSize:headTapPopView.frame.size autoClose:FALSE];
+//
+//    }
+//    [DetailInfoView show];
 }
--(void)takePic{
-    {
-        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            if ([self checkCameraAuthorization]) {
-                UIImagePickerController* picker = [[UIImagePickerController alloc] init];
-                picker.delegate = self;
-                picker.sourceType = sourceType;
-                if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
-                    self.modalPresentationStyle=UIModalPresentationOverCurrentContext;
-                }
-                [self presentViewController:picker animated:YES completion:^{
-                }];
-            }
-        }
-    }
+
+-(void)gotoDownFile{
+    NSString *filepath= [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    SelectFileViewController *sc=[[SelectFileViewController alloc]init];
+    sc.filePath=filepath;
+    sc.delegate=self;
+    [self.navigationController pushViewController:sc animated:YES];
+    
 }
 -(void)selecteFromLib{
-    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    UIImagePickerController* picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    picker.sourceType = sourceType;
-    if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
-        self.modalPresentationStyle=UIModalPresentationOverCurrentContext;
-    }
-    [self presentViewController:picker animated:YES completion:^{
+    ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] initImagePicker];
+    //Set the maximum number of images to select to 100
+    elcPicker.maximumImagesCount =10;
+    
+    //Only return the fullScreenImage, not the fullResolutionImage
+ 
+    elcPicker.returnsOriginalImage = YES;
+    
+    //Return UIimage if YES. If NO, only return asset location information
+    //是否返回只图片地址，
+    elcPicker.returnsImage = NO;
+    
+    //For multiple image selection, display and return order of selected images
+    //是否显示选中的图片序号 如果没有配置 默认为 YES
+
+    elcPicker.onOrder = YES;
+    
+    //Supports image and
+    elcPicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
+    elcPicker.imagePickerDelegate = (id<ELCImagePickerControllerDelegate>)self;
+    elcPicker.referenceURLInfo = _selectedImvs;
+    
+    elcPicker.isThumbSmall = false;
+    elcPicker.isBase64Result = false;
+    elcPicker.thumScale = 1024;
+    elcPicker.maxSize = 1.0;
+    elcPicker.maxPixel = 5000;
+    elcPicker.isPersistence =false;
+    
+    [self.navigationController presentViewController:elcPicker animated:YES completion:^{
+        
     }];
     
     
 }
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-   
-}
+
 
 - (BOOL)checkCameraAuthorization
 {
@@ -686,7 +742,26 @@
     }
     return isAvalible;
 }
--(void)uploadAttach{
+-(void)uploadAllAttach{
+    if (_selectedImvs.count) {
+        for (int d=0; d<_selectedImvs.count; d++) {
+            [self uploadAttach:_selectedImvs[d][@"pic"]];
+        }
+    }else{
+        [self confirmedTapped:nil];
+    }
+    
+}
+-(NSString*)mineNameOfFilepath:(NSString*)filePath{
+    
+    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[filePath pathExtension], NULL);
+    
+    CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass (UTI, kUTTagClassMIMEType);
+    NSLog(@"MIMEType%@",MIMEType);
+    NSString* strNS = (__bridge NSString *)MIMEType;
+    return strNS;
+}
+-(void)uploadAttach:(NSString*)filePath{
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //接收类型不一致请替换一致text/html或别的
@@ -705,7 +780,8 @@
     NSURLSessionDataTask *task = [manager POST:@"http://120.78.204.130/oa/file/upload" parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         //                    NSData *data = UIImagePNGRepresentation(selectedimv);
         float kCompressionQuality = 0.3;
-        NSData *data = UIImageJPEGRepresentation(selectedimv, kCompressionQuality);
+//        UIImage *imv=[UIImage imageWithContentsOfFile:filePath];
+        NSData *data = [NSData dataWithContentsOfFile:filePath];
         [formData appendPartWithFileData:data name:@"uploadFiles" fileName:[NSString stringWithFormat:@"%@.jpg",[Utils randomUUID]] mimeType:@"application/octet-stream"];
         //
         
@@ -720,11 +796,37 @@
             }
             
         }
-        
+        if (!_uploadFileInfo) {
+            _uploadFileInfo=[NSMutableArray array];
+        }
+        NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+//        {
+//            "contentType": "string",
+//            "fileName": "string",
+//            "objectType": 0,
+//            "realPath": "string",
+//            "title": "string"
+//        }
+        [dic setObject:@"image/jpeg" forKey:@"contentType"];
+        [dic setObject:[[filePath componentsSeparatedByString:@"/"] lastObject] forKey:@"fileName"];
+        [dic setObject:@0 forKey:@"objectType"];
+         [dic setObject:responseObject[@"result"][0][@"filePath"] forKey:@"realPath"];
+         [dic setObject:[[filePath componentsSeparatedByString:@"/"] lastObject] forKey:@"title"];
+        [_uploadFileInfo addObject:dic];
+        _uploadFinishCount++;
         NSLog(@"上传成功%@",responseObject);
+         [self.view makeToast:[NSString stringWithFormat:@"%@上传成功",dic[@"fileName"]] duration:1 position:CSToastPositionCenter];
+        if (_uploadFinishCount==_selectedImvs.count) {
+            [self confirmedTapped:nil];
+        }
     } failure:^(NSURLSessionDataTask *_Nullable task, NSError * _Nonnull error) {
         //上传失败
         NSLog(@"上传失败");
+        _uploadFinishCount++;
+         [self.view makeToast:[NSString stringWithFormat:@"%@上传失败",[[filePath componentsSeparatedByString:@"/"] lastObject]] duration:1 position:CSToastPositionCenter];
+        if (_uploadFinishCount==_selectedImvs.count) {
+            [self confirmedTapped:nil];
+        }
     }];
     [task  resume];
 }
@@ -740,18 +842,19 @@
 }
 #pragma mark HWDownDelegate
 - (void)downSelectedView:(HWDownSelectedView *)selectedView didSelectedAtIndex:(NSIndexPath *)indexPath{
-    
+    _scrollView.scrollEnabled=true;
+    [self textFieldUserEnable:true OfView:self.view];
     
 }
 -(void)downSelectedView:(UIView *)aView WillShow:(BOOL)show orClose:(BOOL)close{
     if (show) {
         _scrollView.scrollEnabled=false;
           [self textFieldUserEnable:false OfView:self.view];
-        
+
     }else{
         _scrollView.scrollEnabled=true;
           [self textFieldUserEnable:true OfView:self.view];
-    }    
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -825,9 +928,60 @@
 }
 #pragma mark - alertdelegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-   [self.navigationController popViewControllerAnimated:YES];
+    if ([alertView.accessibilityHint isEqualToString:@"提交"]) {
+        if (buttonIndex==0) {
+             [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self confirmedTapped:nil];
+        }
+    }else if ([alertView.accessibilityHint isEqualToString:@"附件选择"]){
+        if (buttonIndex==1) {
+            [self selecteFromLib];
+        }else if (buttonIndex==2) {
+            [self gotoDownFile];
+        }
+        
+    }
+  
+}
+#pragma  mark SelectFileViewControllerDelegate
+-(void)confirmBtTappedWithFile:(NSArray *)files onController:(SelectFileViewController *)avct{
+    
+    
+}
+#pragma mark - ELCImagePickerDelegate
+- (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info
+{
+    //NSMutableArray *images = [NSMutableArray array];
+    NSMutableArray *result= [NSMutableArray array];
+    //保存图片占用线程时间长，改异步
+    if(picker.returnsImage){
+        for (NSDictionary *dict in info) {
+            if (([dict objectForKey:UIImagePickerControllerMediaType] == ALAssetTypePhoto)&&([dict objectForKey:UIImagePickerControllerOriginalImage])){
+                [result addObject:dict[@"imgName"]];
+            }
+        }
+    }else{
+        [result addObjectsFromArray:info];;
+    }
+    _selectedImvs=result;
+    if (_selectedImvs.count>0) {
+        selectedFileLb.text=[NSString stringWithFormat:@"已选%ld项文件",_selectedImvs.count];
+    }
+    NSLog(@"%@",result);
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+//        [self uploadAllAttach];
+    }];
 }
 
+
+- (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
 /*
 #pragma mark - Navigation
 
