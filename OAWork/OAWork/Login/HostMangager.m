@@ -65,87 +65,80 @@
     return @"/flow/findFormsetInstFlow";
 }
 
+//资料上传
++ (NSString*)addFile{
+    return @"/oa/file/addFile";
+}
+//创建文件夹
++ (NSString*)addFolder{
+    return @"/oa/file/addFolder";
+}
+//资料库文件列表
++ (NSString*)findFolder{
+    return @"/oa/file/findFolder";
+}
+//资料库概况
++ (NSString*)findUserDatabanks{
+    return @"/oa/file/findUserDatabanks";
+}
+//资料库文件订阅
++ (NSString*)findUserFiles{
+    return @"/oa/file/findUserFiles";
+}
+//资料库文件操作
++ (NSString*)operateFile{
+    return @"/oa/file/operateFile";
+}
+//文件上传
++ (NSString*)upload{
+    return @"/oa/file/upload";
+}
+//公告详细接口
++ (NSString*)noticeDetail{
+    return @"/notice/detail";
+}
+//公告列表
++ (NSString*)noticeList{
+    return @"/notice/list";
+}
+//更新公告查看状态
++ (NSString*)noticeUpdateViewStatus{
+    return @"/notice/updateViewStatus";
+}
+//新建日程
++ (NSString*)addSchedule{
+    return @"/oa/user/addSchedule";
+}
 
-// 8、新建子项目
-+(NSString*)projectNewUrl{
-    return @"/mobile/project/submit.jhtml";
+//查询日程
++ (NSString*)findSchedule{
+    return @"/oa/user/findSchedule";
 }
-// 9、新建阶段
-+(NSString*)progressNewUrl{
-    return @"/mobile/stage/submit.jhtml";
-}
-// 10、关闭阶段
-+(NSString*)progressStageCloseUrl{
-    return @"/mobile/stage/close.jhtml";
-}
-//11、删除项目
 
-+(NSString*)projectDeleteUrl{
-    return @"/mobile/project/delete.jhtml";
+//通讯录分组
++ (NSString*)findUserGroup{
+    return @"/oa/user/findUserGroup";
 }
-//12、项目成员列表
-+(NSString*)projectPersonUrl{
-    return @"/mobile/user/list.jhtml";
-}
-//13、项目应答
-+(NSString*)projectResponseUrl{
-    return @"/mobile/interaction/submit.jhtml";
-}
-//14、附件上传接口
-+(NSString*)attachUploadUrl{
-    return @"/mobile/file/upload.jhtml";
-}
-//15、查看附件
-+(NSString*)attachDetailUrl{
-    return @"/mobile/interaction/listAttch.jhtml";
-}
-//16、新建日志
-+(NSString*)projectLogNewUrl{
-    return @"/mobile/log/submit.jhtml";
-}
-//17、查看日志列表
-+(NSString*)projectLogListUrl{
-    return @"/mobile/log/list.jhtml";
-}
-//18、查看日志详情
-+(NSString*)projectLogDetailUrl{
-    return @"/mobile/log/details.jhtml";
-}
-//19、关注接口
-+(NSString*)attentionAddUrl{
-    return @"/mobile/attention/submit.jhtml";
-}
-//20、消息列表
 
-+(NSString*)messageListUrl{
-    return @"/mobile/message/list.jhtml";
+//通讯录联系人
++ (NSString*)findUsersByGroup{
+    return @"/oa/user/findUsersByGroup";
 }
-//21、消息状态变更
-+(NSString*)messageStatueChangeUrl{
-    return @"/mobile/message/edit.jhtml";
+
+//更新编辑日程
++ (NSString*)updateSchedule{
+    return @"/oa/user/updateSchedule";
 }
-//22、修改个人信息
-+(NSString*)infoEditUrl{
-    return @"/mobile/user/edit.jhtml";
+
+//修改个人资料
++ (NSString*)updaterUserInfo{
+    return @"/oa/user/updaterUserInfo";
 }
-//23、修改密码
-+(NSString*)passwdRessetUrl{
-    return @"/mobile/user/resetPasswd.jhtml";
+
+//头像上传接口
++ (NSString*)userUpload{
+    return @"/oa/user/upload";
 }
-//24、设备信息采集
-+(NSString*)deviceGetUrl{
-    return @"/mobile/user/collection.jhtml";
-}
-//25、消息推送
-+(NSString*)infoPushUrl{
-    return @"/mobile/user/collection.jhtml";
-}
-//26版本升级接口
-+(NSString*)appUpdatehUrl{
-    return @"/mobile/version/update.jhtml";
-}
-//27帮助反馈接口
-+(NSString*)apphelpRevertUrl{
-    return @"/mobile/feedback/submit.jhtml";
-}
+
+
 @end
