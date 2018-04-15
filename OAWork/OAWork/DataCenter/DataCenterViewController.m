@@ -130,7 +130,7 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"数据获取中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+    [MyRequest getRequestWithUrl:[HostMangager mainIndexUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
         
     } fail:^(NSError *error) {

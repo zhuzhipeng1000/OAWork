@@ -243,13 +243,13 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"数据获取中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
-        [weakSelf.hud hide:YES];
-        
-    } fail:^(NSError *error) {
-        [weakSelf.hud hide:YES];
-        
-    }];
+//    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+//        [weakSelf.hud hide:YES];
+//
+//    } fail:^(NSError *error) {
+//        [weakSelf.hud hide:YES];
+//
+//    }];
 
 //    _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, headBack.bottom, SCREEN_WIDTH, SCREEN_HEIGHT-50)];
 //    [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
@@ -312,12 +312,13 @@
             self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             self.hud.labelText = @"数据提交中";
             __weak __typeof(self) weakSelf = self;
-            [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+            [MyRequest getRequestWithUrl:[HostMangager updaterUserInfo] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+               [weakSelf.view makeToast:@"数据提交成功" duration:1 position:CSToastPositionCenter];
                 [weakSelf.hud hide:YES];
-                
+
             } fail:^(NSError *error) {
                 [weakSelf.hud hide:YES];
-                
+
             }];
         }
         nameTf.userInteractionEnabled=false;

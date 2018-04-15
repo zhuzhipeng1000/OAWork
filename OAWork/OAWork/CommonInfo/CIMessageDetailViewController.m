@@ -45,6 +45,22 @@
     [_scrollView addSubview:titleLB];
     // Do any additional setup after loading the view.
 }
+-(void)getAllData{
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    NSDictionary *para=@{@"noticeId":_messageDic[@"noticeId"]};
+    [MyRequest getRequestWithUrl:[HostMangager noticeDetail] andPara:para isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+//        weakSelf.allArray=[dict[@"result"] mutableCopy];
+//        [weakSelf.demoTableView reloadData];
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

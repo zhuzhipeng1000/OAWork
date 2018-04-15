@@ -10,5 +10,5 @@
 #import "BaseViewController.h"
 
 @interface ForgetPassWordViewController : BaseViewController
-
+@property (nonatomic,strong)  NSString *account;
 @end

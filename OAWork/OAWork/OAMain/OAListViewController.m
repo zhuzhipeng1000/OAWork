@@ -372,13 +372,13 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"提交中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
-        [weakSelf.hud hide:YES];
-        
-    } fail:^(NSError *error) {
-        [weakSelf.hud hide:YES];
-        
-    }];
+//    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+//        [weakSelf.hud hide:YES];
+//
+//    } fail:^(NSError *error) {
+//        [weakSelf.hud hide:YES];
+//
+//    }];
 }
 -(void)progressTappedOnCell:(OaMainCellTableViewCell *)cell{
     OAprogressMonitorViewController *moct=[[OAprogressMonitorViewController alloc]init];
@@ -391,13 +391,13 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"提交中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
-        [weakSelf.hud hide:YES];
-        
-    } fail:^(NSError *error) {
-        [weakSelf.hud hide:YES];
-        
-    }];
+//    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+//        [weakSelf.hud hide:YES];
+//
+//    } fail:^(NSError *error) {
+//        [weakSelf.hud hide:YES];
+//
+//    }];
     
 }
 -(void)seeDetailBtTappedOnCell:(OaMainCellTableViewCell*)cell{

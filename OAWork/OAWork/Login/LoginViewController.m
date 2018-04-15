@@ -225,6 +225,7 @@
 -(void)forgetbTTapped:(UIButton*)bt{
     
     ForgetPassWordViewController *forgetVc=[[ForgetPassWordViewController alloc]initWithNibName:@"ForgetPassWordViewController" bundle:nil];
+    forgetVc.account=accountTF.text;
     [self.navigationController pushViewController:forgetVc animated:YES];
 
 }

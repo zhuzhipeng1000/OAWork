@@ -12,7 +12,7 @@
 #import "DCListCellTableViewCell.h"
 #import "YZNavigationMenuView.h"
 
-@interface DataCenterSecondViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,YZNavigationMenuViewDelegate>
+@interface DataCenterSecondViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,YZNavigationMenuViewDelegate,UIAlertViewDelegate>
 {
     NSMutableArray *_allArray;
     UIView * headView;
@@ -186,6 +186,13 @@
     }
     
     if ([[bt titleForState:UIControlStateNormal] isEqualToString:@"新建资料分类"]) {
+ 
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"新建文件夹" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+        UITextField *txtName = [alert textFieldAtIndex:0];
+        txtName.placeholder = @"请输入名称";
+        [alert show];
+        
         return;
     }
     
@@ -227,7 +234,32 @@
     
 }
 
-
+#pragma mark AlertViewDelegate
+#pragma mark - 点击代理
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        UITextField *txt = [alertView textFieldAtIndex:0];
+        if (txt.text.length>0) {
+            [self createTheFolder:txt.text];
+        }
+    }
+}
+-(void)createTheFolder:(NSString*)folderName{
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据提交中";
+    __weak __typeof(self) weakSelf = self;
+    NSDictionary *para=@{@"id":[Utils UUID],@"fileName":folderName,@"folderId":[Utils UUID],@"iconType":@"0"};
+    [MyRequest getRequestWithUrl:[HostMangager addFolder] andPara:para isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        
+        
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

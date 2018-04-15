@@ -13,6 +13,8 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "MyRequest.h"
 #import "HostMangager.h"
+#import <AFNetworking/AFNetworking.h>
+#import "Utils.h"
 
 
 @interface SignViewController ()
@@ -212,12 +214,54 @@
 - (void)signResultWithBlock:(SignResult)result {
     self.result = result;
 }
+-(void)uploadAttach:(NSString*)filePath{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //接收类型不一致请替换一致text/html或别的
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+                                                         @"text/html",
+                                                         @"image/jpeg",
+                                                         @"image/png",
+                                                         @"application/octet-stream",
+                                                         @"text/json",
+                                                         nil];
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    
+    [dic  setObject:@"image" forKey:@"fileType"];
+    //    @"http:///mobile/file/upload.jhtml";
+    NSURLSessionDataTask *task = [manager POST:@"http://120.78.204.130/oa/file/upload" parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+        //                    NSData *data = UIImagePNGRepresentation(selectedimv);
+        float kCompressionQuality = 0.3;
+        //        UIImage *imv=[UIImage imageWithContentsOfFile:filePath];
+        NSData *data = [NSData dataWithContentsOfFile:filePath];
+        [formData appendPartWithFileData:data name:@"uploadFiles" fileName:[NSString stringWithFormat:@"%@.jpg",[Utils randomUUID]] mimeType:@"application/octet-stream"];
+        //
+        
+    } progress:^(NSProgress *_Nonnull uploadProgress) {
+        NSLog(@"上传进度%@",uploadProgress);
+        //打印下上传进度
+    } success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+        //上传成功
+        if ([responseObject isKindOfClass:[NSDictionary class]]&&[responseObject[@"errrorCode"] intValue]==200) {
+            if ([responseObject[@"data"] isKindOfClass:[NSArray class]]&&[responseObject[@"data"] count] >0) {
+                
+            }
+            
+        }
+        
+    } failure:^(NSURLSessionDataTask *_Nullable task, NSError * _Nonnull error) {
+        //上传失败
+        NSLog(@"上传失败");
+    }];
+    [task  resume];
+}
 - (void)signDoneAction:(UIButton *)sender {
     
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"数据提交中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+    [MyRequest getRequestWithUrl:[HostMangager upload] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
         
     } fail:^(NSError *error) {

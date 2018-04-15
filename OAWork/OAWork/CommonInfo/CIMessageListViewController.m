@@ -23,7 +23,7 @@
     [super viewDidLoad];
     self.title=@"通知公告";
     _allArray=[@[@"广州",@"行政",@"人事",@"财务"]  mutableCopy];
-    
+//    [self getAllData];
     _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-TOPBARCONTENTHEIGHT)];
     [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
     _demoTableView.delegate=self;
@@ -48,7 +48,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     };
-    cell.titleLb.text=@"广州最新教育用还是怕的啊的哈逗逼娃";
+    cell.titleLb.text=@"广州最新教育用广州最新教育用广州最新教育用";
     if (indexPath.row==0) {
     cell.headIcon.image=[UIImage imageNamed:@"nothing"];
     }else{
@@ -67,6 +67,21 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 120;
     
+}
+-(void)getAllData{
+    
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.hud.labelText = @"数据获取中";
+        __weak __typeof(self) weakSelf = self;
+        [MyRequest getRequestWithUrl:[HostMangager noticeList] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+            weakSelf.allArray=[dict[@"result"] mutableCopy];
+            [weakSelf.demoTableView reloadData];
+            [weakSelf.hud hide:YES];
+    
+        } fail:^(NSError *error) {
+            [weakSelf.hud hide:YES];
+    
+        }];
 }
 
 - (void)didReceiveMemoryWarning {

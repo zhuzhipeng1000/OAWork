@@ -98,8 +98,13 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"数据提交中";
     __weak __typeof(self) weakSelf = self;
-    [MyRequest getRequestWithUrl:[HostMangager projectNewUrl] andPara:nil isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
-        [weakSelf.hud hide:YES];
+    [MyRequest getRequestWithUrl:[HostMangager resetPasswdUrl] andPara:@{@"newPwd":reConfirmtf.text,@"account":self.account} isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.view makeToast:@"修改成功" duration:1 position:CSToastPositionCenter];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+            [weakSelf.hud hide:YES];
+        });
+        
         
     } fail:^(NSError *error) {
         [weakSelf.hud hide:YES];
