@@ -7,14 +7,14 @@
 //
 
 #import "DataCenterSecondViewController.h"
-#import "DClistFolderViewController.h"
 #import "DCListViewController.h"
 #import "DCListCellTableViewCell.h"
 #import "YZNavigationMenuView.h"
+#import "DataDetailViewController.h"
 
 @interface DataCenterSecondViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,YZNavigationMenuViewDelegate,UIAlertViewDelegate>
 {
-    NSMutableArray *_allArray;
+    
     UIView * headView;
     UITableView *_demoTableView;
     NSMutableArray *_tableListArray;
@@ -26,6 +26,9 @@
     UIScrollView *_scrollView;
 }
 @property (nonatomic,strong)  YZNavigationMenuView *menuView;
+@property (nonatomic,strong)   NSArray *typeArray;
+@property (nonatomic,strong)  NSMutableArray *allArray;
+@property (nonatomic,strong) NSMutableArray *fileArray;
 @end
 
 @implementation DataCenterSecondViewController
@@ -56,15 +59,25 @@
     _searchBar.clipsToBounds=true;
     [_scrollView addSubview:_searchBar];
     _showedArray=[NSMutableArray array];
-    _allArray = [@[@{@"title":@"代办公文",@"normalImage":@"home_waitingOA",@"highLightedImage":@"home_waitingOA"},@{@"title":@"待阅公文",@"normalImage":@"home_waitingRead",@"highLightedImage":@"home_waitingRead"},@{@"title":@"流转公文",@"normalImage":@"home_liuzhuan",@"highLightedImage":@"home_liuzhuan"},@{@"title":@"收件箱",@"normalImage":@"shoujianxiang",@"highLightedImage":@"shoujianxiang"},@{@"title":@"我的收藏",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"},@{@"title":@"收藏",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"},@{@"title":@"我的",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"}] mutableCopy];
+    _typeArray=@[@"home_waitingOA",@"home_waitingRead",@"home_liuzhuan"];
+//    _allArray = [@[@{@"title":@"代办公文",@"normalImage":@"home_waitingOA",@"highLightedImage":@"home_waitingOA"},@{@"title":@"待阅公文",@"normalImage":@"home_waitingRead",@"highLightedImage":@"home_waitingRead"},@{@"title":@"流转公文",@"normalImage":@"home_liuzhuan",@"highLightedImage":@"home_liuzhuan"},@{@"title":@"收件箱",@"normalImage":@"shoujianxiang",@"highLightedImage":@"shoujianxiang"},@{@"title":@"我的收藏",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"},@{@"title":@"收藏",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"},@{@"title":@"我的",@"normalImage":@"shoucang",@"highLightedImage":@"shoucang"}] mutableCopy];
     
 
-    dicNew=  @{@"title":@"新建资料分类",@"normalImage":@"wejianjia_copy_2",@"highLightedImage":@"wejianjia_copy_2"};
-    other=@{@"title":@"其它资料",@"normalImage":@"more",@"highLightedImage":@"more"};
-    
-   [self hiddenMoreView:true];
+    dicNew=  @{@"name":@"新建资料分类",@"iconType":@"1",@"highLightedImage":@"wejianjia_copy_2"};
+//    other=@{@"title":@"其它资料",@"normalImage":@"more",@"highLightedImage":@"more"};
+    if (!_dataDetailDic) {
+         [self getData];
+    }else{
+        _allArray=[_dataDetailDic[@"childs"] mutableCopy];
+        _fileArray=[_dataDetailDic[@"files"] mutableCopy];
+         [self hiddenMoreView:true];
+        [self reloadTabale];
+    }
+   
+  
     // Do any additional setup after loading the view from its nib.
 }
+
 -(void)moreTapped:(UIButton*)bt{
     [self hiddenMoreView:false];
 }
@@ -92,21 +105,36 @@
         centralView.backgroundColor=[UIColor whiteColor];
         [smallBack addSubview:centralView];
         
-        UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:detailDic[@"normalImage"]]];
+        int type=[detailDic[@"iconType"] intValue];
+        UIImageView *im=[[UIImageView alloc]initWithImage:[UIImage imageNamed:_typeArray[type]]];
         [centralView addSubview:im];
         im.contentMode=UIViewContentModeScaleAspectFit;
         im.frame=CGRectMake((width-imageWith)/2, 0, imageWith, imageWith);
         
         UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, im.bottom, width, 40)];
         label.textAlignment=NSTextAlignmentCenter;
-        NSMutableAttributedString * firstPart = [[NSMutableAttributedString alloc] initWithString:[NSString    stringWithFormat:@"%@",detailDic[@"title"]]];
+        NSMutableAttributedString * firstPart = [[NSMutableAttributedString alloc] initWithString:[NSString    stringWithFormat:@"%@",detailDic[@"name"]]];
         centralView.frame=CGRectMake(label.left, im.top, label.width, label.bottom);
         
         centralView.center=CGPointMake(smallBack.width/2, smallBack.height/2);
         
         NSDictionary * firstAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor blackColor],};
         [firstPart setAttributes:firstAttributes range:NSMakeRange(0,firstPart.length)];
-        NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:@"  2"];
+        NSString *countString=@"";
+        NSArray *childFileArray=detailDic[@"files"];
+        NSArray *childFolderArray=detailDic[@"childs"];
+        unsigned long  folderCount=0,fileCount=0;
+        if ([childFileArray isKindOfClass:[NSArray class]]&& childFileArray.count>0) {
+            fileCount=childFileArray.count;
+           
+        }
+        if ([childFolderArray isKindOfClass:[NSArray class]]&& childFolderArray.count>0) {
+            folderCount=childFolderArray.count;
+        }
+        if ((folderCount+fileCount)>0) {
+            countString=[NSString stringWithFormat:@"%lu",(folderCount+fileCount)];
+        }
+        NSMutableAttributedString * secondPart = [[NSMutableAttributedString alloc] initWithString:countString];
         NSDictionary * secondAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:[UIColor greenColor],};
         [secondPart setAttributes:secondAttributes range:NSMakeRange(0,secondPart.length)];
         [firstPart appendAttributedString:secondPart];
@@ -134,12 +162,17 @@
         }
         UIButton *bt=[[UIButton alloc]initWithFrame:smallBack.bounds];
         bt.backgroundColor=[UIColor clearColor];
-        [bt setTitle:detailDic[@"title"] forState:UIControlStateNormal];
+        [bt setTitle:detailDic[@"name"] forState:UIControlStateNormal];
         [bt setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
         [bt addTarget:self action:@selector(bttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        bt.accessibilityHint=[detailDic JSONStringFromCT];
         bt.tag=200+d;
         [smallBack addSubview:bt];
     }
+   _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, _demoTableView.bottom+200);
+  
+}
+-(void)reloadTabale{
     if (!_demoTableView) {
         _demoTableView=[[UITableView alloc]init];
         [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
@@ -148,13 +181,11 @@
         _demoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         [_scrollView addSubview:_demoTableView];
     }
-     _demoTableView.frame=CGRectMake(0,headView.bottom+2, SCREEN_WIDTH, SCREEN_HEIGHT-headView.bottom);
+    _demoTableView.frame=CGRectMake(0,headView.bottom+2, SCREEN_WIDTH, SCREEN_HEIGHT-headView.bottom);
     if ((SCREEN_HEIGHT-headView.bottom)<200) {
         _demoTableView.frame=CGRectMake(0, headView.bottom+2, SCREEN_WIDTH, 200);
     }
     [_demoTableView reloadData];
-   _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, _demoTableView.bottom+200);
-  
 }
 - (void)hiddenMoreView:(BOOL)hidden{
     
@@ -173,7 +204,7 @@
         [_showedArray addObject:dicNew];
     }
     [self reloadViewOfArray:_showedArray];
-    
+    _scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, _demoTableView.bottom+200);
 }
 
 -(void)bttonTapped:(UIButton*)bt{
@@ -196,20 +227,15 @@
         return;
     }
     
-    DCListViewController *DCSctrl=[[DCListViewController alloc]init];
-    DCSctrl.currentIndexString=[NSString stringWithFormat:@"电子资料管理>%@",[bt titleForState:UIControlStateNormal]];
+    DataCenterSecondViewController *DCSctrl= [[DataCenterSecondViewController alloc]init];;
+    DCSctrl.dataDetailDic=[bt.accessibilityHint objectFromCTJSONString];
     [self.navigationController pushViewController:DCSctrl animated:YES];
 }
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    BOOL folder=false;
-    DCListCellTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    NSString *title=cell.titleLB.text;
-    if (folder) {
-        DCListViewController *DCSctrl=[[DCListViewController alloc]init];
-        DCSctrl.currentIndexString=[NSString stringWithFormat:@"%@/%@",currentType,title];
-        [self.navigationController pushViewController:DCSctrl animated:YES];
-    }
+    DataDetailViewController *dataDetailVc=[[DataDetailViewController alloc]init];
+    dataDetailVc.detailDic=_fileArray[indexPath.row];
+    [self.navigationController pushViewController:dataDetailVc animated:YES];
    
     
 }
@@ -221,12 +247,12 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate=self;
     };
-    cell.titleLB.text=_allArray[indexPath.row][@"title"];
+    cell.titleLB.text=_fileArray[indexPath.row][@"FILENAME"];
     cell.headIcon.image=[UIImage imageNamed:@"wifi"];
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _allArray.count;
+    return _fileArray.count;
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -257,6 +283,34 @@
     } fail:^(NSError *error) {
         [weakSelf.hud hide:YES];
         
+    }];
+    
+}
+-(void)getData{
+    
+    NSDictionary *parameters =@{};
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager findFolder] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0) {
+            weakSelf.allArray=dict[@"result"];
+            [weakSelf hiddenMoreView:true];
+//            [_demoTableView reloadData];
+        
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
     }];
     
 }

@@ -9,6 +9,7 @@
 #import "DCListViewController.h"
 #import "DCListCellTableViewCell.h"
 #import "YZNavigationMenuView.h"
+#import "DataDetailViewController.h"
 
 @interface DCListViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YZNavigationMenuViewDelegate>
 {
@@ -144,8 +145,8 @@
    
     NSString *title=cell.titleLB.text;
     if (folder) {
-        DCListViewController *DCSctrl=[[DCListViewController alloc]init];
-        DCSctrl.currentIndexString=[NSString stringWithFormat:@"%@>%@",_currentIndexString,title];
+        DataDetailViewController *DCSctrl=[[DataDetailViewController alloc]init];
+        DCSctrl.detailDic=Adic;
         [self.navigationController pushViewController:DCSctrl animated:YES];
     }
 }

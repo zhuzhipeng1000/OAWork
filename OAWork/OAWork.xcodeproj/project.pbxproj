@@ -10,7 +10,6 @@
 		1A25B1C21FD910DA000B99B0 /* DataCenterSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A25B1C01FD910DA000B99B0 /* DataCenterSecondViewController.m */; };
 		1A25B1C31FD910DA000B99B0 /* DataCenterSecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A25B1C11FD910DA000B99B0 /* DataCenterSecondViewController.xib */; };
 		1A25B1C61FD91114000B99B0 /* DCListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A25B1C51FD91114000B99B0 /* DCListViewController.m */; };
-		1A25B1C91FD91133000B99B0 /* DClistFolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A25B1C81FD91133000B99B0 /* DClistFolderViewController.m */; };
 		1A2BD0EB1FCF9FF40014837E /* ListSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2BD0EA1FCF9FF40014837E /* ListSelectView.m */; };
 		1A2BD0EF1FCFA1190014837E /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD0EC1FCFA1190014837E /* arrow_down.png */; };
 		1A2BD0F01FCFA1190014837E /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BD0ED1FCFA1190014837E /* arrow_down@2x.png */; };
@@ -81,6 +80,7 @@
 		1A7074D51FDFBCBF00213992 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7074D41FDFBCBF00213992 /* UIView+Helper.m */; };
 		1A71C04D1FD62DB100FBE94B /* aa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C04C1FD62DB100FBE94B /* aa.txt */; };
 		1A71C0561FD637FA00FBE94B /* aa.Json in Resources */ = {isa = PBXBuildFile; fileRef = 1A71C0551FD637FA00FBE94B /* aa.Json */; };
+		1A78CA5A2091C4120041702E /* DataDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A78CA592091C4120041702E /* DataDetailViewController.m */; };
 		1A7F97E420492B270052437E /* ELCAlbumPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F97CE20492B260052437E /* ELCAlbumPickerController.m */; };
 		1A7F97E520492B270052437E /* ELCAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F97D020492B260052437E /* ELCAsset.m */; };
 		1A7F97E620492B270052437E /* ELCAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F97D220492B260052437E /* ELCAssetCell.m */; };
@@ -126,7 +126,6 @@
 		1A9F00A81FCBE632005897B2 /* OaMainCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F00A61FCBE632005897B2 /* OaMainCellTableViewCell.xib */; };
 		1A9F00AB1FCBE8E5005897B2 /* wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F00AA1FCBE8E4005897B2 /* wifi.png */; };
 		1AC5C1DC1FDA39A300DE34F5 /* DCListCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC5C1DB1FDA39A300DE34F5 /* DCListCellTableViewCell.m */; };
-		1AC5C1DF1FDA7CB700DE34F5 /* DCFolderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC5C1DE1FDA7CB700DE34F5 /* DCFolderTableViewCell.m */; };
 		3A47F6C81FD4483E00EF8BD4 /* checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C41FD4483D00EF8BD4 /* checked@2x.png */; };
 		3A47F6C91FD4483E00EF8BD4 /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C51FD4483D00EF8BD4 /* unchecked@2x.png */; };
 		3A47F6CA1FD4483E00EF8BD4 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A47F6C61FD4483D00EF8BD4 /* checked.png */; };
@@ -161,8 +160,6 @@
 		1A25B1C11FD910DA000B99B0 /* DataCenterSecondViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DataCenterSecondViewController.xib; sourceTree = "<group>"; };
 		1A25B1C41FD91114000B99B0 /* DCListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCListViewController.h; sourceTree = "<group>"; };
 		1A25B1C51FD91114000B99B0 /* DCListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCListViewController.m; sourceTree = "<group>"; };
-		1A25B1C71FD91133000B99B0 /* DClistFolderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DClistFolderViewController.h; sourceTree = "<group>"; };
-		1A25B1C81FD91133000B99B0 /* DClistFolderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DClistFolderViewController.m; sourceTree = "<group>"; };
 		1A2BD0E91FCF9FF40014837E /* ListSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListSelectView.h; sourceTree = "<group>"; };
 		1A2BD0EA1FCF9FF40014837E /* ListSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListSelectView.m; sourceTree = "<group>"; };
 		1A2BD0EC1FCFA1190014837E /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
@@ -284,6 +281,8 @@
 		1A7074D41FDFBCBF00213992 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Helper.m"; sourceTree = "<group>"; };
 		1A71C04C1FD62DB100FBE94B /* aa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = aa.txt; sourceTree = "<group>"; };
 		1A71C0551FD637FA00FBE94B /* aa.Json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aa.Json; sourceTree = "<group>"; };
+		1A78CA582091C4120041702E /* DataDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataDetailViewController.h; sourceTree = "<group>"; };
+		1A78CA592091C4120041702E /* DataDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataDetailViewController.m; sourceTree = "<group>"; };
 		1A7F97CD20492B260052437E /* ELCAlbumPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAlbumPickerController.h; sourceTree = "<group>"; };
 		1A7F97CE20492B260052437E /* ELCAlbumPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAlbumPickerController.m; sourceTree = "<group>"; };
 		1A7F97CF20492B260052437E /* ELCAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAsset.h; sourceTree = "<group>"; };
@@ -366,8 +365,6 @@
 		1A9F00AA1FCBE8E4005897B2 /* wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi.png; sourceTree = "<group>"; };
 		1AC5C1DA1FDA39A300DE34F5 /* DCListCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCListCellTableViewCell.h; sourceTree = "<group>"; };
 		1AC5C1DB1FDA39A300DE34F5 /* DCListCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCListCellTableViewCell.m; sourceTree = "<group>"; };
-		1AC5C1DD1FDA7CB700DE34F5 /* DCFolderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCFolderTableViewCell.h; sourceTree = "<group>"; };
-		1AC5C1DE1FDA7CB700DE34F5 /* DCFolderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCFolderTableViewCell.m; sourceTree = "<group>"; };
 		39B254463B632888503F40E0 /* Pods-OAWork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OAWork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OAWork/Pods-OAWork.debug.xcconfig"; sourceTree = "<group>"; };
 		3A47F6C41FD4483D00EF8BD4 /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked@2x.png"; sourceTree = "<group>"; };
 		3A47F6C51FD4483D00EF8BD4 /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
@@ -537,14 +534,12 @@
 				1A25B1BF1FD910DA000B99B0 /* DataCenterSecondViewController.h */,
 				1A25B1C01FD910DA000B99B0 /* DataCenterSecondViewController.m */,
 				1A25B1C11FD910DA000B99B0 /* DataCenterSecondViewController.xib */,
+				1A78CA582091C4120041702E /* DataDetailViewController.h */,
+				1A78CA592091C4120041702E /* DataDetailViewController.m */,
 				1A25B1C41FD91114000B99B0 /* DCListViewController.h */,
 				1A25B1C51FD91114000B99B0 /* DCListViewController.m */,
-				1AC5C1DD1FDA7CB700DE34F5 /* DCFolderTableViewCell.h */,
-				1AC5C1DE1FDA7CB700DE34F5 /* DCFolderTableViewCell.m */,
 				1AC5C1DA1FDA39A300DE34F5 /* DCListCellTableViewCell.h */,
 				1AC5C1DB1FDA39A300DE34F5 /* DCListCellTableViewCell.m */,
-				1A25B1C71FD91133000B99B0 /* DClistFolderViewController.h */,
-				1A25B1C81FD91133000B99B0 /* DClistFolderViewController.m */,
 			);
 			path = DataCenter;
 			sourceTree = "<group>";
@@ -730,10 +725,10 @@
 				1A90B5AD1FC65B4C008EDDB1 /* AppDelegate.h */,
 				1A90B5AE1FC65B4C008EDDB1 /* AppDelegate.m */,
 				1A90B5B01FC65B4C008EDDB1 /* ViewController.h */,
+				1A90B5B11FC65B4C008EDDB1 /* ViewController.m */,
 				1A5FEEE220170C34007A465E /* LaunchViewController.h */,
 				1A5FEEE320170C34007A465E /* LaunchViewController.m */,
 				1A5FEEE420170C34007A465E /* LaunchViewController.xib */,
-				1A90B5B11FC65B4C008EDDB1 /* ViewController.m */,
 				1A8FC1FF1FD7CB0100F45656 /* TestViewController.h */,
 				1A8FC2001FD7CB0100F45656 /* TestViewController.m */,
 				1A6C2C1A1FC7BFB0002228C7 /* BaseViewController.h */,
@@ -1088,7 +1083,7 @@
 				1A6C2C281FC7C787002228C7 /* Utils.m in Sources */,
 				1A9DD70C1FE61E46003112E2 /* WScViewController.m in Sources */,
 				1A2BD0F51FCFDFD80014837E /* NeedDoViewController.m in Sources */,
-				1A25B1C91FD91133000B99B0 /* DClistFolderViewController.m in Sources */,
+				1A78CA5A2091C4120041702E /* DataDetailViewController.m in Sources */,
 				1A7F97E420492B270052437E /* ELCAlbumPickerController.m in Sources */,
 				1A6C2C3A1FC7C963002228C7 /* OMGToast.m in Sources */,
 				1A9DD7351FE62DC2003112E2 /* WSEventView.m in Sources */,
@@ -1135,7 +1130,6 @@
 				1A6C2C311FC7C7E7002228C7 /* NSFileManager+Extra.m in Sources */,
 				1A66470B1FE25AD70050C955 /* UIViewController+UpResponder.m in Sources */,
 				1A7074C11FDFB67D00213992 /* HWDownSelectedView.m in Sources */,
-				1AC5C1DF1FDA7CB700DE34F5 /* DCFolderTableViewCell.m in Sources */,
 				1A9F00921FCBAF37005897B2 /* Desthird.m in Sources */,
 				1A636A251FD0EF950016A58C /* CTTabBarView.m in Sources */,
 				1A6C2C0D1FC7B396002228C7 /* CommonInfoViewController.m in Sources */,
@@ -1312,8 +1306,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Infinitus China Company Ltd,C=CN";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Infinitus China Company Ltd,C=CN";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 志鹏 朱 (P6V38666JN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 志鹏 朱 (P6V38666JN)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
@@ -1324,7 +1318,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinitus.idep.bupm.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = distributionbupmideppre;
+				PROVISIONING_PROFILE_SPECIFIER = james_all;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1335,8 +1329,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Infinitus China Company Ltd,C=CN";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Infinitus China Company Ltd,C=CN";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 志鹏 朱 (P6V38666JN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 志鹏 朱 (P6V38666JN)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
@@ -1347,7 +1341,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinitus.idep.bupm.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = distributionbupmideppre;
+				PROVISIONING_PROFILE_SPECIFIER = james_all;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

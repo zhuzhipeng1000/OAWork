@@ -117,6 +117,7 @@
         }
         if ([User shareUser].ID) {
           [para setValue:[NSString stringWithFormat:@"%@",[User shareUser].ID] forKey:@"userId"];
+          [para setValue:[NSString stringWithFormat:@"%@",[User shareUser].ID] forKey:@"userid"];
         }
       
     }

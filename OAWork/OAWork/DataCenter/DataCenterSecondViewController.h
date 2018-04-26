@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface DataCenterSecondViewController : BaseViewController
-
+@property (nonatomic,strong) NSDictionary *dataDetailDic;
 @end
