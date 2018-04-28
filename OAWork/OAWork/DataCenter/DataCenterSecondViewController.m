@@ -73,8 +73,6 @@
          [self hiddenMoreView:true];
         [self reloadTabale];
     }
-   
-  
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -274,17 +272,16 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"数据提交中";
     __weak __typeof(self) weakSelf = self;
-    NSDictionary *para=@{@"id":[Utils UUID],@"fileName":folderName,@"folderId":[Utils UUID],@"iconType":@"0"};
+    NSString *folderId= self.dataDetailDic ? self.dataDetailDic[@"id"]:@"-1";
+    
+    NSDictionary *para=@{@"id":[Utils UUID],@"fileName":folderName,@"folderId":folderId,@"iconType":@"0"};
     [MyRequest getRequestWithUrl:[HostMangager addFolder] andPara:para isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
         [weakSelf.hud hide:YES];
-        
-        
-        
+    
     } fail:^(NSError *error) {
         [weakSelf.hud hide:YES];
-        
+
     }];
-    
 }
 -(void)getData{
     
@@ -314,12 +311,44 @@
     }];
     
 }
+-(void)changeFileState:(NSString*)fileid Type:(int)type {
+    //    type 操作类型（0 表示删除，1表示订阅，2表示收藏，3表示推荐，其中0删除不需要管状态值）
+    //    value  状态值（0表示 取消订阅、取消收藏、取消推荐，1表示订阅、收藏、推荐）
+    NSDictionary *parameters=@{@"type":[NSNumber numberWithInt:type],@"fileid":fileid,@"value":@"1"};
+    
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager operateFile] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0&&[dict[@"result"] isKindOfClass:[NSArray class]]) {
+            [weakSelf.view makeToast:@"修改成功"];
+            
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+    }];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 - (void)navigationMenuView:(YZNavigationMenuView *)menuView clickedAtIndex:(NSInteger)index{
     [self removeMenuView];
+    NSDictionary *dic=[menuView.accessibilityHint objectFromCTJSONString];
+    
+    [self changeFileState:dic[@"id"] Type:1];
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
      [super touchesBegan:touches withEvent:event];
@@ -343,6 +372,7 @@
         _menuView= [[YZNavigationMenuView alloc] initWithPositionOfDirection:CGPointMake(SCREEN_WIDTH-40 ,re.origin.y+30) images:imageArray titleArray:@[@"删除",@"订阅",@"收藏",@"推荐",] andType :0];
         _menuView.cellColor=[UIColor whiteColor];
         _menuView.delegate = self;
+        _menuView.accessibilityHint=[cell.infoDic JSONStringFromCT];
         _menuView.userInteractionEnabled=true;
         _menuView.textLabelTextAlignment=NSTextAlignmentLeft;
     }

@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _allArray=[@[@"广州",@"行政",@"人事",@"财务"]  mutableCopy];
+//    _allArray=[@[@"广州",@"行政",@"人事",@"财务"]  mutableCopy];
     self.view.backgroundColor=[Utils colorWithHexString:@"#f7f7f7"];
     
     _searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(20, TOPBARCONTENTHEIGHT+10,SCREEN_WIDTH-40, 35)];
@@ -46,7 +46,24 @@
     _demoTableView.dataSource=self;
     _demoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_demoTableView];
+    [self getAllData];
     // Do any additional setup after loading the view.
+}
+-(void)getAllData{
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    NSDictionary *para=@{@"account":[User shareUser].ACCOUNT,@"groupId":weakSelf.area};
+    [MyRequest getRequestWithUrl:[HostMangager findUsersByGroup] andPara:para isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        weakSelf.allArray=[dict[@"result"] mutableCopy];
+        [weakSelf.demoTableView reloadData];
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
 }
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -96,10 +113,17 @@
     UILabel *nameLb=[cell.contentView viewWithTag:1002];
     UILabel *phoneNu=[cell.contentView viewWithTag:1003];
     UILabel *emailLB=[cell.contentView viewWithTag:1004];
-    imv.image=[UIImage imageNamed:@"wifi"];
-    nameLb.text=@"祝之洞";
-    phoneNu.text=@"18565658888";
-    emailLB.text=@"658723493@qq.com";
+    NSArray *Arra=_searchBar.text.length?_searchArr:_allArray;
+    NSDictionary *dic=Arra[indexPath.row];
+    
+//    imv.image=[UIImage imageNamed:@"wifi"];
+    nameLb.text=dic[@"NAME"];
+    if (dic[@"phone"]) {
+        phoneNu.text=dic[@"phone"];
+    }
+    if (dic[@"email"]) {
+        emailLB.text=dic[@"email"];
+    }
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

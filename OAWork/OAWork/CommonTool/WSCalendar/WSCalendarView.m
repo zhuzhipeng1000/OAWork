@@ -418,6 +418,9 @@
     [dateComponent setMonth:1];
     
     NSDate *datein = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponent toDate:currentDate options:0];
+    if ([self.delegate respondsToSelector:@selector(changeDate:)]) {
+        [self.delegate changeDate:datein];
+    }
     
     [barBtnMonth setTitle:[monthFormatter stringFromDate:datein]];
     
@@ -437,6 +440,9 @@
     NSDate *datein = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponent toDate:selectedDate options:0];
     selectedDate=datein;
     
+    if ([self.delegate respondsToSelector:@selector(changeDate:)]) {
+        [self.delegate changeDate:datein];
+    }
     [btnBarDate setTitle:[monthFormatter stringFromDate:datein]];
     [self setMonthLabels:datein];
     [self removeLabelCircle:datein];
@@ -454,7 +460,9 @@
     NSDate *datein = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponent toDate:selectedDate options:0];
     selectedDate=datein;
     [btnBarDate setTitle:[monthFormatter stringFromDate:datein]];
-    
+    if ([self.delegate respondsToSelector:@selector(changeDate:)]) {
+        [self.delegate changeDate:datein];
+    }
     [self setMonthLabels:datein];
     [self removeLabelCircle:selectedDate];
 }
@@ -468,7 +476,9 @@
     NSDate *datein = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponent toDate:selectedDate options:0];
     selectedDate=datein;
     [btnBarDate setTitle:[monthFormatter stringFromDate:datein]];
-    
+    if ([self.delegate respondsToSelector:@selector(changeDate:)]) {
+        [self.delegate changeDate:datein];
+    }
     [self setMonthLabels:datein];
     [self removeLabelCircle:selectedDate];
 }

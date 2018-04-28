@@ -21,8 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
        self.title=@"全区通讯录";
-    _allArray=[@[@"广州",@"行政",@"人事",@"财务"]  mutableCopy];
-    
+//    _allArray=[@[@"广州",@"行政",@"人事",@"财务"]  mutableCopy];
+    [self  getAllData];
     _demoTableView=[[UITableView alloc]initWithFrame:CGRectMake(0,TOPBARCONTENTHEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-TOPBARCONTENTHEIGHT)];
     [_demoTableView registerNib:[UINib nibWithNibName:@"OaMainCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"OaMainCellTableViewCell"];
     _demoTableView.delegate=self;
@@ -31,13 +31,29 @@
     [self.view addSubview:_demoTableView];
     // Do any additional setup after loading the view.
 }
+-(void)getAllData{
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    NSDictionary *para=@{@"account":[User shareUser].ACCOUNT};
+    [MyRequest getRequestWithUrl:[HostMangager findUserGroup] andPara:para isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        weakSelf.allArray=[dict[@"result"] mutableCopy];
+        [weakSelf.demoTableView reloadData];
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
+}
 #pragma mark UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSArray *Arra=_searchBar.text.length?_searchArr:_allArray;
-    NSString *Adic =Arra[indexPath.row];
+    NSDictionary *Adic =Arra[indexPath.row];
     CIAreaContactViewController *civct=[[CIAreaContactViewController alloc]init];
-    civct.area=Adic;
-    civct.title=Adic;
+    civct.area=Adic[@"GROUPID"];
+    civct.title=Adic[@"GROUPNAME"];
     [self.navigationController pushViewController:civct animated:YES];
    
 }
@@ -66,8 +82,8 @@
         [cell.contentView addSubview:bottomStrait];
     };
     UILabel *lb=[cell.contentView viewWithTag:1001];
-    lb.text=_allArray[indexPath.row];
-  
+   NSDictionary *dic =_allArray[indexPath.row];
+    lb.text=dic[@"GROUPNAME"];
     return  cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

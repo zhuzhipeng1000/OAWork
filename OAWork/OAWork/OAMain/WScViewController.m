@@ -15,7 +15,9 @@
    
     WSCalendarView *calendarViewEvent;
     NSMutableArray *eventArray;
+    
 }
+@property (nonatomic,strong) NSDate *startDate;
 @end
 
 @implementation WScViewController
@@ -51,8 +53,21 @@
     
     // Do any additional setup after loading the view.
 }
+- (NSInteger)getNumberOfDaysInMonth
+{
+    NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法 NSGregorianCalendar - ios 8
+    NSDate * currentDate = [NSDate date];
+    NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay  //NSDayCalendarUnit - ios 8
+                                   inUnit: NSCalendarUnitMonth //NSMonthCalendarUnit - ios 8
+                                  forDate:currentDate];
+    return range.length;
+}
 #pragma mark WSCalendarViewDelegate
 
+-(void)changeDate:(NSDate *)startDate{
+    _startDate=startDate;
+    
+}
 -(NSArray *)setupEventForDate{
     return eventArray;
 }

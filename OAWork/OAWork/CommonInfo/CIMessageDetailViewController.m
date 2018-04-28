@@ -50,7 +50,7 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"数据获取中";
     __weak __typeof(self) weakSelf = self;
-    NSDictionary *para=@{@"noticeId":_messageDic[@"noticeId"]};
+    NSDictionary *para=@{@"noticeId":_messageDic[@"id"]};
     [MyRequest getRequestWithUrl:[HostMangager noticeDetail] andPara:para isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
 //        weakSelf.allArray=[dict[@"result"] mutableCopy];
 //        [weakSelf.demoTableView reloadData];

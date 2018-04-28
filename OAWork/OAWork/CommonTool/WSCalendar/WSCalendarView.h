@@ -20,6 +20,7 @@ typedef enum {
 -(void)didTapLabel:(WSLabel *)lblView withDate:(NSDate *)selectedDate;
 -(void)deactiveWSCalendarWithDate:(NSDate *)selectedDate;
 -(NSArray *)setupEventForDate;
+-(void)changeDate:(NSDate*)startDate;
 @end
 
 

@@ -44,7 +44,7 @@
     
     
     _isEdite=false;
-    _allArray=[@[@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库"] mutableCopy];
+//    _allArray=[@[@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库",@"电子资料库"] mutableCopy];
     
     _searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(10, TOPBARCONTENTHEIGHT+10,SCREEN_WIDTH-20, 35)];
     _searchBar.delegate=self;
@@ -111,6 +111,7 @@
     if (_isEdite) {
         [_bar setTitle:@"完成" forState: UIControlStateNormal];
          [_bar setTitle:@"完成" forState: UIControlStateHighlighted];
+        [self changeFileState:nil Type:0];
     }else{
         [_bar setTitle:@"编辑" forState: UIControlStateNormal];
          [_bar setTitle:@"编辑" forState: UIControlStateHighlighted];
@@ -129,26 +130,26 @@
     
     if (_isEdite) {//编辑状态，cell只改变状态
         cell.isAddInto=!cell.isAddInto;
-//        if (cell.isAddInto) {
-//            if ([_selectedIds containsObject:Adic[@"id"]]) {
-//
-//            }else{
-//                [_selectedIds addObject:Adic[@"id"]];
-//            }
-//        }else{
-//            [_selectedIds removeObject:Adic[@"id"]];
-//        }
+        if (cell.isAddInto) {
+            if ([_selectedIds containsObject:[NSString stringWithFormat:@"%@",Adic[@"id"]]]) {
+
+            }else{
+                [_selectedIds addObject:[NSString stringWithFormat:@"%@",Adic[@"id"]]];
+            }
+        }else{
+            [_selectedIds removeObject:[NSString stringWithFormat:@"%@",Adic[@"id"]]];
+        }
         
         return;
     }
-    BOOL folder=false;
-   
-    NSString *title=cell.titleLB.text;
-    if (folder) {
-        DataDetailViewController *DCSctrl=[[DataDetailViewController alloc]init];
-        DCSctrl.detailDic=Adic;
-        [self.navigationController pushViewController:DCSctrl animated:YES];
-    }
+//    BOOL folder=false;
+//
+//    NSString *title=cell.titleLB.text;
+//    if (folder) {
+//        DataDetailViewController *DCSctrl=[[DataDetailViewController alloc]init];
+//        DCSctrl.detailDic=Adic;
+//        [self.navigationController pushViewController:DCSctrl animated:YES];
+//    }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static  NSString  *CellIdentiferId = @"DCListCellTableViewCell";
@@ -179,6 +180,9 @@
 
 - (void)navigationMenuView:(YZNavigationMenuView *)menuView clickedAtIndex:(NSInteger)index{
     [self removeMenuView];
+    NSDictionary *dic=[menuView.accessibilityHint objectFromCTJSONString];
+    
+    [self changeFileState:dic[@"id"] Type:1];
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
@@ -203,10 +207,85 @@
         _menuView.cellColor=[UIColor whiteColor];
         _menuView.delegate = self;
         _menuView.userInteractionEnabled=true;
+        _menuView.accessibilityHint=[cell.infoDic JSONStringFromCT];
         _menuView.textLabelTextAlignment=NSTextAlignmentLeft;
     }
     
     [self.view addSubview:_menuView];
+    
+}
+-(void)getData{
+    
+    NSDictionary *parameters =@{@"type":[NSNumber numberWithInt:self.type]};
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager findUserFiles] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0&&[dict[@"result"] isKindOfClass:[NSArray class]]) {
+            weakSelf.allArray=[dict[@"result"] mutableCopy];
+           
+            [_demoTableView reloadData];
+            
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+    }];
+    
+}
+-(void)changeFileState:(NSString*)fileid Type:(int)type {
+//    type 操作类型（0 表示删除，1表示订阅，2表示收藏，3表示推荐，其中0删除不需要管状态值）
+//    value  状态值（0表示 取消订阅、取消收藏、取消推荐，1表示订阅、收藏、推荐）
+    NSDictionary *parameters;
+    if (!fileid) {
+       parameters=@{@"type":[NSNumber numberWithInt:self.type],@"fileid":_selectedIds,@"value":@"0"};
+    }else{
+        parameters=@{@"type":[NSNumber numberWithInt:type],@"fileid":fileid,@"value":@"1"};
+    }
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    [MyRequest getRequestWithUrl:[HostMangager operateFile] andPara:parameters isAddUserId:true Success:^(NSDictionary *dict, BOOL success) {
+        [weakSelf.hud hide:YES];
+        [weakSelf.view makeToast:@"修改成功"];
+        if ([dict isKindOfClass:[NSDictionary class]]&& [dict[@"code"] intValue]==0&&[dict[@"result"] isKindOfClass:[NSArray class]]) {
+            if (!fileid) {
+                
+                    for (NSString *ids in _selectedIds) {
+                        for (long m=weakSelf.allArray.count-1;m>=0;m--) {
+                            NSDictionary *dic=weakSelf.allArray[m];
+                            if ([dic[@"id"] intValue] ==[ids intValue]) {
+                                [weakSelf.allArray removeObject:dic];
+                            }
+                        }
+                    }
+                [_selectedIds removeAllObjects];
+                [weakSelf.demoTableView reloadData];
+            }
+            
+        }else{
+            
+            UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"修改失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [al show];
+            
+        }
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        UIAlertView *al=[[UIAlertView alloc]initWithTitle:nil message:@"数据获取失败，请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [al show];
+    }];
     
 }
 - (void)didReceiveMemoryWarning {

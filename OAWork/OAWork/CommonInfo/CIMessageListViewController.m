@@ -36,6 +36,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSArray *Arra=_searchBar.text.length?_searchArr:_allArray;
     NSDictionary *Adic =Arra[indexPath.row];
+    [self updateMessageStatue:Adic[@"id"]];
     CIMessageDetailViewController *cimd=[[CIMessageDetailViewController alloc]init];
     cimd.messageDic=Adic;
     [self.navigationController pushViewController:cimd animated:YES];
@@ -82,6 +83,22 @@
             [weakSelf.hud hide:YES];
     
         }];
+}
+-(void)updateMessageStatue:(NSString*)messageId{
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"数据获取中";
+    __weak __typeof(self) weakSelf = self;
+    NSDictionary *para=@{@"noticeId":messageId};
+    [MyRequest getRequestWithUrl:[HostMangager noticeUpdateViewStatus] andPara:para isAddUserId:YES Success:^(NSDictionary *dict, BOOL success) {
+        weakSelf.allArray=[dict[@"result"] mutableCopy];
+        [weakSelf.demoTableView reloadData];
+        [weakSelf.hud hide:YES];
+        
+    } fail:^(NSError *error) {
+        [weakSelf.hud hide:YES];
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
